@@ -279,7 +279,7 @@ grid_offtake:
     grid_code_compliance: "CEN technical norms for hybrid resources; grid-forming BESS certified per 2023 update"  # [N]
     curtailment_priority: "renewable_priority — but subject to system-wide oversupply curtailment in Atacama"  # [N]
 
-  offtake_structure: hybrid_ppa_plus_merchant_plus_capacity  # [P]
+  offtake_structure: hybrid                                  # [P]  # corporate PPA + merchant + capacity payments; see offtake_contracts and revenue breakdown
 
   offtake_contracts:
     - contract_id: "PPA-MINING-01"
@@ -353,16 +353,17 @@ grid_offtake:
 
   curtailment_history:                                        # [N]
     note: "Curtailment for hybrid assets behind a single POC is allocated to PV first (zero variable cost), then wind, with BESS providing curtailment mitigation by absorbing PV during over-generation events."
-    - year: 2024
-      pv_gross_curtailment_pct: 18.4
-      pv_net_curtailment_pct_after_bess: 4.2
-      wind_curtailment_pct: 2.1
-      bess_curtailment_recovery_gwh: 76.2
-    - year: 2025
-      pv_gross_curtailment_pct: 22.1
-      pv_net_curtailment_pct_after_bess: 5.8
-      wind_curtailment_pct: 3.4
-      bess_curtailment_recovery_gwh: 88.4
+    annual:
+      - year: 2024
+        pv_gross_curtailment_pct: 18.4
+        pv_net_curtailment_pct_after_bess: 4.2
+        wind_curtailment_pct: 2.1
+        bess_curtailment_recovery_gwh: 76.2
+      - year: 2025
+        pv_gross_curtailment_pct: 22.1
+        pv_net_curtailment_pct_after_bess: 5.8
+        wind_curtailment_pct: 3.4
+        bess_curtailment_recovery_gwh: 88.4
 
   green_certificates:                                        # [N]
     scheme: "I-REC Standard (Chile)"

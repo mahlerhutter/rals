@@ -190,7 +190,7 @@ grid_offtake:
     queue_milestone_2_date: "2025-08-22"                                     # [N]
     queue_milestone_3_target: "2027-07-15"                                   # [N]
 
-  offtake_structure: stacked_revenues                # [P]
+  offtake_structure: hybrid                          # [P]  # stacked revenue model: capacity market + frequency response + merchant; see merchant_revenue_streams and revenue_stack_summary
 
   offtake_contracts:
     - contract_id: "CM-T4-2027"

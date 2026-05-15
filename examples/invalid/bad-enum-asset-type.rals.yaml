@@ -1,0 +1,22 @@
+# INVALID example — used by CI to confirm the validator REJECTS bad input.
+# Defect: identity.asset_type "nuclear" is not a RALS asset_type enum value.
+rals_version: "0.1"
+document_id: "rals:01INVALIDENUM00000000000"
+identity:
+  asset_name: "Invalid Asset — Bad asset_type"
+  asset_type: nuclear
+  lifecycle_stage: operating
+  country: DE
+  transaction_type: full_acquisition
+technical:
+  commissioning_date: "2020-01-01"
+grid_offtake:
+  grid_connection:
+    voltage_level_kv: 110
+  offtake_structure: merchant
+process:
+  process_type: bilateral
+  process_lead:
+    organization: "Example Advisory"
+  process_timeline:
+    non_binding_offers_due: "2026-09-01"

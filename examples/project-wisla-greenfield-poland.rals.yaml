@@ -195,6 +195,7 @@ grid_offtake:
         risk_level: medium_high
         mitigation: "Active negotiation; legal counsel engaged; weekly status meetings"
 
+  offtake_structure: merchant                             # [P]  # default merchant exposure: no offtake committed yet (development stage); see offtake_optionality_analyzed
   offtake_strategy: not_yet_committed                     # [P]
   offtake_optionality_preserved: true                     # [P]
 

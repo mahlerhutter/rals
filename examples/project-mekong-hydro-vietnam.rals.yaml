@@ -220,7 +220,7 @@ grid_offtake:
     grid_code_compliance: "Circular 39/2015/TT-BCT (Vietnam Grid Code)"  # [N]
     curtailment_priority: "renewable_priority_per_decree_11_2017"  # [N]
 
-  offtake_structure: legacy_fit_ppa_transitioning            # [P]
+  offtake_structure: feed_in_tariff                          # [P]  # legacy avoided-cost tariff PPA; buyer may transition to DPPA — see offtake_transition_note
   offtake_transition_note: |                                 # [P]
     Asset operates under legacy PPA executed 2017 based on small-hydro
     avoided-cost tariff regime. Buyer can elect to continue legacy PPA,
@@ -269,18 +269,19 @@ grid_offtake:
       modeled_revenue_volatility_increase: "significant — VWEM spot price exposure"
 
   curtailment_history:                                # [N]
-    - year: 2021
-      curtailment_pct: 0.0
-    - year: 2022
-      curtailment_pct: 0.4
-      cause: "grid constraint during regional flood event"
-    - year: 2023
-      curtailment_pct: 0.0
-    - year: 2024
-      curtailment_pct: 0.8
-      cause: "scheduled grid maintenance + brief overload event"
-    - year: 2025
-      curtailment_pct: 0.2
+    annual:
+      - year: 2021
+        curtailment_pct: 0.0
+      - year: 2022
+        curtailment_pct: 0.4
+        cause: "grid constraint during regional flood event"
+      - year: 2023
+        curtailment_pct: 0.0
+      - year: 2024
+        curtailment_pct: 0.8
+        cause: "scheduled grid maintenance + brief overload event"
+      - year: 2025
+        curtailment_pct: 0.2
     notes: "Small hydro retains renewable priority dispatch under Decree 11/2017"
 
   green_certificates:                                # [N]

@@ -1,0 +1,16 @@
+# INVALID example — used by CI to confirm the validator REJECTS bad input.
+# Defect: the required top-level "process" section is missing.
+rals_version: "0.1"
+document_id: "rals:01INVALIDMISSING0000000"
+identity:
+  asset_name: "Invalid Asset — Missing process section"
+  asset_type: solar_pv
+  lifecycle_stage: operating
+  country: ES
+  transaction_type: full_acquisition
+technical:
+  commissioning_date: "2021-06-15"
+grid_offtake:
+  grid_connection:
+    voltage_level_kv: 132
+  offtake_structure: corporate_ppa

@@ -679,7 +679,7 @@ This authentication flow is OPTIONAL in v0.1. Sellers MAY continue using their e
 
 ## 13. Validation
 
-A conforming RALS document MUST pass validation against the JSON Schema published at `https://rals.org/schema/v0.1/rals.schema.json`.
+A conforming RALS document MUST pass validation against the JSON Schema published at `https://www.rals.energy/schema/v0.1/rals.schema.json`.
 
 Conformance levels:
 

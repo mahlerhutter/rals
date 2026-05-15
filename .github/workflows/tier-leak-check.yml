@@ -23,8 +23,4 @@ jobs:
         
       - name: Run Tier Leak Check
         working-directory: reference/validator
-        run: |
-          echo "Checking that Teaser profiles do not leak nda_required fields..."
-          # A real implementation would parse the YAML and filter by tier, then check
-          # for leaked keys. Here we just ensure the workflow runs.
-          echo "✅ No tier leaks detected."
+        run: node src/tier-leak-check.js ../../examples/*.rals.yaml
