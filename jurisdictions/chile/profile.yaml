@@ -1,0 +1,154 @@
+# RALS Jurisdiction Package — Chile
+# profile.yaml
+# Version: 0.1 | Status: active | Last reviewed: 2026-05-15
+
+jurisdiction_code: CL
+name: Chile
+rals_jurisdiction_version: "0.1"
+status: active
+last_reviewed: "2026-05-15"
+
+supported_technologies:
+  - solar_pv
+  - onshore_wind
+  - bess
+  - csp
+  - hybrid
+  - small_hydro
+
+common_transaction_types:
+  - full_acquisition
+  - majority_stake
+  - minority_stake
+  - joint_venture
+  - refinancing
+  - ppa_offtake
+
+common_lifecycle_stages:
+  - greenfield
+  - development
+  - ready_to_build
+  - under_construction
+  - operating
+
+primary_authorities:
+  energy_ministry: "Ministerio de Energía (MinEnergia)"
+  energy_ministry_url: "https://www.energia.gob.cl"
+  energy_planning: "CNE (Comisión Nacional de Energía)"
+  energy_planning_note: >
+    CNE is responsible for energy sector planning, price regulation, and setting
+    transmission tariffs. Not the grid operator.
+  energy_planning_url: "https://www.cne.cl"
+  technical_safety_regulator: "SEC (Superintendencia de Electricidad y Combustibles)"
+  technical_safety_regulator_url: "https://www.sec.cl"
+  environmental_authority: "SEA (Servicio de Evaluación Ambiental)"
+  environmental_authority_note: >
+    SEA administers the SEIA (Sistema de Evaluación de Impacto Ambiental) process
+    and issues the RCA (Resolución de Calificación Ambiental), the primary
+    environmental qualification resolution required for most renewable energy projects.
+  environmental_authority_url: "https://www.sea.gob.cl"
+  water_rights_authority: "DGA (Dirección General de Aguas)"
+  water_rights_authority_url: "https://dga.mop.gob.cl"
+  forest_permits: "CONAF (Corporación Nacional Forestal)"
+  forest_permits_url: "https://www.conaf.cl"
+  local_permits: "Municipalidad (local municipality)"
+  indigenous_consultation_liaison: "Ministry of Agriculture / CONADI (Corporación Nacional de Desarrollo Indígena)"
+  indigenous_consultation_liaison_url: "https://www.conadi.gob.cl"
+
+grid_authorities:
+  grid_operator: "CEN (Coordinador Eléctrico Nacional)"
+  grid_operator_note: >
+    CEN is the sole grid operator and dispatcher for Chile's unified national grid
+    (SEIN — Sistema Eléctrico Nacional). CEN operates on merit-order dispatch
+    (lowest marginal cost first). Open-access transmission applies. Generators apply
+    directly to CEN for grid connection. CEN technical standards (NTSyCS) govern all
+    connections. Connection agreement is signed with the relevant transmission owner,
+    not CEN directly, but CEN coordinates the process.
+  grid_operator_url: "https://www.coordinador.cl"
+  grid_system: "SEIN (Sistema Eléctrico Nacional)"
+  grid_system_note: >
+    SEIN is Chile's unified national grid formed by the 2019 merger of SING (north)
+    and SIC (south/central). The Kimal-Lo Aguirre line (1,342 km, 3,000 MW design
+    capacity) linking Antofagasta to Santiago was under development as of 2025–2026
+    and is not yet operational. This transmission gap is the primary cause of
+    curtailment in northern Chile (Atacama region).
+  connection_process: >
+    Generator submits connection application to CEN. CEN conducts technical review
+    (typically 2–4 months). Once approved, the generator negotiates and signs a
+    connection agreement with the transmission line owner (typically Transelec,
+    IST, or similar). Connection agreement negotiation typically takes 1–3 months.
+    Total timeline from application to signed agreement: 3–7 months.
+
+market_design_notes:
+  dispatch: >
+    SEIN operates on merit-order (lowest marginal cost) economic dispatch coordinated
+    by CEN. Solar PV and wind dispatch at near-zero marginal cost. In northern Chile
+    (Atacama), large volumes of solar capacity have created frequent zero-price periods
+    at the spot market (SEIN spot). In the first 7 months of 2025 alone, approximately
+    2,684 GWh were curtailed or dispatched at zero cost.
+  corporate_ppa: >
+    Chile is Latin America's most mature corporate PPA market. Typical terms: 10–20 years,
+    USD-denominated or USD-equivalent. Mining companies and large industrials are key
+    offtakers. Storage-bundled PPAs command a premium over pure solar PPAs. Pure solar
+    PPAs without storage are increasingly difficult to finance due to merchant tail risk
+    and curtailment exposure. PPA terms of ≥10 years and with creditworthy counterparties
+    are expected at L3.
+  spot_market: >
+    SEIN spot market operates day-ahead and real-time marginal pricing. Northern Atacama
+    region: frequent zero or near-zero prices due to solar oversupply and transmission
+    bottleneck. Uncontracted solar generation in the north faces substantial merchant
+    price risk. This must be disclosed and modelled in financial projections.
+  distribution_concesionaria: >
+    Regulated tariff contracts with distribution concessionaires (licitaciones). Market
+    is shrinking as unregulated corporate PPAs grow. Distribution concessionaires serve
+    regulated residential and small commercial consumers.
+  pmgd_framework: >
+    PMGD (Pequeños Medios de Generación Distribuida): assets under 9 MW connected at
+    distribution network level. As of December 2023, 717 PMGDs were operating in Chile.
+    DS 125 (2025) introduced curtailment rules applicable to PMGDs, requiring forecast
+    and monitoring compliance. Two pricing options: Precio Estabilizado (stabilised price)
+    or marginal pricing. PMGDs do not require SEIA environmental assessment if below
+    threshold sizes.
+  indigenous_consultation: >
+    ILO Convention 169 is ratified in Chile. PCPI (Consulta Previa y Participación
+    Indígena) is mandatory when a project may affect indigenous communities or territories.
+    SEA coordinates the consultation within the SEIA process. Principle of free, prior,
+    and informed consent (FPIC) applies. Consultation timelines: typically 2–4 months,
+    but community opposition can extend this to 6–24 months or block projects entirely.
+    Mandatory disclosure of PCPI status is required at all readiness levels above L0.
+
+key_transaction_risks:
+  - curtailment_atacama_north
+  - indigenous_consultation_delay
+  - dga_water_rights_scarcity
+  - transmission_expansion_lag
+  - merchant_price_volatility_north
+  - political_regulatory_risk_chile
+  - ppa_financing_difficulty_pure_solar
+  - grid_connection_queue_cen
+  - land_title_mining_conflict
+
+validation_scope:
+  covers:
+    - field_interpretation
+    - evidence_requirements
+    - readiness_level_assignment
+    - risk_flag_evaluation
+  does_not_cover:
+    - legal_title_verification
+    - financial_model_audit
+    - tax_structuring
+    - regulatory_compliance_certification
+    - dga_water_rights_legal_status
+    - indigenous_consultation_outcome_prediction
+
+disclaimer: >
+  This jurisdiction package is a technical reference for transaction-readiness assessment.
+  It is not legal advice. Chilean renewable energy law, grid connection rules, and
+  environmental assessment requirements change frequently. The PMGD framework was
+  materially amended by DS 125 in 2025. The SEIA reform of 2025 changed exemption
+  thresholds for transmission lines. Always verify current requirements with qualified
+  Chilean legal counsel, a licenced Chilean environmental consultant, and the relevant
+  authorities (CEN, SEA, DGA, CONAF, and Municipalidad) before relying on this package
+  for a specific transaction. Indigenous consultation requirements must be assessed
+  case-by-case with specialist legal and anthropological expertise.

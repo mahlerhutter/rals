@@ -1,0 +1,307 @@
+# RALS Jurisdiction Package — Namibia
+# risks.yaml
+# Version: 0.1
+# Includes standard renewable energy risks + Namibia-specific risks
+
+jurisdiction_code: NA
+
+risks:
+
+  # ── Standard renewable energy risks ──────────────────────────────────────────
+
+  - risk_id: land_not_secured
+    label: "Land Rights Not Secured"
+    severity_default: high
+    affected_sections: [identity, compliance, land]
+    buyer_impact: "No enforceable right to build. Project cannot advance to construction."
+    lender_impact: "No financing without registered title or registered state lease."
+    mitigation_evidence:
+      - Freehold title deed from Deeds Office with no encumbrances
+      - OR registered state lease agreement from Ministry of Lands
+      - OR Communal Land Board registration certificate
+      - Legal opinion from Namibian counsel on title validity
+    validation_rule: >
+      If lifecycle_stage is development or above and land_control_status is not_secured,
+      raise HIGH. If communal_unregistered, raise HIGH and cap at L1 maximum.
+
+  - risk_id: grid_not_secured
+    label: "Grid Connection Not Confirmed with NamPower"
+    severity_default: high
+    affected_sections: [grid_offtake]
+    buyer_impact: "No connection agreement with NamPower means no grid export path. NamPower monopoly on transmission — no alternative exists."
+    lender_impact: "No financing without signed NamPower Grid Connection Agreement."
+    mitigation_evidence:
+      - NamPower technical feasibility study issued
+      - Signed NamPower Grid Connection Agreement
+    validation_rule: >
+      If grid_connection_status is pre_application at L2+, raise HIGH.
+      If connection_agreement not signed at L3, this is a hard blocker.
+
+  - risk_id: permitting_not_started
+    label: "Environmental and Licensing Permitting Not Initiated"
+    severity_default: high
+    affected_sections: [compliance]
+    buyer_impact: "ECC and generation licence are both required for construction. Neither can be bypassed."
+    mitigation_evidence:
+      - EIA scoping or ECC application submitted to MEFT
+      - RERA generation licence application submitted
+    validation_rule: >
+      If permitting_status is pre_application and lifecycle_stage is development+, raise HIGH.
+      Track ECC and generation licence separately.
+
+  - risk_id: environmental_constraints
+    label: "Unresolved Environmental Constraints or ECC Not Obtained"
+    severity_default: medium
+    affected_sections: [compliance]
+    buyer_impact: "ECC required before construction. ECC conditions may impose material constraints on layout or operations."
+    mitigation_evidence:
+      - ECC granted by MEFT; conditions reviewed and accepted
+      - ECC validity confirmed through planned construction start date
+    validation_rule: >
+      If ECC not granted at L3, raise as HIGH blocker.
+      If ECC validity expires before planned construction start, raise HIGH.
+
+  - risk_id: unclear_revenue_route
+    label: "Revenue Route Not Confirmed"
+    severity_default: high
+    affected_sections: [financials, grid_offtake]
+    buyer_impact: "NamPower is the only buyer. Without a PPA commitment, there is no revenue certainty."
+    mitigation_evidence:
+      - NamPower PPA term sheet or IPP tender bid submitted (supports L2)
+      - Signed NamPower PPA or confirmed IPP tender award (required for L3)
+    validation_rule: >
+      If revenue_model is undetermined at L2+, raise HIGH.
+      If refit_legacy claimed for a new project, raise HIGH (expired scheme).
+
+  - risk_id: capex_unvalidated
+    label: "Capex Not Independently Validated"
+    severity_default: medium
+    affected_sections: [financials]
+    buyer_impact: >
+      Namibia has limited local EPC capacity. Dependence on South African or international
+      contractors adds logistics, mobilisation, and currency cost uncertainty.
+    mitigation_evidence:
+      - Independent owner's engineer cost estimate
+      - EPC indicative quote from recognised contractor
+    validation_rule: "If capex_confidence is low or undefined at L2+, raise MEDIUM."
+
+  - risk_id: yield_unvalidated
+    label: "Energy Yield Not Independently Assessed"
+    severity_default: medium
+    affected_sections: [technical]
+    buyer_impact: "Developer yield estimates without independent bankable assessment are not acceptable to lenders."
+    mitigation_evidence:
+      - Independent bankable yield assessment (P50/P90) by a recognised assessor
+      - For wind: on-site met mast data ≥12 months
+    validation_rule: "If yield is desktop-only at L2+ without independent assessment, raise MEDIUM."
+
+  - risk_id: missing_data_room
+    label: "No Accessible Data Room"
+    severity_default: medium
+    affected_sections: [process]
+    buyer_impact: "No data room prevents investor due diligence and delays any transaction process."
+    mitigation_evidence:
+      - NDA-accessible data room with land documents, ECC, RERA application, NamPower grid evidence
+    validation_rule: "If data_room_status is not_available at L2+, raise MEDIUM."
+
+  - risk_id: counterparty_unclear
+    label: "Seller or SPV Identity Unclear"
+    severity_default: high
+    affected_sections: [identity, process]
+    buyer_impact: "AML/KYC, UBO identification, and local content verification are mandatory for Namibian transactions."
+    mitigation_evidence:
+      - UBO confirmed; corporate structure provided
+      - AML/KYC screening by qualified counsel
+      - For IPP tender: Namibian Pty Ltd SPV with local content structure confirmed
+    validation_rule: >
+      If seller_legal_entity missing or UBO unconfirmed at L1+, raise HIGH.
+
+  # ── Namibia-specific risks ────────────────────────────────────────────────────
+
+  - risk_id: nampower_single_buyer_risk
+    label: "NamPower Single Buyer Concentration Risk"
+    severity_default: high
+    affected_sections: [grid_offtake, financials]
+    buyer_impact: >
+      NamPower is the only wholesale electricity buyer in Namibia under the Modified
+      Single Buyer model. There is no alternative offtake route if NamPower declines
+      or if NamPower experiences financial or operational difficulties. This creates
+      significant offtake concentration risk for any grid-connected project.
+    lender_impact: >
+      Lenders will require NamPower creditworthiness assessment. NamPower is majority
+      state-owned; sovereign support backstop should be documented. Long-term PPA
+      (15–25 years) with NamPower carries counterparty credit exposure over the full term.
+    mitigation_evidence:
+      - Signed NamPower PPA with RERA-approved tariff
+      - NamPower creditworthiness assessment or Government of Namibia sovereign support note
+      - PPA structure includes termination compensation provisions
+    validation_rule: >
+      Always raise for any grid-connected Namibian project. Severity HIGH.
+      Downgrade to MEDIUM only if a government guarantee or DFI partial risk guarantee
+      covering NamPower PPA obligations is in place.
+
+  - risk_id: rera_minister_approval_risk
+    label: "RERA/Minister of Mines and Energy Licensing Approval Risk"
+    severity_default: high
+    affected_sections: [compliance]
+    buyer_impact: >
+      The generation licence process in Namibia requires RERA to review the application
+      and make a recommendation to the Minister of Mines and Energy. The Minister is the
+      final decision-maker and may approve, reject, or impose conditions on any licence.
+      This Ministerial discretion introduces political risk and timing uncertainty that
+      cannot be eliminated by technical compliance with RERA requirements.
+    lender_impact: >
+      No construction financing can proceed without the Minister's generation licence.
+      Delays at the Ministerial decision stage extend development timelines materially.
+      Political changes or policy shifts could affect Ministerial decisions on individual
+      projects or the overall IPP programme.
+    mitigation_evidence:
+      - Generation licence granted by the Minister (required for L3)
+      - Legal opinion from Namibian counsel on licence conditions and enforceability
+      - Government relations and regulatory engagement strategy documented
+    validation_rule: >
+      Always raise for any project where generation licence has not been granted by
+      the Minister. Severity HIGH until licence is granted. Downgrade to MEDIUM
+      post-issuance only if conditions are acceptable.
+
+  - risk_id: communal_land_title_risk
+    label: "Communal Land Title Risk — Customary Tenure Insecurity"
+    severity_default: high
+    affected_sections: [land]
+    buyer_impact: >
+      Communal land in Namibia is governed by the Communal Land Reform Act 2002 and
+      managed by Communal Land Boards. Formal registration of communal land rights is
+      possible but slow and procedurally uncertain. Unregistered communal land provides
+      no legally secure title for a project developer. Projects on unregistered communal
+      land face: title insecurity, community dispute risk, inability to mortgage or
+      encumber the land, and regulatory challenges in the permitting process
+      (RERA requires land rights evidence for generation licence application).
+    lender_impact: >
+      No project finance lender will accept communal unregistered land as site control.
+      The land must be formally registered (Communal Land Board certificate) or the
+      project must be relocated to freehold or state lease land.
+    mitigation_evidence:
+      - Communal Land Board formal registration certificate
+      - OR relocation to freehold or state lease land
+      - Legal opinion from Namibian counsel on communal land registration status
+    validation_rule: >
+      If land_control_status is communal_unregistered: raise HIGH and cap readiness
+      level at L1 maximum. This is a hard rule in this jurisdiction package.
+      If land_control_status is communal_registered: raise MEDIUM pending
+      legal opinion confirming registration quality.
+
+  - risk_id: local_content_requirement
+    label: "Local Content and Ownership Structuring Requirement (IPP Tender)"
+    severity_default: medium
+    affected_sections: [process, identity]
+    buyer_impact: >
+      NamPower's 2025 IPP tender requires 39% Namibian ownership and 20% ownership
+      by previously disadvantaged Namibians (PDN). These requirements are bid
+      qualifiers. Non-compliance disqualifies a bid. Structuring for compliance
+      requires specialist Namibian legal advice, may affect shareholder arrangements,
+      and could increase complexity of equity and financing structures.
+    lender_impact: >
+      Local content shareholding requirements affect security package (mortgaging of
+      Namibian partner's shares), dividend waterfall, and management control provisions.
+      Lenders should confirm that local content structure does not undermine lender
+      security or step-in rights.
+    mitigation_evidence:
+      - Local content ownership structure documented and confirmed by Namibian counsel
+      - Shareholders' agreement reflecting 39% Namibian / 20% PDN compliance
+      - Confirmation that local content requirements are met at bid submission
+    validation_rule: >
+      For IPP tender projects: raise MEDIUM if local content structure is not confirmed.
+      Raise HIGH if local content compliance appears not met at L2+ — this is a
+      bid disqualifier and revenue risk.
+
+  - risk_id: grid_capacity_small_market
+    label: "Small Grid Constraint — NamPower Grid Capacity"
+    severity_default: medium
+    affected_sections: [grid_offtake, technical]
+    buyer_impact: >
+      Namibia's NamPower grid has a peak demand of approximately 1.5 GW. This is a
+      very small grid for utility-scale renewable energy development. New large projects
+      (50 MW+) may pose grid stability challenges. Projects competing for the same
+      grid connection point or substation may face capacity limitations or require
+      transmission reinforcement at significant cost and time.
+    lender_impact: >
+      Large projects (100 MW+) should include NamPower's explicit written confirmation
+      of grid absorption capacity. Grid capacity limitations can result in output
+      curtailment or require developer-funded transmission reinforcement.
+    mitigation_evidence:
+      - NamPower written confirmation of grid absorption capacity for the project
+      - NamPower technical feasibility study confirming connection point adequacy
+      - Curtailment risk modelled in financial model
+    validation_rule: >
+      For projects ≥50 MW: raise MEDIUM unless NamPower has issued feasibility study
+      confirming grid absorption. For projects ≥100 MW: raise HIGH pending NamPower
+      capacity confirmation.
+
+  - risk_id: h2_offtake_uncertainty
+    label: "Green Hydrogen Offtake Uncertainty"
+    severity_default: high
+    affected_sections: [grid_offtake, financials]
+    applicable_technologies: [green_hydrogen, hybrid]
+    buyer_impact: >
+      Namibia has significant green hydrogen ambitions but no operational offtake
+      framework for most projects. Hydrogen offtake agreements require individual
+      negotiation with industrial buyers or export counterparties. No standardised
+      H2 PPA or government H2 support scheme exists (beyond the specific Hyphen
+      Hydrogen Energy project structure). H2 revenue claims without a signed
+      offtake agreement are entirely speculative.
+    lender_impact: >
+      No project finance lender will base underwriting on H2 revenue without a signed
+      offtake agreement with a creditworthy counterparty. H2 component must be
+      validated separately; the overall project level cannot be elevated based on
+      an H2 concept.
+    mitigation_evidence:
+      - Signed H2 offtake agreement with named creditworthy counterparty
+      - H2 price assumptions and term confirmed
+      - Electrolysis technology selected and capex validated
+    validation_rule: >
+      If H2 revenue is claimed without a signed offtake agreement: raise HIGH and
+      treat H2 component as L0 sub-component. Do not elevate overall project
+      readiness level based on H2 concept alone.
+
+  - risk_id: currency_nad_zar_peg_risk
+    label: "Currency Risk — NAD/ZAR Peg and International FX Exposure"
+    severity_default: medium
+    affected_sections: [financials]
+    buyer_impact: >
+      The Namibia Dollar (NAD) is pegged to the South African Rand (ZAR) at 1:1.
+      This provides stability within the ZAR zone but does not eliminate EUR or USD
+      exchange rate risk for international investors. NamPower PPAs are typically
+      denominated in NAD/ZAR. International investors with EUR or USD cost of capital
+      face meaningful FX risk over a 20–25 year PPA term.
+    lender_impact: >
+      EUR or USD denominated debt against NAD/ZAR revenue creates currency mismatch.
+      Lenders should confirm whether NAD/ZAR hedging instruments are available and
+      at what cost. Transfer restrictions on NAD/ZAR to EUR/USD should be confirmed.
+    mitigation_evidence:
+      - FX risk explicitly modelled in financial model (NAD/ZAR to EUR/USD)
+      - Hedging strategy assessed and costed
+      - Legal confirmation of no transfer restrictions on dividend repatriation
+    validation_rule: >
+      For international investors: raise MEDIUM if FX risk is not modelled in the
+      financial model. Raise HIGH if any indication of transfer restrictions exists.
+
+  - risk_id: limited_local_epc_om_capacity
+    label: "Limited Local EPC and O&M Contractor Capacity"
+    severity_default: medium
+    affected_sections: [technical, financials]
+    buyer_impact: >
+      Namibia has a very limited local EPC and O&M contractor base for renewable energy.
+      Most EPC and O&M expertise must be sourced from South Africa or internationally.
+      This increases construction costs (mobilisation, logistics), creates supply chain
+      risk, and results in limited competition in contractor procurement.
+    lender_impact: >
+      EPC cost benchmarks from South Africa or Europe may underestimate Namibian
+      logistics and mobilisation costs. O&M contracts may require South African
+      or international firms, increasing annual opex versus comparable projects elsewhere.
+    mitigation_evidence:
+      - EPC indicative quotes from recognised Southern African or international contractors
+      - O&M strategy confirmed (in-house with South African technicians; or South African O&M firm)
+      - Logistics and mobilisation costs included in capex estimate
+    validation_rule: >
+      Raise MEDIUM if EPC and O&M strategy has not addressed Namibian contractor
+      availability. Flag for capex and opex independent validation.

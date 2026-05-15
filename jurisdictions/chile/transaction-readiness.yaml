@@ -1,0 +1,174 @@
+# RALS Jurisdiction Package — Chile
+# transaction-readiness.yaml
+# Readiness level definitions and thresholds
+# Version: 0.1
+
+jurisdiction_code: CL
+
+levels:
+
+  L0:
+    label: "Teaser Only"
+    description: >
+      Minimal public information. Sufficient for initial NDA request and deal screening.
+      No evidence of permitting, grid, or land progress required.
+    minimum_requirements:
+      - Asset type and approximate capacity identified
+      - Country (CL) and region confirmed
+      - Transaction type described
+      - Seller or advisor contact available
+    typical_use:
+      - Initial deal marketing
+      - Pipeline tracking by advisors
+      - LLM/agent discovery and pre-screening
+    not_sufficient_for:
+      - Investment committee presentation
+      - Non-binding offer submission
+      - Legal or technical due diligence
+      - Any debt or equity commitment
+    validation_notes: >
+      An L0 classification does not imply the asset has no merit. It means insufficient
+      public information is available to assess readiness. Chilean development projects
+      routinely operate at L0 during initial marketing. For northern Chile solar projects,
+      curtailment risk should be flagged even at L0 if the region is Antofagasta or Atacama.
+
+  L1:
+    label: "Screenable"
+    description: >
+      Sufficient information for an investor to decide whether to sign an NDA and
+      proceed to L2 due diligence. Site concept is real; key risks are identified.
+      SEIA applicability and indigenous consultation applicability are assessed.
+    minimum_requirements:
+      - All L0 requirements met
+      - Site location confirmed to municipality level
+      - Land ownership identified; title search initiated
+      - SEIA applicability assessed (RCA required or not)
+      - CEN grid connection pre-application or feasibility inquiry initiated
+      - Revenue route identified (corporate PPA, distribution concesionaria, or PMGD)
+      - Desktop yield estimate available
+      - Indigenous consultation applicability assessed (PCPI required or not)
+      - SPV structure described
+      - Curtailment risk disclosed for northern Chile assets
+    typical_use:
+      - NDA-stage information package
+      - Investor pre-screening calls
+      - Pipeline ranking by institutional buyers
+    not_sufficient_for:
+      - Non-binding offer with price indication
+      - Investment committee note
+      - Debt term sheet
+    validation_notes: >
+      L1 assets in Chile frequently have unresolved land, grid, and SEIA status.
+      This is acceptable at L1 provided risks are disclosed. For assets in La Araucanía
+      or other regions with indigenous territories, PCPI applicability must be assessed
+      and the result disclosed — even if the conclusion is that PCPI is not required.
+
+  L2:
+    label: "Investment Memo Ready"
+    description: >
+      Sufficient for a credible non-binding offer and investment committee presentation.
+      Key commercial risks are identified and mitigated at concept level.
+      SEIA is submitted; land option is in place; CEN technical review is underway;
+      PPA term sheet or revenue route documented.
+    minimum_requirements:
+      - All L1 requirements met
+      - SEIA/RCA application submitted to SEA (with tracking reference)
+      - PCPI initiated (if required by SEA screening) or confirmed not applicable
+      - Binding land option agreement or signed lease for primary parcels
+      - "CEN technical review application submitted; connection point and indicative cost available"
+      - "For CSP or hydro only: DGA water rights application submitted or rights identified; competing claims noted"
+      - CONAF permit application submitted if forest-adjacent
+      - "Corporate PPA term sheet or heads of terms with named counterparty; or documented licitación eligibility for distribution concesionaria"
+      - Bankable yield assessment (P50/P90) by recognised assessor
+      - "Investment-memo-grade financial model including curtailment scenario for northern Chile assets"
+      - NDA-accessible data room in place
+    typical_use:
+      - Non-binding offer stage
+      - Investment committee note
+      - Buy-side mandate confirmation
+      - Preliminary lender screening
+    not_sufficient_for:
+      - Credit committee approval at lender
+      - Final binding offer
+      - Drawdown of debt facilities
+    validation_notes: >
+      In Chile, L2 is the minimum for serious M&A processes. The SEIA application
+      must be submitted — pre-submission stage is L1. CEN technical review must be
+      underway — pre-application is L1. PPA term sheet must name the counterparty and
+      indicate commercial terms; anonymous or indicative terms only are insufficient for L2.
+      For northern Chile: curtailment scenario must appear in the financial model.
+
+  L3:
+    label: "Lender Diligence Ready"
+    description: >
+      Sufficient for credit committee submission at a bank or infrastructure debt fund.
+      All major risks have been identified and mitigated or disclosed. Core contracts
+      are in place or near execution. RCA is final and uncontested. CEN connection
+      agreement is signed. PPA is executed or equivalent revenue certainty documented.
+    minimum_requirements:
+      - All L2 requirements met
+      - RCA (Resolución de Calificación Ambiental) issued by SEA and final
+        (no pending recurso de reclamación or judicial challenge)
+      - PCPI completed and documented (if PCPI was required)
+      - CONAF permit issued (if applicable)
+      - Construction permit (permiso de edificación) issued by Municipalidad or MOP
+      - CEN connection agreement signed with transmission line owner; connection
+        capacity, point, voltage, and cost agreed
+      - Long-term lease registered at Conservador de Bienes Raíces (≥25 years) or
+        freehold title registered; all key parcels covered
+      - For CSP or hydro only: DGA water rights secured (DGA resolution issued)
+      - Corporate PPA signed and executed with creditworthy counterparty for minimum
+        10 years; or distribution concesionaria contract awarded and executed; or
+        documented merchant strategy with lender-accepted downside analysis
+      - Independent yield assessment final; curtailment scenarios modelled for
+        northern Chile at P10/P50/P90
+      - Lender-reviewed financial model; DSCR analysis; debt sizing confirmed
+      - Full diligence data room populated (legal, technical, environmental, financial)
+      - Corporate ownership confirmed; UBO documented; SPV permit transferability confirmed
+    typical_use:
+      - Bank credit committee submission
+      - Infrastructure fund IC presentation at binding offer stage
+      - Refinancing of operating assets
+      - Vendor due diligence initiation
+    not_sufficient_for:
+      - Drawdown of construction or term loan without EPC contract
+      - Final investment decision requiring agreed EPC
+    validation_notes: >
+      RCA finality is non-negotiable at L3 in Chile. A pending recurso de reclamación
+      at the Comité de Ministros or a court challenge creates binary risk that no lender
+      will accept. PCPI "in progress" is not sufficient — it must be completed. An unsigned
+      PPA term sheet, however well-advanced, does not meet the L3 revenue threshold.
+      CEN connection agreement signed is required — technical review approved alone is
+      insufficient. For northern Chile: lender must have accepted the curtailment scenario
+      in the financial model; an uncontracted solar asset in Atacama with spot-only revenue
+      cannot normally achieve L3.
+
+  L4:
+    label: "Data Room Ready"
+    description: >
+      Fully documented asset. All conditions precedent for financing and closing
+      are in place or agreed. EPC contract signed or near signing.
+    minimum_requirements:
+      - All L3 requirements met
+      - EPC contract signed or in final negotiation
+      - All RCA conditions precedent fulfilled; construction monitoring plan in execution
+      - Grid connection agreement executed; energisation timeline agreed with
+        transmission owner; CEN dispatch registration initiated
+      - All land agreements registered; Conservador de Bienes Raíces extract with
+        no adverse entries; title legal opinion provided
+      - Revenue contracts final, bankable, and reviewed by lender's legal counsel;
+        change-of-control consent arrangements documented
+      - Lender's independent technical advisor (ITA) and legal advisor reports complete
+      - Insurance reviewed by lender's broker; assignment agreed
+      - Full VDD (vendor due diligence) reports available (technical, legal, financial,
+        environmental, and indigenous consultation if applicable)
+    typical_use:
+      - Final binding offer and SPA signing
+      - Financial close (construction or re-financing)
+      - Full acquisition by institutional buyer
+    not_sufficient_for:
+      - Nothing at L4 — this is the highest level
+    validation_notes: >
+      L4 is rare at marketing stage in Chile. Most Chilean transactions are marketed at
+      L2–L3. L4 documentation is typically provided after signing of a binding SPA.
+      For operating assets being refinanced, L4 is the standard expectation.

@@ -1,0 +1,185 @@
+# ============================================================================
+# RALS Jurisdiction Package — Austria
+# Example: austria-pv-rtb-l2.rals.yaml
+# ============================================================================
+# Asset:        Project Sonnberg (fictional)
+# Technology:   Solar PV, utility-scale ground-mount
+# Stage:        Near ready-to-build (L2)
+# Location:     Lower Austria (Niederösterreich)
+# Purpose:      Demonstrates L2 readiness with land option, valid Netzanschlusszusage,
+#               permit in advanced application stage, but not yet rechtskräftig.
+#               Revenue: EAG eligibility confirmed, no OeMAG contract yet.
+# Risks shown:  Permit not final (in application), grid offer not yet executed as contract,
+#               OeMAG tender round not yet entered.
+# ============================================================================
+fictional: true
+source: "synthetic_example"
+confidentiality: "public_example"
+
+rals_version: "0.1"
+document_id: "rals:AT-EX-PV-RTB-L2-001"
+generated_at: "2026-05-15T09:00:00Z"
+generated_by: "rals-jurisdiction-example-generator"
+language: "en"
+
+rals_jurisdiction:
+  jurisdiction_package: AT
+  rals_jurisdiction_version: "0.1"
+  assessed_readiness_level: L2
+  readiness_label: "Investment Memo Ready"
+  jurisdiction_assessment_date: "2026-05-15"
+
+# ── Identity ─────────────────────────────────────────────────────────────────
+identity:
+  asset_name: "Project Sonnberg"
+  asset_type: solar_pv
+  lifecycle_stage: development
+  country: AT
+  region: "Lower Austria"
+  sub_region: "Weinviertel"
+  total_capacity_mw_ac: 34.0
+  total_capacity_mw_dc: 42.5
+  dc_ac_ratio: 1.25
+  site_area_hectares: 62
+  transaction_type: full_acquisition
+  equity_offered_pct: 100
+  spv_structure: true
+  spv_jurisdiction: "Austria"
+
+# ── Technical ─────────────────────────────────────────────────────────────────
+technical:
+  expected_lifetime_years: 30
+  design_basis_year: 2025
+  mounting:
+    type: fixed_tilt
+    tilt_angle_deg: 25
+  module:
+    technology: monocrystalline_perc
+    manufacturer: "TBC — procurement not yet launched"
+  inverter:
+    type: string_inverter
+  performance_ratio: 0.82
+  specific_yield_kwh_kwp: 1080
+  production_estimates:
+    methodology: "PVGIS v5.2 + Meteonorm 8, independent assessment by DNV Austria"
+    p50_gwh_yr: 45.9
+    p90_gwh_yr: 42.1
+    assessor: "DNV Austria GmbH"
+    assessment_date: "2025-11-20"
+
+# ── Grid & Offtake ────────────────────────────────────────────────────────────
+grid_offtake:
+  grid_connection:
+    status: connection_offer_received
+    grid_operator: "Netz Niederösterreich GmbH"
+    voltage_level_kv: 30
+    connection_point: "UW Hollabrunn Süd"
+    connection_evidence: >
+      Netzanschlusszusage received from Netz Niederösterreich GmbH dated 2026-01-14.
+      Connection offer valid until 2027-01-13. Indicative connection cost EUR 280,000.
+      Netzanschlussvertrag not yet signed — to be executed upon permit Rechtskraft.
+    grid_capacity_note: >
+      Netz Niederösterreich confirmed no regional capacity moratorium at this connection
+      point as of 2026-01-14. Re-confirmation recommended if Netzanschlussvertrag not
+      signed before Q3 2026.
+  offtake_structure: market_premium_eag
+  revenue_model: market_premium_eag
+  revenue_note: >
+    EAG market premium eligibility confirmed with OeMAG advisor. No tender round
+    has been entered yet. Next OeMAG auction expected Q4 2026. Risk: tender oversubscription
+    or tariff level uncertainty.
+
+# ── Compliance ────────────────────────────────────────────────────────────────
+compliance:
+  permitting_status: application_submitted
+  permitting_authority: "Bezirk Hollabrunn (building permit); UVP-Behörde not triggered (34 MWp below NÖ UVP threshold)"
+  permitting_detail: >
+    Baugenehmigung application submitted to Gemeinde and Bezirksbehörde Hollabrunn
+    in January 2026. Application complete; no objections raised in pre-submission
+    consultation (Vorabbesprechung). Permit decision expected Q3 2026.
+    Appeal period (2 weeks after notification) not yet elapsed.
+  permitting_risks:
+    - "Permit not yet issued; potential for objection by Bürgerinitiative"
+    - "No UVP required at 34 MWp but confirm if capacity increases"
+  environmental_status: screening_completed
+  environmental_detail: >
+    Natura 2000 screening: no protected area within 2 km. Ackerfläche (arable land),
+    no habitat of concern identified. Species surveys (birds, bats) completed Nov 2025
+    by ÖKO-Büro Krems — no fatal constraint.
+
+# ── Land ─────────────────────────────────────────────────────────────────────
+land:
+  land_control_status: option_agreement_signed
+  land_parcels: 18
+  land_area_ha: 62
+  land_detail: >
+    Option agreements signed with 6 landowners covering all 18 parcels (62 ha total).
+    Option valid until 31 December 2027. Conversion to Bestandsvertrag (25-year lease)
+    upon permit Rechtskraft.
+  land_risks:
+    - "Option not yet converted to enforceable long-term Bestandsvertrag"
+    - "Two landowners (parcels 7 and 12) have not yet had Grundbuch auszug reviewed"
+    - "Agrargemeinschaft involvement not applicable"
+
+# ── Financials ───────────────────────────────────────────────────────────────
+financials:
+  reporting_currency: EUR
+  total_capex_eur: 28500000
+  capex_detail: >
+    Indicative capex (BOS + modules + grid connection + development): EUR 28.5m.
+    Grid connection cost (EUR 280k) included. EPC not yet tendered.
+    Independent owner's engineer cost review not yet completed.
+  capex_confidence: medium
+  opex_eur_yr: 340000
+  opex_confidence: medium
+  revenue_assumptions: >
+    EAG market premium: assumed EUR 72/MWh market premium on P50 yield.
+    Not yet contracted with OeMAG — subject to tender round outcome.
+  financial_model_available: true
+  financial_model_note: >
+    Investment memo financial model available under NDA. DSCR analysis not yet
+    completed (no lender engagement). Sensitivity on P90 and OeMAG tariff ±10% included.
+
+# ── Process ──────────────────────────────────────────────────────────────────
+process:
+  process_type: limited_auction
+  data_room_status: available_under_nda
+  data_room_platform: "Drooms"
+  data_room_contents:
+    - "Netzanschlusszusage (Netz NÖ, January 2026)"
+    - "Permit application dossier (Bezirk Hollabrunn)"
+    - "Option agreements (6 landowners, 18 parcels)"
+    - "DNV yield assessment (November 2025)"
+    - "Species survey (ÖKO-Büro Krems, November 2025)"
+    - "Investment memo financial model"
+    - "Corporate structure chart (SPV: Sonnberg Solar GmbH)"
+  process_timeline:
+    indicative_nbo_due: "2026-09-30"
+    indicative_binding_offer: "2026-12-15"
+    indicative_close: "2027-03-31"
+  seller_contact: "advisor@example-advisor.at"
+
+# ── Risk Flags (Jurisdiction Package) ────────────────────────────────────────
+risk_flags:
+  - risk_id: permitting_not_started
+    active: false
+    note: "Permit application submitted; not started risk does not apply"
+  - risk_id: permitting_under_appeal
+    active: false
+    note: "Permit not yet issued; no appeal possible yet"
+  - risk_id: grid_not_secured
+    active: true
+    severity: medium
+    note: "Netzanschlusszusage received but Netzanschlussvertrag not yet signed"
+  - risk_id: land_not_secured
+    active: true
+    severity: medium
+    note: "Option agreements in place but not yet converted to long-term Bestandsvertrag"
+  - risk_id: unclear_revenue_route
+    active: true
+    severity: medium
+    note: "EAG eligibility confirmed but OeMAG tender contract not yet awarded"
+  - risk_id: capex_unvalidated
+    active: true
+    severity: low
+    note: "Indicative capex only; independent owner's engineer review pending"

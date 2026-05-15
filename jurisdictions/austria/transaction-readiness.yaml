@@ -1,0 +1,143 @@
+# RALS Jurisdiction Package — Austria
+# transaction-readiness.yaml
+# Readiness level definitions and thresholds
+# Version: 0.1
+
+jurisdiction_code: AT
+
+levels:
+
+  L0:
+    label: "Teaser Only"
+    description: >
+      Minimal public information. Sufficient for initial NDA request and deal screening.
+      No evidence of permitting, grid, or land progress required.
+    minimum_requirements:
+      - Asset type identified (technology, approximate capacity)
+      - Country and region known
+      - Transaction type described
+      - Seller or advisor contact available
+    typical_use:
+      - Initial deal marketing
+      - Pipeline tracking by advisors
+      - LLM/agent discovery and pre-screening
+    not_sufficient_for:
+      - Investment committee presentation
+      - Non-binding offer submission
+      - Legal or technical due diligence
+      - Any debt or equity commitment
+    validation_notes: >
+      An L0 classification does not imply the asset has no merit. It means insufficient
+      public information is available to assess readiness. Austrian projects at development
+      stage routinely operate at L0 during initial marketing.
+
+  L1:
+    label: "Screenable"
+    description: >
+      Sufficient information for an investor to decide whether to sign an NDA and
+      proceed to L2 due diligence. Site concept is real; key risks are identified.
+    minimum_requirements:
+      - All L0 requirements met
+      - Site location confirmed to municipality level
+      - Land contact established (ownership identified)
+      - Grid inquiry submitted to Netzbetreiber
+      - UVP applicability assessed
+      - Revenue route identified (EAG, PPA, or merchant)
+      - Desktop yield estimate available
+      - SPV structure described
+    typical_use:
+      - NDA stage information package
+      - Investor pre-screening calls
+      - Pipeline ranking by institutional buyers
+    not_sufficient_for:
+      - Non-binding offer with price indication
+      - Investment committee note
+      - Debt term sheet
+    validation_notes: >
+      L1 assets in Austria frequently have unresolved land or grid status.
+      This is acceptable at L1 provided risks are disclosed.
+
+  L2:
+    label: "Investment Memo Ready"
+    description: >
+      Sufficient for a credible non-binding offer and investment committee presentation.
+      Key commercial risks are identified and mitigated at concept level.
+      Core permit, land, and grid pathways are established.
+    minimum_requirements:
+      - All L1 requirements met
+      - Binding land option or signed Bestandsvertrag for primary parcels
+      - Valid Netzanschlusszusage (connection offer) from DSO or APG
+      - Building permit application submitted (or UVP application lodged)
+      - Bankable yield assessment (P50/P90) by recognised assessor
+      - Revenue model: EAG eligibility confirmed or PPA heads of terms
+      - Investment-memo-grade financial model
+      - NDA-accessible data room in place
+      - Preliminary environmental screening completed
+    typical_use:
+      - Non-binding offer stage
+      - Investment committee note
+      - Buy-side mandate confirmation
+      - Preliminary lender screening
+    not_sufficient_for:
+      - Credit committee approval at lender
+      - Final binding offer
+      - Drawdown of debt facilities
+    validation_notes: >
+      In Austria, L2 is the minimum for serious M&A processes.
+      Grid offer must be valid and not expired. Permit must be
+      at least in application — not just at pre-application stage.
+
+  L3:
+    label: "Lender Diligence Ready"
+    description: >
+      Sufficient for credit committee submission at a bank or infrastructure debt fund.
+      All major risks have been identified and mitigated or disclosed.
+      Core contracts are in place or near execution.
+    minimum_requirements:
+      - All L2 requirements met
+      - Final building permit or UVP decision: rechtskräftig (no pending appeals)
+      - Signed Netzanschlussvertrag (grid connection agreement)
+      - Long-term Bestandsvertrag signed (≥20 years) for all key parcels
+      - Independent yield assessment with on-site measurement data (wind: ≥12 months)
+      - Revenue: valid OeMAG Zuschlagsbescheid or signed PPA or documented merchant strategy
+      - Lender-reviewed financial model with DSCR analysis
+      - Full diligence data room populated
+      - Corporate ownership confirmed; UBO documented
+      - Operating assets: all-risk and business interruption insurance active
+    typical_use:
+      - Bank credit committee submission
+      - Infrastructure fund IC presentation (binding offer stage)
+      - Refinancing of operating assets
+      - Vendor due diligence initiation
+    not_sufficient_for:
+      - Drawdown of construction or term loan
+      - Final investment decision requiring agreed EPC
+    validation_notes: >
+      Permit Rechtskraft is non-negotiable at L3 in Austria.
+      Appeals at VwG or VwGH create binary risk that no lender will accept.
+      For hydro assets: Wasserrechtsbescheid duration and renewal pathway must be confirmed.
+
+  L4:
+    label: "Data Room Ready"
+    description: >
+      Fully documented asset. All conditions precedent for financing and closing
+      are in place or agreed. EPC contract signed or near signing.
+    minimum_requirements:
+      - All L3 requirements met
+      - EPC contract signed or in final negotiation
+      - All permit conditions precedent fulfilled
+      - Grid connection agreement executed; energisation timeline agreed
+      - All land agreements registered or pre-registered in Grundbuch
+      - Revenue contracts final and bankable
+      - Lender's technical advisor and legal advisor reports complete
+      - Insurance review by lender's broker; assignment agreed
+      - Full VDD (vendor due diligence) reports available
+    typical_use:
+      - Final binding offer and SPA signing
+      - Financial close (construction or re-financing)
+      - Full acquisition by institutional buyer
+    not_sufficient_for:
+      - Nothing at L4 — this is the highest level
+    validation_notes: >
+      L4 is rare at marketing stage. Most Austrian transactions are marketed at
+      L2–L3 with L4 documentation provided after signing of binding SPA.

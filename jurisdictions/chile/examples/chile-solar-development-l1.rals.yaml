@@ -1,0 +1,309 @@
+# ============================================================================
+# RALS Jurisdiction Package — Chile
+# Example: chile-solar-development-l1.rals.yaml
+# ============================================================================
+# Asset:        Project Desierto Norte (fictional)
+# Technology:   Solar PV, utility-scale ground-mount, 120 MW
+# Stage:        Development (L1)
+# Location:     Antofagasta Region (Atacama Desert), northern Chile
+# Purpose:      Demonstrates L1 readiness with SEIA submitted but RCA pending;
+#               PCPI initiated but not complete; CEN technical review submitted
+#               but connection agreement not signed; DGA water rights pending
+#               (for dust suppression / CSP-style cooling water); corporate PPA
+#               term sheet received but non-binding.
+# Risks shown:  curtailment_atacama (HIGH — northern Chile, no PPA signed);
+#               indigenous_consultation_delay (HIGH — PCPI initiated, not complete);
+#               dga_water_rights (HIGH — application pending);
+#               merchant_price_volatility_chile (HIGH — no signed PPA);
+#               grid_not_secured (MEDIUM — CEN technical review only, no agreement);
+#               land_not_secured (MEDIUM — option signed, not registered lease).
+# Why L1:       RCA pending; PCPI incomplete; CEN connection not signed; DGA
+#               water rights pending; PPA non-binding. All blockers for L2+ met,
+#               but no L2 threshold has been cleared in full.
+# ============================================================================
+fictional: true
+source: "synthetic_example"
+confidentiality: "public_example"
+
+rals_version: "0.1"
+document_id: "rals:CL-EX-PV-DEV-L1-001"
+generated_at: "2026-05-15T09:00:00Z"
+generated_by: "rals-jurisdiction-example-generator"
+language: "en"
+
+rals_jurisdiction:
+  jurisdiction_package: CL
+  rals_jurisdiction_version: "0.1"
+  assessed_readiness_level: L1
+  readiness_label: "Screenable"
+  jurisdiction_assessment_date: "2026-05-15"
+  assessment_notes: >
+    L1 classification: SEIA submitted (threshold for L2 partially met) but RCA not
+    yet issued. PCPI initiated but not complete — hard blocker for L3. CEN technical
+    review submitted but connection agreement not signed — hard blocker for L3. DGA
+    water rights application pending. PPA term sheet non-binding. Combined gap analysis
+    places asset at L1: screenable for NDA, not yet investment-memo ready.
+
+# ── Identity ──────────────────────────────────────────────────────────────────
+identity:
+  asset_name: "Project Desierto Norte"
+  asset_type: solar_pv
+  lifecycle_stage: development
+  country: CL
+  region: "Antofagasta"
+  sub_region: "Commune of Sierra Gorda"
+  total_capacity_mw_ac: 120.0
+  total_capacity_mw_dc: 156.0
+  dc_ac_ratio: 1.30
+  site_area_hectares: 260
+  transaction_type: full_acquisition
+  equity_offered_pct: 100
+  spv_structure: true
+  spv_jurisdiction: "Chile"
+  spv_name: "Desierto Norte Solar SpA"
+  curtailment_risk_disclosure: >
+    This project is located in Antofagasta Region (northern Chile). Curtailment and
+    zero-price spot market risk is structurally HIGH in this region due to transmission
+    bottlenecks. The Kimal-Lo Aguirre transmission line is under development but not
+    yet operational. Financial projections must incorporate curtailment scenarios.
+    Mandatory disclosure under RALS Chile jurisdiction package.
+
+# ── Technical ─────────────────────────────────────────────────────────────────
+technical:
+  expected_lifetime_years: 30
+  design_basis_year: 2025
+  mounting:
+    type: single_axis_tracker
+    manufacturer: "TBC — procurement not yet launched"
+  module:
+    technology: "monocrystalline_topcon"
+    manufacturer: "TBC — procurement not yet launched"
+  inverter:
+    type: "central_inverter"
+  site_elevation_masl: 1050
+  annual_ghi_kwh_m2: 2890
+  production_estimates:
+    methodology: >
+      Desktop estimate using NASA POWER v8 and PVGIS v5.2. Independent third-party
+      yield assessment commissioned — not yet received. P50 and P90 are preliminary
+      and not bankable.
+    p50_gwh_yr: 328.0
+    p90_gwh_yr: 298.0
+    assessor: "Desktop — independent assessment by WSP Chile commissioned"
+    assessment_date_expected: "2026-Q3"
+    bankable: false
+    bankable_note: "Assessment pending; current figures are pre-bankable desktop estimates"
+
+# ── Grid & Offtake ────────────────────────────────────────────────────────────
+grid_offtake:
+  grid_connection:
+    status: technical_review_submitted
+    grid_operator: "CEN (Coordinador Eléctrico Nacional)"
+    connection_system: "SEIN"
+    target_connection_point: "Transmission substation at Proyecto Encuentro 500 kV node (indicative)"
+    voltage_level_kv: 220
+    cen_application_reference: "CEN-SG-2025-0847 (indicative)"
+    cen_application_date: "2025-11-10"
+    connection_agreement_status: "not_signed"
+    connection_evidence: >
+      CEN technical review application submitted November 2025. Technical review in
+      progress; expected completion Q2 2026. Connection agreement with transmission
+      owner not yet negotiated or signed. Indicative connection cost EUR-equivalent
+      USD 3.2m not yet confirmed by CEN.
+    curtailment_note: >
+      Antofagasta Region: structural transmission bottleneck. SEIN spot price at this
+      node was zero or near-zero for extended periods in 2024–2025 (CEN dispatch data).
+      No evacuation guarantee exists until Kimal-Lo Aguirre line is operational.
+      Curtailment scenario must be modelled in any financial projection for this asset.
+  offtake_structure: corporate_ppa
+  revenue_model: corporate_ppa
+  offtake_contracts:
+    - contract_id: "PPA-TERM-01"
+      status: term_sheet_non_binding
+      counterparty: "Major Chilean copper mining company (anonymised)"
+      counterparty_type: "investment_grade_mining"
+      contract_type: corporate_ppa
+      volume_mw: 80
+      indicative_price_usd_mwh: 45.0
+      indicative_term_years: 10
+      currency: "USD"
+      binding: false
+      binding_note: >
+        Non-binding term sheet received November 2025. Commercial terms indicative.
+        Negotiations ongoing. No exclusivity. Counterparty has not completed internal
+        procurement approval. PPA contract not executed — does not meet L3 revenue threshold.
+
+# ── Compliance ────────────────────────────────────────────────────────────────
+compliance:
+  rca_status: seia_under_review
+  rca_authority: "SEA (Servicio de Evaluación Ambiental)"
+  seia_submission_date: "2025-09-05"
+  seia_tracking_reference: "SEA-ANT-2025-0312 (indicative)"
+  rca_expected_date: "2026-Q3"
+  rca_detail: >
+    SEIA (Estudio de Impacto Ambiental) submitted September 2025. SEA review in
+    progress. RCA not yet issued. SEA has requested supplementary information on
+    dust management and visual impact in February 2026 — response submitted March 2026.
+    Expected RCA decision Q3 2026 subject to no further observations.
+  rca_risks:
+    - "RCA not yet issued — hard blocker for L3 classification"
+    - "Supplementary SEA information request delays decision by approximately 2 months"
+    - "No recurso de reclamación risk yet (RCA not issued)"
+
+  construction_permit_status: not_submitted
+  construction_permit_detail: >
+    Permiso de edificación from Municipalidad de Sierra Gorda not yet submitted.
+    To be submitted following RCA approval. Expected timeline: 1–2 months post-RCA.
+
+  indigenous_consultation_status: pcpi_in_progress
+  indigenous_consultation_detail: >
+    SEA screening determined PCPI (Consulta Previa y Participación Indígena) is
+    required: Atacameño communities (Likan Antai) identified within project area of
+    influence. PCPI initiated October 2025 under SEA coordination. Three consultation
+    meetings held as of May 2026; agreement on consultation protocol reached. Substantive
+    consultation phase underway. Completion expected Q3–Q4 2026, subject to community
+    timeline. PCPI is NOT complete — this is a hard blocker for L3 classification.
+  indigenous_consultation_risks:
+    - "PCPI not complete — hard blocker for L3 and RCA finality"
+    - "Community timeline is uncertain and cannot be predetermined"
+    - "Community opposition to project footprint has been noted at one meeting"
+    - "Delay of 3–6 months beyond current estimate is plausible"
+
+  conaf_permit_status: not_required
+  conaf_permit_detail: "Site is in Atacama Desert; no native forest present. CONAF permit not required."
+
+  dga_water_rights_status: dga_water_rights_pending
+  dga_water_rights_detail: >
+    DGA water rights application submitted June 2025 for groundwater extraction
+    (dust suppression, panel cleaning) at 2.5 l/s permanent right from Acuífero
+    Sierra Gorda. DGA review in progress. Competing claim from Minera Norte Grande S.A.
+    identified in DGA registry — legal assessment pending. No DGA decision received.
+  dga_water_rights_risks:
+    - "DGA water rights not yet secured — hard blocker for CSP; relevant for solar dust control"
+    - "Competing claim from mining company identified — may require legal resolution"
+    - "Timeline for DGA decision uncertain: 6–18 months typical in Antofagasta"
+
+# ── Land ──────────────────────────────────────────────────────────────────────
+land:
+  land_control_status: option_signed
+  land_detail: >
+    Option agreement signed with Bienes Nacionales (MBN — Ministerio de Bienes
+    Nacionales) for 260 ha of fiscal land (tierra fiscal). Option valid until
+    31 December 2027. Conversion to Concesión Onerosa from MBN upon RCA approval
+    and PCPI completion. Land is state-owned — no private landowner conflict.
+    No mining concessions identified in initial search; full title search at
+    Registro de Minería not yet completed.
+  land_area_ha: 260
+  land_risks:
+    - "Option not yet converted to Concesión Onerosa — MBN execution pending RCA"
+    - "Full mining concession register search not yet completed"
+    - "Indigenous territory overlap is within the PCPI process — land access contingent on PCPI completion"
+
+# ── Financials ────────────────────────────────────────────────────────────────
+financials:
+  reporting_currency: USD
+  total_capex_usd: 90000000
+  capex_detail: >
+    Indicative capex estimate (modules + BOS + inverters + grid connection + development
+    costs): USD 90m (~USD 750/kW AC). EPC not yet tendered. Grid connection cost
+    (USD 3.2m indicative) included. Independent owner's engineer cost review not yet
+    completed. Capex confidence: low.
+  capex_confidence: low
+  opex_usd_yr: 1800000
+  opex_confidence: low
+  revenue_assumptions: >
+    Base case: 80 MW at USD 45/MWh under non-binding PPA term sheet for 10 years;
+    residual 40 MW at SEIN spot (zero-price risk in northern Chile not fully modelled
+    in developer base case). Developer's IRR: indicative 9% levered — NOT validated.
+  financial_model_available: false
+  financial_model_note: >
+    No investment-grade financial model available. Developer indicative model prepared
+    internally; not third-party reviewed. Does not include curtailment scenario for
+    northern Chile at P10/P50/P90 — required before any NDA-stage disclosure to lenders.
+
+# ── Process ───────────────────────────────────────────────────────────────────
+process:
+  process_type: bilateral_negotiation
+  data_room_status: available_under_nda
+  data_room_platform: "Intralinks"
+  data_room_contents:
+    - "SEIA submission confirmation (SEA-ANT-2025-0312)"
+    - "PCPI initiation record (October 2025)"
+    - "CEN application confirmation (CEN-SG-2025-0847)"
+    - "Option agreement with MBN (July 2025)"
+    - "DGA water rights application (June 2025)"
+    - "Non-binding PPA term sheet (November 2025)"
+    - "Desktop yield assessment (NASA POWER, preliminary)"
+    - "Corporate structure chart (Desierto Norte Solar SpA)"
+  process_timeline:
+    rca_expected: "2026-Q3"
+    pcpi_expected_completion: "2026-Q3 to Q4"
+    cen_connection_agreement_expected: "2026-Q3"
+    indicative_nbo_due: "2026-Q4"
+    indicative_binding_offer: "2027-Q2"
+    indicative_financial_close: "2027-Q4"
+  seller_contact: "info@desierto-norte-example.cl"
+
+# ── Risk Flags (Jurisdiction Package) ────────────────────────────────────────
+risk_flags:
+  - risk_id: curtailment_atacama
+    active: true
+    severity: high
+    note: >
+      Asset in Antofagasta Region. No signed PPA in place. Structural transmission
+      bottleneck; Kimal-Lo Aguirre not yet operational. SEIN spot prices at northern
+      nodes frequently zero during peak solar hours. Financial model does not yet
+      include bankable curtailment scenarios.
+
+  - risk_id: indigenous_consultation_delay
+    active: true
+    severity: high
+    note: >
+      PCPI in progress — not complete. Atacameño community consultation underway.
+      Community opposition noted at one meeting. Completion expected Q3–Q4 2026 but
+      timeline is not guaranteed. PCPI incomplete is a hard blocker for L3 and for
+      final RCA.
+
+  - risk_id: dga_water_rights
+    active: true
+    severity: high
+    note: >
+      DGA water rights application pending. Competing claim from mining company
+      identified. No DGA decision received. Timeline: 6–18 months typical.
+
+  - risk_id: merchant_price_volatility_chile
+    active: true
+    severity: high
+    note: >
+      No signed PPA. Non-binding term sheet covers 80 MW of 120 MW AC capacity.
+      Residual 40 MW exposed to SEIN spot with zero-price risk. Northern Chile
+      spot revenue is not financeable without contracted revenue for substantially
+      all production.
+
+  - risk_id: grid_not_secured
+    active: true
+    severity: medium
+    note: >
+      CEN technical review submitted but not yet approved. Connection agreement
+      with transmission owner not signed. Connection cost and timeline not confirmed.
+      Hard blocker for L3 and construction financing.
+
+  - risk_id: land_not_secured
+    active: true
+    severity: medium
+    note: >
+      Option agreement with MBN signed but Concesión Onerosa not yet executed.
+      Mining concession register search incomplete. Land access also contingent
+      on PCPI completion.
+
+  - risk_id: rca_under_appeal
+    active: false
+    note: "RCA not yet issued — no appeal possible at this stage"
+
+  - risk_id: ppa_financing_difficulty
+    active: true
+    severity: medium
+    note: >
+      Non-binding term sheet only. No storage component planned. Northern Chile
+      pure solar PPA without storage is increasingly difficult to finance.
+      Offtaker procurement approval not completed.

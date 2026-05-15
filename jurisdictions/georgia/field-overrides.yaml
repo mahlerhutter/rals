@@ -1,0 +1,254 @@
+# RALS Jurisdiction Package — Georgia
+# field-overrides.yaml
+# Jurisdiction-specific interpretation of RALS base fields
+# Version: 0.1
+
+jurisdiction_code: GE
+
+fields:
+
+  identity.country:
+    required: true
+    importance: critical
+    allowed_values: ["GE"]
+    jurisdiction_note: >
+      Must be ISO 3166-1 alpha-2 "GE". Georgian assets are regulated under Georgian
+      national law; no sub-national regulatory variation of the kind seen in federal
+      states. The region field is relevant for grid capacity and resource assessment.
+
+  identity.region:
+    required: true
+    importance: high
+    allowed_values:
+      - Adjara
+      - Guria
+      - Imereti
+      - Kakheti
+      - Kvemo Kartli
+      - Mtskheta-Mtianeti
+      - Racha-Lechkhumi
+      - Samegrelo-Zemo Svaneti
+      - Samtskhe-Javakheti
+      - Shida Kartli
+      - Tbilisi
+    jurisdiction_note: >
+      Region is important for both resource quality and grid access. West Georgia
+      (Adjara, Samegrelo, Imereti, Guria, Racha-Lechkhumi) has grid congestion risk
+      due to existing hydro concentration. East Georgia (Kakheti, Shida Kartli,
+      Kvemo Kartli, Samtskhe-Javakheti) generally has better grid headroom for
+      solar and wind projects.
+    validation_warning: >
+      Projects in west Georgia (Adjara, Samegrelo, Imereti) must specifically address
+      GSE transmission constraints. Curtailment risk without compensation should be
+      disclosed and modelled.
+
+  identity.lifecycle_stage:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      "ready_to_build" (RTB) in Georgia requires ALL of the following:
+      (a) construction permit final and issued by the competent authority (municipality
+      or Ministry of Regional Development for strategic projects),
+      (b) GSE grid connection agreement signed,
+      (c) land/usufruct rights secured (usufruct agreement signed and registered,
+      or private purchase/lease documented),
+      (d) GNERC generation licence obtained or in final approval stage,
+      (e) if CfD route: CfD contract awarded by Government auction.
+      Absence of any of these elements must be disclosed and will prevent RTB classification.
+
+  technical.technology:
+    required: true
+    importance: critical
+    allowed_values:
+      - hydro_run_of_river
+      - solar_pv
+      - onshore_wind
+      - hybrid
+    jurisdiction_note: >
+      Hydro (run-of-river) is the dominant technology. Hydro projects require a
+      hydrological study (multi-year river flow data, P50/P90 generation estimates)
+      as a baseline requirement for permitting and lender assessment. Solar PV is
+      a growing sector, primarily in eastern Georgia. Onshore wind is nascent with
+      limited operating track record in the country.
+
+  technical.capacity:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      Projects above ~50–100 MW or those of strategic significance typically require
+      a concession agreement approved by the Government of Georgia in addition to
+      standard municipal construction permits. Confirm whether a concession agreement
+      is required and, if so, whether it has been obtained. Concession agreement
+      timelines: 3–6 months.
+
+  land.land_control_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - state_usufruct_signed
+      - private_purchase
+      - private_lease
+      - option_signed
+      - communal
+    jurisdiction_note: >
+      Georgia has a critical distinction between usufruct (surface right over state land)
+      and private ownership/lease. Most large renewable projects use state land under
+      usufruct agreements governed by Government Resolution 515 (October 31, 2018),
+      which provides the framework for state land transfer to investors. Usufruct
+      terms are typically 30–50 years. Private land may be purchased freehold or
+      leased. Agricultural land requires zoning assessment; conversion is possible
+      but regulated. Forest land has additional environmental restrictions.
+      Title registration at NAPR takes approximately 2–4 weeks.
+    validation_warning: >
+      Communal land (flag: communal) requires explicit disclosure and confirmation
+      of the approval pathway. State usufruct agreements must be registered at NAPR.
+      Unregistered usufruct does not constitute secured land control for L2+ purposes.
+
+  land.land_evidence:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Expected evidence: signed and NAPR-registered usufruct agreement (state land)
+      or signed purchase/lease agreement (private land). For L2+: NAPR extract
+      confirming registration. Agricultural or forest land: zoning status and
+      any conversion approval must be documented.
+
+  grid_offtake.grid_connection_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - pre_application
+      - technical_conditions_received
+      - connection_agreement_signed
+      - connected
+    jurisdiction_note: >
+      GSE is the sole TSO in Georgia. The connection process is: application →
+      GSE technical conditions letter → connection agreement → construction →
+      testing → COD. The technical conditions letter confirms connection feasibility
+      and indicative connection point but does not constitute a binding commitment.
+      The signed connection agreement is the binding document and is required for RTB.
+      GSE may curtail generation if the system is unstable; curtailment without
+      compensation is a known risk. Distribution-level connections use Telasi (Tbilisi)
+      or Energo-Pro Georgia (other regions).
+    validation_warning: >
+      Technical conditions received (GSE letter) is necessary but not sufficient for
+      RTB classification. A signed connection agreement is required for L3. West
+      Georgia projects must disclose curtailment risk explicitly.
+
+  grid_offtake.grid_capacity:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      West Georgia (Adjara, Samegrelo, Imereti) has significant transmission constraints.
+      Curtailment by GSE in these regions is possible without compensation. Yield
+      assessments for projects in these regions must include a curtailment scenario.
+      East Georgia has generally better grid capacity but should be confirmed with GSE.
+
+  compliance.permitting_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - pre_application
+      - application_submitted
+      - under_review
+      - construction_permit_issued
+      - gnerc_licence_pending
+      - gnerc_licence_issued
+      - rejected
+    jurisdiction_note: >
+      Georgia requires TWO separate permitting tracks to be completed for RTB:
+      (1) Construction permit: from the local municipality (RES Class II–IV projects)
+      or Ministry of Regional Development (strategic projects). Timeline: 1–2 months.
+      (2) GNERC generation licence: from the Georgian National Energy and Water Supply
+      Regulatory Commission, required for commercial electricity generation.
+      Both must be tracked separately in the compliance section.
+      EIA/environmental clearance is also required and should be tracked separately.
+    validation_warning: >
+      A project with a construction permit but no GNERC licence, or vice versa, is NOT
+      ready to build. Both must be confirmed or in final approval for RTB classification.
+
+  compliance.environmental_status:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Environmental clearance (EIA/environmental decision) is required from local
+      environmental authorities. Hydro projects require a detailed hydrological report
+      and may require additional environmental assessment of river habitat impact.
+      Forest land projects require forest clearance and may face additional restrictions.
+      EIA timeline: 2–4 months for standard projects.
+
+  revenue.revenue_model:
+    required: true
+    importance: critical
+    allowed_values:
+      - cfd_auction
+      - industrial_ppa
+      - esco_market
+      - regulated_tariff
+      - export_ppa_turkey
+    jurisdiction_note: >
+      CfD (Contract for Difference) is the primary revenue route for new utility-scale
+      projects. CfD contracts are 15-year fixed strike price, awarded by Government
+      auction. Both the March 2023 (300 MW) and February 2024 (800 MW) auctions were
+      oversubscribed — not all applicants win. A CfD award must be confirmed (not merely
+      applied for) before revenue can be classified as secured. Industrial PPA route
+      requires a signed PPA with a creditworthy Georgian industrial buyer. ESCO market
+      provides a fallback but is uncontracted and subject to market pricing.
+      Regulated tariff is legacy and declining in relevance for new projects.
+      Export PPAs to Turkey exist but are commercially limited. Black Sea export cable
+      project is at development stage only and should not be assumed as available revenue.
+    validation_warning: >
+      CfD application submitted does not equal CfD award. Revenue model must distinguish
+      clearly between application pending and award confirmed. Projects relying on
+      expected CfD award without a confirmed contract must disclose this risk.
+
+  compliance.gnerc_licence:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      GNERC (Georgian National Energy and Water Supply Regulatory Commission) issues
+      electricity generation licences required for commercial operation. Licence
+      application should be submitted in parallel with construction permit process.
+      GNERC licence delays are a known risk. Confirm licence status separately from
+      construction permit.
+
+  financials.reporting_currency:
+    required: true
+    importance: high
+    allowed_values:
+      - GEL
+      - USD
+      - EUR
+    jurisdiction_note: >
+      Many Georgian energy projects are structured in USD or EUR (CfD tariffs may
+      be denominated in USD or GEL). The Georgian Lari (GEL) is an emerging market
+      currency with moderate volatility. Capital remittance restrictions are possible
+      under Georgian National Bank regulations. Currency risk (GEL/USD, GEL/EUR)
+      should be explicitly disclosed and modelled.
+
+  financials.capex_confidence:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      Georgia has a limited EPC contractor market. International contractors may be
+      required for large or complex projects, increasing procurement cost and timeline
+      uncertainty. Local content requirements, if any, should be confirmed. Grid
+      connection infrastructure costs charged by GSE must be included in total capex.
+
+  process.transaction_type:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Georgian transactions typically use Georgian-law SPV structures (LLC — Shezghuduli
+      pasuxismgeblobis sazogadoeba / SPS). International holding structures with a
+      Georgian SPV subsidiary are common for cross-border investors. Confirm whether
+      permits and licences are held at SPV level and are transferable.
+
+  risks.risk_flags:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      See risks.yaml for Georgia-specific risk taxonomy. Key flags to check:
+      seasonal_hydro_variability, grid_congestion_west_georgia, cfd_auction_competition,
+      gnerc_licence_delay, political_risk_georgia, black_sea_export_uncertainty,
+      gel_usd_currency_risk, land_not_secured.

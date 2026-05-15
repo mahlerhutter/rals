@@ -1,0 +1,163 @@
+# RALS Jurisdiction Package — Georgia
+# transaction-readiness.yaml
+# Readiness level definitions and thresholds
+# Version: 0.1
+
+jurisdiction_code: GE
+
+levels:
+
+  L0:
+    label: "Teaser Only"
+    description: >
+      Minimal public information. Sufficient for initial NDA request and deal screening.
+      No evidence of permitting, grid, or land progress required.
+    minimum_requirements:
+      - Asset type identified (technology, approximate capacity)
+      - Country (GE) and region known
+      - Transaction type described
+      - Seller or advisor contact available
+    typical_use:
+      - Initial deal marketing
+      - Pipeline tracking by advisors
+      - LLM/agent discovery and pre-screening
+    not_sufficient_for:
+      - Investment committee presentation
+      - Non-binding offer submission
+      - Legal or technical due diligence
+      - Any debt or equity commitment
+    validation_notes: >
+      An L0 classification does not imply the asset has no merit. Georgian early-stage
+      projects (particularly hydro and solar development) routinely operate at L0 during
+      initial marketing. The limited depth of the Georgian IPP market means many projects
+      that reach L0 marketing have not yet resolved land, permitting, or grid questions.
+
+  L1:
+    label: "Screenable"
+    description: >
+      Sufficient information for an investor to decide whether to sign an NDA and
+      proceed to L2 due diligence. Site concept is real; key risks are identified.
+      Revenue route is stated but not confirmed.
+    minimum_requirements:
+      - All L0 requirements met
+      - Site location confirmed to municipality level
+      - Land status identified (state or private; usufruct or purchase)
+      - GSE or distribution company grid inquiry submitted; target connection point indicated
+      - Revenue route identified (CfD, industrial PPA, ESCO market)
+      - GNERC licence requirement confirmed
+      - Desktop yield estimate available (PVGIS/GWA for solar/wind; historical flow data initiated for hydro)
+      - Environmental authority and EIA requirement identified
+      - SPV structure described
+    typical_use:
+      - NDA stage information package
+      - Investor pre-screening calls
+      - Pipeline ranking by institutional buyers
+    not_sufficient_for:
+      - Non-binding offer with price indication
+      - Investment committee note
+      - Debt term sheet
+    validation_notes: >
+      L1 Georgian assets commonly have unresolved land (usufruct not signed), no GSE
+      technical conditions letter, and no CfD application submitted. This is acceptable
+      at L1 provided risks are disclosed. Investors should treat L1 Georgian assets
+      as high-development-risk until land and grid are confirmed.
+
+  L2:
+    label: "Investment Memo Ready"
+    description: >
+      Sufficient for a credible non-binding offer and investment committee presentation.
+      Core permit, land, and grid pathways are established. Revenue route is identified
+      and in progress but CfD award or PPA may not yet be confirmed.
+    minimum_requirements:
+      - All L1 requirements met
+      - GSE technical conditions letter received (connection point confirmed)
+      - Usufruct agreement signed and NAPR registration confirmed (state land),
+        OR private purchase/lease agreement signed (private land)
+      - Construction permit issued by municipality or competent authority
+      - EIA/environmental clearance obtained or application submitted (no fatal constraint)
+      - GNERC licence application submitted
+      - Hydro only: hydrological study in progress with preliminary P50/P90 estimates
+      - "Revenue model detailed: CfD auction round identified and eligibility confirmed, OR industrial PPA heads of terms signed"
+      - Investment-memo-grade financial model; GEL/USD sensitivity included
+      - NDA-accessible data room in place
+    typical_use:
+      - Non-binding offer stage
+      - Investment committee note
+      - Buy-side mandate confirmation
+      - Preliminary lender screening
+    not_sufficient_for:
+      - Credit committee approval at lender
+      - Final binding offer
+      - Drawdown of debt facilities
+    validation_notes: >
+      In Georgia, L2 is the minimum for serious M&A or investment processes.
+      A pending CfD application (without award) is acceptable at L2 provided the
+      risk of non-award is clearly disclosed. GSE technical conditions letter (not
+      connection agreement) is the minimum grid requirement at L2. GNERC licence
+      must be applied for but need not yet be issued.
+
+  L3:
+    label: "Lender Diligence Ready"
+    description: >
+      Sufficient for credit committee submission at a bank or infrastructure debt fund.
+      All major risks have been identified and mitigated or disclosed. Core contracts
+      are in place. Both GNERC licence and GSE connection agreement must be secured.
+      Revenue must be contracted (CfD award confirmed, or PPA signed).
+    minimum_requirements:
+      - All L2 requirements met
+      - GSE grid connection agreement signed (not merely technical conditions received)
+      - GNERC generation licence issued and valid
+      - Construction permit issued and in force; concession agreement signed if required
+      - Environmental clearance issued; all conditions documented
+      - Usufruct agreement registered at NAPR (state land) or private title secured;
+        NAPR extract showing no adverse encumbrances
+      - "CfD route: confirmed CfD contract award from Government auction (not application pending)"
+      - "Industrial PPA route: signed PPA minimum 10 years with creditworthy Georgian buyer"
+      - Hydro only: independent bankable hydrological study complete with P50/P90 and dry year scenario
+      - Independent yield assessment (all technologies) with P50/P90; seasonal profile for hydro
+      - Lender-reviewed financial model; DSCR analysis; currency risk modelled
+      - Full diligence data room populated
+      - Corporate ownership confirmed; UBO documented; Georgian SPV extract from Public Registry
+    typical_use:
+      - Bank credit committee submission
+      - Infrastructure fund IC presentation (binding offer stage)
+      - Refinancing of operating assets
+    not_sufficient_for:
+      - Drawdown of construction or term loan
+      - Final investment decision requiring agreed EPC
+    validation_notes: >
+      The GSE connection agreement and GNERC licence are both non-negotiable at L3 in Georgia.
+      A pending CfD application does not meet L3 revenue requirements — only a confirmed
+      CfD contract award qualifies. For industrial PPA route: buyer credit quality must
+      be independently assessed; Georgian industrial buyers vary significantly in credit profile.
+      Currency risk (GEL/USD) must be explicitly modelled in the lender financial model.
+
+  L4:
+    label: "Data Room Ready"
+    description: >
+      Fully documented asset. All conditions precedent for financing and closing are in
+      place or agreed. EPC contract signed or near signing. All major contracts and
+      licences are in final form.
+    minimum_requirements:
+      - All L3 requirements met
+      - EPC contract signed or in final negotiation
+      - All permit conditions precedent fulfilled
+      - GSE connection agreement executed; energisation timeline agreed
+      - All land agreements registered at NAPR; no adverse entries
+      - Revenue contracts (CfD or PPA) final and bankable; lender review complete
+      - GNERC licence valid and conditions confirmed
+      - Hydro only: final hydrological assessment; lender review complete
+      - Lender's technical advisor and legal advisor reports complete
+      - Full VDD (vendor due diligence) reports available
+    typical_use:
+      - Final binding offer and SPA signing
+      - Financial close (construction or re-financing)
+      - Full acquisition by institutional buyer
+    not_sufficient_for:
+      - Nothing at L4 — this is the highest level
+    validation_notes: >
+      L4 is rare at marketing stage in Georgia given the immaturity of the IPP market.
+      Most Georgian transactions are marketed at L1–L2 with L3–L4 documentation
+      expected to be developed during the buyer's exclusivity period. International
+      lenders are active in the Georgian energy market (IFC, EBRD, AIIB) and typically
+      impose additional requirements beyond the RALS standard.

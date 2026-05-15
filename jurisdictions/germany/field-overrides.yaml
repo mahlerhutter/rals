@@ -1,0 +1,325 @@
+# ============================================================================
+# RALS Jurisdiction Package — Germany (DE)
+# File: field-overrides.yaml
+# ============================================================================
+# Defines jurisdiction-specific interpretation and validation rules for
+# RALS fields in the German renewable energy transaction context.
+# ============================================================================
+
+jurisdiction_code: DE
+
+# ── Global Override Note ───────────────────────────────────────────────────
+global_override_note: >
+  Germany has 16 Bundesländer (federal states) each with partially different
+  permitting rules, spatial planning frameworks, and grid constraints.
+  Field overrides below reflect Germany-wide rules. Where Bundesland-specific
+  variation is material, a validation_warning is raised. Validators must
+  apply Bundesland-specific checks for wind projects especially.
+
+fields:
+
+  identity.country:
+    required: true
+    importance: critical
+    allowed_values: [DE]
+    jurisdiction_note: "ISO 3166-1 alpha-2 code for Germany."
+
+  identity.region:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      State (Bundesland) name required. Critical for permitting jurisdiction
+      determination. Wind permitting rules, distance requirements, and grid
+      availability differ materially by Bundesland.
+    validation_warning: >
+      Always confirm which Bundesland applies. Bavaria, NRW, and Baden-Württemberg
+      have significantly more restrictive wind rules than Brandenburg or
+      Schleswig-Holstein. This package does not model individual Bundesland rules.
+
+  identity.lifecycle_stage:
+    required: true
+    importance: critical
+    allowed_values:
+      - greenfield
+      - development
+      - ready_to_build
+      - construction
+      - operating
+      - repowering
+    jurisdiction_note: >
+      'ready_to_build' (RTB) in Germany has a specific technical definition
+      in M&A practice. An asset is RTB only if ALL of the following are true:
+      (1) BImSchG permit is issued AND rechtskräftig (appeal window closed;
+      no pending court challenge); (2) Netzanschlussvertrag (NAV) is signed
+      with TSO/DSO, NVP confirmed, no 'conditional on reinforcement' caveats
+      unresolved; (3) Pachtvertrag (land lease) signed for all parcels including
+      cable route easements; (4) EEG auction Zuschlagsbescheid issued OR binding
+      PPA executed.
+    validation_warning: >
+      A BImSchG permit that is within its 1-month appeal window, or subject to
+      a pending Verwaltungsgericht challenge, is NOT RTB and must be classified
+      as 'development'. Do not accept seller claims of RTB without confirming
+      Rechtskraft status.
+
+  technical.technology:
+    required: true
+    importance: high
+    allowed_values:
+      - onshore_wind
+      - offshore_wind
+      - solar_pv
+      - bess
+      - hybrid
+      - biomass
+      - biogas
+      - hydro_run_of_river
+    jurisdiction_note: >
+      Germany supports all mainstream renewable technologies under EEG 2023.
+      Offshore wind governed by separate BSH permitting and EEG offshore auctions.
+
+  technical.capacity:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      AC capacity (MW) is the primary reference for EEG auctions and grid connection.
+      DC/AC ratio relevant for solar PV. For BESS: storage duration (hours)
+      and power (MW) / energy (MWh) both required.
+    validation_warning: >
+      EEG auction participation thresholds: ground-mount solar >750 kW requires
+      auction (smaller = fixed feed-in tariff). Wind: all sizes require auction.
+
+  land.land_control_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - not_secured
+      - under_negotiation
+      - option_signed
+      - pachtvertrag_signed
+      - owned
+    jurisdiction_note: >
+      Germany uses Pachtvertrag (agricultural/commercial lease) as the standard
+      land control instrument for wind and solar. Typical term: 25–30 years.
+      LOIs and unsigned letters do not constitute secured land.
+      Ownership (Grundeigentum) is less common; typically parcels are leased.
+    validation_warning: >
+      Many German projects proceed with informal or oral agreements — these are
+      not acceptable for L3+ classification. Validators must confirm a signed
+      Pachtvertrag is in place for every parcel including cable route easements.
+
+  land.land_evidence:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Required evidence: signed Pachtvertrag (all parcels); Grundbuchauszug
+      (land register extract) confirming lessor title is unencumbered or that
+      any mortgage holder has consented; registered Dienstbarkeit (easement)
+      for cable routes and access paths. Land register managed by local
+      Amtsgericht (district court).
+    validation_warning: >
+      Common gap: cable route easements not yet registered in Grundbuch.
+      This is a blocker for L3+ and L4 classification. Lenders require
+      all easements registered before financial close.
+
+  grid_offtake.grid_connection_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - pre_application
+      - inquiry_submitted
+      - nab_submitted
+      - naz_received
+      - naz_accepted
+      - nav_signed
+      - connected
+    jurisdiction_note: >
+      German grid connection milestones:
+      - pre_application: No formal contact with TSO/DSO.
+      - inquiry_submitted: Informal grid inquiry sent; no formal NAB yet.
+      - nab_submitted: Formal Netzanschlussbegehren (NAB) submitted to TSO/DSO.
+      - naz_received: Netzanschlusszusage (NAZ — connection offer) issued by TSO/DSO.
+        Offer valid typically 3–4 months. Technical specs and cost estimate included.
+      - naz_accepted: NAZ formally accepted by developer. NAV in negotiation.
+      - nav_signed: Netzanschlussvertrag (NAV — connection contract) signed.
+        Grid capacity reserved. Construction timeline agreed. This is the key
+        milestone for RTB classification.
+      - connected: Physical connection complete; commissioned.
+    validation_warning: >
+      A NAZ marked 'conditional on grid reinforcement' (Netzverstärkungsvorbehalt)
+      is NOT equivalent to an unconditional offer. Validators must confirm whether
+      the NAZ is conditional and, if so, what the reinforcement timeline and
+      financing responsibility are. Conditional NAZ ≠ grid secured.
+
+  grid_offtake.grid_capacity:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Confirmed capacity (MW) at the Netzverknüpfungspunkt (NVP). Must match
+      NAZ/NAV documentation. For Redispatch 2.0 curtailment risk: confirm whether
+      the connection point is in a congested zone (especially northern Germany).
+    validation_warning: >
+      Projects connecting in congested zones (Schleswig-Holstein, Lower Saxony,
+      Brandenburg wind zones) face elevated curtailment risk under Redispatch 2.0.
+      Financial models must include explicit curtailment discount.
+
+  grid_offtake.connection_evidence:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      For L2: NAZ documentation required (offer letter with technical specs).
+      For L3/L4: signed NAV required. Conditional NAZ must be flagged.
+      BESS: grid connection process same as generation; §118(6) EnWG network
+      charge exemption applies if commissioned before Aug 3, 2029.
+
+  compliance.permitting_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - pre_application
+      - scoping_submitted
+      - application_submitted
+      - application_complete
+      - permit_issued_under_appeal
+      - permit_rechtskraeftig
+      - approved_final
+    jurisdiction_note: >
+      Wind: BImSchG (Bundesimmissionsschutzgesetz) permit required.
+      Solar (>750 kW ground-mount): Bebauungsplan + Baugenehmigung required.
+      Solar (<750 kW): simplified or notification only.
+      Offshore: BSH Planfeststellungsbeschluss required.
+      Key milestones:
+      - scoping_submitted: Scoping conference (Scopingtermin) complete.
+      - application_submitted: Full BImSchG application submitted to authority.
+      - application_complete: Authority declares application vollständig (complete).
+      - permit_issued_under_appeal: Genehmigungsbescheid issued; 1-month appeal
+        window open OR Verwaltungsgericht challenge pending. NOT RTB.
+      - permit_rechtskraeftig: Appeal window closed; no pending challenges.
+        This is the RTB permitting threshold.
+      - approved_final: Equivalent to permit_rechtskraeftig for non-BImSchG permits.
+    validation_warning: >
+      A BImSchG permit in the 1-month appeal window or under Verwaltungsgericht
+      challenge is classified 'permit_issued_under_appeal' — it carries significant
+      risk. ~20–30% of wind permits are appealed; some are overturned or result in
+      operational constraints. Validators must NOT classify this as L3+.
+
+  compliance.environmental_status:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Wind: full UVP (Umweltverträglichkeitsprüfung) typically required for ≥3 turbines.
+      Includes: bird/bat surveys (2–3 years baseline), habitat assessment (§44 BNatSchG),
+      shadow flicker, noise, visual impact. Artenschutz (species protection) is the
+      primary appeal ground — specifically Rotmilan (red kite) and bats.
+      Solar: environmental assessment simpler; Natura 2000 screening required.
+    validation_warning: >
+      Red kite (Rotmilan) risk is Germany-specific and material. If the project
+      site is within 3 km of known red kite breeding territories, a species-specific
+      risk assessment and likely radar/shutdown system (Vogelschlagvermeidungssystem)
+      will be required. Missing species surveys = permitting risk.
+
+  revenue.revenue_model:
+    required: true
+    importance: critical
+    allowed_values:
+      - eeg_market_premium
+      - merchant_ppa
+      - merchant_spot
+      - hybrid_eeg_ppa
+      - bess_balancing_markets
+      - bess_arbitrage
+    jurisdiction_note: >
+      EEG market premium is the primary revenue model for EEG auction winners.
+      Formula: Marktprämie = Referenzvergütung − Markterlös (market price).
+      Direct marketing (Direktvermarktung) required for auction winners.
+      PPA (merchant_ppa): subsidy-free; Germany is Europe's largest PPA market.
+      BESS: primary revenue via FCR, aFRR balancing markets + arbitrage.
+    validation_warning: >
+      EEG Marktprämie scheme expires Dec 31, 2026. Post-2026 support design
+      is under government review as of May 2026. Projects requiring EEG support
+      after 2026 face regulatory risk. Validators should flag if EEG contract
+      extends beyond current scheme timeline.
+
+  revenue.support_scheme:
+    required: false
+    importance: high
+    allowed_values:
+      - eeg_market_premium
+      - eeg_fixed_feed_in_tariff   # rooftop solar <750 kW only
+      - none_merchant
+    jurisdiction_note: >
+      EEG auction winners receive Zuschlagsbescheid (award letter) from Bundesnetzagentur.
+      This letter confirms the reference price and auction ID.
+      For solar <750 kW: fixed Einspeisevergütung (feed-in tariff) without auction.
+    validation_warning: >
+      EEG auction Zuschlagsbescheid required for L3+ classification if EEG support
+      is the modelled revenue route. Projects without Zuschlagsbescheid relying on
+      EEG must be treated as revenue-unconfirmed.
+
+  financials.capex_confidence:
+    required: true
+    importance: high
+    allowed_values:
+      - not_assessed
+      - low
+      - medium
+      - high
+      - validated
+    jurisdiction_note: >
+      For wind: turbine supply contract or binding term sheet from OEM required
+      for 'high'. For solar: module/inverter pricing + EPC term sheet.
+      BESS: battery pack pricing highly volatile (2024–2025 falling rapidly);
+      capex estimates >12 months old should be re-validated.
+    validation_warning: >
+      German onshore wind EPC pricing has been volatile (supply chain constraints
+      2022–2024). Validators should confirm capex estimate date and whether it
+      reflects current market pricing.
+
+  financials.opex_confidence:
+    required: true
+    importance: medium
+    jurisdiction_note: >
+      Typical O&M contracts in Germany: fixed EUR/MW/year with Verfügbarkeitsgarantie
+      (availability guarantee), typically 97%+. Established OEM O&M market.
+      Curtailment compensation revenue under Redispatch 2.0 should NOT be modelled
+      at full value if draft 2026 reform passes.
+
+  process.transaction_type:
+    required: true
+    importance: medium
+    allowed_values:
+      - full_acquisition
+      - majority_stake
+      - minority_stake
+      - development_stage_sale
+      - refinancing
+      - joint_venture
+    jurisdiction_note: >
+      Development stage sales common in Germany (pre-RTB at permit submission,
+      or at permit issue before Rechtskraft). RTB sales attract significant
+      premium (typically 70–85% over pre-permit). Repowering projects commonly
+      sold at development stage as they are asset-heavy but permit-burdened.
+
+  process.data_room_status:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      German standard data rooms (Drooms, Datasite, Intralinks) include:
+      BImSchG permit documentation, Rechtskraft confirmation, NAV signed copy,
+      Pachtvertrag (all parcels), Grundbuchauszüge, species survey reports,
+      yield assessments, EEG Zuschlagsbescheid (if won), financial model,
+      corporate/SPV documentation.
+    validation_warning: >
+      Missing species survey documentation is a common red flag in German wind
+      data rooms. If the Artenschutzrechtliche Stellungnahme (species impact statement)
+      is not in the data room, validators must treat this as a material gap.
+
+  risks.risk_flags:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      At minimum, all German project RALS documents should assess:
+      permitting_under_appeal (BImSchG Rechtskraft status),
+      species_protection_rotmilan (red kite/bat risk), grid_connection_delay
+      (NAV status, conditional NAZ), curtailment_risk (Redispatch 2.0 zone),
+      land_not_secured (Pachtvertrag/Grundbuch), eeg_post_2026_uncertainty
+      (if support scheme relies on post-2026 rules).

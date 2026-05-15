@@ -1,0 +1,240 @@
+# RALS Jurisdiction Package — Vietnam
+# field-overrides.yaml
+# Jurisdiction-specific interpretation of RALS base fields
+# Version: 0.1
+
+jurisdiction_code: VN
+
+fields:
+
+  identity.country:
+    required: true
+    importance: critical
+    allowed_values: ["VN"]
+    jurisdiction_note: >
+      Must be ISO 3166-1 alpha-2 "VN". Vietnam has a centralised regulatory structure
+      under MOIT and EVN, but provincial authorities hold material land-use and
+      construction permitting powers. The region (province) field is critical for
+      curtailment risk and grid congestion assessment.
+
+  identity.region:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      Province is critical for curtailment and grid risk assessment. South-central
+      provinces (Ninh Thuan, Binh Thuan, Khanh Hoa, Phu Yen) have the highest solar
+      and wind irradiance but also the most severe curtailment and grid congestion.
+      Northern provinces (Quang Ninh, Thanh Hoa) are developing offshore wind zones.
+      Mekong Delta provinces (Ca Mau, Ben Tre, Tra Vinh) are key onshore wind areas.
+    validation_warning: >
+      Assets located in Ninh Thuan, Binh Thuan, or adjacent provinces must disclose
+      curtailment history and grid congestion status explicitly. Failure to disclose
+      curtailment risk in these zones is grounds for downgrading the readiness level.
+
+  identity.lifecycle_stage:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      "ready_to_build" (RTB) in Vietnam requires all of the following to be in place:
+      (1) Investment Registration Certificate (IRC) issued by the provincial DPI or MPI;
+      (2) Enterprise Registration Certificate (ERC) issued;
+      (3) Construction permit (Giay phep xay dung) issued by the provincial Construction
+      Department and final (no pending appeal);
+      (4) EVN Grid Connection Agreement signed;
+      (5) Land Use Right Certificate (LURC / so do) secured for all key parcels, or
+      LURC-backed JV land access agreement executed;
+      (6) Environmental Impact Assessment (EIA) approved by MoNRE.
+      Absence of any of these conditions precludes RTB classification.
+
+  land.land_control_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - lurc_secured
+      - agricultural_conversion_pending
+      - option_under_negotiation
+      - jv_land_access
+      - not_secured
+    jurisdiction_note: >
+      The Land Use Right Certificate (LURC, commonly "so do" — red book) is the primary
+      land security instrument in Vietnam. Foreign investors cannot directly hold LURC;
+      they typically access land via a JV with a Vietnamese partner who holds the LURC,
+      or via a long-term lease with a Vietnamese state or private landowner. Agricultural
+      land conversion (chuyen doi muc dich su dung dat) requires provincial People's
+      Committee approval and is often linked to the EIA process. Typical lease terms are
+      50 years for industrial use and 30 years for commercial use.
+    validation_warning: >
+      If land_control_status is agricultural_conversion_pending, the asset cannot be
+      classified above L2 until conversion is approved. Provincial approval timelines
+      are unpredictable and can add 12–24 months to development schedules.
+
+  land.land_evidence:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Required evidence varies by stage. LURC copies (or provincial land lease agreement
+      referencing LURC) are expected at L2+. Agricultural conversion approval certificate
+      (Quyet dinh giao dat) is required at L3+. For JV structures: the JV agreement
+      specifying land access rights and the Vietnamese partner's LURC must be provided.
+
+  grid_offtake.grid_connection_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - pre_application
+      - technical_conditions_received
+      - connection_agreement_signed
+      - connected
+    jurisdiction_note: >
+      EVN holds a monopoly on grid access. There is no alternative transmission or
+      distribution operator. Grid connection follows: (1) developer submits application
+      to NLDC/EVN; (2) EVN issues technical conditions letter (typically 30–45 days);
+      (3) parties negotiate and sign Grid Connection Agreement (total timeline typically
+      6–12 months). EVN's grid congestion management is opaque and queue-based.
+    validation_warning: >
+      South-central Vietnam grid zones (Ninh Thuan, Binh Thuan, Khanh Hoa, Phu Yen)
+      carry HIGH curtailment risk regardless of connection status. Curtailment is not
+      compensated in most EVN or DPPA contracts. This risk must be disclosed at all
+      levels above L1. Even a signed Grid Connection Agreement does not guarantee
+      dispatch priority or curtailment compensation.
+
+  grid_offtake.curtailment_risk:
+    required: false
+    importance: critical
+    jurisdiction_note: >
+      Curtailment risk is the single most material operating risk for renewable assets
+      in Vietnam. Historical curtailment rates in south-central zones have exceeded
+      20% annually for some projects (2020: 364 GWh solar curtailed nationally).
+      Curtailment compensation is not typically included in EVN or DPPA contracts.
+      Financial models must include a curtailment scenario using historically observed
+      rates for the relevant grid zone.
+    validation_warning: >
+      If no curtailment analysis is presented for south-central Vietnam assets at L2+,
+      raise as HIGH risk. P50 yield assessments not adjusted for curtailment are
+      materially misleading.
+
+  revenue.revenue_model:
+    required: true
+    importance: critical
+    allowed_values:
+      - dppa_decree57
+      - evn_spot_market
+      - evn_transitional_contract
+      - expired_fit
+      - merchant_vwem
+    jurisdiction_note: >
+      As of 2025–2026, the available revenue models are: (1) DPPA under Decree 57/2025
+      (direct sale to large industrial consumers ≥300 kW; generator also sells residual
+      via VWEM to EVN); (2) EVN spot market / VWEM (for projects selling 100% via EVN);
+      (3) EVN transitional contract (for projects previously under development frameworks,
+      with 70% minimum output guarantee for 12 years under Decree 58/2025/ND-CP).
+      If a project claims an active FiT (expired_fit), the validator must verify the
+      contract commissioning date and confirm the FiT contract is still within its term.
+      No new FiT contracts are being issued. No auction (AUCTT) mechanism is active.
+    validation_warning: >
+      If revenue_model is expired_fit and the project commissioned after the relevant
+      FiT deadline, raise as HIGH risk — the claimed revenue model is invalid.
+      Uncontracted merchant (merchant_vwem only) assets should be capped at L2.
+
+  revenue.dppa_status:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      For DPPA revenue: confirm (a) DPPA counterparty is identified and creditworthy,
+      (b) DPPA contract is signed or heads of terms executed, (c) residual VWEM
+      contract with EVN is in place. DPPA without a signed contract is speculative
+      revenue and should be treated as uncontracted merchant at L1/L2.
+
+  compliance.permitting_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - pre_application
+      - irc_in_progress
+      - irc_obtained
+      - erc_in_progress
+      - erc_obtained
+      - construction_permit_in_progress
+      - construction_permit_obtained
+      - all_permits_obtained
+      - under_appeal
+      - rejected
+    jurisdiction_note: >
+      Vietnam requires three sequential corporate/permitting instruments before
+      construction: (1) Investment Registration Certificate (IRC — Giay chung nhan
+      dang ky dau tu) from the provincial DPI or MPI; (2) Enterprise Registration
+      Certificate (ERC — Giay chung nhan dang ky doanh nghiep); (3) Construction
+      Permit (Giay phep xay dung) from the provincial Construction Department.
+      All three are required before ready_to_build classification. In practice,
+      IRC and ERC are often obtained in parallel; construction permit follows EIA approval.
+    validation_warning: >
+      An asset with only IRC obtained is at best L1. An asset with IRC + ERC + construction
+      permit + EIA approved is the minimum for RTB. Missing any permit is a HIGH risk
+      flag if the asset is marketed as ready-to-build.
+
+  compliance.eia_status:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      Environmental Impact Assessment (EIA — Bao cao danh gia tac dong moi truong) is
+      required for all utility-scale renewable energy projects. EIA is submitted to and
+      approved by MoNRE (Ministry of Natural Resources and Environment). EIA approval
+      is typically a prerequisite for construction permit issuance. Timeline: 6–12 months
+      from submission to approval. Agricultural land conversion approval is linked to
+      EIA findings. EIA must cover land use change, ecological impact, and grid line routing.
+
+  compliance.investment_registration:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      Investment Registration Certificate (IRC) is issued by the provincial Department
+      of Planning and Investment (DPI) for projects below national significance thresholds,
+      or by MPI for larger projects. IRC specifies the project scope, capacity, and
+      investment objectives. Changes to project scope (capacity change, technology change)
+      require IRC amendment, which can be time-consuming.
+
+  financials.capex_confidence:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      Vietnam-specific capex risks include: grid evacuation line and substation costs
+      (typically developer-funded and can be substantial for remote sites); import duties
+      on equipment (although renewable energy equipment may qualify for exemptions);
+      local civil works cost variability; and land clearance costs if agricultural
+      conversion is involved. Independent technical advisor review expected at L2+.
+
+  financials.fx_and_repatriation:
+    required: false
+    importance: critical
+    jurisdiction_note: >
+      Vietnam maintains restrictions on foreign currency conversion and repatriation
+      of profits. Revenue from EVN and DPPA contracts is denominated in VND. Conversion
+      of VND to USD for debt service and profit repatriation requires State Bank of
+      Vietnam (SBV) approval for large amounts. Project financing in USD requires
+      hedging or structural protections. This is a material risk for international
+      investors and lenders and must be addressed in transaction structuring.
+
+  process.transaction_type:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Foreign ownership restrictions apply to certain energy sector activities in Vietnam.
+      Foreign investors typically establish a JV with a Vietnamese partner or operate
+      through a wholly foreign-owned enterprise (WFOE / 100% foreign-invested enterprise)
+      where permitted. The IRC/ERC structure defines the legal entity. Share deals involving
+      transfer of an enterprise holding renewable energy assets require IRC amendment
+      and may require MOIT approval for significant projects. Asset deals are less common.
+    validation_warning: >
+      Any change of control in a Vietnamese renewable energy SPV may require re-registration
+      of the IRC and approval from provincial authorities. Legal counsel review of the
+      specific project's IRC conditions is essential before assuming clean transferability.
+
+  risks.risk_flags:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      See risks.yaml for the Vietnam-specific risk taxonomy. Key mandatory flags:
+      evn_counterparty_risk (must be disclosed at L2+), curtailment_uncompensated
+      (must be disclosed for south-central Vietnam assets at all levels above L1),
+      fx_convertibility_risk (must be disclosed at L2+ for any project with
+      international financing), decree_regulatory_instability.

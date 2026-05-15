@@ -1,0 +1,295 @@
+# RALS Jurisdiction Package — Vietnam
+# risks.yaml
+# Structured risk taxonomy for Vietnamese renewable energy transactions
+# Version: 0.1
+
+jurisdiction_code: VN
+
+risks:
+
+  - risk_id: evn_counterparty_risk
+    label: "EVN PPA Counterparty Risk (Un-bankable Terms)"
+    severity_default: high
+    affected_sections: [grid_offtake, financials, compliance]
+    buyer_impact: >
+      EVN Power Purchase Agreements in their standard form are widely considered
+      un-bankable by international investors and lenders. Key concerns: unfavorable
+      force majeure definitions that may allow EVN to avoid payment obligations;
+      termination provisions that do not provide adequate compensation to the developer;
+      absence of a sovereign or government guarantee on EVN's payment obligations;
+      VND denomination creating FX mismatch vs USD-denominated development costs
+      and financing; and EVN's financial position as a state-owned enterprise that
+      has historically operated at a loss. Buyers must price in the cost of
+      structural mitigants or accept significant credit risk exposure to EVN.
+    lender_impact: >
+      International project finance lenders will not accept a standard EVN PPA
+      as the sole revenue contract without structural enhancements. Required
+      mitigants typically include: government payment guarantee (rarely available),
+      political risk insurance (e.g. MIGA, ADB, or commercial PRI), escrow
+      accounts, or significant equity cushion. Domestic Vietnamese banks may
+      accept EVN PPA terms that international banks reject.
+    mitigation_evidence:
+      - Government guarantee on EVN payment obligations (Decree-level or specific)
+      - Political risk insurance from MIGA, ADB, or rated commercial insurer
+      - Escrow or reserve account mechanism agreed with EVN
+      - Structural subordination of debt service to EVN payment flows
+      - Legal opinion confirming EVN's payment obligations under applicable decree
+    validation_rule: >
+      EVN counterparty risk must be disclosed at all readiness levels above L1.
+      At L3+, the risk must be addressed: either a structural mitigant is documented
+      or the risk is explicitly accepted and disclosed by the buyer/lender.
+      Absence of EVN counterparty risk disclosure at L2+ is grounds for downgrading
+      the readiness level.
+
+  - risk_id: curtailment_uncompensated
+    label: "Uncompensated Grid Curtailment (South-Central Vietnam)"
+    severity_default: high
+    affected_sections: [grid_offtake, financials, technical]
+    buyer_impact: >
+      Vietnam's grid infrastructure, particularly in the south-central provinces
+      (Ninh Thuan, Binh Thuan, Khanh Hoa, Phu Yen), is severely congested relative
+      to installed renewable capacity. EVN's congestion management is non-transparent
+      and quota-based. In 2020, 364 GWh of solar was curtailed nationally. Historical
+      curtailment at individual sites in these zones has exceeded 20% of potential
+      generation annually. Standard EVN and DPPA contracts do not include curtailment
+      compensation mechanisms. Buyers must model uncompensated curtailment in the
+      base case financial model; P50 yields not adjusted for curtailment are
+      materially misleading.
+    lender_impact: >
+      Lenders will require the curtailment downside to be modelled in the DSCR
+      base case using historically observed curtailment rates for the specific
+      grid zone. No lender will base construction financing DSCR on a yield
+      assessment that ignores curtailment for south-central zone assets.
+      Curtailment risk is a hard diligence item and affects debt sizing and DSCR covenants.
+    mitigation_evidence:
+      - Yield assessment explicitly modelling curtailment at P50 and P90
+      - Historical curtailment data for the specific connection point (from EVN/NLDC)
+      - DPPA or EVN contract explicitly addressing curtailment compensation,
+        or explicit acknowledgement of uncompensated curtailment risk
+      - EVN grid reinforcement timeline for the relevant zone (if available)
+      - Financial model with curtailment downside scenario approved by lender
+    validation_rule: >
+      For assets located in Ninh Thuan, Binh Thuan, Khanh Hoa, or Phu Yen provinces,
+      curtailment must be disclosed at all levels above L1. At L2, a curtailment
+      analysis must be included in the yield assessment. At L3+, the DSCR analysis
+      must include a curtailment downside scenario. Failure to disclose curtailment
+      risk for south-central zone assets is a HIGH risk flag that prevents L2+
+      classification.
+
+  - risk_id: decree_regulatory_instability
+    label: "Decree-Level Regulatory Instability"
+    severity_default: medium
+    affected_sections: [compliance, financials, revenue]
+    buyer_impact: >
+      Vietnam's renewable energy regulatory framework has undergone multiple material
+      changes since 2017. FiT 1 (2017), FiT 2 (2019), and FiT 3 (2020) were each
+      introduced and then expired. Decree 58/2025/ND-CP replaced earlier frameworks
+      in 2025. The DPPA framework under Decree 57/2025 is relatively new and its
+      implementation in practice is still evolving. Regulatory changes have historically
+      been implemented with limited transitional provisions, creating stranded asset
+      risk for projects caught between framework changes. A project's revenue model
+      may be materially disrupted if the applicable decree is amended or replaced.
+    lender_impact: >
+      Regulatory instability increases the required political risk premium and
+      shortens lenders' comfort on long-dated revenue assumptions. Lenders will
+      require sensitivity analysis showing the impact of decree-level changes on
+      DSCR. Political risk insurance is increasingly required by international
+      lenders to cover regulatory disruption in Vietnam.
+    mitigation_evidence:
+      - Legal counsel assessment of regulatory stability for the specific revenue model
+      - Revenue contract explicitly referencing applicable decree provisions
+      - Political risk insurance covering regulatory change
+      - Sensitivity analysis in financial model showing impact of revenue model change
+    validation_rule: >
+      Regulatory instability risk must be disclosed at L2+. At L3+, a legal opinion
+      or advisor assessment of the regulatory stability of the specific revenue model
+      is expected. If the revenue model depends on a framework that has changed since
+      project inception, the history of changes must be documented.
+
+  - risk_id: fx_convertibility_risk
+    label: "FX Convertibility and Profit Repatriation Risk"
+    severity_default: high
+    affected_sections: [financials, process]
+    buyer_impact: >
+      Revenue from EVN and DPPA contracts is denominated in Vietnamese Dong (VND).
+      Vietnam maintains controls on foreign currency conversion and repatriation of
+      profits. Large-scale conversion of VND to USD requires State Bank of Vietnam
+      (SBV) approval and may be subject to restrictions, delays, or administrative
+      obstacles. For projects with USD-denominated debt service, this creates a
+      structural mismatch that must be addressed in the financing structure.
+      Historical instances of repatriation delays or restrictions have been reported
+      by foreign investors in Vietnam.
+    lender_impact: >
+      International lenders denominating project finance in USD will require structural
+      protections against VND/USD conversion risk. Options include: onshore/offshore
+      escrow mechanisms, SBV pre-approval of conversion rights, FX hedging instruments
+      (limited availability for VND), or political risk insurance covering currency
+      inconvertibility. This is a non-trivial structuring challenge.
+    mitigation_evidence:
+      - SBV confirmation of conversion rights or pre-approval mechanism
+      - Political risk insurance covering currency inconvertibility and transfer risk
+      - Onshore escrow account with agreed conversion trigger mechanism
+      - FX hedging strategy documented (if available instruments exist)
+      - Legal opinion on current repatriation restrictions and SBV requirements
+    validation_rule: >
+      FX and repatriation risk must be disclosed at L2+ for any project with
+      international investors or lenders. At L3+, the FX structuring approach must
+      be described and reviewed by legal counsel. Absence of FX risk disclosure for
+      internationally financed projects is grounds for downgrading the readiness level.
+
+  - risk_id: lurc_agricultural_conversion
+    label: "Agricultural Land Conversion Risk (LURC)"
+    severity_default: medium
+    affected_sections: [land, compliance]
+    buyer_impact: >
+      Much of Vietnam's renewable energy development land was previously classified
+      as agricultural (rice paddies, plantation land). Conversion of agricultural land
+      to industrial or energy use requires approval from the provincial People's
+      Committee (PPC) and must be consistent with the national land use plan.
+      This approval is linked to the EIA process and is not guaranteed. Provincial
+      approval timelines are unpredictable and have historically added 12–24 months
+      to development schedules. Failure to obtain agricultural conversion approval
+      prevents construction commencement and, in extreme cases, has required projects
+      to reduce their footprint.
+    lender_impact: >
+      Construction financing cannot be drawn without confirmed land use rights.
+      Lenders will require agricultural conversion approval as a condition precedent
+      to drawdown. The risk of partial approval (e.g. approving 70% of the site area)
+      must be modelled in the financial plan.
+    mitigation_evidence:
+      - Agricultural conversion approval (Quyet dinh giao dat) from provincial PPC
+      - Land use plan extract confirming project is consistent with provincial plan
+      - EIA approval (which typically confirms land use change acceptability)
+      - Fallback plan for partial conversion scenarios
+    validation_rule: >
+      If land_control_status is agricultural_conversion_pending, the asset cannot
+      be classified above L2 until conversion approval is obtained. At L3, conversion
+      approval is a hard prerequisite. Agricultural conversion risk must be disclosed
+      at L1+ for any project with agricultural land in the site footprint.
+
+  - risk_id: evn_grid_monopoly
+    label: "EVN Grid Monopoly and Opaque Congestion Management"
+    severity_default: medium
+    affected_sections: [grid_offtake]
+    buyer_impact: >
+      EVN's monopoly over grid access means there is no alternative transmission
+      or distribution operator. Developers have no recourse if EVN delays connection,
+      imposes unfavorable technical conditions, or manages congestion in ways that
+      disadvantage specific projects. EVN's congestion management is quota-based
+      and lacks independent regulatory oversight. Grid connection negotiations are
+      bilateral with EVN, creating information asymmetry. Development timelines are
+      heavily dependent on EVN's internal capacity allocation decisions.
+    lender_impact: >
+      Grid access risk is non-diversifiable in Vietnam. There is no independent
+      grid regulator or appeals mechanism for EVN connection decisions. Lenders
+      must rely on the signed Grid Connection Agreement as the sole contractual
+      protection, noting that this agreement also has EVN counterparty risk.
+    mitigation_evidence:
+      - Signed Grid Connection Agreement with EVN
+      - EVN technical conditions letter confirming connection point and capacity
+      - Independent grid advisor assessment of connection risk at the specific substation
+      - Evacuation line route confirmed and land access for line secured
+    validation_rule: >
+      EVN grid monopoly risk must be noted at L1+. At L2+, confirm that EVN technical
+      conditions letter is current (typically valid for 6 months — reconfirm if older).
+      At L3, signed Grid Connection Agreement is required and EVN's monopoly position
+      must be disclosed in transaction materials.
+
+  - risk_id: fit_expired_claimed
+    label: "Expired FiT Revenue Claimed"
+    severity_default: critical
+    affected_sections: [revenue, financials]
+    buyer_impact: >
+      All three Vietnamese FiT programmes (FiT 1, FiT 2, FiT 3) have expired. No
+      new FiT contracts are being issued. A project claiming active FiT revenue
+      must have commissioned before the relevant FiT deadline and hold a signed
+      FiT contract. Claiming FiT revenue for a project that missed the deadline,
+      or for a project that did not complete commissioning formalities before the
+      deadline, constitutes a material misrepresentation. The revenue model in this
+      case is purely VWEM spot market, which generates materially lower revenue.
+    lender_impact: >
+      A misrepresented FiT contract is a critical diligence failure. Discovery of
+      this issue post-signing typically triggers material adverse change provisions
+      and can unwind transactions. Lenders will independently verify FiT status
+      through MOIT/EVN records.
+    mitigation_evidence:
+      - Signed FiT contract (power purchase agreement with EVN at FiT rate)
+      - Commissioning acceptance certificate (Bien ban nghiem thu) dated before FiT deadline
+      - MOIT/EVN confirmation of FiT registration
+    validation_rule: >
+      If revenue_model is expired_fit, validate immediately: confirm commissioning date
+      against FiT deadline. If commissioning occurred after the applicable FiT deadline
+      or if no commissioning certificate is available, raise as CRITICAL risk and flag
+      revenue model as invalid. This is the highest-priority validation check for
+      operating Vietnamese assets.
+
+  - risk_id: irc_change_of_control
+    label: "IRC Change-of-Control Complexity"
+    severity_default: medium
+    affected_sections: [process, identity, compliance]
+    buyer_impact: >
+      A change in ownership of a Vietnamese renewable energy SPV typically requires
+      amendment of the Investment Registration Certificate (IRC). This process
+      involves filing with the provincial DPI or MPI (depending on project scale),
+      approval timeline of typically 30–90 days, and may require MOIT endorsement
+      for significant energy projects. The transfer cannot legally complete before
+      IRC amendment is approved. This creates a gap between SPA signing and legal
+      closing that must be planned into the transaction timeline.
+    lender_impact: >
+      For refinancing transactions, lender security over SPV shares may be affected
+      by IRC change-of-control restrictions. Legal counsel must confirm the security
+      structure is consistent with the IRC's foreign ownership provisions.
+    mitigation_evidence:
+      - IRC reviewed for change-of-control provisions by Vietnamese legal counsel
+      - DPI/MPI pre-consultation on IRC amendment process and timeline
+      - Legal opinion on transferability of IRC to new shareholder
+      - Transaction timeline incorporating IRC amendment period
+    validation_rule: >
+      IRC change-of-control risk must be noted at L2+ for any acquisition transaction.
+      At L3+, legal counsel review of the specific IRC's change-of-control provisions
+      must be documented. Timeline impact must be incorporated in the process schedule.
+
+  - risk_id: land_not_secured
+    label: "Land Rights Not Secured"
+    severity_default: high
+    affected_sections: [land, compliance]
+    buyer_impact: >
+      Without a confirmed LURC or LURC-backed land access agreement, the project
+      cannot obtain a construction permit or commence construction. Agricultural land
+      conversion approval is a prerequisite for industrial land use. JV structures
+      that rely on verbal or informal land access arrangements are not bankable.
+    lender_impact: >
+      Senior lenders will not commit to construction financing without confirmed
+      land rights covering all parcels required for construction.
+    mitigation_evidence:
+      - LURC copies for all key parcels
+      - JV agreement specifying land access (for foreign investor JV structures)
+      - Agricultural conversion approval (Quyet dinh giao dat) if applicable
+      - Long-term lease agreement (minimum 25 years) signed
+    validation_rule: >
+      If lifecycle_stage is ready_to_build or under_construction and land_control_status
+      is not lurc_secured or jv_land_access, raise as HIGH risk.
+
+  - risk_id: evn_metering_disputes
+    label: "EVN Metering and Settlement Disputes"
+    severity_default: medium
+    affected_sections: [operating_history, financials]
+    buyer_impact: >
+      Disputes between renewable energy generators and EVN over metering accuracy,
+      settlement periods, and curtailment attribution are common in Vietnam, particularly
+      for solar and wind assets in congested zones. O&M records of operating assets
+      should be reviewed for metering dispute history. Unresolved disputes may represent
+      uncollected revenue or contingent liabilities.
+    lender_impact: >
+      Metering disputes affect reported operating revenue and DSCR. Lenders will
+      require reconciliation of any historic metering disputes and confirmation of
+      settlement before credit committee submission.
+    mitigation_evidence:
+      - O&M records reviewed for metering dispute history
+      - EVN settlement statements reconciled against SCADA/inverter data
+      - Any outstanding disputes quantified and disclosed
+      - Dispute resolution mechanism in EVN/DPPA contract confirmed
+    validation_rule: >
+      For operating assets at L3+, O&M records must be reviewed for metering disputes.
+      Any unresolved disputes must be quantified and disclosed. Operating assets with
+      revenue materially below budget must be investigated for curtailment or metering causes.

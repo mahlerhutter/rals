@@ -1,0 +1,129 @@
+# RALS Jurisdiction Package — Romania
+# transaction-readiness.yaml
+# Version: 0.1
+
+jurisdiction_code: RO
+
+readiness_gap_warning: >
+  Romania has a significant gap between nominal pipeline claims and bankable assets.
+  Over 60 GW of projects hold ATRs; a small fraction have permits, secured land,
+  and confirmed revenue routes. Validators must apply conservative evidence-based
+  classification. Seller or advisor claims of "RTB" without documentary evidence
+  must be downgraded to the highest evidence-supported level.
+
+levels:
+
+  L0:
+    label: "Teaser Only"
+    description: >
+      Minimal information. Technology, county, and approximate capacity known.
+      No permit, grid, or land evidence required.
+    minimum_requirements:
+      - Asset type identified
+      - County/region known
+      - Transaction type described
+      - Seller or advisor contact available
+    typical_use:
+      - Initial marketing
+      - NDA request
+      - Pipeline tracking
+    not_sufficient_for:
+      - Investment committee consideration
+      - Non-binding offer
+      - Any debt or equity commitment
+
+  L1:
+    label: "Screenable"
+    description: >
+      Sufficient to decide whether to sign an NDA. Site is real; key risks are
+      flagged. ATR application is at least initiated. Land situation is understood.
+    minimum_requirements:
+      - All L0 requirements met
+      - Site confirmed to municipality level; cadastral parcels identified
+      - ATR application submitted to Transelectrica or DSO
+      - Landowner(s) identified; CF registration status assessed
+      - Permitting pathway identified; environmental screening started
+      - Revenue route concept identified (merchant, PPA, or GC legacy)
+      - Desktop yield estimate available
+    typical_use:
+      - NDA-stage information package
+      - Investor pre-screening
+      - Pipeline ranking
+    not_sufficient_for:
+      - Non-binding offer with price indication
+      - Investment committee note
+      - Debt term sheet
+
+  L2:
+    label: "Investment Memo Ready"
+    description: >
+      Sufficient for non-binding offer and investment committee note.
+      Valid ATR with financial guarantee, environmental permit in process,
+      land under binding agreement.
+    minimum_requirements:
+      - All L1 requirements met
+      - Valid ATR from Transelectrica or DSO; expiry date confirmed; 5% guarantee in place
+      - Environmental permit application submitted; no fatal constraint known
+      - Signed arenda (lease) or pre-emption agreement for primary parcels; CF extracts provided
+      - Building permit application submitted or pathway confirmed
+      - Bankable yield assessment (P50/P90) by recognised assessor
+      - Revenue model: merchant strategy with Romanian power price assumptions; or PPA HoT
+      - Investment-memo-grade financial model
+      - NDA-accessible data room with ATR, land contracts, permit status
+    typical_use:
+      - Non-binding offer submission
+      - Investment committee note
+      - Buy-side mandate
+      - Preliminary lender screening
+    not_sufficient_for:
+      - Credit committee at lender
+      - Binding offer
+      - Financial close
+    validation_notes: >
+      ATR must be valid (not expired) and backed by financial guarantee.
+      An ATR without guarantee or with expired validity must be flagged as HIGH risk.
+      From 2026, ATR status in the new auction queue must be confirmed.
+
+  L3:
+    label: "Lender Diligence Ready"
+    description: >
+      Sufficient for bank credit committee or binding offer. All major risks
+      identified and mitigated. Permits definitive, ATR converted to connection contract.
+    minimum_requirements:
+      - All L2 requirements met
+      - Environmental permit and building permit both issued and definitive (contestatie period elapsed)
+      - Signed connection contract (contract de racordare); cost agreed and budgeted
+      - "All key parcels under long-term arenda (≥25 years); CF extracts clean; agricultural de-registration completed"
+      - Independent yield assessment; on-site wind measurement ≥12 months; curtailment modelled
+      - "Revenue: signed PPA with creditworthy counterparty; or documented merchant strategy with downside sensitivity; or GC entitlement confirmed"
+      - Lender-reviewed financial model with DSCR; curtailment modelled for Dobrogea
+      - Full diligence data room
+      - Corporate DD complete; foreign ownership structure confirmed compliant
+      - Operating assets: all-risk and BI insurance active
+    typical_use:
+      - Bank credit committee submission
+      - Infrastructure fund binding offer
+      - Refinancing of operating GC assets
+    not_sufficient_for:
+      - Financial close (requires EPC contract)
+
+  L4:
+    label: "Data Room Ready"
+    description: >
+      Fully documented. EPC contracted. All conditions precedent met.
+    minimum_requirements:
+      - All L3 requirements met
+      - EPC contract signed or in final negotiation
+      - All permit conditions fulfilled; construction start authorised by commune
+      - Connection contract executed; Transelectrica/DSO works contracted
+      - All land agreements registered; CF clean
+      - Revenue contracts final
+      - VDD reports complete
+      - Insurance review by lender; assignment documented
+    typical_use:
+      - Binding SPA signing
+      - Financial close
+      - Full acquisition
+    validation_notes: >
+      L4 Romanian assets are rare in the market. Most assets marketed as RTB
+      are at L1–L2 by evidence-based standards. Apply rigorous evidence checks.

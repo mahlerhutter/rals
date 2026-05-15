@@ -1,0 +1,356 @@
+# RALS Jurisdiction Package — Chile
+# evidence-requirements.yaml
+# Required evidence by readiness level
+# Version: 0.1
+
+jurisdiction_code: CL
+
+readiness_levels:
+  - L0
+  - L1
+  - L2
+  - L3
+  - L4
+
+evidence_categories:
+
+  site_identification:
+    L0:
+      required: false
+      description: "General location description, region name, and technology type acceptable"
+    L1:
+      required: true
+      description: "Municipality and approximate coordinates; confirmed site boundary concept; region confirmed"
+    L2:
+      required: true
+      description: >
+        Precise site boundary (cadastral parcel or Rol de Avalúo numbers); zoning category
+        confirmed; SEIA applicability assessed; distance to indigenous territories noted
+    L3:
+      required: true
+      description: >
+        Signed cadastral plan as filed with SEIA or Municipalidad; no material planning
+        conflicts identified; indigenous territory mapping completed by CONADI or SEA screening
+    L4:
+      required: true
+      description: "Full survey-grade site plan as filed with all authorities; no open planning disputes"
+
+  land_control:
+    L0:
+      required: false
+      description: "Not required at teaser level"
+    L1:
+      required: true
+      description: "Land ownership identified; contact with landowner or MBN established; title search initiated"
+    L2:
+      required: true
+      description: >
+        Binding option agreement signed, or long-term lease signed (arriendo), or
+        Concesión Onerosa application submitted to MBN. For CSP/hydro: DGA water
+        rights application submitted or rights identified
+      chile_note: >
+        Title search (estudio de títulos) at Conservador de Bienes Raíces is required
+        to identify mining concession conflicts, agricultural easements, or encumbrances.
+        Mining/agricultural land conflicts are common in northern Chile.
+    L3:
+      required: true
+      description: >
+        Long-term lease signed and registered at Conservador de Bienes Raíces (≥25 years),
+        or freehold title registered, or Concesión Onerosa executed with MBN. All key
+        parcels covered. For CSP/hydro: DGA water rights secured (permanent preferred).
+        If PCPI was required: completed PCPI documentation provided
+      chile_note: >
+        Registration at Conservador de Bienes Raíces is required for enforceability
+        against third parties. Title insurance or legal opinion on title is expected
+        at this level. Unregistered leases cannot be treated as land secured for L3.
+    L4:
+      required: true
+      description: >
+        All land agreements registered; Conservador de Bienes Raíces extract provided
+        with no adverse entries; mining and agricultural conflict clearance confirmed
+        by legal counsel; DGA water rights final (if applicable)
+
+  rca_environmental:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: >
+        SEIA applicability assessment completed; if RCA is required, indicate expected
+        timeline for submission; indigenous consultation applicability assessed at high level
+    L2:
+      required: true
+      description: >
+        SEIA/RCA application submitted to SEA; no fatal objections known from authority
+        pre-screening; indigenous consultation (PCPI) initiated if required by SEA screening;
+        CONAF permit application submitted if forest-adjacent
+      chile_note: >
+        A submitted SEIA application with a SEA tracking reference is the minimum for L2.
+        Projects where SEIA has not yet been submitted cannot exceed L1 regardless of
+        other milestone status.
+    L3:
+      required: true
+      description: >
+        RCA issued by SEA and final (no pending recurso de reclamación or judicial
+        challenge); if PCPI was required, consultation is completed and documented;
+        CONAF permit issued (if applicable); construction permit (permiso de edificación)
+        issued by Municipalidad or MOP
+      chile_note: >
+        An RCA under appeal (recurso de reclamación pending at Comité de Ministros or
+        court) is a hard blocker for L3 classification. Confirm RCA finality with
+        qualified Chilean legal counsel. PCPI "initiated" or "in progress" is NOT
+        sufficient for L3 — it must be completed.
+    L4:
+      required: true
+      description: >
+        All RCA conditions precedent fulfilled; construction permit conditions cleared;
+        monitoring and mitigation plan (PAS) in execution; all permit transfer
+        confirmations for SPV share sale documented if applicable
+
+  grid_connection:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: >
+        CEN connection pre-application or grid feasibility assessment initiated;
+        target connection point to SEIN identified; curtailment risk in northern Chile
+        disclosed if applicable
+    L2:
+      required: true
+      description: >
+        CEN technical review application submitted; indicative cost and timeline from
+        CEN available; connection point confirmed; curtailment risk disclosure included
+        in any information memorandum for northern Chile assets
+      chile_note: >
+        CEN technical review typically takes 2–4 months. Submission reference number
+        and date should be available at L2. For northern Chile assets, include
+        quantitative curtailment scenario in the financial model.
+    L3:
+      required: true
+      description: >
+        CEN connection agreement signed with transmission line owner; connection capacity,
+        point, voltage level, and cost agreed; curtailment risk modelled in lender
+        financial model with P10/P50/P90 scenarios for northern assets
+      chile_note: >
+        The connection agreement is signed with the relevant transmission owner
+        (not CEN directly). CEN must have approved the technical review first.
+        No lender will approve construction financing without a signed connection agreement.
+        For northern Chile: the Kimal-Lo Aguirre transmission expansion must be
+        referenced in risk disclosure; it is not yet operational as of 2025–2026.
+    L4:
+      required: true
+      description: >
+        Connection agreement executed and conditions confirmed; energisation schedule
+        agreed with transmission owner; CEN dispatch registration initiated
+
+  revenue_contract:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: >
+        Revenue route identified: corporate PPA, distribution concesionaria, spot market
+        SEIN, or PMGD pricing. Counterparty type identified if PPA targeted
+    L2:
+      required: true
+      description: >
+        Corporate PPA: term sheet or heads of terms with identified counterparty;
+        indicative price, term, and volume documented. Distribution concesionaria:
+        licitación process confirmed and eligibility assessed. PMGD: pricing election
+        (Precio Estabilizado vs marginal) documented
+      chile_note: >
+        A non-binding term sheet is the minimum for L2 PPA evidence. For northern Chile
+        assets relying on spot revenue, a quantified curtailment and zero-price scenario
+        must accompany the revenue model.
+    L3:
+      required: true
+      description: >
+        Corporate PPA signed and executed with creditworthy counterparty (investment-grade
+        or equivalent), minimum 10-year term; or distribution concesionaria contract
+        awarded and executed; or documented merchant strategy with lender-accepted
+        downside analysis including zero-price scenarios for northern Chile
+      chile_note: >
+        Pure solar PPAs without storage are increasingly difficult to finance in Chile.
+        A signed PPA with a creditworthy mining company or industrial offtaker for
+        ≥10 years is the standard expectation for L3. Non-binding term sheets are
+        NOT sufficient for L3.
+    L4:
+      required: true
+      description: >
+        Revenue contracts final, bankable, and reviewed by lender's legal counsel;
+        change-of-control clauses assessed and consents arranged; PMGD registration
+        complete if applicable
+
+  technical_design:
+    L0:
+      required: false
+      description: "Indicative layout or technology type sufficient"
+    L1:
+      required: true
+      description: "Preliminary layout; technology type and approximate capacity confirmed"
+    L2:
+      required: true
+      description: >
+        Bankable technical concept; preliminary design basis; EPC indicative cost estimate;
+        yield/wind resource assessment methodology identified
+    L3:
+      required: true
+      description: >
+        Detailed technical design; equipment specifications confirmed; independent yield
+        assessment or wind resource assessment (P50/P90) by recognised assessor;
+        EPC procurement started or indicative EPC cost confirmed
+    L4:
+      required: true
+      description: >
+        EPC contract signed or in final execution; final BOP design; construction
+        programme agreed; lender's independent technical advisor (ITA) review complete
+
+  energy_yield:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: >
+        Desktop yield estimate using PVGIS, ERA5, or NASA POWER for solar; GWA for wind.
+        P50 indicated. For northern Chile solar: note irradiance levels and curtailment
+        risk in estimate
+    L2:
+      required: true
+      description: >
+        Bankable yield assessment by recognised assessor (DNV, WSP, Pöyry, TÜV SÜD,
+        or equivalent); P50 and P90 stated; for wind: on-site measurement data for
+        ≥6 months; for northern Chile solar: curtailment scenario included
+    L3:
+      required: true
+      description: >
+        Independent yield assessment final; for wind: on-site measurement data ≥12 months;
+        P50/P75/P90 confirmed; curtailment scenario modelled with CEN dispatch data for
+        northern Chile; lender's ITA has reviewed or will review yield assessment
+    L4:
+      required: true
+      description: >
+        Final yield assessment signed by assessor; lender's ITA review complete;
+        curtailment assumptions agreed with lender
+
+  financial_model:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: false
+      description: "Indicative IRR/MOIC range acceptable; no financial model required"
+    L2:
+      required: true
+      description: >
+        Investment-memo-grade financial model; key assumptions stated; sensitivity on
+        P90 yield and PPA price; for northern Chile: curtailment scenario included.
+        Currency and USD-CLP assumptions disclosed
+    L3:
+      required: true
+      description: >
+        Lender-reviewed financial model; DSCR analysis; debt sizing confirmed; curtailment
+        scenario modelled at P10/P50/P90 for northern Chile; all capex and opex validated
+        or under ITA review
+    L4:
+      required: true
+      description: >
+        Agreed base-case model; lender model audited by independent accountant;
+        all revenue, capex, opex, and financing assumptions confirmed
+
+  corporate_ownership:
+    L0:
+      required: false
+      description: "Seller entity name acceptable"
+    L1:
+      required: true
+      description: "SPV structure described; UBO identified at summary level"
+    L2:
+      required: true
+      description: "Corporate structure chart; UBO identification; no material ownership dispute"
+    L3:
+      required: true
+      description: >
+        Full corporate due diligence pack; UBO confirmed; no encumbrances on SPV shares;
+        SPV tax registration in Chile (RUT) confirmed; permit transferability on share sale
+        confirmed by legal counsel
+    L4:
+      required: true
+      description: "Legal opinion on title to SPV shares; signing authority confirmed"
+
+  dga_water_rights:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: false
+      description: "For CSP or hydro only: indicate whether DGA water rights have been identified"
+    L2:
+      required: true
+      description: >
+        For CSP and hydro only: DGA water rights application submitted or rights identified
+        and application in preparation. Applicability confirmed with DGA. Competing
+        claims from mining or agricultural users noted if known
+      chile_note: >
+        DGA water rights in Atacama and northern regions are extremely scarce.
+        Competing claims from mining industry are common. Permanent rights (derechos
+        permanentes) are preferred over eventual rights (derechos eventuales). Judicial
+        disputes are common and can last years.
+    L3:
+      required: true
+      description: >
+        For CSP and hydro only: DGA water rights secured (DGA resolution confirming
+        permanent or eventual rights) or legal opinion confirming rights are uncontested
+        and adequate for project needs. Competing claim status confirmed
+    L4:
+      required: true
+      description: "DGA water rights final, registered, and uncontested; legal opinion provided"
+
+  data_room:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: false
+      description: "Optional: indicate data room platform if available"
+    L2:
+      required: true
+      description: >
+        NDA-accessible data room with: SEIA/RCA application reference, land agreement
+        copies, CEN application confirmation, yield assessment, PCPI status documentation,
+        technical summary
+    L3:
+      required: true
+      description: >
+        Full diligence data room; legal, technical, environmental, financial, and
+        indigenous consultation sections populated; RCA copy; signed connection agreement;
+        signed PPA; DGA water rights documentation (if applicable)
+    L4:
+      required: true
+      description: >
+        Complete data room; all conditions precedent documents uploaded; VDD reports
+        (technical, legal, financial, environmental) available; insurance documents
+
+  insurance:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: false
+      description: "Not required"
+    L2:
+      required: false
+      description: "Construction insurance concept described if under construction"
+    L3:
+      required: true
+      description: >
+        Operating asset: all-risk, liability, and business interruption insurance
+        active and assignable. Construction asset: erection all-risk (EAR) policy
+        in place or confirmed
+    L4:
+      required: true
+      description: "Insurance review by lender's broker; assignment to lender documented"

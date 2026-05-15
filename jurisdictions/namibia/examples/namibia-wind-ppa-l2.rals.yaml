@@ -1,0 +1,320 @@
+# ============================================================================
+# RALS Jurisdiction Package — Namibia (NA)
+# Example: namibia-wind-ppa-l2.rals.yaml
+# ============================================================================
+# Asset:        Project Karas Wind (fictional)
+# Technology:   Onshore wind, 40 MW
+# Stage:        Development — L2 (Investment Memo Ready)
+# Location:     Karas Region, southern Namibia
+# Purpose:      Demonstrates L2 Namibian wind project with meaningful progress:
+#               ECC obtained from MEFT (2025); RERA generation licence application
+#               submitted; NamPower feasibility study complete; state lease signed
+#               and registered at Deeds Office; IPP tender bid submitted (20 MW tranche).
+#               Blockers preventing L3:
+#               - Minister of Mines and Energy generation licence decision pending
+#               - NamPower Grid Connection Agreement not yet signed
+#               - IPP tender award not yet confirmed (bid submitted; award pending)
+# ============================================================================
+fictional: true
+source: "synthetic_example"
+confidentiality: "public_example"
+
+rals_version: "0.1"
+document_id: "rals:NA-EX-WI-DEV-L2-001"
+generated_at: "2026-05-15T09:00:00Z"
+generated_by: "rals-jurisdiction-example-generator"
+language: "en"
+
+rals_jurisdiction:
+  jurisdiction_package: NA
+  rals_jurisdiction_version: "0.1"
+  assessed_readiness_level: L2
+  readiness_label: "Investment Memo Ready"
+  jurisdiction_assessment_date: "2026-05-15"
+  downgrade_reasons:
+    - "Generation licence: RERA application submitted and RERA review complete; Minister of Mines and Energy decision PENDING — licence not yet granted"
+    - "Grid: NamPower feasibility study complete but Grid Connection Agreement NOT yet signed"
+    - "Offtake: IPP tender bid submitted for 20 MW tranche; award NOT yet confirmed"
+    - "Revenue: NamPower PPA tariff not yet agreed or executed — IPP tender award required first"
+
+# ── Identity ─────────────────────────────────────────────────────────────────
+identity:
+  asset_name: "Project Karas Wind"
+  asset_type: onshore_wind
+  lifecycle_stage: development
+  country: NA
+  region: "//Karas"
+  sub_region: "Karasburg District"
+  total_capacity_mw_ac: 40.0
+  site_area_hectares: 1200
+  transaction_type: majority_stake
+  equity_offered_pct: 80
+  spv_structure: true
+  spv_jurisdiction: "Namibia"
+  spv_name: "Karas Wind Energy (Pty) Ltd"
+  local_content_note: >
+    SPV structure includes 39% Namibian shareholding (Black Granite Energy Investments
+    — a Namibian-owned holding entity) and 20.5% previously disadvantaged Namibian
+    (PDN) participation via a community trust (Karasburg Community Development Trust).
+    These thresholds satisfy the 2025 NamPower IPP tender local content requirements.
+    Structure confirmed by Namibian legal counsel.
+
+# ── Technical ─────────────────────────────────────────────────────────────────
+technical:
+  expected_lifetime_years: 25
+  turbine:
+    concept: "8 turbines × 5 MW class (Vestas V150 or Nordex N149 — shortlisted; not yet contracted)"
+    rotor_diameter_m: 150
+    hub_height_m: 105
+    turbine_number: 8
+  production_estimates:
+    methodology: >
+      On-site met mast data (18 months; 80m and 100m AGL); ERA5 reanalysis long-term
+      correction; WAsP terrain modelling. Independent bankable assessment by
+      AWS Truepower (now UL Renewables). Karas Region: strong Southern Hemisphere
+      trade wind resource; mean wind speed at hub height 7.8 m/s.
+    p50_gwh_yr: 132.0
+    p90_gwh_yr: 116.0
+    assessor: "UL Renewables (independent bankable assessment)"
+    assessment_date: "2025-11-01"
+    assessment_quality: bankable_independent
+    curtailment_modelled: true
+    curtailment_assumption_pct: 3.0
+    curtailment_note: >
+      NamPower confirmed in feasibility study that 3% curtailment assumption is
+      conservative for the Karasburg connection point in current grid conditions.
+      Developer has modelled P90 curtailment scenario at 6%.
+
+# ── Grid & Offtake ────────────────────────────────────────────────────────────
+grid_offtake:
+  grid_connection:
+    status: feasibility_complete
+    grid_operator: "NamPower"
+    voltage_level_kv: 132
+    connection_point: "Karasburg 132/33 kV substation"
+    connection_evidence: >
+      NamPower technical feasibility study issued December 2024. Study confirms that
+      the Karasburg 132/33 kV substation can accommodate 40 MW injection subject to
+      a minor protection relay upgrade (developer cost: NAD 3.2m; NamPower timeline:
+      Q3 2026). Grid connection offer letter received from NamPower (February 2025).
+      Grid Connection Agreement: negotiations ongoing; term sheet agreed in principle;
+      execution targeted Q3 2026.
+    grid_risk_note: >
+      Grid Connection Agreement not yet signed. This is a key L3 gate condition.
+      NamPower connection offer letter and term sheet support L2 classification.
+      NamPower's grid is small (~1.5 GW peak); 40 MW represents a manageable addition
+      per the feasibility study but protection upgrade must be completed before COD.
+  offtake_structure: ipp_tender_bid
+  revenue_model: ipp_tender_bid
+  ppa_counterparty: "NamPower"
+  revenue_note: >
+    Developer submitted a bid in the NamPower 2025 IPP tender for one 20 MW tranche
+    (out of the six 20 MW plant tenders). Bid submitted December 2025. Award decision
+    expected H1 2026. Developer also pursuing a bilateral NamPower MSB PPA for the
+    remaining 20 MW outside the tender (separate negotiation track; at term sheet
+    discussion stage). For modelling purposes, the financial model uses the tender
+    bid tariff of NAD 0.82/kWh (submitted price) for the 20 MW tender tranche,
+    and an assumed bilateral tariff of NAD 0.85/kWh for the remaining 20 MW.
+    Note: neither tariff is contracted. IPP tender award pending. Bilateral PPA not signed.
+  refit_applicable: false
+
+# ── Compliance ────────────────────────────────────────────────────────────────
+compliance:
+  ecc_status: ecc_granted
+  ecc_detail: >
+    Environmental Clearance Certificate granted by MEFT Department of Environmental Affairs,
+    July 2025. ECC reference: ECC-MEFT-2025-0341. Validity: 3 years (expires July 2028).
+    Conditions: (1) avian monitoring programme during construction and first 2 years of
+    operation (lammergeier and black eagle present in Karas Region); (2) soil rehabilitation
+    plan for access road construction; (3) quarterly environmental compliance reports.
+    All conditions reviewed; conditions (2) and (3) acceptable; avian monitoring programme
+    designed and budgeted. ECC validity covers planned construction period (COD target Q4 2027).
+  environmental_status: ecc_obtained
+  generation_licence_status: minister_decision_pending
+  generation_licence_detail: >
+    RERA generation licence application submitted April 2025. Application included:
+    certificate of incorporation (Karas Wind Energy (Pty) Ltd), Deeds Office registered
+    state lease, site location map, NamPower grid inquiry reference, environmental
+    screening note. RERA confirmed application complete (docketed) May 2025.
+    RERA review completed: RERA issued a positive recommendation to the Minister of
+    Mines and Energy, November 2025. Minister's decision: PENDING as of assessment date.
+    Anticipated decision: Q2 2026. No indication of Ministerial objection.
+  minister_decision_note: >
+    RERA recommendation is positive but Ministerial approval is NOT yet granted.
+    Under this jurisdiction package, a positive RERA recommendation supports L2.
+    Minister's approval is required for L3. This is a hard gate condition.
+  local_authority_notification: completed
+  local_authority_note: >
+    Karasburg Constituency Communal Authority notified (formal letter April 2025).
+    Community engagement meeting held May 2025; meeting minutes on file.
+    No objections raised by Traditional Authority. Site is on state lease land
+    (not communal land) — notification was conducted as good practice.
+
+# ── Land ─────────────────────────────────────────────────────────────────────
+land:
+  land_control_status: state_lease_registered
+  land_parcels: 1
+  land_area_ha: 1200
+  land_detail: >
+    30-year state lease agreement signed with the Ministry of Lands Reform,
+    Government of Namibia (lease no. SL-KA-2024-0087). Lease registered at the
+    Namibia Deeds Office, Windhoek, February 2025. No encumbrances on the title.
+    Lease term runs from January 2025 to December 2054 — covers the full 25-year
+    PPA term and provides a 5-year buffer. Lease permits commercial wind energy
+    development. Annual lease rental: NAD 180,000/yr (reviewed every 5 years
+    in line with CPI).
+  land_legal_opinion: >
+    Namibian legal opinion (Ikechukwu & Partners, Windhoek, March 2025) confirms:
+    (i) lease is validly registered at Deeds Office; (ii) no adverse encumbrances;
+    (iii) lease permits commercial wind energy development; (iv) Government of Namibia
+    has capacity to grant state lease for this purpose. Opinion on file in data room.
+  land_risks:
+    - "No land risk issues identified — state lease registered and legally confirmed"
+
+# ── Financials ───────────────────────────────────────────────────────────────
+financials:
+  reporting_currency: EUR
+  total_capex_eur: 52000000
+  capex_breakdown:
+    turbines_eur: 36000000
+    civil_foundations_eur: 6500000
+    grid_connection_eur: 1200000
+    protection_relay_upgrade_eur: 180000
+    access_roads_eur: 1800000
+    development_costs_eur: 2000000
+    contingency_eur: 4320000
+  capex_note: >
+    Independent owner's engineer cost estimate (Aurecon Namibia, October 2025).
+    Namibian EPC logistics premium included in civil estimate. Contingency at 10%
+    of hardware and civil costs. EPC contractor: not yet contracted (EPCI tender
+    planned Q3 2026 following generation licence and IPP tender award).
+    EUR amounts converted from NAD at 0.050 EUR/NAD (indicative; project financing
+    to be structured in NAD with EUR-denominated equity injection).
+  capex_confidence: medium
+  opex_eur_yr: 980000
+  opex_detail: >
+    O&M contract (South African O&M firm, indicative): EUR 650k/yr.
+    Land lease: NAD 180k/yr (~EUR 9k/yr). Insurance: EUR 180k/yr.
+    Local content management and community trust administration: EUR 80k/yr.
+    General and administrative: EUR 60k/yr.
+    Namibian EPC and O&M availability premium included in O&M estimate.
+  financial_model_available: true
+  financial_model_note: >
+    Investment memo level financial model prepared by project finance team.
+    Base case: 20 MW at NAD 0.82/kWh (IPP tender) + 20 MW at NAD 0.85/kWh (bilateral).
+    P50 yield 132 GWh/yr. Equity IRR: 13.8% (EUR unlevered) / 18.2% (levered, 70:30 D/E).
+    DSCR: 1.32x average (P50). Model includes: NAD/EUR FX risk (NAD/ZAR peg noted;
+    EUR/ZAR historical volatility modelled); curtailment at 3% base; P90 downside at 6%;
+    contingency reserve account; local content structuring costs.
+    Model has not yet been reviewed by a lender's independent model auditor.
+    Sensitivity analyses: (i) award at 10% lower tariff; (ii) no bilateral PPA
+    (50% capacity on merchant pricing — severe downside); (iii) 12-month COD delay.
+
+# ── Process ──────────────────────────────────────────────────────────────────
+process:
+  process_type: bilateral
+  data_room_status: partial
+  data_room_sections_available:
+    - "Corporate: certificate of incorporation, shareholder agreement (draft), local content structure legal opinion"
+    - "Land: Deeds Office registered state lease, legal opinion on title"
+    - "Environmental: ECC (July 2025), avian monitoring programme, community engagement minutes"
+    - "Permitting: RERA application, RERA docket confirmation, RERA recommendation letter to Minister"
+    - "Grid: NamPower feasibility study (December 2024), NamPower connection offer letter, grid term sheet"
+    - "Yield: UL Renewables bankable assessment (November 2025), met mast dataset summary"
+    - "Financial: investment memo model, capex estimate (Aurecon), opex indicative"
+    - "Revenue: IPP tender bid submission confirmation, bilateral PPA term sheet (draft)"
+  data_room_sections_missing:
+    - "Minister's generation licence decision (pending)"
+    - "Signed NamPower Grid Connection Agreement (not yet executed)"
+    - "Signed NamPower PPA or confirmed IPP tender award"
+    - "EPC contractor selection and contract (EPCI tender not yet launched)"
+    - "Lender-reviewed financial model"
+  seller_contact: "karas-wind@example-developer.com"
+  transaction_advisor: "Renewable Capital Advisors (Johannesburg)"
+  process_note: >
+    Seller is seeking a majority equity co-investor (acquisition of up to 80% stake
+    at development stage). Preferred completion: after Minister's generation licence
+    granted and IPP tender award confirmed (i.e., when project reaches L3).
+    Current sale process allows early engagement at L2 with a value adjustment
+    mechanism tied to licence and award milestones.
+
+# ── Risk Flags ───────────────────────────────────────────────────────────────
+risk_flags:
+  - risk_id: rera_minister_approval_risk
+    active: true
+    severity: high
+    note: >
+      RERA has issued a positive recommendation to the Minister of Mines and Energy.
+      Minister's decision is pending (expected Q2 2026). While the positive RERA
+      recommendation reduces risk, the Ministerial decision is not guaranteed and
+      timing is uncertain. This is the primary regulatory risk and a hard L3 gate.
+
+  - risk_id: nampower_single_buyer_risk
+    active: true
+    severity: high
+    note: >
+      NamPower is the only offtaker. IPP tender award not yet confirmed. Bilateral PPA
+      not yet signed. Once awarded, NamPower PPA counterparty risk remains for
+      25-year term. NamPower creditworthiness assessment should be conducted
+      as part of L3 diligence.
+
+  - risk_id: grid_capacity_small_market
+    active: true
+    severity: medium
+    note: >
+      NamPower feasibility study confirmed 40 MW is accommodatable at Karasburg 132/33 kV
+      substation subject to protection relay upgrade. Grid Connection Agreement not yet
+      signed. Upgrade cost (NAD 3.2m) is manageable and included in capex. Risk remains
+      MEDIUM pending signed connection agreement.
+
+  - risk_id: unclear_revenue_route
+    active: true
+    severity: medium
+    note: >
+      Revenue route identified (IPP tender + bilateral PPA) and bid submitted,
+      but neither is confirmed. IPP tender award pending; bilateral PPA at term sheet
+      stage. Severity MEDIUM (not HIGH) because engagement with NamPower is active
+      and documented. Elevate to HIGH if award is delayed beyond Q3 2026.
+
+  - risk_id: local_content_requirement
+    active: false
+    note: >
+      Local content structure confirmed: 39% Namibian (Black Granite Energy Investments)
+      + 20.5% PDN (Karasburg Community Development Trust). Exceeds both thresholds.
+      Namibian legal opinion confirms compliance. Risk closed at this stage.
+
+  - risk_id: currency_nad_zar_peg_risk
+    active: true
+    severity: medium
+    note: >
+      NamPower PPA to be denominated in NAD. EUR-based equity investor faces NAD/EUR
+      FX risk over 25-year PPA term. NAD/ZAR peg provides relative stability;
+      EUR/ZAR volatility is the residual risk. Modelled in financial model;
+      hedging strategy not yet contracted.
+
+  - risk_id: limited_local_epc_om_capacity
+    active: true
+    severity: medium
+    note: >
+      EPC contractor not yet contracted. Aurecon cost estimate assumes Southern African
+      contractors for civil and a European-sourced turbine supply. O&M to be contracted
+      with a South African O&M firm. Namibian logistics premium included in estimates.
+      EPC tender to be launched Q3 2026 — contractor market risk remains.
+
+  - risk_id: communal_land_title_risk
+    active: false
+    note: "Site is on registered state lease land (SL-KA-2024-0087). No communal land risk."
+
+  - risk_id: h2_offtake_uncertainty
+    active: false
+    note: "No H2 component. Pure onshore wind project. Not applicable."
+
+validator_note: >
+  Project Karas Wind is correctly classified at L2. The project has achieved meaningful
+  development milestones: registered state lease, ECC granted, RERA application with
+  positive recommendation, NamPower feasibility study complete, bankable yield assessment,
+  and IPP tender bid submitted with local content structure confirmed. Three hard conditions
+  prevent L3 classification: (i) Minister of Mines and Energy generation licence decision
+  pending; (ii) NamPower Grid Connection Agreement not yet signed; (iii) IPP tender award
+  not yet confirmed. When all three conditions are satisfied simultaneously, the project
+  advances to L3 and is suitable for DFI credit committee submission.

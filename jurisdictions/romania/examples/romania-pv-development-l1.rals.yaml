@@ -1,0 +1,185 @@
+# ============================================================================
+# RALS Jurisdiction Package — Romania
+# Example: romania-pv-development-l1.rals.yaml
+# ============================================================================
+# Asset:        Project Câmpia (fictional)
+# Technology:   Solar PV, utility-scale ground-mount
+# Stage:        Development — L1 (Screenable)
+# Location:     Olt County, Oltenia region
+# Purpose:      Demonstrates L1 Romanian PV asset. ATR application submitted but
+#               not yet issued. Land partly under option — some parcels unregistered
+#               in CF. Permit pathway identified but not started. L1 maximum due
+#               to missing ATR and unresolved land/CF issues.
+# ============================================================================
+fictional: true
+source: "synthetic_example"
+confidentiality: "public_example"
+
+rals_version: "0.1"
+document_id: "rals:RO-EX-PV-DEV-L1-001"
+generated_at: "2026-05-15T09:00:00Z"
+generated_by: "rals-jurisdiction-example-generator"
+language: "en"
+
+rals_jurisdiction:
+  jurisdiction_package: RO
+  rals_jurisdiction_version: "0.1"
+  assessed_readiness_level: L1
+  readiness_label: "Screenable"
+  jurisdiction_assessment_date: "2026-05-15"
+  downgrade_reasons:
+    - "ATR: application submitted but not yet issued — no confirmed grid connection"
+    - "Land: 4 of 11 parcels not yet under option; 3 parcels lack CF registration"
+    - "Permit: pathway identified but not started"
+    - "Revenue: merchant base case only; no PPA; CfD not available"
+
+# ── Identity ─────────────────────────────────────────────────────────────────
+identity:
+  asset_name: "Project Câmpia"
+  asset_type: solar_pv
+  lifecycle_stage: development
+  country: RO
+  region: "Oltenia"
+  sub_region: "Olt County"
+  total_capacity_mw_ac: 48.0
+  total_capacity_mw_dc: 60.0
+  dc_ac_ratio: 1.25
+  site_area_hectares: 88
+  transaction_type: majority_stake
+  equity_offered_pct: 80
+  spv_structure: true
+  spv_jurisdiction: "Romania"
+
+# ── Technical ─────────────────────────────────────────────────────────────────
+technical:
+  expected_lifetime_years: 30
+  design_basis_year: 2025
+  mounting:
+    type: fixed_tilt
+    tilt_angle_deg: 28
+  production_estimates:
+    methodology: "PVGIS v5.2 desktop estimate — no independent assessor engaged yet"
+    p50_gwh_yr: 70.8
+    p90_gwh_yr: null
+    assessor: "Internal developer estimate"
+    assessment_date: "2025-09-01"
+    assessment_quality: desktop_only
+    assessment_note: >
+      No independent bankable yield assessment. P90 not calculated.
+      Estimate based on PVGIS irradiation data for Olt County.
+      Uncertainty: ±15–20%. Independent assessment needed before L2.
+
+# ── Grid & Offtake ────────────────────────────────────────────────────────────
+grid_offtake:
+  grid_connection:
+    status: application_submitted
+    grid_operator: "E.ON Distributie Romania (DSO) / Transelectrica (TSO coordination)"
+    voltage_level_kv: 110
+    connection_point_concept: "Target: Slatina Nord 110 kV substation"
+    connection_evidence: >
+      ATR (Aviz Tehnic de Racordare) application submitted to E.ON Distributie Romania
+      in November 2025. ATR not yet issued — estimated issuance: Q3 2026.
+      Financial guarantee (5% of estimated connection cost per ANRE Order 20/2025)
+      not yet deposited — deadline upon ATR issuance.
+      Grid capacity at target substation unconfirmed.
+    grid_risk_note: >
+      No ATR received. Substation capacity unconfirmed. Financial guarantee required
+      upon ATR issuance — confirm developer has EUR capital to post guarantee.
+      Slatina area not in declared Transelectrica moratorium zone but growing
+      PV pipeline in Oltenia is creating capacity pressure.
+  offtake_structure: merchant
+  revenue_model: merchant_opcom
+  revenue_note: >
+    Base case: OPCOM day-ahead market (PZU). No PPA discussions initiated.
+    No CfD award. Romanian power prices are below Western European levels.
+    Full merchant exposure is HIGH risk for any lender.
+
+# ── Compliance ────────────────────────────────────────────────────────────────
+compliance:
+  permitting_status: pre_application
+  permitting_authority: "Consiliul Judetean Olt (environmental); Primaria Slatina (building permit)"
+  permitting_detail: >
+    Environmental permit (aviz de mediu) application not yet submitted.
+    Pre-application consultation with County Agency for Environmental Protection
+    (APM Olt) completed in September 2025 — no fatal constraint indicated.
+    Building permit pathway: zoning change (PUZ) required before construction permit.
+    PUZ process estimated 6–12 months. Total permit timeline: 18–30 months.
+  environmental_status: screening_completed
+  environmental_detail: >
+    Natura 2000 screening: site not within protected area boundary.
+    Agricultural land (teren arabil) — standard for Olt County PV.
+    De-registration (scos din circuitul agricol) required before construction permit.
+
+# ── Land ─────────────────────────────────────────────────────────────────────
+land:
+  land_control_status: option_under_negotiation
+  land_parcels: 11
+  land_area_ha: 88
+  land_detail: >
+    11 parcels (88 ha total). Status:
+    - 7 parcels: signed optiune de inchiriere (lease option) with individual landowners
+    - 4 parcels: under negotiation, no binding agreement yet
+    - 3 parcels (including 2 of the unoptioned parcels): NOT registered in Cartea Funciara (CF)
+    CF registration process initiated for the 3 unregistered parcels but not completed.
+  land_risks:
+    - "4 of 11 parcels: no binding agreement. Landowner may decline or increase price."
+    - "3 parcels lack CF registration — title cannot be confirmed; mortgage impossible"
+    - "Agricultural de-registration (scos din circuit) needed for all parcels before construction"
+    - "Unregistered land is a material risk — Romanian cadastral registration can take 6–24 months"
+
+# ── Financials ───────────────────────────────────────────────────────────────
+financials:
+  reporting_currency: EUR
+  total_capex_eur: null
+  capex_note: >
+    No independent capex estimate. Developer indicative: EUR 32–38m
+    (EUR 670–790/kWp installed). Grid connection cost not quantified (ATR not issued).
+  capex_confidence: not_assessed
+  financial_model_available: false
+  financial_model_note: >
+    No financial model available. Return projections would depend on OPCOM price
+    assumptions and connection cost — both unconfirmed at this stage.
+
+# ── Process ──────────────────────────────────────────────────────────────────
+process:
+  process_type: bilateral
+  data_room_status: partial
+  data_room_note: >
+    Partial documentation available under NDA: ATR application, APM Olt screening
+    letter, option agreements for 7 parcels, PVGIS assessment, corporate structure.
+    No formal data room platform — shared via secure email or WeTransfer.
+  seller_contact: "campia-dev@example-developer.ro"
+
+# ── Risk Flags ───────────────────────────────────────────────────────────────
+risk_flags:
+  - risk_id: grid_not_secured
+    active: true
+    severity: high
+    note: "ATR not yet issued. Financial guarantee not deposited. Connection unconfirmed."
+  - risk_id: land_not_secured
+    active: true
+    severity: high
+    note: "4 parcels without binding agreement. 3 parcels not in CF — title unverifiable."
+  - risk_id: land_not_registered
+    active: true
+    severity: high
+    note: "3 parcels lack CF registration. Material title and security risk."
+  - risk_id: permitting_not_started
+    active: true
+    severity: high
+    note: "Environmental permit not submitted. PUZ required. 18–30 month timeline."
+  - risk_id: unclear_revenue_route
+    active: true
+    severity: high
+    note: "Fully merchant. No PPA. No CfD available. Full OPCOM price exposure."
+  - risk_id: yield_unvalidated
+    active: true
+    severity: medium
+    note: "PVGIS desktop only. No independent assessor. P90 not calculated."
+  - risk_id: missing_data_room
+    active: true
+    severity: medium
+    note: "No formal data room. Partial documentation via email."
+  - risk_id: transaction_readiness_inflation
+    active: false
+    note: "Developer has not claimed RTB — development stage is correctly stated"

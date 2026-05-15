@@ -1,0 +1,114 @@
+# RALS Jurisdiction Package — Austria
+# profile.yaml
+# Version: 0.1 | Status: active | Last reviewed: 2026-05
+
+jurisdiction_code: AT
+name: Austria
+rals_jurisdiction_version: "0.1"
+status: active
+last_reviewed: "2026-05"
+
+supported_technologies:
+  - solar_pv
+  - onshore_wind
+  - hydro
+  - bess
+  - hybrid
+  - biomass
+  - geothermal
+
+common_transaction_types:
+  - full_acquisition
+  - majority_stake
+  - minority_stake
+  - refinancing
+  - joint_venture
+
+common_lifecycle_stages:
+  - greenfield
+  - development
+  - ready_to_build
+  - under_construction
+  - operating
+  - repowering_candidate
+
+primary_authorities:
+  energy_regulator: "E-Control (Energie-Control Austria)"
+  energy_regulator_url: "https://www.e-control.at"
+  ministry: "Bundesministerium für Klimaschutz, Umwelt, Energie, Mobilität, Innovation und Technologie (BMK)"
+  ministry_url: "https://www.bmk.gv.at"
+  support_scheme_administrator: "OeMAG Abwicklungsstelle für Ökostrom AG"
+  support_scheme_administrator_url: "https://www.oem-ag.at"
+  environmental_authority: "Umweltbundesamt (UBA)"
+  environmental_authority_url: "https://www.umweltbundesamt.at"
+  uvp_authority: "UVP-Behörde (Landesregierungen / Bundesministerium)"
+
+grid_authorities:
+  tso: "APG (Austrian Power Grid AG)"
+  tso_url: "https://www.apg.at"
+  primary_dso: "Wiener Netze, Netz Niederösterreich, Netz Oberösterreich, Salzburg Netz (regional)"
+  grid_connection_process: >
+    Connection applications submitted to regional DSO or APG depending on voltage level.
+    Feasibility study (Netzstudie) followed by connection offer (Netzanschlusszusage).
+    High voltage (110 kV+) projects coordinated with APG.
+  grid_capacity_note: >
+    Grid bottlenecks are emerging in several regions due to rapid PV deployment.
+    Some DSO areas impose queue management or conditional offers pending grid reinforcement.
+    The ElWG (Electricity Industry Act) reform, pending as of mid-2026, may introduce
+    flexibility mechanisms for constrained connection areas.
+
+market_design_notes:
+  support_scheme: >
+    Austria operates a market premium system under the Ökostromgesetz 2012 (ÖSG 2012)
+    and its successor framework under the Erneuerbaren-Ausbau-Gesetz (EAG, 2021).
+    Support is administered by OeMAG via competitive tenders (Ausschreibungen) for
+    utility-scale PV and wind. Feed-in tariffs apply to smaller installations.
+  eag_status: >
+    The EAG (Erneuerbaren-Ausbau-Gesetz) establishes the framework for achieving
+    100% renewable electricity by 2030. Tenders are conducted annually. Market premium
+    contracts typically run 20 years.
+  merchant_market: >
+    EPEX SPOT (day-ahead and intraday). Austria is part of the CWE price zone.
+    Power purchase agreements (PPAs) are increasingly used for merchant or
+    partially-subsidised assets.
+  permitting_note: >
+    Austria's federal structure means permitting is primarily a state (Bundesland)
+    competence. Each of the nine Bundesländer has its own spatial planning laws
+    (Raumordnungsgesetze) and building codes. UVP (Umweltverträglichkeitsprüfung)
+    is required for large projects and is federally administered. The Renewable
+    Energy Expansion Acceleration Act (EABG) was announced in 2024 to implement
+    RED III requirements but remained unpassed as of mid-2026 due to constitutional
+    and political disputes.
+  hydro_note: >
+    Operating hydro assets require a valid water rights concession (Wasserrechtsbescheid)
+    from regional water authorities. Concession duration and renewal terms are critical
+    transaction risk factors. Run-of-river assets are most common for M&A purposes.
+
+key_transaction_risks:
+  - grid_capacity_constraints_regional
+  - permitting_bundesland_variability
+  - uvp_duration_and_uncertainty
+  - eabg_legislative_delay
+  - land_rights_complexity_alpine
+  - hydro_concession_renewal_risk
+  - wind_height_restrictions_by_state
+  - pv_noise_setback_requirements
+
+validation_scope:
+  covers:
+    - field_interpretation
+    - evidence_requirements
+    - readiness_level_assignment
+    - risk_flag_evaluation
+  does_not_cover:
+    - legal_title_verification
+    - financial_model_audit
+    - tax_structuring
+    - regulatory_compliance_certification
+
+disclaimer: >
+  This jurisdiction package is a technical reference for transaction-readiness assessment.
+  It is not legal advice. Austrian renewable energy law and grid connection rules change
+  frequently. Always verify current requirements with qualified Austrian legal counsel
+  and the relevant Netzbetreiber or Landesbehörde before relying on this package
+  for a specific transaction.

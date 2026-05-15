@@ -1,0 +1,244 @@
+# RALS Jurisdiction Package — Italy
+# risks.yaml
+# Structured risk taxonomy for Italian renewable energy transactions
+# Version: 0.1
+
+jurisdiction_code: IT
+
+risks:
+
+  - risk_id: land_not_secured
+    label: "Land Rights Not Secured"
+    severity_default: high
+    affected_sections: [identity, compliance]
+    buyer_impact: >
+      No enforceable right to build. LOIs and informal agreements are not bankable.
+      Landowner can withdraw at any time before notarised deed.
+    lender_impact: >
+      Construction financing requires registered long-term lease or notarised purchase
+      for all key parcels.
+    mitigation_evidence:
+      - Signed and registered contratto d'affitto (≥15 years)
+      - Or compromesso (preliminary purchase) registered with Agenzia delle Entrate
+      - Visura ipotecaria confirming no adverse mortgage
+    validation_rule: >
+      If lifecycle_stage is ready_to_build or under_construction and land_control_status
+      is option_under_negotiation or not_secured, raise as HIGH risk.
+
+  - risk_id: grid_not_secured
+    label: "Grid Connection Not Secured (SdC Not Accepted)"
+    severity_default: high
+    affected_sections: [grid_offtake]
+    buyer_impact: >
+      Without an accepted SdC, connection point and cost are speculative.
+      Terna queue saturation may make connection impossible in constrained zones.
+    lender_impact: >
+      No lender will finance construction without a signed Convenzione di connessione.
+    mitigation_evidence:
+      - Accepted SdC from Terna or DSO (not expired)
+      - Signed Convenzione di connessione for L3+
+    validation_rule: >
+      If lifecycle_stage is ready_to_build and grid_connection_status is
+      pre_application or sdc_request_submitted, raise as HIGH risk.
+
+  - risk_id: grid_queue_saturation
+    label: "Grid Queue Saturation (Southern Italy)"
+    severity_default: high
+    affected_sections: [grid_offtake]
+    buyer_impact: >
+      Terna has imposed moratoria on new SdC issuance in several HV substations
+      in Puglia, Campania, Calabria, Sicily, and Sardinia. Projects in these areas
+      may be unable to obtain a connection offer for 2–5 years.
+    lender_impact: >
+      A project without a valid SdC in a moratorium zone has no viable construction timeline.
+    mitigation_evidence:
+      - Accepted SdC predating any active moratorium in the relevant zone
+      - Terna confirmation that the specific connection point is available
+    validation_rule: >
+      If region is in Southern Italy and grid_connection_status is pre_application,
+      raise as HIGH risk and require Terna zone status confirmation.
+
+  - risk_id: permitting_not_started
+    label: "Permitting Not Started"
+    severity_default: high
+    affected_sections: [compliance]
+    buyer_impact: >
+      Italian AU can take 18–48 months. Without application, project timeline is speculative.
+    lender_impact: >
+      No debt appetite without at least a submitted AU application.
+    mitigation_evidence:
+      - Pre-application (conferenza dei servizi preliminare) completed
+      - AU application dossier prepared
+    validation_rule: >
+      If lifecycle_stage is development+ and permitting_status is pre_application,
+      raise as HIGH risk with AU timeline estimate required.
+
+  - risk_id: permitting_under_appeal
+    label: "AU Under TAR or Consiglio di Stato Appeal"
+    severity_default: critical
+    affected_sections: [compliance]
+    buyer_impact: >
+      TAR (Tribunale Amministrativo Regionale) or Consiglio di Stato appeal against AU
+      creates binary risk: permit may be annulled. Duration 1–3 years. Project stop.
+    lender_impact: >
+      Hard blocker for any construction financing. No RTB classification permitted.
+    mitigation_evidence:
+      - Legal opinion confirming no pending TAR or Consiglio di Stato proceedings
+      - AU publication date confirmed; 60-day judicial challenge period fully elapsed
+    validation_rule: >
+      If permitting_status is au_granted_not_final, under_tar_appeal, or
+      under_consiglio_di_stato_appeal, raise as CRITICAL. Block RTB classification.
+
+  - risk_id: environmental_constraints
+    label: "Unresolved Environmental or Landscape Constraints"
+    severity_default: medium
+    affected_sections: [compliance]
+    buyer_impact: >
+      Italy has extensive Natura 2000, landscape (paesaggio), and Soprintendenza
+      constraints. Southern Italy coastal and mountain areas are particularly sensitive.
+      Adverse VIA opinions can block or significantly redesign a project.
+    lender_impact: >
+      Environmental conditions in AU may impose curtailment or operational restrictions.
+    mitigation_evidence:
+      - VIA (if required) concluded favourably and included in AU
+      - Soprintendenza nulla osta obtained where required
+      - All environmental conditions reviewed and accepted
+    validation_rule: >
+      If environmental_status is under_review or not_started at L2+, raise as MEDIUM risk.
+
+  - risk_id: unclear_revenue_route
+    label: "Revenue Route Not Confirmed"
+    severity_default: high
+    affected_sections: [financials]
+    buyer_impact: >
+      Without confirmed GSE incentive or signed PPA, revenue assumptions are speculative.
+    lender_impact: >
+      No construction financing without committed revenue (GSE or bankable PPA).
+    mitigation_evidence:
+      - Valid GSE admission/award for FER incentive programme
+      - Or signed PPA with creditworthy Italian or European corporate/utility
+    validation_rule: >
+      If revenue_model is undefined at L2+ or merchant only without merchant strategy, raise as HIGH.
+
+  - risk_id: gse_contract_transferability
+    label: "GSE Contract Transferability Unclear"
+    severity_default: medium
+    affected_sections: [financials, process]
+    buyer_impact: >
+      GSE (Gestore dei Servizi Energetici) may require notification or approval for
+      assignment of FER incentive contracts in M&A transactions. Failure to notify
+      may result in contract termination.
+    lender_impact: >
+      Lenders require confirmed GSE contract assignment to the SPV (or confirmation
+      that share deal structure preserves GSE contract automatically).
+    mitigation_evidence:
+      - Legal opinion on GSE contract status in share deal vs asset deal context
+      - GSE notification or approval obtained where required
+    validation_rule: >
+      If asset has a GSE FER contract and transaction_type is not share_deal,
+      raise as MEDIUM risk and require GSE transferability confirmation.
+
+  - risk_id: merchant_exposure_high
+    label: "High Merchant Revenue Exposure"
+    severity_default: medium
+    affected_sections: [financials]
+    buyer_impact: >
+      Italian power prices (MGP) are structurally above EEX but volatile.
+      Southern Italian pricing can diverge significantly from national reference.
+    lender_impact: >
+      Lenders typically require ≥70% contracted revenue for construction financing.
+    mitigation_evidence:
+      - Long-term PPA covering majority of production
+      - Or capacity market (MSD) access confirmed for BESS
+    validation_rule: >
+      If revenue_model is merchant_gme and no PPA is in place, raise MEDIUM flag.
+
+  - risk_id: capex_unvalidated
+    label: "Capex Not Independently Validated"
+    severity_default: medium
+    affected_sections: [financials]
+    buyer_impact: >
+      Grid connection costs in Italy are highly variable and frequently underestimated.
+      EPC costs in Southern Italy carry logistics premiums for wind.
+    mitigation_evidence:
+      - Independent owner's engineer cost estimate
+      - Connection cost confirmed in Convenzione di connessione
+    validation_rule: >
+      If capex_confidence is low or undefined at L2+, raise as MEDIUM risk.
+
+  - risk_id: yield_unvalidated
+    label: "Energy Yield Not Independently Assessed"
+    severity_default: medium
+    affected_sections: [technical]
+    buyer_impact: >
+      Desktop estimates for Southern Italian PV and wind carry material uncertainty.
+      Curtailment for Southern Italian assets must be modelled.
+    mitigation_evidence:
+      - Independent yield assessment by recognised assessor
+      - Curtailment scenario included for Southern Italy
+    validation_rule: >
+      If yield_assessment is desktop_only at L2+, raise as MEDIUM risk.
+
+  - risk_id: curtailment_southern_italy
+    label: "Grid Curtailment Risk (Southern Italy)"
+    severity_default: medium
+    affected_sections: [grid_offtake, financials]
+    buyer_impact: >
+      Terna imposes curtailment orders (re-dispacciamento) in congested Southern Italian
+      zones. P50 yield is overstated if curtailment is not modelled.
+      Curtailment-related revenue loss of 5–20% has been observed in Puglia, Sicily.
+    lender_impact: >
+      Lenders require curtailment-adjusted P90 in base case DSCR for Southern assets.
+    mitigation_evidence:
+      - Yield assessment includes curtailment scenario based on Terna data
+      - Historical curtailment rates for the specific zone disclosed
+    validation_rule: >
+      If region is Southern Italy and curtailment is not mentioned in yield assessment,
+      raise as MEDIUM risk.
+
+  - risk_id: missing_data_room
+    label: "No Accessible Data Room"
+    severity_default: medium
+    affected_sections: [process]
+    buyer_impact: "Inability to verify AU, SdC, land, and GSE claim. Increases diligence timeline."
+    lender_impact: "No credit committee submission possible without document access."
+    mitigation_evidence:
+      - NDA-gated data room with AU, SdC, land contracts, GSE letters
+    validation_rule: >
+      If data_room_status is not_available at L2+, raise as MEDIUM risk.
+
+  - risk_id: counterparty_unclear
+    label: "Seller or SPV Identity Unclear"
+    severity_default: medium
+    affected_sections: [identity, process]
+    buyer_impact: "AML/KYC requirements; UBO must be identified."
+    mitigation_evidence:
+      - Named Italian SPV (S.r.l. or S.p.A.); UBO identified; corporate structure provided
+    validation_rule: >
+      If seller_legal_entity is missing at L1+, raise as MEDIUM risk.
+
+  - risk_id: title_or_ownership_unclear
+    label: "SPV Ownership or Title Unclear"
+    severity_default: high
+    affected_sections: [identity, process]
+    buyer_impact: "Encumbered SPV quota prevents clean acquisition."
+    mitigation_evidence:
+      - Corporate structure chart; visura camerale (company registry extract)
+      - Visura ipotecaria confirming no quota pledge or encumbrance
+    validation_rule: >
+      If spv_structure is true and no corporate documentation at L2+, raise as HIGH.
+
+  - risk_id: political_or_regulatory_risk
+    label: "Italian Regulatory Risk"
+    severity_default: medium
+    affected_sections: [compliance, financials]
+    buyer_impact: >
+      Italy has a history of retroactive support scheme modifications (e.g. 2014
+      Conto Energia cuts, Spalma Incentivi). FER X auction terms may change between
+      tendering and project completion. Regional moratoria on new developments can
+      affect development-stage projects.
+    mitigation_evidence:
+      - GSE contract locked in before legislative change
+      - PPA structure independent of support scheme
+    validation_rule: >
+      Flag if revenue assumptions depend on future GSE auction awards not yet received.

@@ -1,0 +1,335 @@
+# ============================================================================
+# RALS Jurisdiction Package — Germany (DE)
+# File: risks.yaml
+# ============================================================================
+# Structured risk taxonomy for German renewable energy transactions.
+# Validators should evaluate all risks against the RALS document fields.
+# Active risks reduce the maximum assignable readiness level per
+# transaction-readiness.yaml rules.
+# ============================================================================
+
+jurisdiction_code: DE
+
+risks:
+
+  - risk_id: permitting_under_appeal
+    label: "BImSchG Permit Under Appeal (Klagewelle)"
+    severity_default: critical
+    affected_sections: [compliance, financials, process]
+    buyer_impact: >
+      Construction cannot start while appeal pending. Project value at significant
+      risk if permit overturned. Timeline uncertainty: 1–4 years for court resolution.
+    lender_impact: >
+      No bank will finance construction under an appealed permit. Project is
+      unfinanceable until permit is rechtskräftig.
+    mitigation_evidence:
+      - "Written Rechtskraft confirmation from Genehmigungsbehörde (appeal window closed, no appeals received)"
+      - "Court clearance certificate from Verwaltungsgericht (if appeal was filed and dismissed)"
+    validation_rule: >
+      If compliance.permitting_status = permit_issued_under_appeal or if
+      Verwaltungsgericht/OVG challenge is mentioned: set risk active, severity CRITICAL.
+      Maximum readiness = L2 until permit is rechtskräftig.
+    jurisdiction_note: >
+      ~20–30% of German wind permits are appealed. Environmental associations
+      (UmweltVerbände) and local citizens are the main appellants. Species protection
+      (§44 BNatSchG — Rotmilan/bats) is the most common ground. Appeals can succeed
+      even after permit issue; validators must not treat issued permit as final.
+
+  - risk_id: species_protection_rotmilan
+    label: "Species Protection Risk (Red Kite / Bats)"
+    severity_default: high
+    affected_sections: [compliance, technical]
+    buyer_impact: >
+      Missing species surveys = permit may be challenged or refused. Required
+      mitigation (radar shutdown systems) adds EUR 100k–500k and operational
+      curtailment. Unquantified species risk = valuation uncertainty.
+    lender_impact: >
+      Lenders require confirmed species survey outcome and mitigation plan
+      before financing wind projects in Rotmilan territory.
+    mitigation_evidence:
+      - "2-year bird/bat baseline survey (on-site) with qualified ecologist"
+      - "Artenschutzrechtliche Stellungnahme included in BImSchG permit"
+      - "Vogelschlagvermeidungssystem (radar shutdown system) designed and approved (if required)"
+      - "Artenhilfsprogramm (species aid program) agreement if population is above threshold"
+    validation_rule: >
+      If compliance.environmental_status does not reference species assessment OR
+      if asset is wind in northern/central Germany: flag risk HIGH. If survey is
+      missing or <12 months baseline: flag CRITICAL.
+    jurisdiction_note: >
+      Germany holds >50% of global red kite (Rotmilan, Milvus milvus) population.
+      Brandenburg, Sachsen-Anhalt, Thüringen, and Sachsen are high-risk regions.
+      Southern Bavaria, most coastal zones are lower risk. Bat surveys must cover
+      spring/autumn migration seasons.
+
+  - risk_id: grid_connection_delay
+    label: "Grid Connection Delay / Conditional NAZ"
+    severity_default: high
+    affected_sections: [grid_offtake, process]
+    buyer_impact: >
+      Project timeline extends; EEG auction award deadline at risk if connection
+      delayed. Conditional NAZ (reinforcement dependent) = unresolved cost risk.
+    lender_impact: >
+      Signed unconditional NAV required for financing. Conditional or unsigned
+      NAV = not financeable.
+    mitigation_evidence:
+      - "Signed NAV (Netzanschlussvertrag) with TSO/DSO — unconditional"
+      - "Confirmed NVP (Netzverknüpfungspunkt) and execution schedule"
+      - "No outstanding Netzverstärkungsvorbehalt (grid reinforcement condition)"
+    validation_rule: >
+      If grid_offtake.grid_connection_status != nav_signed: flag risk active.
+      If NAZ is conditional on reinforcement: severity CRITICAL.
+      If NAB not yet submitted: severity HIGH.
+    jurisdiction_note: >
+      TSO grid connection queues are saturated as of 2025. BESS connections
+      especially delayed (~650 pending requests). NAZ to NAV timeline can be
+      6–18 months even after NAZ received.
+
+  - risk_id: curtailment_risk
+    label: "Redispatch 2.0 Curtailment Risk (Northern Germany)"
+    severity_default: medium
+    affected_sections: [grid_offtake, financials]
+    buyer_impact: >
+      Yield lower than uncurtailed P50 in congested zones. Revenue loss risk
+      if 2026 draft reform eliminates curtailment compensation.
+    lender_impact: >
+      Financial model must include explicit curtailment discount for northern
+      German wind. Models without Redispatch 2.0 assumption are not bankable.
+    mitigation_evidence:
+      - "Independent yield assessment with historic Redispatch 2.0 curtailment modelled"
+      - "TSO transparency platform data (50Hertz/TenneT) showing historical curtailment at connection zone"
+      - "Financial model sensitivity with zero curtailment compensation scenario"
+    validation_rule: >
+      If asset is onshore wind in Brandenburg, Schleswig-Holstein, Lower Saxony,
+      Mecklenburg-Vorpommern, or Sachsen-Anhalt: flag risk MEDIUM.
+      If financial model does not include curtailment assumption: flag HIGH.
+    jurisdiction_note: >
+      2024: 9.4 TWh curtailed at ~EUR 2.8bn cost. Compensation is ~90% under
+      current rules, but draft 2026 Stromnetzausbaubeschleunigungsgesetz proposes
+      'redispatch waiver' (zero compensation) for new projects. If enacted,
+      materially affects northern Germany wind valuations. Validation_warning applies.
+
+  - risk_id: land_not_secured
+    label: "Land Not Secured (Pachtvertrag / Grundbuch)"
+    severity_default: high
+    affected_sections: [land, process]
+    buyer_impact: >
+      Landowner can withdraw or reprice. Land risk is fatal for construction finance.
+      Missing Grundbuch registrations block mortgage.
+    lender_impact: >
+      Signed Pachtvertrag + Grundbuchauszug + registered easements required for all
+      financing. Informal agreements are not acceptable.
+    mitigation_evidence:
+      - "Signed Pachtvertrag (≥25 years) for all parcels"
+      - "Grundbuchauszug confirming clean title for all parcels"
+      - "Registered Dienstbarkeit (easement) in Grundbuch for cable routes and access"
+      - "Written consent from any senior mortgage holder"
+    validation_rule: >
+      If land.land_control_status in [not_secured, under_negotiation, option_signed]:
+      flag risk active HIGH.
+      If Pachtvertrag signed but Grundbuch registrations missing: flag risk MEDIUM.
+    jurisdiction_note: >
+      Common failure in German deals: cable route easements not yet registered
+      in Grundbuch at time of L3 marketing. This is a blocker for financial close.
+
+  - risk_id: eeg_post_2026_uncertainty
+    label: "EEG Post-2026 Support Scheme Uncertainty"
+    severity_default: medium
+    affected_sections: [revenue, financials]
+    buyer_impact: >
+      Projects relying on EEG support after Dec 31, 2026 face unknown support design.
+      Claw-back mechanism (profit levy) possible. Fixed premium amount TBD.
+    lender_impact: >
+      Lenders will sensitise revenue to post-2026 support uncertainty. May require
+      longer debt tenor or higher margin to compensate.
+    mitigation_evidence:
+      - "EEG Zuschlagsbescheid already in hand (pre-2026 auction win)"
+      - "20-year support term confirmed to start pre-2027 commissioning"
+      - "Merchant PPA covering post-support period modelled"
+    validation_rule: >
+      If revenue.support_scheme = eeg_market_premium AND project commissions
+      after Jan 1, 2027: flag risk MEDIUM. If no post-2026 scenario modelled: HIGH.
+    jurisdiction_note: >
+      Current EEG market premium scheme expires Dec 31, 2026. Government review
+      ongoing as of May 2026. Likely options: revised market premium, CfD,
+      or mixed model. Until enacted, post-2026 support is uncertain.
+
+  - risk_id: bess_queue_risk
+    label: "BESS Grid Connection Queue Risk"
+    severity_default: high
+    affected_sections: [grid_offtake, process]
+    buyer_impact: >
+      BESS grid connection may be delayed 3–5 years due to TSO/DSO queue saturation.
+      §118(6) EnWG exemption at risk if commissioning slips beyond Aug 3, 2029.
+    lender_impact: >
+      Cannot finance BESS without signed NAV. Queue risk = unfinanceable until NAV.
+    mitigation_evidence:
+      - "Signed NAV in force"
+      - "Commissioning schedule showing completion before Aug 3, 2029"
+      - "NAZ received with defined execution schedule"
+    validation_rule: >
+      If technical.technology = bess AND grid_connection_status != nav_signed:
+      flag risk HIGH. If NAV not expected before 2028 and Aug 2029 deadline at risk: CRITICAL.
+
+  - risk_id: repowering_complexity
+    label: "Repowering Complexity (Rückbau + New Permit)"
+    severity_default: medium
+    affected_sections: [compliance, technical, process]
+    buyer_impact: >
+      Repowering requires full new BImSchG permit. Distance rule (5× height) from
+      old turbine. Old turbine Rückbau within 48 months. Timeline 3–5 years.
+    lender_impact: >
+      Lenders treat repowering as development-stage until new permit rechtskräftig.
+    mitigation_evidence:
+      - "New BImSchG permit for repowered turbines rightskräftig"
+      - "Rückbau (dismantling) contract for old turbines in place"
+      - "Distance rule compliance confirmed by Genehmigungsbehörde"
+    validation_rule: >
+      If identity.lifecycle_stage = repowering: flag risk MEDIUM as default.
+      If new BImSchG permit not yet submitted: flag HIGH.
+
+  - risk_id: grid_capacity_uncertain
+    label: "Grid Capacity at NVP Uncertain or Not Confirmed"
+    severity_default: medium
+    affected_sections: [grid_offtake]
+    buyer_impact: >
+      NAZ conditional on reinforcement = unknown connection cost and timeline.
+      Project economics uncertain.
+    lender_impact: >
+      Conditional NAZ is not financeable. Must become unconditional NAV first.
+    mitigation_evidence:
+      - "Unconditional NAZ confirming capacity at NVP"
+      - "TSO/DSO written confirmation that no reinforcement is required"
+    validation_rule: >
+      If NAZ is conditional on reinforcement: flag CRITICAL.
+      If NAZ received but NVP not confirmed: flag MEDIUM.
+
+  - risk_id: permitting_not_started
+    label: "Permitting Not Started"
+    severity_default: high
+    affected_sections: [compliance]
+    buyer_impact: "Full development timeline ahead. BImSchG typically 12–18+ months. L1 maximum."
+    lender_impact: "No permitting underway = no financing consideration."
+    mitigation_evidence:
+      - "Scoping conference (Scopingtermin) completed"
+      - "Pre-application meeting with authority documented"
+    validation_rule: >
+      If compliance.permitting_status = pre_application: flag risk HIGH.
+      Maximum readiness = L1.
+
+  - risk_id: environmental_constraints
+    label: "Unresolved Environmental Constraints"
+    severity_default: medium
+    affected_sections: [compliance, technical]
+    buyer_impact: "Environmental constraints may block or modify project scope."
+    lender_impact: "Environmental clearance required for financing."
+    mitigation_evidence:
+      - "Natura 2000 screening negative"
+      - "Species survey complete; no population threshold exceeded"
+      - "UVP completed and approved"
+    validation_rule: >
+      If compliance.environmental_status in [not_started, screening_required]:
+      flag risk MEDIUM. If species survey missing for wind in Rotmilan zone: HIGH.
+
+  - risk_id: unclear_revenue_route
+    label: "Revenue Route Not Confirmed"
+    severity_default: high
+    affected_sections: [revenue, financials]
+    buyer_impact: "Cannot assess project economics without confirmed revenue model."
+    lender_impact: "Revenue must be contracted (EEG award or PPA) for debt financing."
+    mitigation_evidence:
+      - "EEG Zuschlagsbescheid from BNetzA"
+      - "Binding PPA executed (≥10-year term)"
+    validation_rule: >
+      If revenue.revenue_model = undetermined: flag HIGH.
+      If EEG auction not yet won and project close to commissioning: flag HIGH.
+
+  - risk_id: merchant_exposure_high
+    label: "High Merchant Exposure"
+    severity_default: medium
+    affected_sections: [revenue, financials]
+    buyer_impact: "Full merchant route viable in Germany but requires stress-tested financial model."
+    lender_impact: "Lenders require minimum 70% contracted revenue for senior debt."
+    mitigation_evidence:
+      - "Long-term corporate PPA (≥10 years) with creditworthy buyer"
+      - "Financial model stress-tested at P90 yield and 20% price discount"
+    validation_rule: >
+      If revenue.revenue_model in [merchant_spot, merchant_ppa] AND no PPA signed:
+      flag risk MEDIUM. If lender financing sought without contracted revenue: HIGH.
+
+  - risk_id: capex_unvalidated
+    label: "CAPEX Not Independently Validated"
+    severity_default: medium
+    affected_sections: [financials]
+    buyer_impact: "Capex uncertainty affects IRR and valuation."
+    lender_impact: "Lenders require independent owner's engineer cost review."
+    mitigation_evidence:
+      - "Independent owner's engineer cost review"
+      - "Binding EPC term sheet or contract with fixed price"
+    validation_rule: >
+      If financials.capex_confidence in [not_assessed, low]: flag risk MEDIUM.
+
+  - risk_id: yield_unvalidated
+    label: "Yield Not Independently Validated"
+    severity_default: medium
+    affected_sections: [technical, financials]
+    buyer_impact: "P50 reliability uncertain without independent assessment."
+    lender_impact: "Bankable yield assessment required; P90 must be calculated."
+    mitigation_evidence:
+      - "Independent yield assessment by accredited assessor (DNV, Windguard, TÜV)"
+      - "On-site mast data ≥12 months (wind)"
+      - "Redispatch 2.0 curtailment modelled"
+    validation_rule: >
+      If technical.production_estimates.assessment_quality in [desktop_only, no_assessment]:
+      flag risk MEDIUM. If no P90 calculated: HIGH.
+
+  - risk_id: missing_data_room
+    label: "Data Room Not Available or Incomplete"
+    severity_default: medium
+    affected_sections: [process]
+    buyer_impact: "Cannot conduct due diligence without documentation."
+    lender_impact: "Full data room required for financing."
+    mitigation_evidence:
+      - "Complete data room on Datasite, Drooms, or equivalent"
+      - "All key documents included (permit, NAV, Pachtvertrag, yield, financial model)"
+    validation_rule: >
+      If process.data_room_status in [not_available]: flag HIGH.
+      If data_room_status = partial and missing species assessment or NAV: HIGH.
+
+  - risk_id: counterparty_unclear
+    label: "Seller / Counterparty Identity Unclear"
+    severity_default: medium
+    affected_sections: [process]
+    buyer_impact: "Cannot assess deal structure or negotiating counterparty."
+    lender_impact: "Sponsor creditworthiness required for financing."
+    mitigation_evidence:
+      - "Developer / seller identity confirmed"
+      - "SPV in Handelsregister"
+      - "UBO declaration"
+    validation_rule: >
+      If process data does not identify seller/developer: flag MEDIUM.
+
+  - risk_id: title_or_ownership_unclear
+    label: "Land Title or Ownership Unclear"
+    severity_default: high
+    affected_sections: [land]
+    buyer_impact: "Title risk prevents land security for financing."
+    lender_impact: "No financing without clear title chain."
+    mitigation_evidence:
+      - "Grundbuchauszug (land register extract) with clean title for all parcels"
+      - "Mortgage holder consent if encumbrances exist"
+    validation_rule: >
+      If land.land_control_status != pachtvertrag_signed OR Grundbuchauszug
+      not referenced: flag HIGH.
+
+  - risk_id: political_or_regulatory_risk
+    label: "Regulatory Change Risk (EEG / Grid Reform)"
+    severity_default: medium
+    affected_sections: [revenue, financials]
+    buyer_impact: "Post-2026 EEG uncertainty; Redispatch 2.0 reform risk."
+    lender_impact: "Scenario analysis required for regulatory risk."
+    mitigation_evidence:
+      - "Revenue locked under existing EEG Zuschlagsbescheid before regime change"
+      - "Long-term PPA not dependent on EEG support"
+    validation_rule: >
+      If project commissions post-2026 and relies on EEG: flag MEDIUM.
+      If no sensitivity analysis for post-2026 support: flag HIGH.

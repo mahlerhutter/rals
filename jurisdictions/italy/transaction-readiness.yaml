@@ -1,0 +1,127 @@
+# RALS Jurisdiction Package — Italy
+# transaction-readiness.yaml
+# Version: 0.1
+
+jurisdiction_code: IT
+
+levels:
+
+  L0:
+    label: "Teaser Only"
+    description: >
+      Minimal public information. Technology, approximate capacity, and Italian region known.
+      No permit, grid, or land evidence required.
+    minimum_requirements:
+      - Asset type identified
+      - Italian region known
+      - Transaction type described
+      - Seller or advisor contact available
+    typical_use:
+      - Initial marketing
+      - NDA request stage
+      - Pipeline tracking
+    not_sufficient_for:
+      - Any investment committee consideration
+      - Non-binding offer
+      - Debt or equity commitment
+
+  L1:
+    label: "Screenable"
+    description: >
+      Enough information to decide whether to sign an NDA. Site is real; no fatal
+      planning or grid constraint identified. Authorization track known.
+    minimum_requirements:
+      - All L0 requirements met
+      - Site confirmed to municipality and cadastral zone level
+      - Authorization track identified (AU, PAS, or DILA)
+      - Landowner(s) identified; contact established
+      - Target Terna/DSO connection point identified
+      - Revenue route concept identified
+      - No fatal Natura 2000 or landscape constraint known
+      - Desktop yield estimate available
+    typical_use:
+      - NDA-stage information package
+      - Investor pre-screening
+      - Pipeline ranking
+    not_sufficient_for:
+      - Non-binding offer with price indication
+      - Investment committee note
+      - Debt term sheet
+
+  L2:
+    label: "Investment Memo Ready"
+    description: >
+      Sufficient for a credible non-binding offer and investment committee presentation.
+      AU is in process, SdC is accepted, and land is under binding agreement.
+    minimum_requirements:
+      - All L1 requirements met
+      - AU application submitted to Regione or MASE; preliminary screening passed
+      - SdC issued and accepted (Terna or DSO); connection cost disclosed
+      - Signed and registered land agreement (contratto d'affitto or compromesso)
+        covering primary parcels
+      - Bankable yield assessment (P50/P90) by recognised assessor
+      - Revenue model: GSE eligibility confirmed or PPA heads of terms
+      - Investment-memo-grade financial model (connection costs included)
+      - NDA-accessible data room with AU application, SdC acceptance, land contracts
+      - No fatal environmental constraint from preliminary assessment
+    typical_use:
+      - Non-binding offer submission
+      - Investment committee note
+      - Buy-side mandate
+      - Preliminary lender screening
+    not_sufficient_for:
+      - Credit committee at lender
+      - Binding offer
+      - Financial close
+    validation_notes: >
+      Italian L2 transactions frequently have AU in progress with significant
+      time to completion. This is acceptable at L2 if timeline risk is disclosed.
+      AU "granted but under appeal" must NOT be classified as L2+.
+
+  L3:
+    label: "Lender Diligence Ready"
+    description: >
+      Sufficient for bank credit committee or infrastructure fund binding offer.
+      AU is final, SdC Convention is signed, land is fully secured.
+    minimum_requirements:
+      - All L2 requirements met
+      - AU final and not under TAR or Consiglio di Stato appeal
+      - Signed Convenzione di connessione with Terna/DSO; cost agreed and budgeted
+      - All key parcels under long-term lease (≥15 years) or purchase; visura ipotecaria clean
+      - Independent yield assessment; on-site measurement data for wind; curtailment modelled
+      - Valid GSE admission/award, or signed PPA, or documented merchant strategy
+      - Lender-reviewed financial model with DSCR; curtailment scenario included
+      - Full diligence data room
+      - Corporate structure confirmed; UBO documented; SPV quota unencumbered
+      - Operating assets: all-risk and BI insurance active and assignable
+    typical_use:
+      - Bank credit committee submission
+      - Infrastructure fund binding offer
+      - Refinancing of operating assets
+      - VDD initiation
+    not_sufficient_for:
+      - Financial close (requires EPC contract)
+      - Drawdown of debt facilities
+
+  L4:
+    label: "Data Room Ready"
+    description: >
+      Fully documented. All conditions precedent for financing and closing met.
+      EPC contracted or near signing.
+    minimum_requirements:
+      - All L3 requirements met
+      - EPC contract signed or in final negotiation
+      - All AU conditions precedent fulfilled; construction start authorised by commune
+      - Terna/DSO works contracted; energisation timeline confirmed
+      - All land agreements registered (rogito notarile where required)
+      - GSE contract final and assigned to SPV; or PPA bankable
+      - Full VDD reports available
+      - Lender TA and legal advisor reports complete
+      - Insurance review by lender's broker; assignment documented
+    typical_use:
+      - Binding SPA signing
+      - Financial close
+      - Full acquisition by institutional buyer
+    validation_notes: >
+      L4 documentation in Italy rarely exists at marketing stage.
+      Most transactions are marketed at L2 with L3 achieved during exclusivity.

@@ -1,0 +1,131 @@
+# RALS Jurisdiction Package — Georgia
+# profile.yaml
+# Version: 0.1 | Status: active | Last reviewed: 2026-05-15
+
+jurisdiction_code: GE
+name: Georgia
+rals_jurisdiction_version: "0.1"
+status: active
+last_reviewed: "2026-05-15"
+
+supported_technologies:
+  - hydro_run_of_river
+  - solar_pv
+  - onshore_wind
+  - hybrid
+
+common_transaction_types:
+  - full_acquisition
+  - majority_stake
+  - minority_stake
+  - joint_venture
+  - concession_acquisition
+
+common_lifecycle_stages:
+  - greenfield
+  - development
+  - ready_to_build
+  - under_construction
+  - operating
+
+primary_authorities:
+  ministry: "Ministry of Economy and Sustainable Development of Georgia"
+  ministry_url: "https://www.economy.ge"
+  regulator: "Georgian National Energy and Water Supply Regulatory Commission (GNERC)"
+  regulator_url: "https://gnerc.org"
+  market_operator: "Electricity System Commercial Operator (ESCO)"
+  market_operator_url: "https://esco.ge"
+  energy_development_fund: "Georgian Energy Development Fund (GEDF)"
+  environmental_authority: "Ministry of Environmental Protection and Agriculture of Georgia"
+  public_registry: "National Agency of Public Registry (NAPR)"
+
+grid_authorities:
+  tso: "Georgian State Electrosystem (GSE)"
+  tso_url: "https://www.gse.com.ge"
+  tso_note: >
+    GSE is the sole transmission system operator in Georgia. All generation projects
+    connecting at transmission level must obtain technical conditions and a connection
+    agreement directly from GSE. Distribution-level connections are handled by regional
+    distribution companies (e.g., Telasi in Tbilisi, Energo-Pro Georgia in other regions).
+  grid_connection_process: >
+    Standard GSE connection process: (1) application to GSE, (2) GSE issues technical
+    conditions letter, (3) negotiation and signing of connection agreement,
+    (4) construction of connection infrastructure, (5) testing and commissioning,
+    (6) COD. Typical timeline: 6–9 months from application to connection agreement.
+  grid_capacity_note: >
+    West Georgia (Adjara, Samegrelo, Imereti regions) has significant transmission
+    constraints due to concentration of hydro generation. Curtailment by GSE is
+    possible without compensation obligations where system stability requires it.
+    East Georgia (Kakheti, Shida Kartli) generally has better grid capacity for
+    new solar and wind projects.
+
+market_design_notes:
+  cfd_scheme: >
+    Georgia introduced Contract for Difference (CfD) auctions in 2022. Government
+    auctions renewable capacity on a competitive basis; winning developers receive
+    a 15-year fixed strike price (CfD). The March 2023 auction (300 MW) was
+    oversubscribed. The February 2024 auction (800 MW) was also oversubscribed.
+    Not all applicants win — CfD award is required for revenue certainty on
+    CfD-route projects. CfD contracts are administered by the Government of Georgia.
+  esco_market: >
+    ESCO (Electricity System Commercial Operator) manages the wholesale electricity
+    market. Generators can bid capacity and energy in the ESCO market.
+    ESCO provides a fallback revenue route for non-CfD generators but is less
+    predictable than a CfD or PPA contract.
+  industrial_ppa: >
+    Direct PPAs between generators and large industrial consumers (threshold: >100 kW
+    consumption) are legal and growing. PPA durations typically 5–15 years.
+    Georgian industrial sector (mining, cement, ferroalloys) is a significant
+    offtake base. PPA counterparty credit quality is variable.
+  regulated_tariff: >
+    Historically GNERC issued fixed tariffs for smaller or older projects.
+    Declining relevance for new projects; new projects typically target CfD or PPA.
+  export_ppa_turkey: >
+    Georgia–Turkey electricity exports began under limited commercial PPAs in 2023.
+    Export volumes are constrained by interconnection capacity and Turkish market access.
+  black_sea_export: >
+    Black Sea Submarine Cable Project (connecting Georgia and Azerbaijan to Romania
+    and Hungary) completed feasibility study in 2024. Operational target: 2029–2032.
+    If completed, would open EU export markets and significantly increase demand for
+    Georgian renewable generation. Project remains at development stage.
+  hydro_dominance: >
+    Hydro (primarily run-of-river) dominates Georgian electricity generation.
+    Significant seasonal imbalance: 40–60% of electricity is imported in winter due
+    to low river flows. This creates both risk (revenue seasonality) and opportunity
+    (high summer spot prices for new solar/wind displacing imports).
+  permitting_note: >
+    Construction permits for RES projects (Class II–IV) are issued by local municipalities.
+    Strategic or large projects (typically >50–100 MW, or those of national significance)
+    may require Ministry of Regional Development involvement and a concession agreement
+    from the Government. EIA/environmental clearance is required for all material projects.
+    Hydrological studies are mandatory for hydro projects.
+
+key_transaction_risks:
+  - seasonal_hydro_variability
+  - grid_congestion_west_georgia
+  - political_risk_georgia
+  - cfd_auction_competition
+  - gnerc_licence_delay
+  - black_sea_export_uncertainty
+  - gel_usd_currency_risk
+  - limited_ipp_track_record
+
+validation_scope:
+  covers:
+    - field_interpretation
+    - evidence_requirements
+    - readiness_level_assignment
+    - risk_flag_evaluation
+  does_not_cover:
+    - legal_title_verification
+    - financial_model_audit
+    - tax_structuring
+    - regulatory_compliance_certification
+
+disclaimer: >
+  This jurisdiction package is a technical reference for transaction-readiness assessment.
+  It is not legal advice. Georgian energy law, GNERC licensing procedures, CfD auction
+  rules, and GSE grid connection requirements change and should be verified with qualified
+  Georgian legal counsel, a local energy advisor, and directly with GNERC and GSE before
+  relying on this package for a specific transaction. The CfD auction programme is at
+  an early stage and rules may evolve.

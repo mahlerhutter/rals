@@ -1,0 +1,297 @@
+# RALS Jurisdiction Package — Ukraine
+# evidence-requirements.yaml
+# Version: 0.1
+# NOTE: All levels are subject to the war-risk and martial law overrides in this package.
+
+jurisdiction_code: UA
+
+global_note: >
+  Ukraine's exceptional risk environment requires additional evidence categories
+  beyond the standard RALS evidence requirements. The war_political_risk category
+  below is mandatory for all Ukrainian assets at any level above L0.
+
+evidence_categories:
+
+  site_identification:
+    L0:
+      required: false
+      description: "Oblast and approximate capacity acceptable"
+    L1:
+      required: true
+      description: "Oblast and rayon (district) identified; not in occupied or frontline zone"
+    L2:
+      required: true
+      description: >
+        Specific cadastral location confirmed; satellite imagery or field confirmation
+        of current physical condition of site; no occupation or military use
+    L3:
+      required: true
+      description: >
+        Full cadastral registration confirmed; site physically accessible; field inspection
+        or third-party security assessment completed
+    L4:
+      required: true
+      description: "Survey-grade site plan; all cadastral records intact and verified post-conflict"
+
+  land_control:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "Landowner identified; land not in occupied territory; cadastral status assessed"
+    L2:
+      required: true
+      description: >
+        Signed orenda (lease) agreement; cadastral extract from State Cadastre;
+        confirmation records are intact; no occupation-period title dispute
+      ukraine_note: >
+        For de-occupied areas: legal opinion on title validity required. Russian-issued
+        documents are not recognised. Gaps in cadastral records are common.
+    L3:
+      required: true
+      description: >
+        Long-term orenda (≥20 years) signed; cadastral registration confirmed;
+        legal opinion on title from Ukrainian counsel; no active dispute
+    L4:
+      required: true
+      description: "All land agreements verified post-conflict; no adverse cadastral entries"
+
+  grid_connection:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: >
+        Target connection point identified; current physical status confirmed with
+        Ukrenergo or DSO (not destroyed or beyond repair within 24 months)
+    L2:
+      required: true
+      description: >
+        Current (post-2022) Ukrenergo or DSO confirmation of grid status at connection point;
+        technical specifications (tekhnichni umovy) issued; reconstruction timeline if applicable
+      ukraine_note: >
+        Pre-war connection agreements are not sufficient. Current status confirmation is mandatory.
+    L3:
+      required: true
+      description: >
+        Signed connection agreement; grid point confirmed operational or with funded
+        reconstruction plan and confirmed timeline; no active military threat to infrastructure
+    L4:
+      required: true
+      description: "Connection agreement executed; physical works contracted or complete; energisation confirmed"
+
+  permitting:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "Pre-war or martial law permitting pathway assessed; no fatal regulatory barrier"
+    L2:
+      required: true
+      description: >
+        Construction permit application submitted under applicable martial law procedures;
+        environmental assessment (OVD) application submitted or completed
+    L3:
+      required: true
+      description: >
+        Valid construction permit (dozvil na budivnytstvo) under current martial law rules;
+        OVD decision favourable; legal opinion that permits are valid under current law
+    L4:
+      required: true
+      description: "All permits final; construction start authorised; works not in conflict zone"
+
+  environmental:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "Preliminary environmental screening; site not in protected area"
+    L2:
+      required: true
+      description: "OVD (environmental impact assessment) application submitted"
+    L3:
+      required: true
+      description: "OVD decision favourable; environmental conditions accepted"
+    L4:
+      required: true
+      description: "All environmental conditions fulfilled"
+
+  technical_design:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "Technology concept; approximate capacity"
+    L2:
+      required: true
+      description: "Preliminary technical concept; EPC indicative cost (including security and insurance)"
+    L3:
+      required: true
+      description: "Detailed design; EPC procurement initiated; security plan for construction phase"
+    L4:
+      required: true
+      description: "EPC contract signed; security measures in place; construction programme agreed"
+
+  energy_yield:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "Desktop yield estimate; P50 indicative"
+    L2:
+      required: true
+      description: "Bankable yield assessment by recognised assessor; P50 and P90"
+    L3:
+      required: true
+      description: >
+        Independent yield assessment; on-site data ≥12 months for wind;
+        grid outage / curtailment impact modelled (war damage context)
+    L4:
+      required: true
+      description: "Final yield assessment; lender review complete; grid availability assumptions documented"
+
+  revenue_model:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "Revenue route concept (restructured FiT, green auction, merchant, PPA)"
+    L2:
+      required: true
+      description: >
+        Revenue model with Ukrainian power price assumptions; restructured FiT terms documented
+        if applicable; or PPA heads of terms
+    L3:
+      required: true
+      description: >
+        Restructured FiT agreement documented and verified; or signed PPA;
+        or IFI-backed offtake structure confirmed; revenue convertibility risk addressed
+    L4:
+      required: true
+      description: "Revenue contracts final; convertibility/transfer mechanism confirmed"
+
+  support_scheme:
+    L0:
+      required: false
+    L1:
+      required: false
+    L2:
+      required: true
+      description: "Revenue route documented; restructured FiT terms or alternative confirmed"
+    L3:
+      required: true
+      description: "Revenue support documentation final; NEURC confirmation if applicable"
+    L4:
+      required: true
+      description: "All revenue/support documentation final and verified"
+
+  financial_model:
+    L0:
+      required: false
+    L1:
+      required: false
+    L2:
+      required: true
+      description: >
+        Investment memo model; war-risk insurance premium included; grid availability
+        discount modelled; UAH/EUR FX risk addressed
+    L3:
+      required: true
+      description: >
+        Lender-reviewed model (typically IFI); DSCR; war-risk insurance explicitly modelled;
+        convertibility risk addressed; downside scenario (extended conflict) included
+    L4:
+      required: true
+      description: "Agreed base case; audited by independent accountant acceptable to IFI"
+
+  corporate_ownership:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "Ukrainian TOV or AT SPV identified; UBO not in sanctioned list"
+    L2:
+      required: true
+      description: "Corporate structure; UBO confirmed; sanctions screening completed; no adverse entry"
+    L3:
+      required: true
+      description: >
+        Full corporate DD; UBO confirmed; sanctions check by qualified counsel;
+        profit repatriation structure confirmed compliant with martial law currency rules
+    L4:
+      required: true
+      description: "Legal opinion; signing authority; transfer mechanics agreed"
+
+  data_room:
+    L0:
+      required: false
+    L1:
+      required: false
+    L2:
+      required: true
+      description: >
+        NDA-accessible data room with current status documents (post-invasion date);
+        physical condition report or satellite imagery; permitting status; land contracts
+    L3:
+      required: true
+      description: "Full diligence data room; all sections populated with current documents"
+    L4:
+      required: true
+      description: "Complete data room; VDD reports; conditions precedent documents"
+
+  insurance:
+    L0:
+      required: false
+    L1:
+      required: false
+    L2:
+      required: true
+      description: >
+        War-risk insurance concept assessed; available underwriters identified;
+        premium estimate included in financial model
+      ukraine_note: >
+        War-risk insurance for Ukrainian assets is difficult to obtain from commercial
+        markets. Political risk insurance via MIGA (World Bank), EBRD, or BPIFrance
+        may be available for IFI-backed transactions.
+    L3:
+      required: true
+      description: >
+        War-risk insurance commitment or IFI political risk guarantee in place;
+        all-risk and BI insurance active for operating assets;
+        insurance assignment to lender confirmed
+    L4:
+      required: true
+      description: "All insurance final; lender broker review; assignment documented"
+
+  war_political_risk:
+    L0:
+      required: true
+      description: >
+        Minimum: confirm oblast is not in occupied territory. Confirm asset is not
+        physically located in a combat zone or occupation-controlled area.
+      ukraine_note: "Even at L0, occupied-territory assets cannot be responsibly listed."
+    L1:
+      required: true
+      description: >
+        Security zone classification documented (distance from frontline, oblast);
+        confirmation asset is not in occupied territory; no active military use of site
+    L2:
+      required: true
+      description: >
+        Security risk assessment by qualified advisor;
+        physical site condition confirmed (not damaged, destroyed, or occupied);
+        business continuity plan for ongoing conflict risk described
+    L3:
+      required: true
+      description: >
+        Independent security risk assessment;
+        war-risk insurance commitment or IFI political risk guarantee;
+        convertibility and transfer risk addressed in financing structure;
+        legal opinion on effect of martial law on contracts and property rights;
+        documentation that key counterparties (grid, offtake) are operational
+    L4:
+      required: true
+      description: >
+        All war-risk mitigation measures documented and in force;
+        IFI guarantee or political risk insurance cover confirmed;
+        security plan for construction and operation phases agreed with lender

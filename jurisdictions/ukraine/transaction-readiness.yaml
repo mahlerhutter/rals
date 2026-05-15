@@ -1,0 +1,152 @@
+# RALS Jurisdiction Package — Ukraine
+# transaction-readiness.yaml
+# Version: 0.1
+# IMPORTANT: All levels are subject to war-risk override. L3 and L4 require
+# extraordinary war-risk mitigation evidence that is rare in current conditions.
+
+jurisdiction_code: UA
+
+war_risk_override: >
+  The RALS readiness level for Ukrainian assets is subject to a mandatory war-risk
+  override. A Ukrainian asset CANNOT be classified above L2 without:
+  (a) confirmed war-risk insurance or IFI political risk guarantee;
+  (b) independent security risk assessment confirming site is not in occupied,
+      frontline, or imminently at-risk zone;
+  (c) legal opinion confirming contracts and permits are valid under current martial law.
+  A Ukrainian asset CANNOT be classified above L0 if it is in an occupied territory
+  or active combat zone.
+
+levels:
+
+  L0:
+    label: "Teaser Only"
+    description: >
+      Minimal information. Oblast, technology type, and approximate capacity known.
+      Asset is NOT in occupied territory. No other evidence required.
+    minimum_requirements:
+      - Asset type identified
+      - Oblast known AND confirmed not in occupied territory
+      - Transaction type described
+      - Seller or advisor contact available
+    typical_use:
+      - Initial deal marketing
+      - Pipeline tracking by IFIs and strategic investors
+      - Very early concept sharing
+    not_sufficient_for:
+      - Any investment committee consideration
+      - Non-binding offer
+      - IFI screening (more than initial interest)
+    validation_notes: >
+      Assets in occupied oblasts (Kherson, Zaporizhzhia, Donetsk, Luhansk)
+      or in active combat zones CANNOT be classified as L0+ in this package.
+      They should be marked as unclassifiable pending security clearance.
+
+  L1:
+    label: "Screenable"
+    description: >
+      Sufficient to initiate IFI or strategic investor dialogue. Site is identifiable,
+      not in occupied zone, and basic condition is known. Key war risks are flagged.
+    minimum_requirements:
+      - All L0 requirements met
+      - Oblast and rayon confirmed; not in occupied or frontline-adjacent zone
+      - Physical condition of asset confirmed (not damaged/destroyed)
+      - Land rights identified; cadastral records assessed
+      - Ukrenergo/DSO inquiry initiated; grid connection point physical status assessed
+      - Revenue route concept identified
+      - Desktop yield estimate available
+      - Preliminary war-risk/security context assessed
+    typical_use:
+      - IFI initial screening
+      - Strategic investor NDA stage
+      - Government/donor programme pipeline assessment
+    not_sufficient_for:
+      - Non-binding offer with price indication
+      - IFI board note
+      - Any debt or equity commitment
+    validation_notes: >
+      Many Ukrainian assets marketed at higher levels should be reassessed at L1
+      due to grid damage, permit validity uncertainty, or security exposure.
+
+  L2:
+    label: "Investment Memo Ready"
+    description: >
+      Sufficient for a credible non-binding offer or IFI preliminary approval,
+      subject to full war-risk diligence. All standard L2 requirements met PLUS
+      security risk assessment and war-risk insurance concept.
+    minimum_requirements:
+      - All L1 requirements met
+      - Independent security risk assessment confirming site is not at acute risk
+      - Physical site condition confirmed (satellite imagery or field inspection)
+      - Current Ukrenergo/DSO confirmation of grid point status
+      - Land under signed orenda agreement; cadastral records confirmed intact
+      - Permit application status under current martial law procedures confirmed
+      - Bankable yield assessment (P50/P90) with grid availability discount modelled
+      - Revenue model documented (restructured FiT, green auction contract, or PPA)
+      - War-risk insurance concept assessed; underwriters identified; premium modelled
+      - Financial model includes war-risk insurance premium and grid availability discount
+      - Convertibility/transfer risk addressed in financial structure concept
+      - NDA-accessible data room with current (post-invasion) status documents
+      - Sanctions screening of UBO and counterparties completed
+    typical_use:
+      - IFI preliminary project note
+      - Strategic investor non-binding offer
+      - Government grant/reconstruction programme application
+    not_sufficient_for:
+      - IFI credit committee approval
+      - Commercial bank financing
+      - Binding offer at arm's length
+    validation_notes: >
+      L2 is the practical maximum for most Ukrainian assets in active conflict conditions.
+      Advancing to L3 requires war-risk mitigation measures that are currently rare.
+
+  L3:
+    label: "Lender Diligence Ready"
+    description: >
+      Sufficient for IFI credit committee submission or binding offer from a specialist
+      investor. Requires extraordinary war-risk mitigation measures. Rare in current
+      market conditions as of 2026.
+    minimum_requirements:
+      - All L2 requirements met
+      - Valid construction permit or operating permit under current martial law
+      - Signed connection agreement with Ukrenergo/DSO; grid point confirmed operational
+      - All land under long-term orenda; cadastral records clean; legal opinion on title
+      - Independent yield assessment with grid outage/curtailment impact modelled
+      - Revenue: signed PPA or IFI-backed offtake; or restructured FiT verified by NEURC
+      - "War-risk insurance commitment: MIGA, EBRD, BPIFrance, or equivalent; OR IFI political risk guarantee in force"
+      - IFI-reviewed or IFI-lender-reviewed financial model
+      - Legal opinion on effect of martial law on all key contracts
+      - Business continuity plan for ongoing conflict risk approved by lender
+      - Security assessment confirming site is outside acute military risk zone
+      - Profit repatriation/convertibility mechanism agreed with IFI or structured lender
+      - Full diligence data room
+    typical_use:
+      - EBRD / EIB / IFC credit committee submission
+      - Specialist war-risk infrastructure fund binding offer
+      - Post-conflict reconstruction financing (where applicable)
+    not_sufficient_for:
+      - Commercial bank construction financing without IFI guarantee
+    validation_notes: >
+      L3 for Ukraine is achievable only with IFI involvement and robust war-risk insurance.
+      Validators should apply extreme scrutiny before assigning L3. Most assets claiming
+      L3 without IFI engagement should be downgraded to L2.
+
+  L4:
+    label: "Data Room Ready"
+    description: >
+      Fully documented. EPC contracted. All war-risk mitigation in place.
+      IFI financing committed. Extremely rare in current conditions (2026).
+    minimum_requirements:
+      - All L3 requirements met
+      - EPC contract signed; security measures for construction phase contracted
+      - All permits final and confirmed valid under martial law
+      - Grid connection physically operational or reconstruction funded and contracted
+      - Revenue contracts final; convertibility mechanism operational
+      - War-risk insurance or IFI guarantee final and in force
+      - VDD complete
+      - Security plan for operations phase in place
+    typical_use:
+      - IFI financial close
+      - Post-conflict reconstruction project financial close (anticipated)
+    validation_notes: >
+      L4 is effectively a post-conflict or IFI-supported exception category.
+      As of 2026, L4 Ukrainian assets are vanishingly rare.

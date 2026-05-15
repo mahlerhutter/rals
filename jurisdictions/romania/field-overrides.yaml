@@ -1,0 +1,217 @@
+# RALS Jurisdiction Package — Romania
+# field-overrides.yaml
+# Version: 0.1
+
+jurisdiction_code: RO
+
+fields:
+
+  identity.country:
+    required: true
+    importance: critical
+    allowed_values: ["RO"]
+    jurisdiction_note: "ISO 3166-1 alpha-2 'RO'. Subject to ANRE regulation and Romanian civil law."
+
+  identity.region:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Romania's administrative regions (judete / counties). Key renewable energy counties:
+      Dobrogea (Constanta, Tulcea) for wind and PV; Oltenia, Muntenia for PV;
+      Transylvania for wind. Grid constraints are most severe in Dobrogea.
+    validation_warning: >
+      Dobrogea (Constanta, Tulcea): confirm current ATR auction zone status with
+      Transelectrica before classifying at L2+. Grid saturation is severe.
+
+  identity.lifecycle_stage:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      "ready_to_build" in Romania requires: (a) valid ATR (Aviz Tehnic de Racordare)
+      that is not expired or conditional on grid reinforcement of uncertain timeline;
+      (b) building permit (autorizatie de construire) final and uncontested;
+      (c) land rights secured under Romanian land law.
+      Note: many projects marketed as "RTB" in Romania do not meet these criteria.
+    validation_warning: >
+      ATR validity periods vary (typically 24 months). Confirm ATR expiry date.
+      An expired or unrenewed ATR must be disclosed. From 2026, new ATRs require
+      participation in capacity auctions — existing pre-2026 ATRs may be grandfathered
+      but this should be confirmed with ANRE.
+
+  technical.technology:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      BESS is an emerging and evolving regulatory category in Romania (ANRE Order 27/2025).
+      Confirm applicable ANRE classification for standalone vs co-located BESS.
+      Wind development is primarily Dobrogea; PV is more geographically distributed.
+
+  technical.capacity:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      Projects ≥ 1 MW require environmental permit (aviz de mediu) and building permit.
+      Projects ≥ 50 MW may require national-level environmental assessment.
+      Confirm applicable permitting authority for the specific capacity.
+
+  land.land_control_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - owned
+      - long_term_lease_secured
+      - option_agreement_signed
+      - option_under_negotiation
+      - not_secured
+    jurisdiction_note: >
+      Romanian land law has specific rules on agricultural land transactions.
+      Foreigners and non-EU entities face additional restrictions on land ownership.
+      Leases (contracte de arenda) for renewable energy are typically 25–30 years.
+      Land must be extractat from agricultural use (scos din circuitul agricol) or
+      zoned for industrial/energy use before construction permit can be issued.
+      Cadastral registration (CF — Cartea Funciara) must be confirmed.
+    validation_warning: >
+      Unregistered land (not inscris in Cartea Funciara) is common in rural Romania.
+      Absence of CF registration creates title risk. Confirm all parcels are registered.
+
+  land.land_evidence:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Expected evidence: signed arenda contract or pre-emption declaration; cadastral
+      (CF) extract confirming ownership and no encumbrances; evidence of agricultural
+      de-registration or zoning change if required for construction permit.
+
+  grid_offtake.grid_connection_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - pre_application
+      - application_submitted
+      - atr_issued
+      - atr_accepted
+      - connection_contract_signed
+      - connected
+    jurisdiction_note: >
+      The ATR (Aviz Tehnic de Racordare) is the key grid milestone. From 2026,
+      new grid capacity is allocated via ANRE auction (Metodologia 53/2024).
+      ATR issuance is now linked to auction participation, not first-come-first-served.
+      Existing pre-2026 ATRs may have different validity rules — confirm with ANRE.
+      A 5% financial guarantee (ANRE Order 20/2025) is required to maintain ATR validity.
+    validation_warning: >
+      Many Romanian projects hold ATRs that are expired, conditional, or not backed
+      by a financial guarantee. Confirm: ATR expiry date, guarantee status, and whether
+      the project holds a valid position in the 2026 auction queue.
+
+  grid_offtake.grid_capacity:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      Over 60 GW of projects hold ATRs in Romania but physical grid capacity for
+      new connection is severely constrained, particularly in Dobrogea.
+      Transelectrica's 2026 grid development plan should be reviewed for each connection point.
+
+  grid_offtake.connection_evidence:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      For L2: valid ATR confirmed with Transelectrica or DSO; financial guarantee in place.
+      For L3: signed connection contract (contract de racordare).
+      Include ATR reference number and expiry date in data room.
+
+  compliance.permitting_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - pre_application
+      - application_submitted
+      - environmental_permit_issued
+      - building_permit_issued
+      - all_permits_final
+      - under_administrative_challenge
+      - rejected
+    jurisdiction_note: >
+      Romanian permitting involves: (1) environmental permit (aviz de mediu) from
+      County environmental agency or Ministry of Environment; (2) building permit
+      (autorizatie de construire) from local municipality. Both must be final (definitive)
+      for RTB classification. Administrative challenge (contestatie) is possible within
+      30 days of permit issuance.
+    validation_warning: >
+      Environmental permits in Romania are subject to administrative contestation.
+      Confirm definitiveness of permit before classifying as L3+.
+
+  compliance.environmental_status:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Environmental Impact Assessment (EIM / Evaluare de Impact asupra Mediului) is
+      required for large projects. Natura 2000 areas are extensive in Romania (including
+      Dobrogea). Species surveys and habitat assessments are required for wind projects
+      near protected areas.
+
+  revenue.revenue_model:
+    required: true
+    importance: critical
+    allowed_values:
+      - green_certificates_legacy
+      - merchant_opcom
+      - ppa_corporate
+      - ppa_utility
+      - cfd_future
+      - hybrid
+    jurisdiction_note: >
+      Operating assets commissioned before 2017 may hold green certificate (GC)
+      entitlements under Law 220/2008. New builds (post-2017) operate on merchant
+      or PPA basis. A CfD scheme is in development as of 2026 but awards have not
+      yet been made. Do not model CfD revenue unless officially awarded.
+    validation_warning: >
+      Do not classify CfD revenue as confirmed unless an official ANRE/Ministry
+      award notification has been issued and is in the data room.
+
+  revenue.support_scheme:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      For legacy GC assets: specify GC entitlement per MWh, GC trading platform,
+      and remaining GC entitlement period. For new assets: specify merchant strategy
+      or PPA counterparty and duration.
+
+  financials.capex_confidence:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      Romanian EPC costs are generally below Western European benchmarks. Grid
+      connection costs vary significantly by distance to substation.
+      For Dobrogea wind: road access and turbine logistics add meaningful cost.
+
+  financials.opex_confidence:
+    required: false
+    importance: medium
+    jurisdiction_note: >
+      Romanian land lease costs (arenda) are typically low by EU standards.
+      IMT (property tax) applies to operating assets. O&M costs for PV are
+      well-benchmarked; wind O&M depends on turbine manufacturer support.
+
+  process.transaction_type:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Romanian renewable M&A uses SPV share deals (S.R.L. or S.A.).
+      Confirm permits are held at SPV level. Land ownership vs lease vs sub-lease
+      structure must be clarified. Foreign ownership of Romanian land has
+      restrictions that affect acquisition structure.
+
+  process.data_room_status:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      For L2+: data room should include ATR (with guarantee), building permit,
+      environmental permit, land contracts (CF extract), corporate structure,
+      and financial model.
+
+  risks.risk_flags:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      See risks.yaml. Key flags: atr_expired_or_conditional, land_not_registered,
+      permitting_under_contestation, revenue_route_uncertain, curtailment_dobrogea.

@@ -1,0 +1,191 @@
+# ============================================================================
+# RALS Jurisdiction Package — Italy
+# Example: italy-pv-rtb-l2.rals.yaml
+# ============================================================================
+# Asset:        Project Solare Basilico (fictional)
+# Technology:   Solar PV, utility-scale ground-mount
+# Stage:        Ready-to-Build — L2
+# Location:     Basilicata, Southern Italy
+# Purpose:      Demonstrates L2 Italian PV asset with AU submitted, SdC accepted,
+#               land under contratto d'affitto, GSE FER eligibility confirmed.
+#               Revenue not yet contracted (FER X auction pending).
+# Risks shown:  AU not yet granted; GSE contract not awarded; curtailment risk noted.
+# ============================================================================
+fictional: true
+source: "synthetic_example"
+confidentiality: "public_example"
+
+rals_version: "0.1"
+document_id: "rals:IT-EX-PV-RTB-L2-001"
+generated_at: "2026-05-15T09:00:00Z"
+generated_by: "rals-jurisdiction-example-generator"
+language: "en"
+
+rals_jurisdiction:
+  jurisdiction_package: IT
+  rals_jurisdiction_version: "0.1"
+  assessed_readiness_level: L2
+  readiness_label: "Investment Memo Ready"
+  jurisdiction_assessment_date: "2026-05-15"
+
+# ── Identity ─────────────────────────────────────────────────────────────────
+identity:
+  asset_name: "Project Solare Basilico"
+  asset_type: solar_pv
+  lifecycle_stage: development
+  country: IT
+  region: "Basilicata"
+  sub_region: "Potenza Province"
+  total_capacity_mw_ac: 58.0
+  total_capacity_mw_dc: 72.5
+  dc_ac_ratio: 1.25
+  site_area_hectares: 105
+  transaction_type: full_acquisition
+  equity_offered_pct: 100
+  spv_structure: true
+  spv_jurisdiction: "Italy"
+
+# ── Technical ─────────────────────────────────────────────────────────────────
+technical:
+  expected_lifetime_years: 30
+  design_basis_year: 2025
+  mounting:
+    type: single_axis_tracker
+  module:
+    technology: monocrystalline_topcon
+    manufacturer: "TBC — procurement not launched"
+  performance_ratio: 0.84
+  specific_yield_kwh_kwp: 1540
+  production_estimates:
+    methodology: "PVsyst v7.4 + Meteonorm 8 + on-site GHI logger 12 months"
+    p50_gwh_yr: 111.5
+    p90_gwh_yr: 102.3
+    assessor: "DNV Italy S.r.l."
+    assessment_date: "2025-12-10"
+    curtailment_note: >
+      Curtailment scenario modelled at 6% annual average based on Terna re-dispatch
+      statistics for Basilicata zone 2022–2025. P50 net of curtailment: 104.8 GWh/yr.
+
+# ── Grid & Offtake ────────────────────────────────────────────────────────────
+grid_offtake:
+  grid_connection:
+    status: sdC_accepted
+    grid_operator: "Terna S.p.A."
+    voltage_level_kv: 150
+    connection_point: "Terna CP Melfi 150 kV"
+    connection_evidence: >
+      Soluzione di Connessione (SdC) issued by Terna in September 2025.
+      SdC formally accepted by developer in October 2025 within 45-day window.
+      Indicative connection cost: EUR 3.2m (included in project capex).
+      Convenzione di connessione not yet signed — to be executed post-AU grant.
+    grid_capacity_note: >
+      Terna confirmed Melfi 150 kV connection point available at time of SdC issuance.
+      No moratorium active at this substation. Connection cost includes 4 km HV cable.
+  offtake_structure: gse_fer_incentive
+  revenue_model: gse_fer_incentive
+  revenue_note: >
+    GSE FER X auction eligibility assessed and confirmed for ground-mount PV > 10 MW.
+    Next auction round expected Q4 2026. No GSE admission yet — subject to auction outcome.
+
+# ── Compliance ────────────────────────────────────────────────────────────────
+compliance:
+  permitting_status: application_submitted
+  permitting_authority: "Regione Basilicata (Autorizzazione Unica) + MASE review"
+  permitting_detail: >
+    AU application submitted to Regione Basilicata in March 2025.
+    Conferenza di servizi (CdS) preliminary meeting held June 2025 — no fatal objection
+    raised by any participating authority. CdS final decision expected Q3 2026.
+    No TAR or Consiglio di Stato proceedings possible until AU is issued.
+    Estimated AU grant: Q3–Q4 2026.
+  environmental_status: via_in_process
+  environmental_detail: >
+    VIA (Valutazione di Impatto Ambientale) integrated in AU procedure.
+    VIA application submitted to MASE in March 2025. No adverse preliminary opinion.
+    Site is not in Natura 2000 area. Avifauna study (October 2025) found no
+    critical raptor constraint. PEAR (Piano Energetico Ambientale Regionale)
+    Basilicata: no specific exclusion zone applies to this site.
+
+# ── Land ─────────────────────────────────────────────────────────────────────
+land:
+  land_control_status: long_term_lease_secured
+  land_parcels: 14
+  land_area_ha: 105
+  land_detail: >
+    Contratti d'affitto (agricultural leases, 25 years) signed with 8 landowners
+    covering all 14 parcels (105 ha). All contracts registered with Agenzia delle Entrate.
+    Visura ipotecaria: no adverse mortgage or encumbrance on any parcel.
+    Catasto extract: all parcels confirmed terreni agricoli — de-classification
+    pathway via AU procedure (integrated).
+  land_risks:
+    - "Agricultural land de-classification via AU: standard but adds administrative step"
+
+# ── Financials ───────────────────────────────────────────────────────────────
+financials:
+  reporting_currency: EUR
+  total_capex_eur: 56000000
+  capex_detail: >
+    Total capex: EUR 56m. Includes: EPC indicative (modules + BOS + inverters + civil):
+    EUR 49.5m; Terna connection: EUR 3.2m; owner's costs: EUR 1.8m; contingency: EUR 1.5m.
+    EPC not yet contracted. Independent owner's engineer review in progress.
+  capex_confidence: medium
+  opex_eur_yr: 720000
+  opex_confidence: medium
+  revenue_assumptions: >
+    Base case: GSE FER X market premium EUR 62/MWh on P50 net of curtailment (104.8 GWh/yr).
+    Sensitivity: merchant scenario (no GSE award) using EPEX Italy forward curves.
+    Note: GSE contract not yet awarded. Subject to FER X auction oversubscription risk.
+  financial_model_available: true
+  financial_model_note: >
+    Investment memo financial model available under NDA. Project IRR (levered):
+    8.2% base (GSE), 6.1% stressed (merchant P90). DSCR analysis not yet completed
+    pending lender engagement.
+
+# ── Process ──────────────────────────────────────────────────────────────────
+process:
+  process_type: limited_auction
+  data_room_status: available_under_nda
+  data_room_platform: "Drooms"
+  data_room_contents:
+    - "AU application dossier (Regione Basilicata, March 2025)"
+    - "CdS preliminary meeting minutes (June 2025)"
+    - "SdC acceptance letter (October 2025)"
+    - "VIA application (March 2025)"
+    - "Contratti d'affitto (8 landowners, registered)"
+    - "Visura ipotecaria and catasto extracts"
+    - "DNV yield assessment with curtailment scenario (December 2025)"
+    - "Investment memo financial model"
+    - "GSE FER X eligibility assessment"
+    - "Corporate structure (SPV: Basilico Solar S.r.l.)"
+  process_timeline:
+    indicative_nbo_due: "2026-08-31"
+    indicative_binding_offer: "2026-11-30"
+    indicative_close: "2027-02-28"
+  seller_contact: "basilicosolar@example-advisor.it"
+
+# ── Risk Flags ───────────────────────────────────────────────────────────────
+risk_flags:
+  - risk_id: permitting_not_started
+    active: false
+    note: "AU application submitted March 2025"
+  - risk_id: permitting_under_appeal
+    active: false
+    note: "AU not yet granted; no appeal possible at this stage"
+  - risk_id: land_not_secured
+    active: false
+    note: "Contratti d'affitto signed and registered for all parcels"
+  - risk_id: grid_not_secured
+    active: true
+    severity: medium
+    note: "SdC accepted but Convenzione di connessione not yet signed"
+  - risk_id: unclear_revenue_route
+    active: true
+    severity: medium
+    note: "GSE FER X eligibility confirmed but contract not yet awarded — auction risk"
+  - risk_id: curtailment_southern_italy
+    active: true
+    severity: medium
+    note: "6% curtailment modelled; Basilicata re-dispatch data used. Included in yield assessment."
+  - risk_id: capex_unvalidated
+    active: true
+    severity: low
+    note: "Owner's engineer review in progress; EPC not yet contracted"

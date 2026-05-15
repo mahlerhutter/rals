@@ -1,0 +1,176 @@
+# RALS Jurisdiction Package — Vietnam
+# transaction-readiness.yaml
+# Readiness level definitions and thresholds
+# Version: 0.1
+
+jurisdiction_code: VN
+
+levels:
+
+  L0:
+    label: "Teaser Only"
+    description: >
+      Minimal public information. Sufficient for initial NDA request and deal screening.
+      No evidence of permitting, grid, or land progress required.
+    minimum_requirements:
+      - Asset type identified (technology, approximate capacity)
+      - Province and approximate location known
+      - Transaction type described
+      - Seller or advisor contact available
+    typical_use:
+      - Initial deal marketing
+      - Pipeline tracking by advisors
+      - LLM/agent discovery and pre-screening
+    not_sufficient_for:
+      - Investment committee presentation
+      - Non-binding offer submission
+      - Legal or technical due diligence
+      - Any debt or equity commitment
+    validation_notes: >
+      An L0 classification does not imply the asset has no merit. Vietnamese renewable
+      assets are frequently marketed at L0 during initial advisor outreach. At L0,
+      no representation about permitting, grid, land, or revenue status is made or verified.
+
+  L1:
+    label: "Screenable"
+    description: >
+      Sufficient for an investor to decide whether to sign an NDA and proceed
+      to L2 due diligence. Site concept is real; key Vietnam-specific risks are
+      identified even if not mitigated. EVN counterparty risk must be acknowledged.
+    minimum_requirements:
+      - All L0 requirements met
+      - Province and commune confirmed; preliminary site boundary described
+      - LURC holder or land access structure identified
+      - Grid connection application submitted to NLDC/EVN or status confirmed
+      - Revenue route identified (DPPA, VWEM/EVN spot, transitional contract, or legacy FiT)
+      - IRC status confirmed (applied, obtained, or in preparation)
+      - Desktop yield estimate available
+      - SPV or legal entity structure described
+      - EVN counterparty risk acknowledged in disclosure
+      - Curtailment zone risk disclosed for south-central province assets
+    typical_use:
+      - NDA stage information package
+      - Investor pre-screening calls
+      - Pipeline ranking by institutional buyers
+    not_sufficient_for:
+      - Non-binding offer with price indication
+      - Investment committee note
+      - Debt term sheet
+    validation_notes: >
+      L1 assets in Vietnam frequently have unresolved land conversion, incomplete
+      IRC/ERC permitting, or no signed EVN connection agreement. This is acceptable
+      at L1 provided the specific gaps and associated risks are disclosed. EVN
+      counterparty risk must be acknowledged at this stage.
+
+  L2:
+    label: "Investment Memo Ready"
+    description: >
+      Sufficient for a credible non-binding offer and investment committee presentation.
+      Core permit, land, and grid pathways are established. EVN counterparty risk is
+      explicitly disclosed. Curtailment risk is modelled. Revenue route is confirmed
+      against current decree framework but may not yet be under contract.
+    minimum_requirements:
+      - All L1 requirements met
+      - IRC obtained
+      - ERC obtained or clearly in progress with no known obstacle
+      - EIA submitted to MoNRE (acknowledgement of receipt confirmed)
+      - EVN technical conditions letter received
+      - LURC secured for primary parcels, or JV land access agreement signed;
+        agricultural conversion application submitted if required
+      - Bankable yield assessment by recognised independent assessor;
+        curtailment scenario modelled for south-central zone assets
+      - Revenue model confirmed against current Decree 57/2025 or Decree 58/2025/ND-CP
+        framework; no claim of active FiT without contract documentation
+      - Investment-memo-grade financial model with curtailment downside and FX assumptions
+      - NDA-accessible data room with core documents
+      - EVN counterparty risk explicitly disclosed in transaction materials
+      - Curtailment compensation position disclosed (compensated or not)
+    typical_use:
+      - Non-binding offer stage
+      - Investment committee note
+      - Buy-side mandate confirmation
+      - Preliminary lender screening
+    not_sufficient_for:
+      - Credit committee approval at a lender
+      - Final binding offer
+      - Drawdown of debt facilities
+    validation_notes: >
+      L2 is the minimum for any serious M&A process in Vietnam. Uncontracted merchant
+      revenue (VWEM spot only, no DPPA or transitional contract) is acceptable at L2
+      but must be disclosed. L2 does not require a signed EVN Grid Connection Agreement
+      but the technical conditions letter must be current. A revenue model that depends
+      on a FiT that has expired before the project commissioned must be flagged as
+      HIGH risk and will prevent L2 classification on revenue grounds.
+
+  L3:
+    label: "Lender Diligence Ready"
+    description: >
+      Sufficient for credit committee submission at a bank or infrastructure debt fund.
+      All major risks identified and mitigated or fully disclosed. Core contracts in place.
+      EVN counterparty risk is addressed structurally (government guarantee, insurance,
+      or accepted risk with explicit disclosure). Curtailment compensation addressed.
+    minimum_requirements:
+      - All L2 requirements met
+      - IRC obtained and confirmed valid; ERC obtained
+      - EIA approved by MoNRE
+      - Construction permit (Giay phep xay dung) issued by provincial Construction
+        Department and final (appeal period expired)
+      - Signed EVN Grid Connection Agreement
+      - "LURC secured for all key parcels; agricultural conversion approval obtained if required; long-term lease agreement signed (minimum 25 years)"
+      - "Independent yield assessment with on-site measurement data; curtailment modelled at both P50 and P90 levels"
+      - "Revenue contract in place: signed DPPA (Decree 57/2025), signed EVN transitional contract (Decree 58/2025/ND-CP), or legacy FiT confirmed active with remaining term exceeding anticipated loan tenor"
+      - "Lender-reviewed financial model with DSCR analysis, FX modelling, and curtailment downside"
+      - "EVN counterparty risk explicitly addressed: structural mitigant described (government guarantee, political risk insurance, escrow mechanism) or risk accepted with full disclosure to lender"
+      - "Curtailment compensation position: either compensation mechanism confirmed in contract, or uncompensated curtailment modelled in base case and accepted"
+      - Full diligence data room populated
+      - "Corporate ownership confirmed; UBO documented; IRC change-of-control provisions reviewed by legal counsel"
+      - Operating assets: all-risk and business interruption insurance active
+    typical_use:
+      - Bank credit committee submission
+      - Infrastructure fund IC presentation at binding offer stage
+      - Refinancing of operating assets
+      - Vendor due diligence initiation
+    not_sufficient_for:
+      - Drawdown of construction or term loan
+      - Final investment decision requiring agreed EPC
+    validation_notes: >
+      L3 is demanding in Vietnam because of the combination of EVN counterparty risk,
+      curtailment risk, and regulatory instability. A project with all permits in place
+      but an un-bankable EVN PPA (no structural mitigant) cannot achieve L3 in the
+      context of international project finance. Lenders will require explicit treatment
+      of FX risk (VND/USD conversion) and repatriation mechanics before credit committee.
+      For operating assets: EVN metering disputes and curtailment history must be fully
+      documented.
+
+  L4:
+    label: "Data Room Ready"
+    description: >
+      Fully documented asset. All conditions precedent for financing and closing are
+      in place or agreed. EPC contract signed or in final negotiation. All regulatory
+      approvals final. Revenue contracts bankable. FX and repatriation structure agreed.
+    minimum_requirements:
+      - All L3 requirements met
+      - EPC contract signed or in final negotiation with agreed commercial terms
+      - All permit conditions precedent to construction fulfilled
+      - EVN Grid Connection Agreement executed; evacuation line and substation
+        works contracted or complete
+      - All land agreements registered with provincial Land Registration Office
+      - Revenue contracts final and reviewed by lender's legal counsel as bankable
+      - Lender's technical advisor and legal advisor reports complete
+      - "FX and repatriation structure agreed with financing banks; SBV approvals confirmed or pathway agreed"
+      - Insurance review by lender's broker; assignment agreed; coverage in force
+      - "Full VDD (vendor due diligence) reports available: technical, legal, financial, environmental"
+      - IRC change-of-control mechanism confirmed and timing agreed
+    typical_use:
+      - Final binding offer and SPA signing
+      - Financial close (construction or re-financing)
+      - Full acquisition by institutional buyer
+    not_sufficient_for:
+      - Nothing at L4 — this is the highest level
+    validation_notes: >
+      L4 is rare at marketing stage for Vietnamese renewable assets. The combination of
+      EVN counterparty issues, FX structuring, IRC change-of-control requirements, and
+      curtailment documentation means that L4 is typically achieved only immediately
+      before or concurrent with signing of a binding SPA. Most Vietnamese transactions
+      close based on L2–L3 documentation with L4 confirmations as conditions precedent
+      to closing.

@@ -1,0 +1,219 @@
+# RALS Jurisdiction Package — Ukraine
+# field-overrides.yaml
+# Version: 0.1
+
+jurisdiction_code: UA
+
+global_override_note: >
+  All Ukrainian assets must be assessed against war-risk, grid damage, and martial law
+  context. Any field that assumes normal peacetime conditions should be interpreted with
+  an additional validation layer. Validators must always check whether the asset is in
+  an occupied, frontline, or war-damaged zone before processing other fields.
+
+fields:
+
+  identity.country:
+    required: true
+    importance: critical
+    allowed_values: ["UA"]
+    jurisdiction_note: >
+      ISO 3166-1 alpha-2 "UA". This package applies the exceptional risk environment
+      override to all standard field interpretations.
+
+  identity.region:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      Ukrainian oblast (province). Security zone classification is critical:
+      occupied territories (Kherson, Zaporizhzhia, Donetsk, Luhansk, parts of Kharkiv
+      and Mykolaiv oblasts): RALS classification must not exceed L0 unless extraordinary
+      IFI/military security evidence is provided.
+      Frontline adjacent oblasts: L1 maximum without specific security risk assessment.
+      Western oblasts (Lviv, Volyn, Zakarpattia, Ivano-Frankivsk, Ternopil, Chernivtsi):
+      relatively lower security risk but still subject to missile/drone risk.
+    validation_warning: >
+      If region is in or adjacent to an occupied or frontline zone, raise CRITICAL
+      war risk flag and downgrade readiness level to L0 or L1 maximum.
+
+  identity.lifecycle_stage:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      "ready_to_build" and "operating" in Ukraine require all standard evidence PLUS:
+      (a) confirmation that the site is not in an occupied, contested, or imminently
+      at-risk zone; (b) current physical condition of the asset confirmed (not damaged/destroyed);
+      (c) war-risk insurance in place or viable IFI guarantee structure.
+    validation_warning: >
+      Operating status should be confirmed with current operational data, not pre-war records.
+      An "operating" designation for an asset in a war-affected region must be verified
+      with Ukrenergo or the asset operator before accepting.
+
+  technical.technology:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      BESS and hybrid assets are strategic priorities under Ukraine's NECP 2025-2030.
+      Wind + hydrogen hybrids are marketed but typically at L0 concept stage.
+      Hydro assets require current operational status confirmation; Ukrhydroenergo
+      assets have been subject to significant war damage and EBRD-financed reconstruction.
+
+  technical.capacity:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Nameplate capacity at commissioning. For war-damaged operating assets, also
+      provide current operational capacity (reduced due to damage) and restoration timeline.
+
+  land.land_control_status:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      Ukrainian land law: land lease agreements (orenda) with state or private landowners.
+      Agricultural land was subject to moratorium on sale (lifted in 2021 for individuals,
+      partially for legal entities in 2024). For development sites: confirm cadastral
+      registration (Derzhavnyi kadastr nerukhomosti). For assets in de-occupied areas:
+      title may be disputed or registration records may be damaged.
+    validation_warning: >
+      Land title in territories that were occupied and subsequently de-occupied may
+      be unreliable. Russian occupation authorities issued contradictory land documents.
+      Raise as HIGH risk for any asset in a de-occupied zone.
+
+  land.land_evidence:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Expected evidence: signed orenda agreement; cadastral extract from State Cadastre;
+      confirmation that land records are intact (not damaged by occupation or war).
+      For de-occupied areas: legal opinion on title validity post-de-occupation.
+
+  grid_offtake.grid_connection_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - pre_application
+      - technical_specs_issued
+      - connection_agreement_signed
+      - connected_operational
+      - connected_but_damaged
+      - connection_point_destroyed
+    jurisdiction_note: >
+      Ukrainian grid infrastructure has been extensively damaged. Even assets with
+      pre-war connection agreements may connect to a damaged or non-functional grid node.
+      Confirm with Ukrenergo: (1) status of the specific connection point;
+      (2) whether the local substation and transmission lines are intact;
+      (3) timeline for any required reconstruction.
+    validation_warning: >
+      Do not assume grid connectivity from pre-war documents. Current Ukrenergo grid
+      status must be verified. "Connected" assets may be connected to a non-functional
+      or reduced-capacity network.
+
+  grid_offtake.grid_capacity:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      Ukraine's grid capacity varies dramatically by region and damage status.
+      Western Ukraine (connected to ENTSO-E since March 2022) has relatively more stable
+      grid conditions. Eastern and Southern regions face severe damage. Grid reconstruction
+      is ongoing with EBRD/EIB support.
+
+  grid_offtake.connection_evidence:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      For L2+: a current (post-2022) Ukrenergo or DSO confirmation of grid status
+      at the specific connection point. Pre-war connection agreements alone are insufficient
+      if the physical infrastructure has been damaged.
+
+  compliance.permitting_status:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Ukrainian permitting procedures have been modified under martial law.
+      Construction permits (dozvil na budivnytstvo) may require different approvals
+      under emergency procedures. Environmental impact assessment (EIA / otsenka vplyvu
+      na dovkillia — OVD) remains required. Confirm with current NEURC guidance.
+    validation_warning: >
+      Pre-war permits may have lapsed or require renewal. Permits for assets in war-affected
+      areas should be verified for current validity.
+
+  compliance.environmental_status:
+    required: true
+    importance: medium
+    jurisdiction_note: >
+      Environmental assessment (OVD) required per Ukrainian law. For reconstruction or
+      rehabilitation of war-damaged assets, modified procedures may apply.
+      Natura 2000 equivalent protections apply in Ukraine as an EU candidate country.
+
+  revenue.revenue_model:
+    required: true
+    importance: critical
+    allowed_values:
+      - green_tariff_restructured
+      - green_auction_contract
+      - merchant_dam
+      - ppa_ifi_backed
+      - ppa_corporate
+      - export_to_eu
+      - undetermined
+    jurisdiction_note: >
+      Pre-war green tariff (zelenyi tarif) contracts were subject to debt restructuring
+      in 2020-2021; many holders accepted 80–85% of original tariff with deferred
+      payment. New green auction contracts are available. Market-based revenue is
+      possible but DAM pricing is regulated and below EU levels. IFI-backed PPAs
+      (structured through EBRD, EIB, or development banks) are increasingly the primary
+      financing route for new investments.
+    validation_warning: >
+      Do not model pre-war FiT rates as current revenue. Restructured tariff terms must
+      be documented. Export to EU via ENTSO-E synchronisation is technically possible
+      but commercially uncertain and subject to ENTSO-E capacity constraints.
+
+  revenue.support_scheme:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      Specify: restructured green tariff (with original and post-restructuring rate),
+      green auction contract, or none. For IFI-financed projects: include EBRD/EIB
+      guarantee or risk mitigation structure.
+
+  financials.capex_confidence:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      Ukrainian EPC costs are below EU benchmarks but supply chain disruption, currency
+      risk (UAH/EUR), and security risk add meaningful uncertainty. Grid connection costs
+      may include reconstruction contribution. Capex for reconstruction of war-damaged
+      assets must be independently assessed.
+
+  financials.opex_confidence:
+    required: false
+    importance: medium
+    jurisdiction_note: >
+      OpEx must include security costs, generator/backup power costs (grid outages),
+      and insurance premiums for war-risk coverage. War-risk insurance premiums are
+      substantial and must be explicitly modelled.
+
+  process.transaction_type:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Ukrainian M&A structures typically use LLC (TOV) or JSC (AT) SPVs.
+      Foreign investment is subject to currency transfer restrictions during martial law.
+      Profit repatriation may be restricted. Confirm with legal counsel whether
+      convertibility/transfer restrictions affect the proposed transaction structure.
+
+  process.data_room_status:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      For any level above L0: confirm that data room documents reflect current
+      (post-invasion, or recent post-invasion) status, not pre-war snapshots.
+
+  risks.risk_flags:
+    required: false
+    importance: critical
+    jurisdiction_note: >
+      Ukraine-specific risks are defined in risks.yaml with additional categories:
+      martial_law_risk, war_damage_risk, occupation_or_security_risk,
+      convertibility_transfer_risk, sovereign_counterparty_risk,
+      grid_damage_or_reconstruction_risk, war_risk_insurance_missing.
+      These must be evaluated for every Ukrainian asset.

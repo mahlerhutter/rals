@@ -1,0 +1,350 @@
+# ============================================================================
+# RALS Jurisdiction Package — Georgia
+# Example: georgia-solar-cfd-l2.rals.yaml
+# ============================================================================
+# Asset:        Project Shida Kartli Solar (fictional)
+# Technology:   Solar PV, utility-scale ground-mount
+# Stage:        Development — L2 (Investment Memo Ready)
+# Location:     Shida Kartli region (central Georgia)
+# Purpose:      Demonstrates L2 Georgian solar PV asset. CfD application submitted
+#               in 2024 auction; award pending (auction was oversubscribed).
+#               State usufruct agreement signed (40 years) and NAPR-registered.
+#               Construction permit issued by local municipality; valid 2 years.
+#               GSE technical conditions received; connection agreement NOT signed.
+#               EIA/environmental clearance completed. GNERC licence application
+#               submitted; pending. Revenue: CfD award unconfirmed; ESCO fallback
+#               identified but uncontracted. L2 maximum due to: CfD not confirmed,
+#               GSE connection agreement missing, GNERC licence pending.
+# Risks shown:  cfd_auction_competition (high — oversubscribed), gnerc_licence_delay,
+#               grid_connection_delay, political_risk_georgia, gel_usd_currency_risk
+# ============================================================================
+fictional: true
+source: "synthetic_example"
+confidentiality: "public_example"
+
+rals_version: "0.1"
+document_id: "rals:GE-EX-PV-DEV-L2-001"
+generated_at: "2026-05-15T09:00:00Z"
+generated_by: "rals-jurisdiction-example-generator"
+language: "en"
+
+rals_jurisdiction:
+  jurisdiction_package: GE
+  rals_jurisdiction_version: "0.1"
+  assessed_readiness_level: L2
+  readiness_label: "Investment Memo Ready"
+  jurisdiction_assessment_date: "2026-05-15"
+  downgrade_reasons:
+    - "CfD contract not yet awarded — 2024 auction result pending; auction oversubscribed"
+    - "GSE grid connection agreement not signed — only technical conditions letter received"
+    - "GNERC generation licence application submitted but not yet issued"
+  l2_evidence_confirmed:
+    - "State usufruct agreement signed (40 years); NAPR-registered"
+    - "Construction permit issued by Gori Municipality; valid until May 2028"
+    - "EIA/environmental clearance issued; no material conditions outstanding"
+    - "GSE technical conditions letter received February 2025"
+    - "CfD application submitted to Ministry of Economy (February 2024 auction)"
+    - "GNERC licence application submitted March 2026"
+    - "Preliminary bankable solar yield assessment available (P50/P90)"
+    - "Investment-memo-grade financial model with GEL/USD sensitivity"
+    - "NDA-accessible data room available"
+
+# ── Identity ─────────────────────────────────────────────────────────────────
+identity:
+  asset_name: "Project Shida Kartli Solar"
+  asset_type: solar_pv
+  lifecycle_stage: development
+  country: GE
+  region: "Shida Kartli"
+  sub_region: "Gori Municipality"
+  total_capacity_mw_ac: 50.0
+  total_capacity_mw_dc: 62.5
+  dc_ac_ratio: 1.25
+  site_area_hectares: 95
+  transaction_type: majority_stake
+  equity_offered_pct: 80
+  spv_structure: true
+  spv_jurisdiction: "Georgia"
+  spv_name: "Shida Kartli Solar LLC (Georgian SPS)"
+
+# ── Technical ─────────────────────────────────────────────────────────────────
+technical:
+  technology: solar_pv
+  expected_lifetime_years: 30
+  design_basis_year: 2026
+  mounting:
+    type: single_axis_tracker
+    tilt_range_deg: "-60 to +60"
+  module_technology: "Monocrystalline PERC (bifacial)"
+  module_capacity_wp: 570
+  inverter_type: "Central string inverter, 1500 V DC"
+  production_estimates:
+    methodology: >
+      Preliminary independent yield assessment by Georgian-registered engineering
+      consultancy (DNV subcontractor). Based on PVGIS v5.2 irradiation data for
+      Gori region, correlated against 5 years of NASA POWER reanalysis data.
+      On-site pyranometer installation planned for Q3 2026 (12-month measurement
+      programme to support L3 yield update).
+    p50_gwh_yr: 92.5
+    p90_gwh_yr: 86.0
+    specific_yield_kwh_kwp: 1480
+    assessor: "Engineering consultancy (Georgian office of recognised international firm)"
+    assessment_date: "2025-12-15"
+    assessment_quality: preliminary_bankable
+    assessment_note: >
+      Preliminary bankable assessment. P90 based on irradiation dataset uncertainty
+      only — on-site measurement not yet available. Assessor recommends updating
+      with on-site data for lender diligence (L3). No curtailment modelled — Shida
+      Kartli region has no known GSE curtailment risk, to be confirmed at GSE
+      connection agreement stage. Soiling loss: 2.5% (dry summer dust). Degradation:
+      0.4%/year. Availability: 98%.
+
+# ── Grid & Offtake ────────────────────────────────────────────────────────────
+grid_offtake:
+  grid_connection:
+    status: technical_conditions_received
+    grid_operator: "Georgian State Electrosystem (GSE)"
+    voltage_level_kv: 110
+    connection_point: "Gori 110 kV substation (GSE-confirmed)"
+    connection_evidence: >
+      GSE technical conditions letter received February 2025 (reference GSE-2025-TC-0312).
+      Technical conditions confirm connection at Gori 110 kV substation. Connection line
+      length: 3.8 km (110 kV OHL). Indicative connection infrastructure cost: USD 1.2m
+      (developer responsibility under GSE conditions). GSE connection agreement NOT yet
+      signed — formal application for connection agreement submitted March 2026.
+      GSE target response: Q3 2026 (GSE confirmed timeline in writing).
+      Shida Kartli is central Georgia — no material curtailment risk per GSE technical
+      conditions; no west Georgia transmission constraints apply.
+    grid_risk_note: >
+      Technical conditions received but connection agreement not yet signed.
+      Signed connection agreement is required for L3 (RTB). Connection infrastructure
+      procurement cannot begin until connection agreement is executed. COD risk of
+      2–3 month delay if connection agreement is delayed beyond Q3 2026.
+  offtake_structure: cfd_pending_ppa_fallback
+  revenue_model: cfd_auction
+  offtake_contracts:
+    - contract_type: cfd_auction
+      status: "application_submitted_award_pending"
+      contracting_authority: "Ministry of Economy and Sustainable Development of Georgia"
+      auction_round: "February 2024 (800 MW CfD auction)"
+      application_submitted: "2024-02-15"
+      award_result: "Pending — auction results not yet announced as of 2026-05-15"
+      strike_price_usd_mwh: null
+      contract_duration_years: 15
+      cfd_note: >
+        Project applied in the February 2024 CfD auction (800 MW capacity offered by
+        Government). The 2024 auction was oversubscribed — multiple applicants are
+        competing for the available capacity. CfD award has not been confirmed as of
+        the assessment date. Strike price (USD/MWh) will be the winning bid tariff
+        and is not yet known. If not awarded CfD, developer will pursue industrial PPA
+        or ESCO market route. Revenue is UNCONFIRMED — CfD application does not equal
+        CfD award.
+  fallback_revenue:
+    route: esco_market
+    fallback_note: >
+      If CfD is not awarded, the developer has identified the ESCO wholesale market
+      as the primary fallback. No ESCO market contract has been negotiated. ESCO
+      market pricing is uncontracted and subject to spot market conditions. At current
+      Georgian wholesale price levels (estimated GEL 100–150/MWh, approximately USD
+      37–55/MWh), ESCO market revenues would be materially below typical CfD strike
+      price levels. Merchant exposure would be HIGH without a CfD or PPA. Industrial
+      PPA discussions have been initiated with one Georgian cement producer but no
+      heads of terms have been signed.
+
+# ── Compliance ────────────────────────────────────────────────────────────────
+compliance:
+  permitting_status: construction_permit_issued
+  permitting_authority: "Gori Municipality"
+  permitting_detail: >
+    Construction permit (Building Permit No. GP-2025-0448) issued by Gori Municipality
+    in May 2025 under RES Class III classification. Permit is valid for 2 years
+    (until May 2027). No concession agreement required (50 MW is below the strategic
+    project threshold for this municipality). No material conditions outstanding
+    in the construction permit. Permit does not require further central government approval.
+  gnerc_licence_status: gnerc_licence_pending
+  gnerc_licence_detail: >
+    GNERC electricity generation licence application submitted March 2026 (GNERC
+    reference: GNERC-LIC-2026-0215). Acknowledgement received from GNERC.
+    GNERC target processing time: 3–4 months. Expected licence issuance: Q3 2026.
+    GNERC licence is required for commercial electricity generation. Pending status
+    prevents L3 classification. No adverse indication from GNERC on application.
+  environmental_status: clearance_issued
+  environmental_authority: "Ministry of Environmental Protection and Agriculture — Shida Kartli Regional Office"
+  environmental_detail: >
+    EIA/environmental clearance (Decision No. ENV-2025-GOR-0119) issued by the
+    Ministry of Environmental Protection and Agriculture regional office in
+    August 2025. All environmental conditions are administrative in nature:
+    soil erosion control plan, construction waste management protocol, and
+    decommissioning bond. No protected area or biodiversity constraint. Site is
+    on brownfield/degraded agricultural land — no conversion from active agricultural
+    use required. Environmental conditions accepted; estimated cost: USD 85,000.
+
+# ── Land ─────────────────────────────────────────────────────────────────────
+land:
+  land_control_status: state_usufruct_signed
+  land_area_ha: 95
+  land_detail: >
+    Site is on state-owned land. State usufruct agreement executed under Government
+    Resolution 515 framework (October 31, 2018). Usufruct agreement signed:
+    March 2025. Usufruct term: 40 years (2025–2065). NAPR registration completed:
+    April 2025 (NAPR extract reference: NAPR-GOR-2025-0387). NAPR extract confirms
+    no adverse encumbrances. Land classification: degraded agricultural land
+    (no active farming; land was previously used for aggregate extraction).
+    No zoning conversion required — municipality confirmed suitability for RES
+    construction in zoning assessment letter (February 2025).
+  land_risks:
+    - "No material land risk identified — usufruct signed, NAPR-registered, 40-year term"
+    - "40-year usufruct term exceeds project life (30 years) by 10 years — adequate"
+
+# ── Financials ───────────────────────────────────────────────────────────────
+financials:
+  reporting_currency: USD
+  total_capex_usd: 47000000
+  capex_breakdown_note: >
+    Developer indicative capex: USD 47m (USD 940/kWp DC installed). Breakdown:
+    EPC (civil and electrical): USD 33m; module supply: USD 9m; GSE connection
+    infrastructure: USD 1.2m; soft costs (permitting, development, insurance): USD 3.8m.
+    No independent EPC quotation yet — developer used regional comparables from
+    2024–2025 Georgian solar tenders. Grid connection cost is indicative (USD 1.2m)
+    pending GSE connection agreement. Capex is not independently validated.
+  capex_confidence: indicative
+  opex_eur_yr: null
+  opex_usd_yr: 420000
+  opex_note: >
+    Developer O&M cost estimate: USD 420,000/year (USD 8.4/kWp). Includes module
+    cleaning, inverter maintenance, site security, insurance, and GNERC licence fees.
+    No O&M contract negotiated. O&M contractor market in Georgia is thin for utility-
+    scale solar — international O&M provider may be required, increasing cost.
+  financial_model_available: true
+  financial_model_note: >
+    Investment-memo-grade financial model available under NDA. Base case: CfD at
+    estimated strike price USD 55/MWh (15-year). Sensitivity analysis: P90 generation;
+    GEL/USD ±15%; ESCO market fallback scenario (USD 45/MWh merchant). Base case
+    equity IRR: 14–16% (USD terms). ESCO market fallback scenario: equity IRR 8–10%.
+    Financial model not yet reviewed by lender — DSCR analysis pending. Debt sizing
+    concept: 60–65% gearing.
+  currency_note: >
+    Revenues under CfD will be confirmed in USD or GEL upon award — denomination
+    to be confirmed. O&M and civil construction costs are in GEL. Module and
+    equipment costs are in USD/EUR. GEL/USD sensitivity modelled in financial model.
+    Capital remittance structure to be reviewed by Georgian legal and tax counsel.
+
+# ── Process ──────────────────────────────────────────────────────────────────
+process:
+  process_type: structured_bilateral
+  advisor:
+    financial_advisor: "Regional energy advisory firm (Tbilisi office)"
+    legal_advisor: "Georgian law firm (energy practice)"
+  data_room_status: available_under_nda
+  data_room_platform: "Drooms (NDA-accessible)"
+  data_room_contents:
+    - "State usufruct agreement (signed March 2025)"
+    - "NAPR extract (April 2025)"
+    - "Construction permit GP-2025-0448 (Gori Municipality)"
+    - "EIA environmental clearance ENV-2025-GOR-0119"
+    - "GSE technical conditions letter GSE-2025-TC-0312"
+    - "GSE connection agreement application (March 2026)"
+    - "GNERC licence application GNERC-LIC-2026-0215"
+    - "CfD application submission confirmation (February 2024 auction)"
+    - "Preliminary solar yield assessment (December 2025)"
+    - "Investment-memo-grade financial model"
+    - "Corporate structure chart (Georgian LLC extract from Public Registry)"
+    - "Zoning assessment letter (Gori Municipality, February 2025)"
+  asking_price:
+    indicated_range_usd_low: 8000000
+    indicated_range_usd_high: 12000000
+    price_basis_note: >
+      Development equity valuation. Significant optionality: price depends heavily
+      on CfD award outcome. Seller is prepared to negotiate price adjustment mechanism
+      linked to CfD strike price. If CfD is not awarded, price to be renegotiated.
+  process_timeline:
+    nda_deadline: "2026-06-30"
+    indicative_terms_due: "2026-08-31"
+    indicative_close: "2026-12-31"
+    timeline_note: >
+      Timeline contingent on CfD auction result (expected Q4 2026). Buyer should
+      consider whether to transact before or after CfD award — pre-award transaction
+      carries CfD risk but lower price; post-award transaction has higher certainty
+      but likely higher price.
+
+# ── Risk Flags ───────────────────────────────────────────────────────────────
+risk_flags:
+  - risk_id: cfd_auction_competition
+    active: true
+    severity: high
+    note: >
+      CfD application submitted in the February 2024 auction (800 MW). Auction was
+      oversubscribed. CfD award not confirmed as of assessment date. Revenue is
+      unconfirmed — a pending CfD application does not meet L3 revenue requirements.
+      If CfD is not awarded, revenue falls back to ESCO market or uncontracted PPA,
+      which would significantly reduce project value and bankability.
+
+  - risk_id: gnerc_licence_delay
+    active: true
+    severity: medium
+    note: >
+      GNERC licence application submitted March 2026; processing time 3–4 months.
+      Expected issuance: Q3 2026. Delay beyond 4 months would push COD risk.
+      GNERC licence is required for commercial operation and for L3 classification.
+      No adverse indication from GNERC noted.
+
+  - risk_id: grid_connection_delay
+    active: true
+    severity: medium
+    note: >
+      GSE technical conditions received (February 2025) but connection agreement
+      not yet signed. Connection agreement application submitted March 2026.
+      GSE target response: Q3 2026. Signed connection agreement is required for
+      L3 classification. Connection infrastructure (3.8 km 110 kV OHL) cannot be
+      procured until agreement is executed.
+
+  - risk_id: unclear_revenue_route
+    active: true
+    severity: high
+    note: >
+      CfD application pending; no CfD contract award. ESCO fallback is uncontracted.
+      No PPA signed. Revenue is the primary risk for this asset at L2. The project
+      cannot progress to L3 without a confirmed CfD award or signed PPA.
+
+  - risk_id: political_risk_georgia
+    active: true
+    severity: medium
+    note: >
+      Government transitions in Georgia have created some uncertainty around
+      the continuity of the CfD auction programme. CfD auction results and
+      tariff levels are subject to Government discretion. Force majeure and change
+      of law provisions in CfD contract must be reviewed by Georgian legal counsel
+      upon award. Capital remittance structure to be confirmed.
+
+  - risk_id: gel_usd_currency_risk
+    active: true
+    severity: medium
+    note: >
+      CfD denomination (GEL or USD) not yet confirmed — will be determined by
+      auction documentation upon award. Construction costs partly in GEL. Financial
+      model includes ±15% GEL/USD sensitivity. No hedging strategy in place.
+      Capital remittance provisions in Georgian law to be reviewed.
+
+  - risk_id: limited_ipp_track_record
+    active: true
+    severity: medium
+    note: >
+      Developer has one small Georgian solar project (5 MW) completed in 2023 but
+      no large-scale (50 MW+) project track record in Georgia. EPC contractor not
+      yet formally appointed. International EPC contractor would be preferred by
+      lenders — increase in EPC cost versus local contractor likely.
+
+  - risk_id: land_not_secured
+    active: false
+    note: "State usufruct signed and NAPR-registered. 40-year term. No material land risk."
+
+  - risk_id: grid_congestion_west_georgia
+    active: false
+    note: >
+      Project is in Shida Kartli (central/east Georgia). GSE technical conditions
+      confirm no curtailment risk at Gori 110 kV substation. West Georgia
+      congestion risk does not apply.
+
+  - risk_id: seasonal_hydro_variability
+    active: false
+    note: "Not applicable — solar PV technology."

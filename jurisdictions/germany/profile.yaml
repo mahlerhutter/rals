@@ -1,0 +1,124 @@
+# ============================================================================
+# RALS Jurisdiction Package — Germany (DE)
+# File: profile.yaml
+# ============================================================================
+
+jurisdiction_code: DE
+name: Germany
+rals_jurisdiction_version: "0.1"
+status: active
+last_reviewed: "2026-05-15"
+
+supported_technologies:
+  - onshore_wind
+  - offshore_wind
+  - solar_pv
+  - bess
+  - hybrid
+  - biomass
+  - biogas
+  - hydro_run_of_river
+  - hydro_reservoir
+
+common_transaction_types:
+  - full_acquisition
+  - majority_stake
+  - minority_stake
+  - refinancing
+  - joint_venture
+  - development_stage_sale
+
+common_lifecycle_stages:
+  - greenfield
+  - development
+  - ready_to_build
+  - construction
+  - operating
+  - repowering
+
+primary_authorities:
+  energy_regulator: "Bundesnetzagentur (BNetzA) — www.bundesnetzagentur.de"
+  ministry: "BMWK (Bundesministerium für Wirtschaft und Klimaschutz)"
+  support_scheme_administrator: "Bundesnetzagentur (administers EEG auctions directly)"
+  environmental: "Umweltbundesamt (UBA); Bundesländer environmental authorities"
+  species_protection: "Bundesamt für Naturschutz (BfN); Bundesland-specific Naturschutzbehörden"
+  offshore_permitting: "BSH (Bundesamt für Seeschifffahrt und Hydrographie)"
+
+grid_authorities:
+  tsos:
+    - name: TenneT
+      coverage: "North and large parts of Germany"
+      url: "https://www.tennet.eu"
+    - name: 50Hertz Transmission
+      coverage: "North and East Germany"
+      url: "https://www.50hertz.com"
+    - name: Amprion
+      coverage: "West and Southwest Germany"
+      url: "https://www.amprion.net"
+    - name: TransnetBW
+      coverage: "Baden-Württemberg"
+      url: "https://www.transnetbw.de"
+  dsos: "~900 DSOs (Verteilnetzbetreiber) operate <110 kV distribution networks"
+  connection_process_summary: >
+    Developer submits Netzanschlussbegehren (NAB) to TSO or DSO depending on voltage.
+    TSO/DSO issues Netzanschlusszusage (NAZ — connection offer, typically 3–12 months).
+    Developer accepts NAZ and signs Netzanschlussvertrag (NAV — binding contract).
+    Physical connection executed: 12–36 months from NAV depending on infrastructure scope.
+    Total timeline NAB to energization: 2–5 years typical.
+
+market_design_notes:
+  support_scheme: >
+    EEG 2023 (Erneuerbare-Energien-Gesetz) — mandatory competitive auctions
+    (Ausschreibungen) administered by Bundesnetzagentur for onshore wind (all sizes),
+    ground-mount solar (>750 kW), offshore wind. Winning bidders receive Marktprämie
+    (market premium) = reference price minus achieved market price, paid for 20 years.
+    Direktvermarktung (direct marketing) required. EEG market premium scheme expires
+    Dec 31, 2026 — post-2026 design under review; regulatory uncertainty for projects
+    closing 2026–2027.
+  ppa_market: >
+    Germany is Europe's largest corporate PPA market. 10–20 year PPAs widely
+    transacted. Major corporate buyers include hyperscalers (Amazon, Google) and
+    industrial firms. Fair value 10-year PPA circa EUR 90–100/MWh (2025 market).
+    Subsidy-free merchant/PPA route viable for well-sited solar.
+  bess_market: >
+    Standalone BESS revenue via: (1) balancing markets (FCR, aFRR — primary revenue),
+    (2) day-ahead/intraday arbitrage, (3) network service contracts. Grid connection
+    queue severe (~650 requests pending as of 2025). §118(6) EnWG exempts BESS
+    commissioned before Aug 3, 2029 from network charges for 20 years.
+  repowering: >
+    Old turbine Rückbau (dismantling) required within 48 months. New turbine requires
+    new BImSchG permit. Distance rule: new turbine ≥ 5× total height from old location.
+  offshore: >
+    BSH administers offshore permits in German EEZ. Flächenentwicklungsplan designates
+    wind areas. Support via EEG offshore auctions (higher price caps than onshore).
+  curtailment: >
+    Redispatch 2.0 (since 2021): TSO/DSO can curtail generation to manage congestion.
+    2024: 9.4 TWh curtailed (cost ~EUR 2.8bn). Northern Germany most affected.
+    Generator receives compensation (~90% of lost revenue) under current rules.
+    Draft 2026 grid reform proposes "redispatch waiver" (zero compensation) for new
+    projects in congested areas — if enacted, northern Germany project valuations
+    decline 15–30%. Validation_warning: rule change unresolved as of May 2026.
+
+key_transaction_risks:
+  - permitting_under_appeal          # BImSchG — Klagewelle (wave of appeals)
+  - species_protection               # Rotmilan/red kite, bat survey & mitigation
+  - grid_connection_delay            # TSO queue saturation; conditional NAZ
+  - curtailment_risk                 # Redispatch 2.0; northern Germany bottleneck
+  - land_not_secured                 # Informal leases; missing Grundbuch registration
+  - bess_queue_risk                  # BESS grid connection queue severe
+  - eeg_post_2026_uncertainty        # Post-2026 support scheme design unknown
+  - repowering_complexity            # New permit required; distance rule; Rückbau obligation
+
+validation_scope: >
+  This package covers land-based onshore wind and solar PV as primary asset types,
+  with supplementary notes for BESS and offshore wind. Biomass, biogas, and hydro
+  are referenced but not fully elaborated. Sub-national (Bundesland) permitting
+  variability is flagged as a validation_warning; specific Bundesland rules are
+  not individually modelled. This package does not constitute legal advice.
+
+disclaimer: >
+  This RALS Jurisdiction Package is a structured reference for transaction-readiness
+  assessment. It is not legal advice and does not replace German legal counsel
+  (Rechtsanwalt). Regulatory references are as of May 2026; German energy law changes
+  frequently. Validators should verify currency of all regulatory references before
+  relying on this package for transactional decisions.

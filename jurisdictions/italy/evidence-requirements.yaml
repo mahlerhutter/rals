@@ -1,0 +1,255 @@
+# RALS Jurisdiction Package — Italy
+# evidence-requirements.yaml
+# Required evidence by readiness level
+# Version: 0.1
+
+jurisdiction_code: IT
+
+evidence_categories:
+
+  site_identification:
+    L0:
+      required: false
+      description: "General location (region, province) acceptable"
+    L1:
+      required: true
+      description: "Municipality, approximate coordinates, cadastral zone identified"
+    L2:
+      required: true
+      description: "Precise cadastral parcel numbers; zoning category confirmed; no fatal landscape constraint"
+    L3:
+      required: true
+      description: "Full cadastral plan as filed with AU authority; landscape compatibility confirmed"
+    L4:
+      required: true
+      description: "Survey-grade site plan, registered with Agenzia delle Entrate or notarised"
+
+  land_control:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: "Landowner(s) identified; preliminary contact made"
+    L2:
+      required: true
+      description: >
+        Signed contratto d'affitto (lease) or compromesso (preliminary purchase agreement)
+        registered with Agenzia delle Entrate; covers primary parcels
+      italy_note: >
+        LOIs and informal agreements are not sufficient. Must be enforceable Italian law contracts.
+    L3:
+      required: true
+      description: >
+        All key parcels under signed and registered long-term lease (≥15 years) or purchase agreement;
+        visura ipotecaria confirming no adverse mortgage; catasto extract provided
+    L4:
+      required: true
+      description: "All land agreements registered; rogito notarile completed or scheduled; no adverse entries"
+
+  grid_connection:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: "Target connection point identified; preliminary Terna/DSO inquiry submitted"
+    L2:
+      required: true
+      description: >
+        Soluzione di Connessione (SdC) issued by Terna or DSO and accepted;
+        indicative connection cost disclosed
+      italy_note: >
+        SdC issued but not yet accepted is borderline for L2. Confirm acceptance within 45 days.
+    L3:
+      required: true
+      description: >
+        Signed Convenzione di connessione with Terna or DSO;
+        connection cost agreed and included in project capex
+    L4:
+      required: true
+      description: "Convention signed; Terna/DSO works contracted; energisation timeline confirmed"
+
+  permitting:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: >
+        Pre-application screening (conferenza dei servizi preliminare) completed;
+        applicable authorization track identified (AU, PAS, or DILA)
+    L2:
+      required: true
+      description: >
+        AU application submitted to Regione or MASE commission;
+        no fatal authority objection at preliminary stage
+    L3:
+      required: true
+      description: >
+        AU granted and final (no pending TAR or Consiglio di Stato appeal);
+        all permit conditions precedent reviewed and accepted
+      italy_note: >
+        "AU granted but not final" or "under TAR appeal" is NOT sufficient for L3.
+        Judicial challenge period is 60 days from AU publication.
+    L4:
+      required: true
+      description: "AU final; all conditions precedent fulfilled; construction start authorized"
+
+  environmental:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: "Preliminary environmental screening; Natura 2000 / VAS check; no fatal constraint"
+    L2:
+      required: true
+      description: >
+        VIA (if required) application submitted or integrated in AU;
+        avifauna survey for wind; landscape (paesaggio) assessment for southern coastal sites
+    L3:
+      required: true
+      description: >
+        VIA decision favourable and included in AU; all environmental conditions reviewed;
+        monitoring plan (piano di monitoraggio) approved
+    L4:
+      required: true
+      description: "All environmental conditions fulfilled; monitoring programme operational"
+
+  technical_design:
+    L0:
+      required: false
+      description: "Technology concept only"
+    L1:
+      required: true
+      description: "Preliminary layout; technology and capacity concept"
+    L2:
+      required: true
+      description: "Bankable technical concept; indicative EPC cost; layout as filed with AU"
+    L3:
+      required: true
+      description: "Detailed design; equipment specifications; EPC procurement launched"
+    L4:
+      required: true
+      description: "EPC contract signed; final BoP design; construction programme"
+
+  energy_yield:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: "Desktop yield estimate using PVGIS or GWA; P50 indicative"
+    L2:
+      required: true
+      description: "Bankable yield assessment (DNV, 3E, Meteorogix, or equivalent); P50 and P90"
+    L3:
+      required: true
+      description: >
+        Independent yield assessment; on-site wind measurement ≥12 months for wind;
+        curtailment scenario included for Southern Italian assets
+    L4:
+      required: true
+      description: "Final yield assessment; lender review completed; curtailment modelled"
+
+  revenue_model:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: "Revenue route concept (GSE, PPA, merchant) identified"
+    L2:
+      required: true
+      description: >
+        GSE tender eligibility assessed; or PPA heads of terms;
+        indicative incentive rate or PPA price range
+    L3:
+      required: true
+      description: >
+        Valid GSE admission/award (FER 1 / FER 2 / FER X), or signed PPA,
+        or documented merchant strategy with capacity market access confirmed
+      italy_note: >
+        GSE contract transferability in M&A must be confirmed with GSE (typically via share deal SPV).
+    L4:
+      required: true
+      description: "All revenue contracts final; GSE registration/assignment confirmed; PPA bankable"
+
+  support_scheme:
+    L0:
+      required: false
+    L1:
+      required: false
+    L2:
+      required: true
+      description: "GSE tender round and eligibility criteria confirmed; or explicit non-GSE strategy"
+    L3:
+      required: true
+      description: "GSE contract awarded (aggiudicazione) or PPA signed"
+    L4:
+      required: true
+      description: "GSE registration complete; contract assigned to SPV if applicable"
+
+  financial_model:
+    L0:
+      required: false
+    L1:
+      required: false
+      description: "Indicative return range acceptable"
+    L2:
+      required: true
+      description: "Investment memo model; connection costs included; sensitivity on P90 and merchant scenario"
+    L3:
+      required: true
+      description: "Lender-reviewed model; DSCR analysis; curtailment modelled for Southern Italian assets"
+    L4:
+      required: true
+      description: "Agreed base case; audited by independent accountant"
+
+  corporate_ownership:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "SPV name and jurisdiction (typically Italian S.r.l.)"
+    L2:
+      required: true
+      description: "Corporate structure chart; UBO identified; no material dispute"
+    L3:
+      required: true
+      description: "Full corporate DD; UBO confirmed; no encumbrances on SPV quota"
+    L4:
+      required: true
+      description: "Legal opinion on title to SPV quota; signing authority; notarial transfer steps confirmed"
+
+  data_room:
+    L0:
+      required: false
+    L1:
+      required: false
+    L2:
+      required: true
+      description: >
+        NDA-accessible data room with: AU document, SdC acceptance, land contracts,
+        GSE letters, VIA decision, technical summary
+    L3:
+      required: true
+      description: "Full diligence data room; legal, technical, environmental, financial sections populated"
+    L4:
+      required: true
+      description: "Complete data room; VDD reports; all conditions precedent documents uploaded"
+
+  insurance:
+    L0:
+      required: false
+    L1:
+      required: false
+    L2:
+      required: false
+    L3:
+      required: true
+      description: "Operating: all-risk, liability, BI insurance active and assignable to lender"
+    L4:
+      required: true
+      description: "Insurance review by lender broker; assignment documented"

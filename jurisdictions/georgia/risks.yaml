@@ -1,0 +1,316 @@
+# RALS Jurisdiction Package — Georgia
+# risks.yaml
+# Structured risk taxonomy for Georgian renewable energy transactions
+# Version: 0.1
+
+jurisdiction_code: GE
+
+risks:
+
+  - risk_id: seasonal_hydro_variability
+    label: "Seasonal Hydro Revenue Variability"
+    severity_default: high
+    affected_technologies: [hydro_run_of_river]
+    affected_sections: [technical, financials]
+    buyer_impact: >
+      Run-of-river hydro in Georgia generates the majority of its energy in summer
+      (May–September) when glacier and snowmelt swells rivers. Winter revenues are
+      dramatically lower. Georgia imports 40–60% of electricity in winter, meaning
+      hydro revenues are concentrated in summer months where prices may also be
+      lower due to abundance of supply. Multi-year P50 and dry year (P90) analysis
+      is critical. A single dry year can severely impair DSCR.
+    lender_impact: >
+      Senior lenders will size debt on P90 annual generation, not P50.
+      Seasonal cash flow must be modelled — DSCR may be inadequate in
+      winter quarters without a debt service reserve account (DSRA).
+      Lenders typically require DSRA of 6 months debt service.
+    mitigation_evidence:
+      - Independent bankable hydrological study with minimum 10-year river flow data
+      - P50/P90 annual generation with seasonal (monthly) profile
+      - Dry year scenario explicitly modelled
+      - Debt service reserve account (DSRA) sized for winter shortfall
+      - Financial model shows DSCR >1.1x in P90 scenario
+    validation_rule: >
+      All hydro projects must include this risk flag. If hydrological study is
+      incomplete or based on fewer than 5 years of data, raise as CRITICAL.
+      If seasonal profile is not available, raise as HIGH.
+
+  - risk_id: grid_congestion_west_georgia
+    label: "Grid Congestion and Curtailment Risk — West Georgia"
+    severity_default: medium
+    affected_sections: [grid_offtake, financials]
+    buyer_impact: >
+      West Georgia (Adjara, Samegrelo, Imereti) has significant transmission
+      constraints due to concentration of existing hydro capacity. GSE can curtail
+      generation when the system is unstable. Georgian law does not guarantee
+      compensation for curtailment. Yield assessments that do not model curtailment
+      may overstate revenues for projects in these regions.
+    lender_impact: >
+      Curtailment risk without compensation is a direct reduction in projected
+      revenues. Lenders require curtailment to be modelled explicitly in the
+      financial model for west Georgia projects. Probability and magnitude of
+      curtailment must be quantified.
+    mitigation_evidence:
+      - GSE written confirmation of expected curtailment regime for the connection point
+      - Curtailment scenario modelled in yield assessment and financial model
+      - Connection agreement terms reviewed for curtailment provisions
+    validation_rule: >
+      If project region is Adjara, Samegrelo, Imereti, Guria, or Racha-Lechkhumi
+      and curtailment is not mentioned in yield assessment, raise as MEDIUM risk.
+      If curtailment provisions are confirmed as significant and uncompensated,
+      raise to HIGH.
+    jurisdiction_note: >
+      East Georgia projects (Kakheti, Shida Kartli, Kvemo Kartli, Samtskhe-Javakheti)
+      are generally not subject to this risk but should confirm with GSE at connection
+      application stage.
+
+  - risk_id: political_risk_georgia
+    label: "Political and Geopolitical Risk"
+    severity_default: medium
+    affected_sections: [compliance, financials]
+    buyer_impact: >
+      Georgia has experienced significant political turbulence. Government changes
+      can affect energy policy, CfD auction programme continuity, and the pace of
+      GNERC licensing. Russian geopolitical influence creates regional uncertainty.
+      The Black Sea export cable project (critical for future Georgian renewable
+      export revenues) may be affected by regional tensions. Investor confidence
+      has been volatile in relation to democratic backsliding concerns.
+    lender_impact: >
+      International lenders (EBRD, IFC) apply political risk premiums to Georgian
+      investments. Political force majeure clauses in CfD and PPA contracts should
+      be reviewed. Capital remittance restrictions by the Georgian National Bank
+      are possible under stress conditions.
+    mitigation_evidence:
+      - Political risk insurance (MIGA or equivalent) for large transactions
+      - CfD or PPA contract stability provisions reviewed by Georgian legal counsel
+      - Currency repatriation provisions in SPV structure confirmed
+      - Force majeure and change of law clauses in revenue contracts reviewed
+    validation_rule: >
+      Flag for all Georgian projects. Severity escalates to HIGH if: (1) CfD or PPA
+      contract does not include stability or change-of-law provisions, or (2) the
+      transaction close date coincides with a Georgian election cycle.
+
+  - risk_id: cfd_auction_competition
+    label: "CfD Auction Oversubscription — Award Not Guaranteed"
+    severity_default: medium
+    affected_sections: [financials]
+    buyer_impact: >
+      Georgian CfD auctions (March 2023: 300 MW; February 2024: 800 MW) have been
+      significantly oversubscribed. Projects that apply for CfD may not receive an
+      award. Without a CfD, the project must rely on ESCO market or industrial PPA,
+      both of which typically offer lower revenue certainty and potentially lower
+      pricing. Revenue projections based on expected CfD award (not yet confirmed)
+      are speculative.
+    lender_impact: >
+      No lender will provide construction financing based on a pending CfD application
+      that has not been awarded. A confirmed CfD award (contract signed with Government)
+      is required for lender credit committee approval.
+    mitigation_evidence:
+      - Confirmed CfD contract award document (not merely application confirmation)
+      - If CfD not awarded: signed industrial PPA as alternative revenue route
+      - If ESCO market fallback: documented strategy with conservative pricing assumptions
+    validation_rule: >
+      If revenue_model is cfd_auction and CfD contract is not confirmed as awarded,
+      raise as MEDIUM risk and flag that revenue certainty is contingent on auction outcome.
+      If the project is past the CfD auction result announcement and was not awarded,
+      raise as HIGH risk unless an alternative revenue route is documented.
+
+  - risk_id: gnerc_licence_delay
+    label: "GNERC Generation Licence Delay"
+    severity_default: medium
+    affected_sections: [compliance]
+    buyer_impact: >
+      GNERC (Georgian National Energy and Water Supply Regulatory Commission) must
+      issue a generation licence before a project can commence commercial electricity
+      generation. GNERC processing times can exceed stated timelines. Delays in
+      GNERC licensing can delay COD and first revenue. GNERC licence and construction
+      permit are separate requirements and both must be satisfied.
+    lender_impact: >
+      Drawdown of construction or term loans requires confirmation that GNERC licence
+      is in hand or imminent. GNERC processing delay is a schedule risk that must
+      be budgeted as contingency in the construction timeline.
+    mitigation_evidence:
+      - GNERC licence application submitted with acknowledgement receipt
+      - GNERC target decision date confirmed in writing
+      - Legal counsel assessment of GNERC processing timeline
+    validation_rule: >
+      If lifecycle_stage is ready_to_build or under_construction and GNERC licence
+      has not been applied for, raise as HIGH risk. If GNERC application submitted
+      but more than 4 months outstanding without decision, flag as MEDIUM risk with
+      timeline note.
+
+  - risk_id: land_not_secured
+    label: "Land Rights or Usufruct Not Secured"
+    severity_default: high
+    affected_sections: [identity, compliance, process]
+    buyer_impact: >
+      Georgian renewable projects on state land require a signed and NAPR-registered
+      usufruct agreement under the Government Resolution 515 framework. Without a
+      registered usufruct, the project has no enforceable site access rights.
+      Private land must be purchased or leased with documented agreements. Agricultural
+      or forest land conversion adds additional regulatory steps.
+    lender_impact: >
+      Senior lenders will not commit to construction financing without a signed and
+      NAPR-registered usufruct agreement (state land) or equivalent private title.
+      Unregistered usufruct does not provide security for project financing.
+    mitigation_evidence:
+      - Signed usufruct agreement with NAPR registration confirmation (state land)
+      - NAPR extract showing no adverse encumbrances
+      - Private land: signed purchase or lease agreement
+      - Agricultural/forest: conversion approval or forest clearance in hand
+    validation_rule: >
+      If lifecycle_stage is ready_to_build or under_construction and land_control_status
+      is not state_usufruct_signed, private_purchase, or private_lease, raise as HIGH.
+      Communal land without documented approval pathway raises as HIGH.
+
+  - risk_id: black_sea_export_uncertainty
+    label: "Black Sea Export Cable — Development Stage Uncertainty"
+    severity_default: low
+    affected_sections: [financials]
+    buyer_impact: >
+      The Black Sea Submarine Cable Project (connecting Georgia and Azerbaijan to
+      Romania and Hungary) completed feasibility in 2024 with an operational target
+      of 2029–2032. If completed, it would dramatically increase demand for Georgian
+      renewable generation and open EU export markets. However, the project is at
+      development stage: financing, construction contracts, and regulatory approvals
+      are not yet confirmed. Revenue projections that assume Black Sea export
+      availability before 2030 carry significant uncertainty.
+    lender_impact: >
+      Lenders should not rely on Black Sea export revenues in base case financial models
+      until the project reaches financial close. Any upside scenario based on Black Sea
+      exports should be clearly ring-fenced from the base case.
+    mitigation_evidence:
+      - Financial model base case does not include Black Sea export revenues
+      - Black Sea export treated as upside scenario only with clear probability qualification
+    validation_rule: >
+      If financial model base case includes export revenues from the Black Sea cable
+      before 2030, raise as MEDIUM risk. If base case does not include such revenues,
+      retain as LOW and note as upside optionality.
+
+  - risk_id: gel_usd_currency_risk
+    label: "GEL/USD Currency and Remittance Risk"
+    severity_default: medium
+    affected_sections: [financials]
+    buyer_impact: >
+      The Georgian Lari (GEL) is an emerging market currency with moderate historical
+      volatility. Energy project revenues may be denominated in GEL (ESCO market,
+      regulated tariff) or USD/EUR (CfD, export PPAs). Capital remittance restrictions
+      by the Georgian National Bank are possible under economic stress. Currency
+      mismatch between project revenues and debt service (if debt is in USD/EUR)
+      creates DSCR sensitivity.
+    lender_impact: >
+      Lenders must model GEL/USD exchange rate sensitivity in DSCR analysis.
+      CfD contracts should be reviewed for currency denomination. Hedging instruments
+      in Georgian Lari are limited and costly. Capital controls risk must be addressed
+      in transaction structure.
+    mitigation_evidence:
+      - Revenue currency confirmed (GEL or USD/EUR) in CfD contract or PPA
+      - GEL/USD sensitivity modelled in financial model (±15–20% stress)
+      - Capital remittance structure reviewed by Georgian legal and tax counsel
+      - Hedging strategy (if any) documented
+    validation_rule: >
+      Flag for all Georgian projects where debt service currency differs from
+      revenue currency. If no currency sensitivity analysis is provided at L2+,
+      raise as MEDIUM risk.
+
+  - risk_id: limited_ipp_track_record
+    label: "Limited Georgian IPP Market Track Record"
+    severity_default: medium
+    affected_sections: [process, financials]
+    buyer_impact: >
+      The Georgian IPP market for solar, wind, and large hydro is immature relative
+      to Western European markets. Few large-scale independent power producers have
+      completed full development-to-construction cycles for solar or wind. EPC
+      contractor availability is limited; international contractors increase cost
+      and procurement risk. Reference prices for Georgian solar/wind EPC contracts
+      and O&M are sparse. Developer experience and delivery capability must be assessed.
+    lender_impact: >
+      Lenders will apply additional scrutiny to developer track record, EPC contractor
+      qualifications, and O&M capability for Georgian projects. IFC, EBRD, and AIIB
+      have been active lenders and bring their own technical standards requirements.
+    mitigation_evidence:
+      - Developer track record: at least one comparable completed project in the region
+      - EPC contractor identified with relevant regional experience
+      - O&M operator identified with track record in similar assets
+      - Owner's engineer/independent technical advisor engaged for lender diligence
+    validation_rule: >
+      If developer has no completed comparable projects and no experienced EPC partner
+      identified at L2+, raise as MEDIUM risk. For projects >50 MW, raise to HIGH if
+      EPC contractor has no Georgian or regional track record.
+
+  - risk_id: grid_connection_delay
+    label: "GSE Grid Connection Agreement Delay"
+    severity_default: medium
+    affected_sections: [grid_offtake]
+    buyer_impact: >
+      The GSE connection process (application → technical conditions → connection
+      agreement) typically takes 6–9 months. Delays in GSE processing, particularly
+      for complex or large projects, can push back COD and first revenue.
+    lender_impact: >
+      Construction loan drawdown requires a signed GSE connection agreement.
+      Any delay in this agreement delays financial close or requires escrow
+      arrangements. Construction programme contingency must account for
+      GSE processing timeline.
+    mitigation_evidence:
+      - GSE application acknowledgement with reference number
+      - GSE technical conditions letter received (confirms feasibility)
+      - Signed GSE connection agreement (required for L3)
+    validation_rule: >
+      If lifecycle_stage is development and GSE application is not yet submitted,
+      flag as MEDIUM risk with timeline note. If GSE technical conditions letter
+      is more than 18 months old and connection agreement is not yet signed,
+      flag as MEDIUM risk and recommend re-confirmation with GSE.
+
+  - risk_id: unclear_revenue_route
+    label: "Revenue Route Not Confirmed"
+    severity_default: high
+    affected_sections: [financials]
+    buyer_impact: >
+      Without a confirmed revenue route (signed CfD contract, signed PPA, or documented
+      ESCO market strategy), IRR projections are speculative. Georgian CfD auctions
+      are oversubscribed; ESCO market pricing is uncontracted. Revenue uncertainty
+      is a primary risk for Georgian development-stage projects.
+    lender_impact: >
+      No construction financing without committed revenue. For Georgian projects,
+      a confirmed CfD contract or signed PPA is the minimum requirement.
+    mitigation_evidence:
+      - Confirmed CfD contract award document
+      - Signed industrial PPA (minimum 10 years) with creditworthy buyer
+      - If ESCO market: conservative revenue assumption with documented downside analysis
+    validation_rule: >
+      If revenue_model is not confirmed (CfD application pending; no PPA signed;
+      ESCO fallback only) at L2+, raise as HIGH risk.
+
+  - risk_id: yield_unvalidated
+    label: "Energy Yield Not Independently Assessed"
+    severity_default: medium
+    affected_sections: [technical]
+    buyer_impact: >
+      Desktop yield estimates for solar carry ±15–20% uncertainty. Hydrological
+      assessments based on short data series (fewer than 5 years) for hydro projects
+      carry even greater uncertainty due to Georgian seasonal and inter-annual
+      variability. Bankable yield requires independent third-party assessment.
+    lender_impact: >
+      Lenders will require independent bankable yield assessment before credit committee
+      approval. Desktop-only estimates will be replaced by lender's own technical
+      advisor assessment.
+    mitigation_evidence:
+      - Independent yield assessment by recognised assessor
+      - Hydro: minimum 5-year (ideally 10-year) flow dataset
+      - Solar/wind: on-site measurement or long-term reanalysis correlation
+    validation_rule: >
+      If yield_assessment is desktop_only at L2+, raise as MEDIUM risk.
+
+  - risk_id: missing_data_room
+    label: "No Accessible Data Room"
+    severity_default: medium
+    affected_sections: [process]
+    buyer_impact: >
+      Inability to verify claims. Increases diligence timeline.
+    lender_impact: >
+      No credit committee submission possible without document access.
+    mitigation_evidence:
+      - NDA-gated data room on standard platform (Drooms, Datasite, or equivalent)
+      - Document index provided
+    validation_rule: >
+      If data_room_status is not_available at L2+, raise as MEDIUM risk.

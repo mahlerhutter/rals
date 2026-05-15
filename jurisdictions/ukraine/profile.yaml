@@ -1,0 +1,121 @@
+# RALS Jurisdiction Package — Ukraine
+# profile.yaml
+# Version: 0.1 | Status: active | Last reviewed: 2026-05
+
+jurisdiction_code: UA
+name: Ukraine
+rals_jurisdiction_version: "0.1"
+status: active
+last_reviewed: "2026-05"
+
+risk_environment: exceptional
+risk_environment_note: >
+  Ukraine is under active armed conflict (full-scale Russian invasion since February 2022).
+  Martial law is in effect. Significant portions of energy infrastructure have been
+  damaged or destroyed. This package applies heightened risk standards to all assets.
+  Validators should not classify Ukrainian assets as L3 (lender diligence ready) unless
+  strong and documented war-risk mitigation measures are in place.
+
+supported_technologies:
+  - solar_pv
+  - onshore_wind
+  - bess
+  - hybrid
+  - hydro
+  - biomass
+
+common_transaction_types:
+  - full_acquisition
+  - majority_stake
+  - minority_stake
+  - joint_venture
+  - refinancing
+
+common_lifecycle_stages:
+  - greenfield
+  - development
+  - ready_to_build
+  - operating
+
+primary_authorities:
+  energy_regulator: "NEURC (National Energy and Utilities Regulatory Commission)"
+  energy_regulator_url: "https://www.nerc.gov.ua"
+  ministry: "Ministry of Energy of Ukraine"
+  ministry_url: "https://mpe.kmu.gov.ua"
+  permitting_authority: >
+    Ministry of Environmental Protection and Natural Resources (environmental assessment);
+    Local state administrations for construction permits (during martial law: modified procedures)
+  support_scheme_administrator: "SE Energorynok / NEURC"
+
+grid_authorities:
+  tso: "Ukrenergo NJSC"
+  tso_url: "https://ua.energy"
+  primary_dso: "Oblenergo companies (regional distribution operators)"
+  grid_connection_process: >
+    Pre-war: standard connection application to Ukrenergo (transmission) or Oblenergo (distribution),
+    technical specifications (tekhnichni umovy), connection agreement.
+    Wartime: procedures modified under martial law. Physical grid infrastructure may be damaged.
+    Confirm with Ukrenergo whether target connection point is operational and intact.
+  grid_capacity_note: >
+    Ukraine's transmission and distribution grid has suffered extensive war damage.
+    As of 2026, approximately 50% of large substation capacity has been damaged or
+    destroyed. Grid reconstruction is underway with EBRD, EIB, and EU support.
+    Any grid connection assumption must be verified against current Ukrenergo grid status.
+
+market_design_notes:
+  pre_war_support_scheme: >
+    Ukraine operated a green tariff (Feed-in Tariff) scheme until 2021, when a "green
+    auction" (tender) system was introduced. Many operating assets hold restructured
+    FiT agreements following the 2020-2021 debt restructuring with the state buyer SE Energorynok.
+  current_market_status: >
+    Power market operation has been significantly disrupted by war. The Ukrainian power
+    system was synchronised with ENTSO-E in March 2022, enabling limited electricity
+    export to the EU. Domestic market prices are regulated. Market design reforms
+    are ongoing but uncertain in implementation timeline.
+  ifi_role: >
+    The EBRD, EIB, World Bank, USAID, and EU have active financing programmes for
+    Ukrainian energy infrastructure reconstruction. IFI involvement is often the only
+    viable financing path for new or reconstructed projects. EBRD/EIB political risk
+    insurance and guarantees are critical risk mitigation tools.
+  hydrogen_readiness: >
+    Ukraine's National Energy and Climate Plan (NECP, approved 2025) includes hydrogen
+    production targets. Several projects are marketed as "hydrogen-ready" or hybrid
+    wind+H2. These are early-stage strategic positions, not financed projects.
+    Validate hydrogen claims as L0 until feedstock supply, offtake, and electrolysis
+    capex are documented.
+  tax_incentives: >
+    Tax exemptions for renewable energy equipment were available during martial law
+    but set to expire or were subject to change. Do not rely on tax incentive assumptions
+    without current NEURC/Ministry confirmation.
+
+key_transaction_risks:
+  - martial_law_and_war_damage
+  - grid_damage_and_reconstruction_uncertainty
+  - occupation_and_security_risk
+  - convertibility_transfer_restriction
+  - sovereign_counterparty_risk
+  - war_risk_insurance_availability
+  - permitting_under_martial_law
+  - land_title_in_occupied_territories
+  - ifi_dependency_for_financing
+  - hydrogen_revenue_unverified
+
+validation_scope:
+  covers:
+    - field_interpretation
+    - evidence_requirements
+    - readiness_level_assignment
+    - risk_flag_evaluation
+  does_not_cover:
+    - security_assessment
+    - insurance_underwriting
+    - IFI eligibility
+    - legal_title_in_occupied_territories
+
+disclaimer: >
+  This jurisdiction package is a technical reference for transaction-readiness assessment.
+  It is not legal advice, political risk assessment, or security advisory.
+  The situation in Ukraine is evolving rapidly. War damage, martial law measures,
+  and regulatory changes may affect any assumption in this package. Always verify
+  current conditions with qualified Ukrainian legal counsel, Ukrenergo, NEURC,
+  and relevant IFI representatives before relying on this package.

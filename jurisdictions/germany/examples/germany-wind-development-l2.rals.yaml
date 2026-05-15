@@ -1,0 +1,242 @@
+# ============================================================================
+# RALS Jurisdiction Package — Germany (DE)
+# Example: germany-wind-development-l2.rals.yaml
+# ============================================================================
+# Asset:        Project Windpark Havelland (fictional)
+# Technology:   Onshore wind
+# Stage:        Development — L2 (Investment Memo Ready)
+# Location:     Havelland District, Brandenburg
+# Purpose:      Demonstrates a German onshore wind project at L2.
+#               BImSchG application submitted and declared vollständig.
+#               NAZ received but conditional on substation upgrade.
+#               Species surveys initiated (12-month bird/bat data; Rotmilan detected).
+#               Land option (not yet Pachtvertrag) for 4 of 6 parcels.
+#               EEG auction win not yet achieved. L2 maximum due to conditional
+#               NAZ, unsigned Pachtvertrag, and permit not yet issued.
+# ============================================================================
+fictional: true
+source: "synthetic_example"
+confidentiality: "public_example"
+
+rals_version: "0.1"
+document_id: "rals:DE-EX-WI-DEV-L2-001"
+generated_at: "2026-05-15T09:00:00Z"
+generated_by: "rals-jurisdiction-example-generator"
+language: "en"
+
+rals_jurisdiction:
+  jurisdiction_package: DE
+  rals_jurisdiction_version: "0.1"
+  assessed_readiness_level: L2
+  readiness_label: "Investment Memo Ready"
+  jurisdiction_assessment_date: "2026-05-15"
+  downgrade_reasons:
+    - "NAZ received but conditional on 110 kV substation upgrade — not unconditional"
+    - "Land: signed options for 4/6 parcels; 2 parcels still under negotiation; no Pachtvertrag yet"
+    - "Permit: BImSchG application vollständig declared; permit not yet issued"
+    - "Species: 12-month survey complete; Rotmilan detected — mitigation required but not yet approved"
+    - "EEG: auction not yet won; next auction Q3 2026 targeted"
+
+# ── Identity ─────────────────────────────────────────────────────────────────
+identity:
+  asset_name: "Project Windpark Havelland"
+  asset_type: onshore_wind
+  lifecycle_stage: development
+  country: DE
+  region: "Brandenburg"
+  sub_region: "Havelland District"
+  total_capacity_mw_ac: 48.0
+  site_area_hectares: 320
+  transaction_type: development_stage_sale
+  equity_offered_pct: 100
+  spv_structure: true
+  spv_jurisdiction: "Germany"
+
+# ── Technical ─────────────────────────────────────────────────────────────────
+technical:
+  expected_lifetime_years: 25
+  turbine:
+    concept: "6 turbines × 8 MW class (Vestas V236 or Nordex N163 — not yet contracted)"
+    rotor_diameter_m: 175
+    hub_height_m: 130
+  production_estimates:
+    methodology: "ERA5 reanalysis data + on-site met mast (12-month dataset) + terrain correction by Windguard"
+    p50_gwh_yr: 122.0
+    p90_gwh_yr: 108.0
+    assessor: "Deutsche Windguard GmbH (desktop + mast data)"
+    assessment_date: "2026-03-01"
+    assessment_quality: desktop_with_mast_data
+    curtailment_modelled: true
+    curtailment_assumption_pct: 8.0
+    assessment_note: >
+      12-month on-site mast data available. ERA5 long-term correction applied.
+      8% Redispatch 2.0 curtailment modelled based on TenneT 2024 transparency data
+      for Havelland node. P90 curtailment scenario: 12%. Bankable assessment status:
+      not yet reviewed by lender's independent engineer.
+
+# ── Grid & Offtake ────────────────────────────────────────────────────────────
+grid_offtake:
+  grid_connection:
+    status: naz_received
+    grid_operator: "TenneT TSO GmbH"
+    voltage_level_kv: 110
+    connection_point_concept: "Umspannwerk Nauen 110/220 kV (TenneT)"
+    connection_evidence: >
+      NAB submitted to TenneT in September 2025. NAZ issued January 2026.
+      NAZ confirms NVP at UW Nauen 110 kV. Stated capacity: 48 MW.
+      CONDITIONAL: NAZ requires 110 kV bay extension at UW Nauen (estimated
+      cost EUR 2.1m; financed by developer). TenneT construction timeline:
+      18–24 months from NAV signing. NAV NOT YET SIGNED.
+    grid_risk_note: >
+      The NAZ is conditional on TenneT substation upgrade. Timeline to complete
+      upgrade: 18–24 months from NAV execution. This is a significant construction
+      delay risk. Developer must finance EUR 2.1m substation contribution.
+      A conditional NAZ does not constitute 'grid secured' for L3 classification.
+  offtake_structure: eeg_market_premium
+  revenue_model: eeg_market_premium
+  revenue_note: >
+    EEG market premium (Direktvermarktung via BW Energie Direktvermarktung GmbH).
+    Target: BNetzA wind auction Q3 2026. Maximum bid: EUR 7.25/MWh (2026 ceiling).
+    Auction result not yet known. If EEG auction missed, fallback: corporate PPA
+    (1 term sheet received from data center operator, EUR 85/MWh, 12 years).
+    Revenue route not yet confirmed — EEG award OR PPA binding required for L3.
+    Post-2026 EEG design uncertainty flagged.
+
+# ── Compliance ────────────────────────────────────────────────────────────────
+compliance:
+  permitting_status: application_complete
+  permitting_authority: "Landesamt für Umwelt Brandenburg (LfU)"
+  permitting_detail: >
+    BImSchG permit application submitted September 2025.
+    Declared vollständig (complete) by LfU November 2025.
+    Public announcement published. Comment period closed.
+    Environmental report under LfU review. No fatal objection received.
+    Expected permit decision: Q3 2026. Note: 1-month appeal window
+    applies after permit issued — Rechtskraft not until Q4 2026 at earliest.
+    No permit received as of May 2026.
+  environmental_status: uv_assessment_in_progress
+  environmental_detail: >
+    UVP (Umweltverträglichkeitsprüfung) in progress as part of BImSchG procedure.
+    Natura 2000 screening: no protected area on site (confirmed by LfU).
+    Species surveys: 12-month bird/bat baseline completed March 2026.
+    Rotmilan (red kite): 4 individuals detected with regular foraging in the
+    north-east corner of the layout (100–600m from 2 turbine positions).
+    Mitigation required: radar-triggered shutdown system (Vogelschlagvermeidungssystem)
+    on turbines T5 and T6. Artenschutzrechtliche Stellungnahme (species impact
+    statement) submitted to LfU in April 2026. LfU review pending.
+    Bat surveys complete: low activity; no constraint identified.
+
+# ── Land ─────────────────────────────────────────────────────────────────────
+land:
+  land_control_status: option_signed
+  land_parcels: 6
+  land_area_ha: 320
+  land_detail: >
+    6 agricultural parcels (320 ha total).
+    - Parcels 1–4 (240 ha): signed Optionsvertrag (option agreements, 2024).
+      Options exercisable on permit issue; convert to Pachtvertrag (30-year term).
+    - Parcels 5–6 (80 ha): under negotiation. Landowners identified; price agreed
+      in principle but no binding document signed.
+    - No Pachtvertrag executed on any parcel yet (options only at this stage).
+    - Cable route (approximately 4.2 km to UW Nauen): route identified;
+      landowner negotiations for Dienstbarkeit (easement) not started.
+    Grundbuchauszüge obtained for all 6 parcels: clean title on parcels 1–4;
+    parcels 5–6 Grundbuchauszüge not yet obtained.
+  land_risks:
+    - "2 of 6 parcels without binding option agreement — landowner may renegotiate"
+    - "No Pachtvertrag signed on any parcel — options only"
+    - "Cable route easement (Dienstbarkeit): not started — known gap for L3"
+    - "Grundbuchauszüge missing for parcels 5 and 6"
+
+# ── Financials ───────────────────────────────────────────────────────────────
+financials:
+  reporting_currency: EUR
+  total_capex_eur: 76000000
+  capex_detail: >
+    Developer estimate: EUR 76m (EUR 1,583/kW installed).
+    Includes: turbines indicative (EUR 52m based on Q1 2026 OEM pricing);
+    civil works and foundations (EUR 11m); grid connection contribution (EUR 2.1m
+    TenneT substation + EUR 3m cable to UW); development costs (EUR 7.9m).
+    No OEM binding offer received. Capex not independently validated.
+  capex_confidence: low
+  opex_eur_yr: 1150000
+  opex_detail: >
+    O&M: EUR 900k/yr (OEM indicative; full-service contract structure assumed).
+    Insurance: EUR 180k/yr. Land lease: EUR 70k/yr (4 parcels; 2 pending).
+    Management fee: excluded (TBD post-acquisition structure).
+    Note: Vogelschlagvermeidungssystem operational cost not yet quantified.
+  financial_model_available: true
+  financial_model_note: >
+    Investment memo model available under NDA.
+    IRR (unlevered, P50, EEG EUR 7.25/MWh): 6.8%.
+    IRR (PPA EUR 85/MWh): 5.9%.
+    P90 sensitivity: IRR reduces to 5.1% (EEG) / 4.4% (PPA).
+    No DSCR model — project not at lender-diligence stage.
+    Post-2026 EEG uncertainty not sensitised.
+
+# ── Process ──────────────────────────────────────────────────────────────────
+process:
+  process_type: bilateral
+  data_room_status: partial
+  data_room_platform: "Virtual data room via Intralinks (partial)"
+  data_room_contents:
+    - "BImSchG application (vollständig confirmation)"
+    - "LfU correspondence"
+    - "12-month met mast data (raw + processed)"
+    - "Windguard yield assessment"
+    - "TenneT NAZ (conditional)"
+    - "Option agreements (parcels 1–4)"
+    - "Grundbuchauszüge (parcels 1–4)"
+    - "Artenschutzrechtliche Stellungnahme (submitted to LfU)"
+    - "Corporate structure (SPV: Windpark Havelland GmbH in Handelsregister)"
+    - "Investment memo financial model"
+  asking_price:
+    indicated_range_eur_low: 3500000
+    indicated_range_eur_high: 5500000
+    note: "Development stage; buyer takes permit, NAV, land, and EEG auction risk"
+  process_timeline:
+    indicative_nbo_due: "2026-07-15"
+    indicative_permit_expected: "2026-Q3"
+    indicative_naz_unconditional_expected: "2026-Q4"
+    indicative_eeg_auction_target: "2026-Q3"
+
+# ── Risk Flags ────────────────────────────────────────────────────────────────
+risk_flags:
+  - risk_id: permitting_under_appeal
+    active: false
+    note: "Permit not yet issued — appeal risk not yet triggered. Post-permit, 1-month window applies."
+  - risk_id: species_protection_rotmilan
+    active: true
+    severity: high
+    note: >
+      Rotmilan detected on site: 4 individuals with regular foraging near turbines T5 and T6.
+      Mitigation: radar-triggered shutdown system required. Artenschutzrechtliche Stellungnahme
+      submitted but LfU review pending. Risk: LfU may require more stringent mitigation or
+      layout adjustment. Appeal of species protection decision is possible.
+  - risk_id: grid_connection_delay
+    active: true
+    severity: high
+    note: >
+      NAZ conditional on TenneT substation upgrade (18–24 months from NAV signing).
+      NAV not yet signed. Unconditional connection not achievable until ~mid-2028.
+      This is a hard L2 cap — cannot be L3 until unconditional NAV signed.
+  - risk_id: curtailment_risk
+    active: true
+    severity: medium
+    note: "8% Redispatch 2.0 curtailment modelled. Havelland node historically active in TenneT curtailment zone. Post-2026 redispatch reform risk not yet resolved."
+  - risk_id: land_not_secured
+    active: true
+    severity: high
+    note: "No Pachtvertrag signed on any parcel — options only. 2 parcels without binding document. Cable route Dienstbarkeit not started. Known L3 blocker."
+  - risk_id: eeg_post_2026_uncertainty
+    active: true
+    severity: medium
+    note: "Project commissions ~2028–2029. EEG market premium scheme expires Dec 2026. Post-2026 design unknown. Financial model does not sensitise this risk."
+  - risk_id: unclear_revenue_route
+    active: true
+    severity: high
+    note: "EEG auction not yet won. PPA term sheet only (not binding). Revenue unconfirmed."
+  - risk_id: capex_unvalidated
+    active: true
+    severity: medium
+    note: "No OEM binding offer. Capex based on Q1 2026 indicative pricing. No independent owner's engineer review."

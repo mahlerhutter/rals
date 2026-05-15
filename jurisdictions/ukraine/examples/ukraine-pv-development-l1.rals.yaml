@@ -1,0 +1,206 @@
+# ============================================================================
+# RALS Jurisdiction Package — Ukraine
+# Example: ukraine-pv-development-l1.rals.yaml
+# ============================================================================
+# Asset:        Project Sonyashne (fictional; "Sunflower" in Ukrainian)
+# Technology:   Solar PV, rehabilitation of partially operational asset
+# Stage:        Development / Rehabilitation — L1 (Maximum given war risks)
+# Location:     Zhytomyr Oblast, Central Ukraine (west-central, not occupied)
+# Purpose:      Demonstrates L1 Ukrainian PV asset. Site not in occupied zone.
+#               Grid status partly unclear post-damage. Land documented but
+#               cadastre records not fully verified. War-risk insurance missing.
+#               L1 maximum — cannot advance without IFI engagement and war-risk cover.
+# ============================================================================
+fictional: true
+source: "synthetic_example"
+confidentiality: "public_example"
+
+rals_version: "0.1"
+document_id: "rals:UA-EX-PV-DEV-L1-001"
+generated_at: "2026-05-15T09:00:00Z"
+generated_by: "rals-jurisdiction-example-generator"
+language: "en"
+
+rals_jurisdiction:
+  jurisdiction_package: UA
+  rals_jurisdiction_version: "0.1"
+  assessed_readiness_level: L1
+  readiness_label: "Screenable"
+  jurisdiction_assessment_date: "2026-05-15"
+  war_risk_override_applied: true
+  downgrade_reasons:
+    - "War risk: no war-risk insurance or IFI political risk guarantee in place"
+    - "Grid: local substation damaged; reconstruction timeline unconfirmed"
+    - "Land: cadastral records partially unverified post-conflict"
+    - "Revenue: restructured FiT terms not fully documented"
+    - "Legal: no martial law enforceability opinion for key contracts"
+
+# ── Identity ─────────────────────────────────────────────────────────────────
+identity:
+  asset_name: "Project Sonyashne"
+  asset_type: solar_pv
+  lifecycle_stage: development
+  country: UA
+  region: "Zhytomyr Oblast"
+  sub_region: "Berdychiv Rayon"
+  total_capacity_mw_ac: 22.0
+  total_capacity_mw_dc: 27.5
+  dc_ac_ratio: 1.25
+  site_area_hectares: 42
+  transaction_type: majority_stake
+  equity_offered_pct: 75
+  spv_structure: true
+  spv_jurisdiction: "Ukraine"
+  security_zone: "Not occupied; not frontline; approximately 250 km from current frontline"
+
+# ── Technical ─────────────────────────────────────────────────────────────────
+technical:
+  commissioning_date_original: "2019-08-01"
+  lifecycle_note: >
+    Asset was partially operational pre-war (commissioned 2019). Approximately 15 MW
+    of original 22 MW is currently operable. 7 MW section requires inverter
+    replacement and partial panel cleaning/replacement. Physical condition
+    confirmed by satellite imagery (March 2026) — no direct war damage to panels.
+  expected_lifetime_years_remaining: 25
+  production_estimates:
+    methodology: "PVGIS v5 desktop for Zhytomyr Oblast; historical OPCOM metering 2019–2021"
+    p50_gwh_yr: 28.0
+    p90_gwh_yr: null
+    assessor: "Internal estimate — no independent assessor engaged"
+    assessment_date: "2026-02-01"
+    assessment_quality: desktop_only
+    assessment_note: >
+      Grid availability factor not modelled. Zhytomyr Oblast has experienced
+      grid outages due to war-related damage to transmission infrastructure.
+      Independent bankable assessment with grid availability discount is required
+      before L2 classification.
+
+# ── Grid & Offtake ────────────────────────────────────────────────────────────
+grid_offtake:
+  grid_connection:
+    status: connected_but_damaged
+    grid_operator: "Zhytomyroblenergo (DSO)"
+    voltage_level_kv: 35
+    connection_point: "Berdychiv 35/6 kV substation"
+    connection_evidence: >
+      Pre-war connection agreement in place (2018). Local 35/6 kV substation
+      at Berdychiv sustained partial damage in Q4 2022 strike. DSO confirms
+      substation was repaired to 60% capacity by March 2023 with EU reconstruction
+      support. Current capacity: sufficient for 15 MW injection; 22 MW requires
+      minor substation upgrade (estimated EUR 180,000; timeline 6–9 months).
+    grid_risk_note: >
+      Grid infrastructure in Zhytomyr Oblast has experienced recurring outages.
+      Annual grid availability factor estimated at 85–92% (vs 99%+ pre-war).
+      Any financial model must include explicit grid downtime modelling.
+  offtake_structure: green_tariff_restructured
+  revenue_model: green_tariff_restructured
+  revenue_note: >
+    Original Ukrainian green tariff (zelenyi tarif) rate: EUR 15.0 ct/kWh.
+    Restructured 2021: 80% of original rate (EUR 12.0 ct/kWh) for 20-year term.
+    Counterparty: SE Energorynok (state-owned). Restructured tariff agreement
+    on file but full documentation of post-restructuring terms not yet provided
+    in data room. Counterparty (Energorynok) is a sovereign entity under fiscal stress.
+
+# ── Compliance ────────────────────────────────────────────────────────────────
+compliance:
+  permitting_status: approved_final
+  permitting_note: >
+    Original construction permit (dozvil na budivnytstvo) issued 2018 under pre-war
+    procedures. Asset commissioned 2019. Permit for rehabilitation works (7 MW section)
+    may require separate approval under current martial law emergency procedures.
+    Legal opinion on permit validity under martial law not yet obtained.
+  environmental_status: compliant
+  environmental_note: >
+    Pre-war environmental assessment completed 2017. No new environmental assessment
+    for rehabilitation scope — may be required by Ukrainian authorities.
+
+# ── Land ─────────────────────────────────────────────────────────────────────
+land:
+  land_control_status: long_term_lease_secured
+  land_parcels: 8
+  land_area_ha: 42
+  land_detail: >
+    Orenda (lease) agreements signed with 5 private landowners and 1 agricultural
+    cooperative (3 parcels). All agreements dated 2017–2018, 25-year term.
+    Cadastral verification: 6 of 8 parcels confirmed in State Cadastre database
+    (Derzhavnyi kadastr). 2 parcels: cadastre records show inconsistencies
+    possibly related to 2022 administrative disruption — resolution in progress.
+  land_risks:
+    - "2 parcels with unresolved cadastre inconsistencies — title cannot be confirmed"
+    - "Martial law restrictions may affect lease enforceability — legal opinion needed"
+
+# ── Financials ───────────────────────────────────────────────────────────────
+financials:
+  reporting_currency: EUR
+  total_capex_rehabilitation_eur: 2800000
+  capex_detail: >
+    Rehabilitation capex (7 MW section): EUR 2.8m. Substation upgrade: EUR 180k.
+    No independent assessment — developer internal estimate.
+  capex_confidence: low
+  opex_eur_yr: 420000
+  opex_detail: >
+    O&M: EUR 280k/yr. Land lease: EUR 60k/yr. War-risk insurance: NOT INCLUDED
+    (not yet obtained). Security/guard costs: EUR 80k/yr.
+    NOTE: Financial model without war-risk insurance premium is incomplete.
+  financial_model_available: false
+  financial_model_note: >
+    No lender-ready financial model available. Developer has indicative calculations
+    only. Grid availability discount and war-risk insurance premium are not modelled.
+    Financial model must be rebuilt before L2 classification.
+
+# ── Process ──────────────────────────────────────────────────────────────────
+process:
+  process_type: bilateral
+  data_room_status: partial
+  data_room_note: >
+    Partial documentation under NDA: pre-war connection agreement, original construction
+    permit, 6 cadastre extracts, orenda contracts, satellite imagery (March 2026),
+    Zhytomyroblenergo substation repair confirmation letter, restructured FiT summary.
+    Missing: full FiT agreement with post-restructuring terms, legal opinion on
+    martial law enforceability, war-risk insurance assessment, independent yield assessment.
+  ifi_engagement: none
+  ifi_note: >
+    No IFI engagement to date. EBRD Ukraine office contacted informally.
+    Developer is seeking a strategic partner who can bring IFI relationships.
+  seller_contact: "sonyashne@example-developer.ua"
+
+# ── Risk Flags ───────────────────────────────────────────────────────────────
+risk_flags:
+  - risk_id: war_risk_insurance_missing
+    active: true
+    severity: high
+    note: "No war-risk insurance or IFI guarantee. Hard blocker for L2+ classification."
+  - risk_id: grid_damage_or_reconstruction_risk
+    active: true
+    severity: high
+    note: "Local substation at 60% capacity. Upgrade needed for full 22 MW. Timeline: 6–9 months."
+  - risk_id: martial_law_risk
+    active: true
+    severity: high
+    note: "No legal opinion on contract/permit enforceability under martial law."
+  - risk_id: land_not_registered
+    active: true
+    severity: high
+    note: "2 parcels with cadastre inconsistencies — title unverifiable for these parcels."
+  - risk_id: sovereign_or_counterparty_risk
+    active: true
+    severity: high
+    note: "Energorynok (FiT buyer) is state entity under fiscal stress. FiT restructuring risk."
+  - risk_id: convertibility_transfer_risk
+    active: true
+    severity: high
+    note: "UAH/EUR convertibility restricted. No offshore structure in place."
+  - risk_id: yield_unvalidated
+    active: true
+    severity: medium
+    note: "Desktop only. Grid availability not modelled. Independent assessment needed."
+  - risk_id: capex_unvalidated
+    active: true
+    severity: medium
+    note: "Rehabilitation capex: internal estimate only. War-risk premium not included."
+  - risk_id: occupation_or_security_risk
+    active: false
+    note: "Site is ~250 km from current frontline in Zhytomyr Oblast — not in occupied zone"
+  - risk_id: war_damage_risk
+    active: false
+    note: "Satellite imagery (March 2026) confirms no direct panel damage — substation is the affected infrastructure"

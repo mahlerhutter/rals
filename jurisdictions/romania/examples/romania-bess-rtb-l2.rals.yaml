@@ -1,0 +1,197 @@
+# ============================================================================
+# RALS Jurisdiction Package — Romania
+# Example: romania-bess-rtb-l2.rals.yaml
+# ============================================================================
+# Asset:        Project Arges Storage (fictional)
+# Technology:   Standalone BESS, ready-to-build
+# Stage:        L2 — Investment Memo Ready
+# Location:     Arges County, Muntenia
+# Purpose:      Demonstrates L2 Romanian BESS asset with valid ATR and guarantee,
+#               building permit submitted, land secured. Revenue not fully contracted
+#               (no signed PPA; ancillary service strategy described).
+#               Revenue risk flag raised.
+# ============================================================================
+fictional: true
+source: "synthetic_example"
+confidentiality: "public_example"
+
+rals_version: "0.1"
+document_id: "rals:RO-EX-BE-RTB-L2-001"
+generated_at: "2026-05-15T09:00:00Z"
+generated_by: "rals-jurisdiction-example-generator"
+language: "en"
+
+rals_jurisdiction:
+  jurisdiction_package: RO
+  rals_jurisdiction_version: "0.1"
+  assessed_readiness_level: L2
+  readiness_label: "Investment Memo Ready"
+  jurisdiction_assessment_date: "2026-05-15"
+
+# ── Identity ─────────────────────────────────────────────────────────────────
+identity:
+  asset_name: "Project Arges Storage"
+  asset_type: bess
+  lifecycle_stage: development
+  country: RO
+  region: "Muntenia"
+  sub_region: "Arges County"
+  total_capacity_mw_ac: 100.0
+  total_energy_mwh: 200.0
+  duration_hours: 2.0
+  site_area_hectares: 4.0
+  transaction_type: full_acquisition
+  equity_offered_pct: 100
+  spv_structure: true
+  spv_jurisdiction: "Romania"
+
+# ── Technical ─────────────────────────────────────────────────────────────────
+technical:
+  expected_lifetime_years: 20
+  design_basis_year: 2025
+  bess_technology: lithium_iron_phosphate
+  cycles_per_year_design: 350
+  round_trip_efficiency_pct: 88
+  connection_voltage_kv: 220
+  technical_note: >
+    Standalone AC-coupled BESS. 100 MW / 200 MWh (2h duration).
+    Preliminary technical concept by Romanian engineering firm (ISPE S.A., 2025).
+    Equipment: technology and supplier not yet selected (CATL, BYD, Samsung SDI shortlisted).
+    Grid injection at 220 kV Pitesti substation (Transelectrica).
+
+# ── Grid & Offtake ────────────────────────────────────────────────────────────
+grid_offtake:
+  grid_connection:
+    status: atr_accepted
+    grid_operator: "Transelectrica S.A."
+    voltage_level_kv: 220
+    connection_point: "ST 220/110 kV Pitesti Nord"
+    connection_evidence: >
+      ATR issued by Transelectrica in August 2025. ATR formally accepted by developer
+      in September 2025. Financial guarantee (EUR 680,000 = 5% of estimated connection
+      cost EUR 13.6m) deposited per ANRE Order 20/2025. ATR valid until August 2027.
+      Connection contract (contract de racordare) not yet signed — awaiting building
+      permit and investor closing.
+    grid_capacity_note: >
+      Pitesti 220 kV substation has capacity for 100 MW BESS injection.
+      Transelectrica confirmed no moratorium at this node as of 2026-Q1.
+  offtake_structure: hybrid
+  revenue_model: hybrid
+  revenue_note: >
+    Primary revenue: OPCOM balancing market (MSD) — ancillary services (frequency
+    regulation, balancing capacity). Secondary: day-ahead arbitrage.
+    No signed PPA or contracted offtake. Revenue strategy documented in investor memo
+    with 3 scenarios: base (MSD + arbitrage), conservative (arbitrage only), stressed.
+    CfD eligibility: BESS may qualify under future Romanian CfD scheme but not awarded.
+    RISK: Revenue is not contracted. MSD revenue depends on Transelectrica eligibility
+    and dispatch, which is subject to regulatory interpretation under ANRE Order 27/2025.
+
+# ── Compliance ────────────────────────────────────────────────────────────────
+compliance:
+  permitting_status: application_submitted
+  permitting_authority: "Primaria Mioveni (building permit); ANPM (environmental screening)"
+  permitting_detail: >
+    Building permit (autorizatie de construire) application submitted to Primaria Mioveni
+    (Arges County) in January 2026. Environmental screening: BESS < 50 MW threshold
+    for full EIM — screening letter from ANPM obtained October 2025 confirming EIM
+    not required. No contestatie risk at screening level.
+    Building permit decision expected Q2 2026.
+  environmental_status: screening_completed
+  environmental_detail: >
+    ANPM environmental screening completed October 2025: full EIM not required for 100 MW
+    BESS below environmental assessment threshold (storage-specific). Site is
+    brownfield industrial zone (former agricultural storage facility) — no Natura 2000
+    constraint.
+
+# ── Land ─────────────────────────────────────────────────────────────────────
+land:
+  land_control_status: long_term_lease_secured
+  land_parcels: 1
+  land_area_ha: 4.0
+  land_detail: >
+    Single parcel (4 ha) in industrial zone of Mioveni municipality (Arges County).
+    25-year arenda contract signed with local council (Primaria Mioveni) as landowner.
+    Signed October 2025. Cartea Funciara extract: CF number 45221/Mioveni.
+    No adverse entries. Parcel zoned for industrial use — no agricultural
+    de-registration required.
+  land_risks: []
+
+# ── Financials ───────────────────────────────────────────────────────────────
+financials:
+  reporting_currency: EUR
+  total_capex_eur: 72000000
+  capex_detail: >
+    Total capex: EUR 72m. Includes: BESS equipment (CATL/BYD indicative): EUR 52m;
+    civil works + grid connection (EUR 13.6m confirmed in ATR): EUR 15m; owner's costs: EUR 5m.
+    Equipment cost based on Q4 2025 market pricing — subject to commodity price movement.
+    Independent owner's engineer cost review: in progress (ISPE, due Q2 2026).
+  capex_confidence: medium
+  opex_eur_yr: 1800000
+  opex_confidence: medium
+  opex_detail: >
+    O&M: EUR 1.1m/yr (equipment maintenance, monitoring); insurance: EUR 0.4m/yr;
+    land lease: EUR 0.12m/yr; management: EUR 0.18m/yr.
+  revenue_assumptions: >
+    Base case: EUR 8.4m/yr (MSD ancillary services + DAM arbitrage at 350 cycles/yr).
+    Conservative case: EUR 5.2m/yr (arbitrage only at 280 cycles/yr).
+    Stressed case: EUR 3.1m/yr (reduced cycling, regulatory change).
+    Note: Revenue entirely uncontracted. MSD eligibility under ANRE Order 27/2025 confirmed
+    in principle but no binding allocation received.
+  financial_model_available: true
+  financial_model_note: >
+    Investment memo model available under NDA. Project IRR (levered): 11.4% base,
+    7.8% conservative. DSCR: base >1.4x, conservative 1.05x (minimal debt headroom).
+    DSCR sensitivity: revenue risk is the key driver.
+
+# ── Process ──────────────────────────────────────────────────────────────────
+process:
+  process_type: limited_auction
+  data_room_status: available_under_nda
+  data_room_platform: "Datasite"
+  data_room_contents:
+    - "ATR (Transelectrica, August 2025)"
+    - "Financial guarantee confirmation"
+    - "Building permit application (Primaria Mioveni, January 2026)"
+    - "ANPM environmental screening letter"
+    - "Arenda contract (Primaria Mioveni, October 2025)"
+    - "CF extract (CF 45221/Mioveni)"
+    - "ISPE preliminary technical concept"
+    - "Investment memo financial model (3 scenarios)"
+    - "Corporate structure (SPV: Arges Storage S.R.L.)"
+  asking_price:
+    indicated_range_eur_low: 8000000
+    indicated_range_eur_high: 14000000
+    note: "RTB premium; buyer takes revenue risk post-acquisition"
+  process_timeline:
+    indicative_nbo_due: "2026-07-31"
+    indicative_binding_offer: "2026-10-15"
+    indicative_close: "2027-01-31"
+
+# ── Risk Flags ───────────────────────────────────────────────────────────────
+risk_flags:
+  - risk_id: grid_not_secured
+    active: false
+    note: "ATR issued and accepted; financial guarantee in place"
+  - risk_id: land_not_secured
+    active: false
+    note: "25-year arenda signed; CF clean"
+  - risk_id: permitting_not_started
+    active: false
+    note: "Building permit application submitted January 2026"
+  - risk_id: unclear_revenue_route
+    active: true
+    severity: high
+    note: >
+      Revenue entirely uncontracted. MSD eligibility in principle but no binding
+      Transelectrica allocation. CfD not available. Conservative DSCR is marginal.
+  - risk_id: cfd_revenue_not_awarded
+    active: false
+    note: "CfD not modelled in base case; correctly classified as merchant/ancillary"
+  - risk_id: capex_unvalidated
+    active: true
+    severity: low
+    note: "Owner's engineer review in progress; BESS equipment pricing subject to commodity risk"
+  - risk_id: merchant_exposure_high
+    active: true
+    severity: medium
+    note: "Conservative scenario (arbitrage only) shows marginal DSCR. Revenue risk is the key transaction risk."

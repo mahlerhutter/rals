@@ -1,0 +1,270 @@
+# RALS Jurisdiction Package — Chile
+# field-overrides.yaml
+# Jurisdiction-specific interpretation of RALS base fields
+# Version: 0.1
+
+jurisdiction_code: CL
+
+fields:
+
+  identity.country:
+    required: true
+    importance: critical
+    allowed_values: ["CL"]
+    jurisdiction_note: >
+      Must be ISO 3166-1 alpha-2 "CL". Chilean assets operate under the SEIN unified
+      national grid. Region is highly relevant: Atacama/Antofagasta (north) carries
+      significant curtailment and water rights risk; Biobío/Los Lagos (south) carries
+      lower curtailment risk but higher wind variability.
+
+  identity.region:
+    required: true
+    importance: high
+    allowed_values:
+      - "Arica y Parinacota"
+      - "Tarapacá"
+      - "Antofagasta"
+      - "Atacama"
+      - "Coquimbo"
+      - "Valparaíso"
+      - "Región Metropolitana"
+      - "O'Higgins"
+      - "Maule"
+      - "Ñuble"
+      - "Biobío"
+      - "La Araucanía"
+      - "Los Ríos"
+      - "Los Lagos"
+      - "Aysén"
+      - "Magallanes"
+    jurisdiction_note: >
+      Region is a primary risk determinant. Northern regions (Antofagasta, Atacama,
+      Tarapacá) are primary solar PV development zones but are heavily affected by
+      transmission bottlenecks and zero-price spot periods. Southern regions (Biobío,
+      La Araucanía, Los Lagos) are primary onshore wind zones with lower curtailment
+      risk. Indigenous territory risk must be assessed region by region.
+    validation_warning: >
+      Assets in Antofagasta or Atacama regions: mandatory disclosure of curtailment
+      exposure and DGA water rights status (for CSP or hydro). Assets in La Araucanía
+      or regions with mapped indigenous territories: PCPI applicability must be assessed
+      and disclosed regardless of readiness level.
+
+  identity.lifecycle_stage:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      "ready_to_build" in Chile requires: (a) RCA issued by SEA (Resolución de
+      Calificación Ambiental), final and uncontested; (b) CEN connection agreement
+      signed with transmission owner; (c) land secured (freehold title registered
+      at Conservador de Bienes Raíces, or long-term lease registered); (d) if
+      indigenous consultation was required, PCPI completed. Absence of any of these
+      conditions must be explicitly disclosed and will prevent L3 classification.
+
+  technical.technology:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      Solar PV dominates northern Chile; wind dominates southern Chile. CSP legacy
+      projects exist in the north but new CSP development is rare. BESS projects
+      are growing and may qualify as standalone or hybrid assets. PMGD assets
+      (under 9 MW) are subject to the DS 125 (2025) curtailment and monitoring rules;
+      this must be disclosed for assets in that size range.
+
+  technical.capacity:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      PMGD threshold: below 9 MW (connected at distribution level). Assets at or above
+      9 MW connect to the transmission or sub-transmission network via CEN process.
+      SEIA environmental assessment (leading to RCA) is mandatory for most utility-scale
+      projects. The 2025 SEIA reform exempted transmission lines longer than 2 km from
+      SEIA, but generation projects remain subject to full SEIA review in most cases.
+      Confirm SEIA applicability with qualified Chilean environmental counsel.
+
+  land.land_control_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - freehold_registered
+      - long_term_lease_registered
+      - long_term_lease_signed_unregistered
+      - option_signed
+      - concesion_onerosa_mbn
+      - dga_water_rights_secured
+      - dga_water_rights_pending
+      - indigenous_consultation_pending
+      - not_secured
+    jurisdiction_note: >
+      Chilean land rights registration occurs at the Conservador de Bienes Raíces.
+      Freehold title (dominio) or long-term lease (arriendo) must be registered.
+      Registration typically takes 2–4 weeks. State land may be held under Concesión
+      Onerosa from the Ministerio de Bienes Nacionales (MBN). Mining/agricultural land
+      conflicts are common — title search is essential. DGA water rights (derechos de
+      aprovechamiento de aguas) are separately required for CSP or hydro projects:
+      permanent rights are preferred over eventual rights; judicial disputes with
+      mining or agricultural users are common in Atacama.
+    validation_warning: >
+      If indigenous territories overlap with the project site (as mapped by CONADI or
+      identified in SEIA screening), set land_control_status to indigenous_consultation_pending
+      and disclose PCPI status explicitly. An option signed without completed PCPI cannot
+      be classified as land secured at L3. Mining or agricultural land conflicts identified
+      in title search must be disclosed and assessed by qualified Chilean legal counsel.
+
+  land.land_evidence:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Expected evidence: copy of title deed registered at Conservador de Bienes Raíces
+      (Copia de Inscripción de Dominio), or signed and registered lease agreement.
+      For state land: Concesión Onerosa documentation from MBN. For DGA water rights:
+      DGA resolution confirming rights, or pending application reference. For indigenous
+      consultation: SEA screening decision and, if PCPI required, consultation record
+      and outcome documentation.
+
+  grid_offtake.grid_connection_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - pre_application
+      - technical_review_submitted
+      - technical_review_approved
+      - connection_agreement_signed
+      - connected
+    jurisdiction_note: >
+      CEN operates open-access transmission on SEIN. Generator applies to CEN.
+      CEN technical review: typically 2–4 months. Connection agreement is negotiated
+      and signed with the relevant transmission line owner (e.g. Transelec, IST, SAESA
+      or similar), not with CEN directly, but CEN coordinates the process and must
+      approve the connection. Agreement negotiation: typically 1–3 months after
+      technical review approval. Curtailment risk in northern Chile (Atacama) is
+      structural until the Kimal-Lo Aguirre transmission expansion is operational.
+    validation_warning: >
+      Assets in Antofagasta or Atacama regions with status pre_application or
+      technical_review_submitted: mandatory disclosure of curtailment risk in north.
+      No lender will accept construction financing without connection_agreement_signed.
+
+  grid_offtake.curtailment_disclosure:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      For all northern Chile assets (Antofagasta, Atacama, Tarapacá, Arica y Parinacota
+      regions): mandatory curtailment risk disclosure. The Kimal-Lo Aguirre line (1,342 km,
+      3,000 MW) linking Antofagasta to Santiago is under development as of 2025–2026 and
+      is not yet operational. Until it is commissioned, transmission evacuation of solar
+      generation in the north is structurally constrained. CEN dispatch data shows
+      approximately 2,684 GWh curtailed or dispatched at zero cost in the first 7 months
+      of 2025. Financial models must include curtailment scenarios.
+
+  revenue.revenue_model:
+    required: true
+    importance: critical
+    allowed_values:
+      - corporate_ppa
+      - distribution_concesionaria
+      - spot_market_sein
+      - pmgd_precio_estabilizado
+      - pmgd_marginal
+      - storage_hybrid_ppa
+    jurisdiction_note: >
+      Corporate PPA is the dominant route for utility-scale projects in Chile — the most
+      mature corporate PPA market in Latin America. Typical term: 10–20 years, USD or
+      USD-equivalent. Mining companies and large industrials are primary counterparties.
+      Storage-bundled PPAs command a premium. Distribution concessionaria (licitación)
+      contracts are declining. PMGD assets may choose between Precio Estabilizado
+      (regulated stabilised price, lower but predictable) or marginal (SEIN spot, higher
+      risk). Spot-only revenue (spot_market_sein) without a PPA is high risk for northern
+      assets due to zero-price periods.
+    validation_warning: >
+      If revenue_model is spot_market_sein: mandatory disclosure of Atacama zero-price
+      risk if asset is in northern regions. Pure merchant solar assets in northern Chile
+      face structurally near-zero spot prices during high irradiation periods. Financial
+      models relying on uncontracted SEIN spot revenue in northern Chile must include
+      P10/P50/P90 price scenarios reflecting curtailment and zero-price frequency.
+
+  compliance.permitting_status:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      Chile's primary environmental permit is the RCA (Resolución de Calificación
+      Ambiental), issued by SEA under the SEIA process. Track RCA and construction
+      permit separately. The construction permit (permiso de edificación) is issued by
+      the Municipalidad or by MOP for certain infrastructure. Indigenous consultation
+      (PCPI) status must also be tracked separately if applicable.
+    subfields:
+      rca_status:
+        allowed_values:
+          - not_required
+          - not_submitted
+          - seia_submitted
+          - seia_under_review
+          - rca_approved
+          - rca_approved_final
+          - rca_under_appeal
+          - rca_rejected
+        jurisdiction_note: >
+          RCA approved_final means the RCA has been issued and any reclamation period has
+          passed without a judicial challenge (recurso de reclamación). RCA under_appeal
+          is a hard blocker for L3 classification. The 2025 SEIA reform exempted
+          transmission lines over 2 km from SEIA, but generation projects require full
+          SEIA review. Always confirm current SEIA applicability.
+      construction_permit_status:
+        allowed_values:
+          - not_submitted
+          - submitted
+          - issued
+          - issued_final
+        jurisdiction_note: >
+          Municipalidad construction permit (permiso de edificación) typically takes
+          1–2 months. For projects on public land or involving road access, MOP
+          (Ministerio de Obras Públicas) may also be involved.
+      indigenous_consultation_status:
+        allowed_values:
+          - not_applicable
+          - screening_required
+          - pcpi_initiated
+          - pcpi_in_progress
+          - pcpi_completed
+          - pcpi_blocked
+        jurisdiction_note: >
+          PCPI (Consulta Previa y Participación Indígena) is mandatory under ILO 169 if
+          the project may affect indigenous communities or territories. SEA determines
+          applicability within the SEIA process. Consultation must be free, prior, and
+          informed (FPIC principle). Timeline: typically 2–4 months but commonly extends
+          to 6–24 months; community opposition can block projects entirely. PCPI must be
+          completed (not merely initiated) for L3 classification if applicable.
+      conaf_permit_status:
+        allowed_values:
+          - not_required
+          - submitted
+          - issued
+        jurisdiction_note: >
+          CONAF permit required if project is on or adjacent to native forest. Timeline:
+          3–6 months. Required at L2+ if applicable.
+
+  financials.currency:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      Chilean PPAs are commonly denominated in USD or USD-equivalent (often indexed to
+      USD inflation). Financial models may be prepared in CLP (Chilean Peso) or USD.
+      Specify reporting currency clearly. USD-CLP exchange rate assumptions and hedging
+      strategy should be disclosed for all USD-denominated contracts.
+
+  process.transaction_type:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Chilean M&A transactions typically use SPV share deals (Sociedad Anónima or SpA).
+      Asset deals are less common. FDI screening requirements should be confirmed for
+      strategic sectors. Change-of-control clauses in PPAs with mining counterparties
+      are common and must be disclosed. Confirm whether permits (especially RCA) are
+      transferable on SPV share sale without SEA re-approval.
+
+  risks.risk_flags:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      See risks.yaml for Chile-specific risk taxonomy. Key flags to check:
+      curtailment_atacama, indigenous_consultation_delay, dga_water_rights,
+      transmission_expansion_lag, merchant_price_volatility_chile,
+      political_regulatory_risk_chile.

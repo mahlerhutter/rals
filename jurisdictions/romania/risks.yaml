@@ -1,0 +1,244 @@
+# RALS Jurisdiction Package — Romania
+# risks.yaml
+# Version: 0.1
+
+jurisdiction_code: RO
+
+risks:
+
+  - risk_id: land_not_secured
+    label: "Land Rights Not Secured"
+    severity_default: high
+    affected_sections: [identity, compliance]
+    buyer_impact: "No enforceable right to build. Landowner can withdraw."
+    lender_impact: "Construction financing requires long-term arenda for all key parcels."
+    mitigation_evidence:
+      - Signed arenda contract (≥25 years) for all key parcels
+      - CF (Cartea Funciara) extract confirming no adverse encumbrances
+    validation_rule: >
+      If lifecycle_stage is ready_to_build or under_construction and
+      land_control_status is not owned or long_term_lease_secured, raise as HIGH.
+
+  - risk_id: land_not_registered
+    label: "Land Not Registered in Cartea Funciara (CF)"
+    severity_default: high
+    affected_sections: [identity, compliance]
+    buyer_impact: >
+      Unregistered land creates title uncertainty. Construction permit cannot be
+      issued without CF registration. Buyer may be unable to complete acquisition.
+    lender_impact: "No mortgage can be registered on unregistered land. Security is void."
+    mitigation_evidence:
+      - CF registration completed for all parcels (CF number provided)
+      - Or CF registration proceedings initiated with timeline confirmed
+    validation_rule: >
+      If any site parcel lacks a CF registration number, raise as HIGH risk at any level.
+
+  - risk_id: grid_not_secured
+    label: "ATR Not Valid or Not Backed by Financial Guarantee"
+    severity_default: high
+    affected_sections: [grid_offtake]
+    buyer_impact: >
+      ATR without 5% financial guarantee (ANRE Order 20/2025) is at risk of lapsing.
+      Expired ATR has no connection right.
+    lender_impact: "No construction financing without a valid, guaranteed ATR and connection contract."
+    mitigation_evidence:
+      - ATR with confirmed expiry date (not expired)
+      - 5% financial guarantee in place per ANRE Order 20/2025
+      - Or signed contract de racordare for L3+
+    validation_rule: >
+      If ATR is expired, without guarantee, or unconfirmed, raise as HIGH risk.
+
+  - risk_id: grid_capacity_constraints_dobrogea
+    label: "Grid Capacity Constraints (Dobrogea)"
+    severity_default: high
+    affected_sections: [grid_offtake]
+    buyer_impact: >
+      Transelectrica's Dobrogea grid is severely saturated. Over 60 GW of projects
+      hold ATRs; actual connection capacity is a fraction of this. New connections
+      require major grid reinforcement (2–6 year timelines and significant costs).
+    lender_impact: >
+      ATR in Dobrogea should be independently verified with Transelectrica.
+      Even valid ATRs may not result in timely physical connection.
+    mitigation_evidence:
+      - Terna confirmation of specific connection point availability
+      - Grid reinforcement scope and cost confirmed in connection contract
+    validation_rule: >
+      If region is Dobrogea and grid_connection_status is pre_application or atr_issued
+      (without contract), raise as HIGH risk with zone saturation warning.
+
+  - risk_id: atr_auction_queue_risk
+    label: "ATR Auction Queue Status Unconfirmed (Post-2026 Rules)"
+    severity_default: medium
+    affected_sections: [grid_offtake]
+    buyer_impact: >
+      From 1 January 2026, new grid capacity is allocated via ANRE auction. Projects
+      without confirmed auction participation may lose grid access rights.
+    lender_impact: >
+      Auction status must be confirmed before assuming connection is available.
+    mitigation_evidence:
+      - ANRE confirmation of pre-2026 grandfathered ATR status
+      - Or auction participation confirmation and queue position
+    validation_rule: >
+      If ATR was issued after 1 January 2026 or its pre-2026 grandfathering is unconfirmed,
+      raise as MEDIUM risk and require ANRE clarification.
+
+  - risk_id: permitting_not_started
+    label: "Permitting Not Started"
+    severity_default: high
+    affected_sections: [compliance]
+    buyer_impact: "Permitting in Romania can take 12–36 months. Start date is unknown."
+    lender_impact: "No debt appetite without at least environmental permit application submitted."
+    mitigation_evidence:
+      - Environmental permit application submitted
+      - Building permit pathway confirmed
+    validation_rule: >
+      If lifecycle_stage is development+ and permitting_status is pre_application, raise as HIGH.
+
+  - risk_id: permitting_under_appeal
+    label: "Permit Under Administrative Contestation"
+    severity_default: critical
+    affected_sections: [compliance]
+    buyer_impact: "Contestatie can suspend or annul environmental or building permit."
+    lender_impact: "Hard blocker for construction financing."
+    mitigation_evidence:
+      - Legal confirmation that contestatie period (30 days) has elapsed with no challenge
+      - Or court decision dismissing challenge
+    validation_rule: >
+      If permitting_status is under_administrative_challenge, raise as CRITICAL. Block RTB.
+
+  - risk_id: environmental_constraints
+    label: "Unresolved Environmental or Natura 2000 Constraint"
+    severity_default: medium
+    affected_sections: [compliance]
+    buyer_impact: >
+      Romania has extensive Natura 2000 designations, particularly in Dobrogea
+      (Delta Dunarii). Projects in or near these areas face heightened scrutiny
+      and potential design constraints or prohibition.
+    mitigation_evidence:
+      - EIM decision favourable and definitive
+      - Natura 2000 screening completed with no fatal constraint
+    validation_rule: >
+      If site is within or adjacent to Natura 2000 or Delta Dunarii buffer zone,
+      raise as MEDIUM risk and require EIM decision.
+
+  - risk_id: unclear_revenue_route
+    label: "Revenue Route Not Confirmed"
+    severity_default: high
+    affected_sections: [financials]
+    buyer_impact: >
+      Without confirmed PPA or GC entitlement, revenue is fully merchant-exposed.
+      Romanian merchant prices (OPCOM) are volatile and below Western European levels.
+    lender_impact: "No construction financing without committed revenue."
+    mitigation_evidence:
+      - Signed PPA with creditworthy counterparty
+      - Or GC entitlement confirmed for legacy assets
+      - Or documented merchant strategy with OPCOM price assumptions and downside sensitivity
+    validation_rule: >
+      If revenue_model is merchant and no PPA or GC is in place, raise as HIGH
+      at L2+ and note absence of support scheme.
+
+  - risk_id: cfd_revenue_not_awarded
+    label: "CfD Revenue Assumed but Not Awarded"
+    severity_default: high
+    affected_sections: [financials]
+    buyer_impact: >
+      Romania's CfD scheme is under development as of 2026 but no awards have been made.
+      Modelling CfD revenue without an official award notification inflates projected returns.
+    mitigation_evidence:
+      - Official CfD award notification from ANRE or Ministry of Energy in data room
+    validation_rule: >
+      If financial model assumes CfD revenue without an official award letter,
+      raise as HIGH risk and reclassify revenue as merchant/PPA base case.
+
+  - risk_id: transaction_readiness_inflation
+    label: "Readiness Level Claim Inflation"
+    severity_default: medium
+    affected_sections: [identity, process]
+    buyer_impact: >
+      Romanian market has a pattern of projects marketed as "RTB" or "shovel-ready"
+      without meeting the evidence requirements of L2+. Buyers should verify all
+      readiness claims with documentary evidence before pricing.
+    mitigation_evidence:
+      - Documentary evidence provided for each claimed readiness criterion
+      - Independent technical advisor confirmation of readiness level
+    validation_rule: >
+      Flag if lifecycle_stage claim of ready_to_build is not supported by all L2
+      minimum requirements. Downgrade to evidence-supported level.
+
+  - risk_id: capex_unvalidated
+    label: "Capex Not Independently Validated"
+    severity_default: medium
+    affected_sections: [financials]
+    buyer_impact: "Grid connection cost variability and logistics premiums for Dobrogea wind are material."
+    mitigation_evidence:
+      - Independent owner's engineer estimate
+      - Connection cost confirmed in contract de racordare
+    validation_rule: >
+      If capex_confidence is low or undefined at L2+, raise as MEDIUM.
+
+  - risk_id: yield_unvalidated
+    label: "Energy Yield Not Independently Assessed"
+    severity_default: medium
+    affected_sections: [technical]
+    buyer_impact: "Desktop estimates carry ±15% uncertainty. Curtailment in Dobrogea must be modelled."
+    mitigation_evidence:
+      - Independent yield assessment by recognised assessor
+      - Curtailment scenario for Dobrogea assets
+    validation_rule: >
+      If yield_assessment is desktop_only at L2+, raise as MEDIUM.
+
+  - risk_id: curtailment_risk_dobrogea
+    label: "Curtailment Risk (Dobrogea)"
+    severity_default: medium
+    affected_sections: [grid_offtake, financials]
+    buyer_impact: >
+      Transelectrica imposes balancing curtailment in the Dobrogea zone.
+      Curtailment can reduce actual generation by 5–15% annually for wind assets.
+    lender_impact: "DSCR base case must include curtailment-adjusted P90."
+    mitigation_evidence:
+      - Historical curtailment data for the specific zone
+      - Yield assessment includes curtailment scenario
+    validation_rule: >
+      If region is Dobrogea and curtailment is not modelled in yield assessment,
+      raise as MEDIUM risk.
+
+  - risk_id: missing_data_room
+    label: "No Accessible Data Room"
+    severity_default: medium
+    affected_sections: [process]
+    buyer_impact: "Cannot verify ATR, permit, land, or revenue claims."
+    mitigation_evidence:
+      - NDA-gated data room with ATR, permits, CF extracts, corporate structure
+    validation_rule: "If data_room_status is not_available at L2+, raise as MEDIUM."
+
+  - risk_id: counterparty_unclear
+    label: "Seller or SPV Identity Unclear"
+    severity_default: medium
+    affected_sections: [identity, process]
+    buyer_impact: "AML/KYC and foreign ownership screening required."
+    mitigation_evidence:
+      - Named Romanian SPV; UBO identified; foreign ownership structure disclosed
+    validation_rule: "If seller_legal_entity missing at L1+, raise as MEDIUM."
+
+  - risk_id: title_or_ownership_unclear
+    label: "SPV Ownership or Title Unclear"
+    severity_default: high
+    affected_sections: [identity, process]
+    buyer_impact: "Encumbered SPV shares prevent acquisition."
+    mitigation_evidence:
+      - Corporate structure; no pledges on SPV shares; foreign ownership compliance confirmed
+    validation_rule: "If spv_structure is true and no corporate documentation at L2+, raise as HIGH."
+
+  - risk_id: political_or_regulatory_risk
+    label: "Romanian Regulatory Risk"
+    severity_default: medium
+    affected_sections: [compliance, financials]
+    buyer_impact: >
+      Romania has a history of retroactive policy changes (2014 GC cuts, subsequent moratoria).
+      The new 2026 ATR auction system creates transition risk for existing ATR holders.
+      CfD scheme development is uncertain in timing and terms.
+    mitigation_evidence:
+      - Revenue base case does not rely on unannounced policy changes
+      - GC entitlements confirmed in writing by ANRE for legacy assets
+    validation_rule: >
+      Flag if financial model assumes policy change (CfD award, GC extension) not yet announced.

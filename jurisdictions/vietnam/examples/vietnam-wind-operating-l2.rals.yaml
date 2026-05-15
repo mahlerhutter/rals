@@ -1,0 +1,540 @@
+# ============================================================================
+# RALS Jurisdiction Package — Vietnam
+# Example: vietnam-wind-operating-l2.rals.yaml
+# ============================================================================
+# Asset:        Project Gio Bien Dong (fictional — "East Sea Wind")
+# Technology:   Onshore wind
+# Capacity:     50 MW
+# Stage:        Operating — commissioned 2022 (sale/refinancing opportunity)
+# Location:     Binh Thuan Province
+# Purpose:      Demonstrates L2 readiness for an operating Vietnamese wind asset.
+#               Project was developed under the FiT era but commissioned in 2022
+#               AFTER FiT 3 deadline — FiT not applicable. Revenue is purely
+#               VWEM spot market via EVN. Legacy FiT is NOT available.
+#               Curtailment historically 15%. EVN metering disputes noted.
+#               Operating performance 2 years below budget. FX risk unstructured.
+#               L2 reflects operating status and grid/legal documentation, but
+#               revenue uncertainty (pure VWEM spot), curtailment, EVN dispute
+#               risk, and unresolved FX structure prevent L3 classification.
+# Risks shown:  evn_counterparty_risk, curtailment_uncompensated,
+#               fx_convertibility_risk, evn_metering_disputes,
+#               fit_expired_claimed (not applicable — correctly disclosed),
+#               decree_regulatory_instability
+# ============================================================================
+fictional: true
+source: "synthetic_example"
+confidentiality: "public_example"
+
+rals_version: "0.1"
+document_id: "rals:VN-EX-WND-OPR-L2-001"
+generated_at: "2026-05-15T09:00:00Z"
+generated_by: "rals-jurisdiction-example-generator"
+language: "en"
+
+rals_jurisdiction:
+  jurisdiction_package: VN
+  rals_jurisdiction_version: "0.1"
+  assessed_readiness_level: L2
+  readiness_label: "Investment Memo Ready"
+  jurisdiction_assessment_date: "2026-05-15"
+  assessment_notes: >
+    L2 assigned. Asset is operating with EVN Grid Connection Agreement active,
+    all permits in place, and LURC secured. IRC and ERC confirmed. However:
+    revenue is pure VWEM spot market (no DPPA, no FiT — FiT 3 deadline missed),
+    historical curtailment of 15% is uncompensated, EVN metering disputes have
+    been recorded in O&M logs, and financial performance is 2 years below budget.
+    FX convertibility risk not structurally addressed. EVN counterparty risk
+    fully applicable. Asset cannot advance to L3 without a committed revenue
+    contract (DPPA or EVN transitional arrangement), resolution of metering
+    disputes, and FX structuring for any international financing.
+
+# ── Identity ──────────────────────────────────────────────────────────────────
+identity:
+  asset_name: "Project Gio Bien Dong"
+  asset_type: onshore_wind
+  lifecycle_stage: operating
+  country: VN
+  region: "Binh Thuan Province"
+  sub_region: "Tuy Phong District"
+  total_capacity_mw_ac: 50.0
+  total_capacity_mw_dc: null
+  site_area_hectares: 420
+  transaction_type: full_acquisition
+  equity_offered_pct: 100
+  spv_structure: true
+  spv_jurisdiction: "Vietnam"
+  spv_note: >
+    Vietnamese-registered limited liability company (TNHH). 100% owned by
+    regional developer entity (Singapore holdco). LURC held directly by
+    Vietnamese SPV (no JV structure — brownfield land, no agricultural conversion).
+
+# ── Technical ─────────────────────────────────────────────────────────────────
+technical:
+  commissioning_date: "2022-09-30"
+  expected_lifetime_years: 25
+  design_basis_year: 2020
+
+  units:
+    - block_id: "WTG-01 to WTG-20"
+      turbines: 20
+      capacity_mw_each: 2.5
+      capacity_mw_total: 50.0
+
+  turbine:
+    manufacturer: "Vestas"
+    model: "V120-2.5 MW"
+    hub_height_m: 90
+    rotor_diameter_m: 120
+    nominal_power_mw: 2.5
+    units_total: 20
+    warranty_years_remaining: 1.5
+
+  mounting:
+    type: onshore_wind_tower
+    tower_type: steel_tubular
+
+  production_estimates:
+    methodology: "Independent yield assessment by DNV (2020), 12-month LiDAR data"
+    p50_gwh_yr: 147.0
+    p90_gwh_yr: 134.0
+    curtailment_adjusted: false
+    curtailment_note: >
+      P50 of 147 GWh/yr is the pre-curtailment independent assessment (2020).
+      Actual delivered energy has been consistently lower due to EVN curtailment.
+      Historical curtailment averages 15% — see operating history below.
+      Net deliverable P50 after curtailment is approximately 125 GWh/yr.
+    assessor: "DNV Vietnam"
+    assessment_date: "2020-11-15"
+
+  performance_ratio: null
+  specific_yield_kwh_kwp: null
+
+  losses_breakdown:
+    wake_pct: 4.2
+    electrical_pct: 1.8
+    availability_pct: 3.0
+    curtailment_pct: 15.0
+    other_pct: 1.5
+    total_pct: 25.5
+
+# ── Grid and Offtake ──────────────────────────────────────────────────────────
+grid_offtake:
+  grid_connection:
+    status: connected
+    grid_operator: "EVN / Binh Thuan Power Company (EVNPC Binh Thuan)"
+    voltage_level_kv: 110
+    connection_point: "Tuy Phong 110 kV Substation"
+    connection_capacity_mw: 52
+    connection_agreement_date: "2021-06-15"
+    connection_agreement_status: active
+    line_length_km: 8.5
+    line_ownership: "asset (developer-funded)"
+    connection_evidence: >
+      Signed EVN Grid Connection Agreement dated 2021-06-15. Agreement active.
+      Connection capacity confirmed at 52 MW. Evacuation line (8.5 km, 110 kV)
+      built and owned by project SPV. Agreement term: 20 years from commissioning.
+    grid_capacity_note: >
+      Binh Thuan Province shares congestion characteristics with Ninh Thuan —
+      both are in the most saturated grid zone in Vietnam. Historical curtailment
+      at this project: see operating history. No curtailment compensation mechanism
+      in the Grid Connection Agreement or in the EVN power purchase arrangements.
+
+  offtake_structure: evn_spot_market
+  revenue_model: evn_spot_market
+  revenue_status: active_no_contract
+  revenue_note: >
+    Revenue is 100% VWEM (Vietnam Wholesale Electricity Market) spot market
+    via EVN — no DPPA signed, no transitional contract under Decree 58/2025/ND-CP.
+    Project was under development during FiT era but commissioned in September 2022,
+    after the FiT 3 deadline (projects had to achieve commercial operations by
+    November 1, 2021 to qualify). The project missed the FiT 3 deadline by
+    approximately 10 months. FiT revenue is NOT applicable to this project.
+    Actual VWEM clearing prices received have averaged VND 1,250/kWh
+    (approximately USD 50–52/MWh at prevailing exchange rates) over 2023–2025,
+    with significant intra-year volatility. Revenue is below the levels assumed
+    in the original financial model (which was based on FiT 3 tariff assumptions).
+    DPPA discussions initiated but no counterparty identified as of marketing date.
+
+  curtailment_history:
+    methodology: "EVN settlement records and project SCADA data"
+    annual:
+      - year: 2022
+        generation_potential_gwh: 38.5
+        actual_delivered_gwh: 33.0
+        curtailment_pct: 14.3
+        compensated_pct: 0.0
+      - year: 2023
+        generation_potential_gwh: 145.0
+        actual_delivered_gwh: 122.5
+        curtailment_pct: 15.5
+        compensated_pct: 0.0
+      - year: 2024
+        generation_potential_gwh: 147.5
+        actual_delivered_gwh: 124.8
+        curtailment_pct: 15.4
+        compensated_pct: 0.0
+      - year: 2025
+        generation_potential_gwh: 146.0
+        actual_delivered_gwh: 124.5
+        curtailment_pct: 14.7
+        compensated_pct: 0.0
+    average_curtailment_pct: 15.0
+    total_uncompensated_revenue_loss_usd_est: 4200000
+
+# ── Compliance ────────────────────────────────────────────────────────────────
+compliance:
+  permitting_status: all_permits_obtained
+
+  irc_status: obtained
+  irc_reference: "IRC-BT-2020-0018"
+  irc_issuer: "Binh Thuan Provincial Department of Planning and Investment"
+  irc_date: "2020-04-10"
+  irc_capacity_mw: 50.0
+
+  erc_status: obtained
+  erc_reference: "ERC-BT-2020-0156"
+  erc_date: "2020-05-20"
+
+  construction_permit_status: construction_permit_obtained
+  construction_permit_reference: "CP-BT-2021-WND-0022"
+  construction_permit_issuer: "Binh Thuan Provincial Construction Department"
+  construction_permit_date: "2021-03-08"
+
+  eia_status: approved
+  eia_approval_date: "2020-12-15"
+  eia_authority: "MoNRE"
+  eia_reference: "EIA-MoNRE-2020-BT-0041"
+  eia_conditions: "Noise monitoring at 3 nearest villages; annual bird monitoring for 5 years"
+
+  fit_status: not_applicable
+  fit_note: >
+    FiT 3 (Decision 39/2018/QD-TTg, as amended) required commercial operations
+    by November 1, 2021. This project achieved commercial operations on
+    September 30, 2022 — 11 months after the FiT 3 deadline. FiT revenue is
+    not applicable. Revenue is purely VWEM spot market via EVN at market prices.
+    Any marketing materials referencing FiT revenue for this project would be
+    materially misleading.
+
+  litigation_disputes:
+    - dispute_type: "EVN metering dispute"
+      period: "Q2–Q3 2023"
+      description: >
+        EVN settlement records showed discrepancy of approximately 3.2 GWh
+        compared to project SCADA metered output for Q2–Q3 2023. Developer filed
+        formal dispute with EVN Binh Thuan. Dispute settled by agreement in
+        December 2023 with EVN accepting adjusted settlement of 2.1 GWh.
+        Revenue impact: approximately VND 2.6 billion (USD ~105,000) recovered.
+        Root cause: EVN metering equipment calibration error at Tuy Phong substation.
+      status: resolved
+      resolution_date: "2023-12-20"
+    - dispute_type: "EVN metering dispute"
+      period: "Q1 2025"
+      description: >
+        Developer disputes EVN settlement figures for Q1 2025, claiming 1.8 GWh
+        unaccounted. Formal dispute filed with EVN Binh Thuan in April 2025.
+        EVN has not yet responded. Revenue at stake: approximately VND 2.25 billion
+        (USD ~90,000). Root cause under investigation.
+      status: pending
+      resolution_date: null
+
+# ── Land ─────────────────────────────────────────────────────────────────────
+land:
+  land_control_status: lurc_secured
+  land_parcels: 12
+  land_area_ha: 420
+  lurc_status: secured
+  lurc_note: >
+    LURC secured for all 420 ha under SPV name. Land classification: non-agricultural
+    (hillside scrubland) — no agricultural conversion was required. This is a
+    brownfield reuse of previously unused hillside land. Long-term industrial lease:
+    25 years from commissioning (until 2047). No Agrargemeinschaft equivalent
+    or shared land ownership issues.
+  lease_term_years: 25
+  lease_start: "2022-09-30"
+  lease_expiry: "2047-09-30"
+  agricultural_conversion_required: false
+  land_risks:
+    - "Lease term (25 years) is shorter than typical RALS L3 requirement (minimum 25 years) — acceptable at boundary"
+    - "Lease does not extend beyond 2047; refinancing will need to consider remaining lease term vs debt tenor"
+
+# ── Financials ────────────────────────────────────────────────────────────────
+financials:
+  reporting_currency: USD
+  reporting_basis: "Management accounts (Vietnamese VAS)"
+  fiscal_year_end: "12-31"
+
+  capex:
+    total_usd: 62000000
+    per_mw_ac_usd: 1240000
+    realized_vs_budget_pct: 107.5
+    final_account_settled: true
+    note: >
+      Capex came in 7.5% over original budget, primarily due to extended construction
+      period (COVID-19 related delays) and increased evacuation line costs.
+
+  opex_breakdown:
+    currency: USD
+    basis_year: 2025
+    om_service_usd_yr: 850000
+    land_lease_usd_yr: 210000
+    insurance_usd_yr: 180000
+    asset_management_usd_yr: 120000
+    grid_charges_usd_yr: 95000
+    administrative_usd_yr: 85000
+    total_usd_yr: 1540000
+
+  revenue_history:
+    - year: 2023
+      gross_revenue_vnd_bn: 153.1
+      gross_revenue_usd_approx: 6400000
+      vwem_price_vnd_kwh_avg: 1248
+      actual_gwh_delivered: 122.5
+      budget_gwh: 138.0
+      vs_budget_pct: -11.2
+      budget_shortfall_note: >
+        Budget was modelled on FiT 3 tariff (VND 1,928/kWh). Actual VWEM price
+        of VND 1,248/kWh is 35% below budget assumption. In addition, curtailment
+        of 15.5% further reduced generation vs pre-curtailment P50.
+    - year: 2024
+      gross_revenue_vnd_bn: 155.5
+      gross_revenue_usd_approx: 6300000
+      vwem_price_vnd_kwh_avg: 1246
+      actual_gwh_delivered: 124.8
+      budget_gwh: 138.0
+      vs_budget_pct: -9.6
+    - year: 2025
+      gross_revenue_vnd_bn: 157.1
+      gross_revenue_usd_approx: 6200000
+      vwem_price_vnd_kwh_avg: 1262
+      actual_gwh_delivered: 124.5
+      budget_gwh: 138.0
+      vs_budget_pct: -9.8
+
+  ebitda_history:
+    - year: 2023
+      ebitda_usd: 4860000
+      margin_pct: 75.9
+    - year: 2024
+      ebitda_usd: 4760000
+      margin_pct: 75.6
+    - year: 2025
+      ebitda_usd: 4660000
+      margin_pct: 75.2
+
+  performance_vs_original_model:
+    years_below_budget: 2
+    cumulative_revenue_shortfall_usd: 8700000
+    primary_cause: >
+      Revenue model was originally built on FiT 3 tariff (VND 1,928/kWh) which the
+      project did not qualify for. Actual VWEM prices average approximately VND 1,250/kWh —
+      approximately 35% below original model assumptions. Curtailment of 15% (unmodelled
+      in original budget) has further reduced generation vs P50. The combination of
+      missed FiT and higher-than-expected curtailment has resulted in EBITDA approximately
+      25–30% below original investor projections.
+
+  fx_note: >
+    All revenue is in VND. USD conversion applied at 24,800 VND/USD (2025 average).
+    Repatriation of USD-equivalent profits requires SBV approval. No formal
+    repatriation structure or FX hedging is in place. For any international refinancing,
+    this is a material structuring requirement.
+
+  debt_structure:
+    senior_debt:
+      outstanding_usd: 28000000
+      original_principal_usd: 34000000
+      lender: "Domestic Vietnamese commercial bank"
+      currency: VND
+      margin_description: "Fixed rate, VND denominated"
+      maturity: "2030-06-30"
+      note: >
+        VND-denominated domestic bank facility. Domestic lender has not raised
+        EVN counterparty risk as a concern. Any international refinancing will
+        require retirement of the domestic facility and negotiation with
+        international lenders who will apply more rigorous EVN and FX criteria.
+
+  financial_model_available: true
+  financial_model_note: >
+    Investment memo financial model available under NDA. Model has been updated
+    to reflect actual VWEM revenue (not FiT) and observed curtailment of 15%.
+    DSCR analysis not available — domestic lender model only. Independent
+    financial model for international refinancing has not been prepared.
+
+# ── Operating History ─────────────────────────────────────────────────────────
+operating_history:
+  annual_summary:
+    - year: 2023
+      gross_gwh: 144.3
+      net_delivered_gwh: 122.5
+      curtailment_gwh: 21.8
+      curtailment_pct: 15.1
+      availability_pct: 96.8
+    - year: 2024
+      gross_gwh: 147.5
+      net_delivered_gwh: 124.8
+      curtailment_gwh: 22.7
+      curtailment_pct: 15.4
+      availability_pct: 97.1
+    - year: 2025
+      gross_gwh: 146.0
+      net_delivered_gwh: 124.5
+      curtailment_gwh: 21.5
+      curtailment_pct: 14.7
+      availability_pct: 96.9
+
+  major_events:
+    - date: "2023-07-15"
+      type: turbine_failure
+      affected_turbines: 2
+      duration_hours: 312
+      root_cause: "Gearbox seal failure (WTG-07, WTG-12)"
+      resolved_under_warranty: false
+      warranty_expired: true
+      repair_cost_usd: 185000
+      revenue_impact_usd: 72000
+    - date: "2024-11-02"
+      type: grid_event
+      affected_capacity_mw: 50.0
+      duration_hours: 168
+      root_cause: "EVN-directed curtailment — grid overload at Tuy Phong 110kV substation"
+      compensated: false
+      revenue_impact_usd: 95000
+
+  service_contract:
+    provider: "Vestas Vietnam Service"
+    type: "basic_maintenance"
+    start_date: "2022-09-30"
+    duration_years: 3
+    expiry_date: "2025-09-30"
+    status: expired
+    renewal_status: "Under renegotiation — Vestas has proposed increased annual fee (+22%)"
+    annual_fee_usd_original: 420000
+    annual_fee_usd_proposed: 512000
+    sla_availability_pct: 96.0
+    note: >
+      Vestas original warranty (5 years) expired September 2027. Extended service
+      contract (3 years basic) expired September 2025. Renegotiation ongoing.
+      Increased fee reflects Vestas parts supply constraints in Vietnam.
+
+  warranty_status:
+    turbine_mechanical_remaining_years: 1.5
+    blades_remaining_years: 6.5
+    tower_remaining_years: 16.5
+
+  scada_access: read_only_post_nda
+  scada_provider: "Vestas Online Monitoring + local SCADA"
+
+# ── Process ──────────────────────────────────────────────────────────────────
+process:
+  process_type: limited_auction
+  invited_bidders_count_approx: 8
+  data_room_status: available_under_nda
+  data_room_platform: "Datasite"
+  data_room_contents:
+    - "IRC (Binh Thuan DPI, April 2020)"
+    - "ERC (May 2020)"
+    - "EIA approval (MoNRE, December 2020)"
+    - "Construction permit (Binh Thuan Construction Dept., March 2021)"
+    - "EVN Grid Connection Agreement (June 2021)"
+    - "LURC documentation for all 12 parcels"
+    - "25-year industrial lease agreement"
+    - "DNV yield assessment (November 2020)"
+    - "3 years operating data (SCADA + EVN settlement records)"
+    - "Metering dispute correspondence and settlement agreement (2023)"
+    - "Open metering dispute filing (Q1 2025)"
+    - "Vestas service contract (expired) and renewal proposal"
+    - "Management accounts 2022–2025"
+    - "Domestic bank loan agreement (VND)"
+    - "Updated financial model (VWEM revenue, curtailment-adjusted)"
+    - "Corporate structure chart and SPV constitutional documents"
+  process_timeline:
+    teaser_distribution: "2026-05-01"
+    indicative_nbo_due: "2026-07-31"
+    management_presentations: "2026-09-01 to 2026-09-30"
+    indicative_binding_offer: "2026-11-30"
+    indicative_close: "2027-Q1"
+    irc_amendment_timeline: "30–60 working days post-signing"
+  seller_contact: "deals@example-vietnam-ma-advisor.com"
+  closing_conditions_note: >
+    IRC change-of-control amendment from Binh Thuan DPI required prior to closing.
+    Domestic bank consent for change of control and loan assignment required.
+    Outstanding EVN metering dispute (Q1 2025) to be resolved prior to closing
+    or reserved against in the SPA.
+
+# ── Risk Flags (Jurisdiction Package) ────────────────────────────────────────
+risk_flags:
+  - risk_id: evn_counterparty_risk
+    active: true
+    severity: high
+    note: >
+      Revenue is 100% VWEM spot market via EVN at market prices. No DPPA in place.
+      Standard EVN arrangements are un-bankable for international project finance
+      in their current form. Any international refinancing will require structural
+      mitigants. Domestic bank currently holds debt — domestic lenders have lower
+      EVN counterparty risk concerns than international lenders.
+
+  - risk_id: curtailment_uncompensated
+    active: true
+    severity: high
+    note: >
+      Historical curtailment consistently 15% annually. No compensation mechanism.
+      Cumulative lost revenue from uncompensated curtailment estimated at
+      USD 4.2m over 2022–2025. Financial model must use curtailment-adjusted
+      P50 (approximately 125 GWh/yr, not 147 GWh/yr). This risk is ongoing and
+      systemic — no improvement expected absent major grid reinforcement by EVN.
+
+  - risk_id: fit_expired_claimed
+    active: false
+    note: >
+      FiT is correctly NOT claimed for this project. Project commissioned
+      September 2022, after the FiT 3 deadline of November 2021.
+      Risk flag is inactive — revenue model correctly reflects VWEM spot.
+      Any marketing material claiming FiT revenue for this project would
+      trigger this flag as CRITICAL.
+
+  - risk_id: fx_convertibility_risk
+    active: true
+    severity: high
+    note: >
+      All revenue in VND. No FX hedging or repatriation structure in place.
+      Domestic bank facility is VND-denominated — VND/USD mismatch not an
+      issue for current debt service but will be for any international refinancing.
+      SBV approval for USD repatriation required. Must be structurally addressed
+      before L3 classification or international financing.
+
+  - risk_id: evn_metering_disputes
+    active: true
+    severity: medium
+    note: >
+      One resolved metering dispute (Q2–Q3 2023, VND 2.6bn recovered).
+      One open metering dispute (Q1 2025, VND 2.25bn at stake). Open dispute
+      must be disclosed and quantified. SPA should include reserve or condition
+      precedent for resolution of open dispute. Metering dispute history suggests
+      ongoing EVN settlement process risk.
+
+  - risk_id: decree_regulatory_instability
+    active: true
+    severity: medium
+    note: >
+      Asset sells at VWEM spot prices under current Decree 58/2025/ND-CP framework.
+      No transitional contract has been entered into (70% minimum output guarantee
+      eligibility not confirmed). Regulatory framework changes could further affect
+      VWEM market design. Revenue assumptions are subject to decree-level change risk.
+
+  - risk_id: irc_change_of_control
+    active: true
+    severity: medium
+    note: >
+      Full acquisition (100% stake) triggers IRC change-of-control notification
+      and DPI approval requirement. Binh Thuan DPI pre-consultation has not
+      been initiated. Timeline estimate: 30–60 working days. Closing timeline
+      must account for this process.
+
+  - risk_id: evn_grid_monopoly
+    active: true
+    severity: medium
+    note: >
+      EVN Grid Connection Agreement is active and covers the operating period.
+      However, EVN's monopoly position means curtailment management decisions
+      are non-transparent and non-negotiable. No independent regulator exists
+      to adjudicate curtailment disputes. Long-term grid congestion in Binh
+      Thuan is unlikely to improve significantly in the near term.

@@ -1,0 +1,406 @@
+# RALS Jurisdiction Package — Chile
+# risks.yaml
+# Structured risk taxonomy for Chilean renewable energy transactions
+# Version: 0.1
+
+jurisdiction_code: CL
+
+risks:
+
+  - risk_id: curtailment_atacama
+    label: "Atacama/North Chile Curtailment Risk"
+    severity_default: high
+    technology_applicability: [solar_pv, csp, bess_solar_hybrid]
+    region_applicability:
+      - Antofagasta
+      - Atacama
+      - "Tarapacá"
+      - "Arica y Parinacota"
+    affected_sections: [grid_offtake, financials]
+    buyer_impact: >
+      Northern Chile (Atacama region) has the world's highest solar irradiance but
+      faces structural transmission bottlenecks due to insufficient grid capacity between
+      the north and central Chile. The Kimal-Lo Aguirre transmission line (1,342 km,
+      3,000 MW design capacity) linking Antofagasta to Santiago was under development
+      as of 2025–2026 and is not yet operational. In the first 7 months of 2025 alone,
+      approximately 2,684 GWh were dispatched at zero cost or curtailed. Spot market
+      prices at northern nodes are frequently zero or near-zero during high irradiation
+      periods, materially reducing revenue for uncontracted generation. Financial models
+      that do not reflect this reality are not bankable.
+    lender_impact: >
+      Lenders will not finance northern Chile solar assets without a signed long-term
+      PPA that insulates the project from spot price exposure. Curtailment risk must be
+      quantified and modelled in the base case. P90 yield assumptions must include a
+      curtailment scenario; lenders typically require P10/P50/P90 price and curtailment
+      scenarios for northern assets.
+    mitigation_evidence:
+      - Long-term corporate PPA (≥10 years) with creditworthy offtaker covering
+        substantially all production
+      - Storage-bundled PPA that enables shift of generation to higher-price periods
+      - Financial model curtailment scenarios reviewed by lender's ITA
+      - CEN dispatch data analysis for the connection node
+    validation_rule: >
+      If asset is in Antofagasta, Atacama, Tarapacá, or Arica y Parinacota regions
+      and revenue_model is spot_market_sein or no signed PPA is in place, raise as HIGH
+      risk. Mandatory disclosure in information memorandum at all levels above L0.
+    jurisdiction_note: >
+      This risk is Chile-specific and has no equivalent in most other RALS jurisdictions.
+      The Kimal-Lo Aguirre transmission expansion is expected to alleviate this constraint
+      once operational, but the commissioning timeline remains uncertain as of 2025–2026.
+
+  - risk_id: indigenous_consultation_delay
+    label: "Indigenous Consultation (PCPI) Delay or Block"
+    severity_default: high
+    technology_applicability: [solar_pv, onshore_wind, csp, bess, small_hydro, hybrid]
+    region_applicability:
+      - "La Araucanía"
+      - "Los Ríos"
+      - "Los Lagos"
+      - "Biobío"
+      - "Atacama"
+      - "Antofagasta"
+      - "Tarapacá"
+      - all_regions_with_indigenous_territories
+    affected_sections: [compliance, identity, land]
+    buyer_impact: >
+      ILO Convention 169 is ratified in Chile. PCPI (Consulta Previa y Participación
+      Indígena) is mandatory when a project may affect indigenous communities or
+      territories. SEA determines PCPI applicability within the SEIA process. Timeline:
+      officially 2–4 months, but community opposition routinely extends this to 6–24
+      months. Projects have been blocked entirely by unresolved PCPI. The principle of
+      free, prior, and informed consent (FPIC) applies. No project can receive a final
+      RCA if PCPI is required but not completed. Community opposition at any stage can
+      delay or derail the SEIA process. This risk is particularly acute in La Araucanía,
+      Los Lagos, and parts of Atacama.
+    lender_impact: >
+      Lenders will not finance projects where PCPI is incomplete or contested. PCPI in
+      progress is a hard blocker for L3 classification. Contested PCPI outcomes or
+      community opposition to the project require specialist legal and anthropological
+      assessment. This risk must be disclosed and mitigated to lenders' satisfaction
+      before credit committee approval.
+    mitigation_evidence:
+      - SEA screening confirming PCPI not required (if applicable)
+      - Completed PCPI documentation signed by SEA and community representatives
+      - Legal opinion confirming PCPI compliance and RCA validity
+      - Community engagement record demonstrating FPIC process
+    validation_rule: >
+      If indigenous_consultation_status is pcpi_initiated or pcpi_in_progress,
+      raise as HIGH risk. If status is pcpi_blocked, raise as CRITICAL. If indigenous
+      territory overlap is identified but consultation status is not_applicable without
+      a SEA screening decision to support that conclusion, raise as HIGH risk.
+    jurisdiction_note: >
+      This risk is Chile-specific under ILO 169. The assessment of which projects
+      trigger PCPI and what constitutes adequate consultation requires specialist
+      legal and anthropological expertise — this package does not provide legal advice
+      on PCPI outcomes.
+
+  - risk_id: dga_water_rights
+    label: "DGA Water Rights Risk (CSP / Hydro)"
+    severity_default: high
+    technology_applicability: [csp, small_hydro]
+    region_applicability:
+      - Antofagasta
+      - Atacama
+      - "Tarapacá"
+      - "Arica y Parinacota"
+      - Coquimbo
+    affected_sections: [compliance, land, financials]
+    buyer_impact: >
+      DGA (Dirección General de Aguas) water rights (derechos de aprovechamiento de
+      aguas) are required for CSP and hydro projects. In northern Chile (Atacama and
+      neighbouring regions), surface and groundwater resources are extremely scarce.
+      Permanent water rights are preferred over eventual rights (eventuales) which can
+      be curtailed in drought years. Competing claims from the mining industry and
+      agriculture are common and frequently escalate to judicial disputes lasting years.
+      Without secured water rights, a CSP or hydro project cannot be built or operated.
+    lender_impact: >
+      Lenders will not finance CSP or hydro projects without secured (permanent, if
+      possible) DGA water rights that are uncontested. Judicial disputes over water
+      rights create binary project risk. Legal opinion on rights status and any competing
+      claims is required at L3.
+    mitigation_evidence:
+      - DGA resolution confirming permanent water rights (derechos permanentes)
+      - Legal opinion confirming rights are uncontested and adequate for project needs
+      - No competing mining or agricultural claims identified in DGA registry
+    validation_rule: >
+      If asset_type is csp or small_hydro and dga_water_rights status is pending or
+      not_applied, raise as HIGH risk regardless of lifecycle stage. For assets in
+      Atacama or Antofagasta: raise as HIGH risk even if application is submitted,
+      pending DGA decision.
+    jurisdiction_note: >
+      This risk is Chile-specific and particularly acute in northern regions where
+      mining industry demand for water competes directly with renewable energy projects.
+      Not applicable to wind or standard solar PV projects.
+
+  - risk_id: transmission_expansion_lag
+    label: "Transmission Expansion Lag (Kimal-Lo Aguirre)"
+    severity_default: medium
+    technology_applicability: [solar_pv, csp, bess, hybrid]
+    region_applicability:
+      - Antofagasta
+      - Atacama
+      - "Tarapacá"
+    affected_sections: [grid_offtake, financials]
+    buyer_impact: >
+      The Kimal-Lo Aguirre transmission line (1,342 km, 3,000 MW design capacity)
+      linking Antofagasta to Santiago was under development as of 2025–2026 and is
+      the primary structural solution to northern Chile's curtailment problem. However,
+      its commissioning timeline is uncertain. Until the line is operational, northern
+      Chile's transmission capacity will remain structurally constrained relative to
+      installed and planned renewable capacity. Projects timed to come online before
+      the line is commissioned face elevated curtailment exposure.
+    lender_impact: >
+      Lenders must be given a conservative view of when Kimal-Lo Aguirre will be
+      commissioned and must not assume it will resolve curtailment within the loan tenor.
+      Financial models should include scenarios where the line is delayed beyond the
+      initially projected commissioning date.
+    mitigation_evidence:
+      - Curtailment scenarios in financial model that do not assume early commissioning
+        of Kimal-Lo Aguirre
+      - Long-term PPA protecting project from spot price exposure
+      - Storage integration enabling dispatch shifting to non-curtailment periods
+    validation_rule: >
+      If asset is in northern Chile (Antofagasta, Atacama, Tarapacá) and financial
+      model assumes curtailment improvement attributable to Kimal-Lo Aguirre within
+      the first 5 years of operations, raise as MEDIUM risk and require sensitivity
+      showing delayed commissioning scenario.
+
+  - risk_id: merchant_price_volatility_chile
+    label: "Merchant / Spot Price Volatility (SEIN, Northern Chile)"
+    severity_default: high
+    technology_applicability: [solar_pv, csp]
+    region_applicability:
+      - Antofagasta
+      - Atacama
+      - "Tarapacá"
+      - "Arica y Parinacota"
+    affected_sections: [financials, grid_offtake]
+    buyer_impact: >
+      Uncontracted solar generation in northern Chile faces SEIN spot prices that are
+      frequently zero or near-zero during peak irradiation hours due to solar oversupply
+      and transmission constraints. Revenue models relying on merchant SEIN spot prices
+      for northern solar are highly speculative and may significantly overstate project
+      economics. Storage assets or PPA-backed assets are substantially more financeable.
+    lender_impact: >
+      No mainstream project finance lender will accept an uncontracted solar asset
+      in northern Chile as bankable without a signed long-term PPA. Merchant solar
+      assets require specialist equity investors with higher return expectations.
+    mitigation_evidence:
+      - Signed long-term corporate PPA (≥10 years) with creditworthy counterparty
+      - Storage component enabling dispatch to higher-price periods
+      - Financial model with P10/P50/P90 price scenarios validated by independent
+        price curve adviser
+    validation_rule: >
+      If revenue_model is spot_market_sein and asset is in northern Chile, raise as HIGH
+      risk. If no PPA is in place and lifecycle_stage is ready_to_build or above, raise
+      as HIGH risk.
+
+  - risk_id: political_regulatory_risk_chile
+    label: "Chilean Political and Regulatory Risk"
+    severity_default: medium
+    technology_applicability: [solar_pv, onshore_wind, csp, bess, small_hydro, hybrid]
+    affected_sections: [compliance, financials]
+    buyer_impact: >
+      Chile has been undergoing significant political transitions since 2019, including
+      two constitutional convention processes (both rejected). The energy transition law
+      enacted in December 2024 introduced new requirements affecting grid operators and
+      generators. Mining royalties legislation (royalty minero) enacted in 2023 affects
+      the economics of mining company PPA counterparties. Further legislative changes
+      cannot be ruled out. The SEIA process reform of 2025 changed some threshold
+      exemptions. Policy continuity is generally good but regulatory changes can affect
+      PMGD tariffs, transmission tariff methodologies (set by CNE), and SEIA scope.
+    lender_impact: >
+      Chile's investment grade sovereign rating and track record in renewable energy
+      transactions give it relatively low regulatory risk by Latin American standards.
+      However, pending or recently enacted legislation (energy transition law, SEIA reform,
+      DS 125 for PMGD) requires case-by-case legal assessment for affected asset types.
+    mitigation_evidence:
+      - Legal opinion on current regulatory framework applicability to specific asset
+      - Long-term PPA with USD or real-price indexation protecting against CLP devaluation
+      - Change-of-law provisions in PPA agreements
+    validation_rule: >
+      Flag if any key assumption in the financial model depends on a regulatory
+      regime that has been materially amended since the financial model was prepared
+      (e.g. DS 125 PMGD changes, energy transition law, SEIA 2025 reform).
+
+  - risk_id: grid_connection_queue_cen
+    label: "CEN Grid Connection Queue Delay"
+    severity_default: medium
+    technology_applicability: [solar_pv, onshore_wind, csp, bess, small_hydro, hybrid]
+    affected_sections: [grid_offtake]
+    buyer_impact: >
+      CEN processes large volumes of grid connection applications. Technical review
+      timelines of 2–4 months are common but can extend under high queue volume.
+      Connection agreement negotiation with transmission owners can add 1–3 months.
+      Projects that have not yet submitted a CEN application face uncertain connection
+      timelines. The absence of a signed connection agreement at development stage
+      is a standard but material risk that increases project timeline uncertainty.
+    lender_impact: >
+      Construction financing requires a signed CEN connection agreement. Delays in
+      obtaining the agreement can push financial close and extend the development
+      cost carry period. Connection costs agreed with transmission owners can be
+      higher than initially estimated.
+    mitigation_evidence:
+      - CEN application submitted with tracking reference
+      - Technical review approved by CEN
+      - Connection agreement signed with transmission owner
+      - Connection cost agreed and budgeted in capex
+    validation_rule: >
+      If lifecycle_stage is ready_to_build and grid_connection_status is pre_application
+      or technical_review_submitted (not signed), raise as MEDIUM risk.
+
+  - risk_id: land_title_mining_conflict
+    label: "Land Title Conflict with Mining Concessions"
+    severity_default: medium
+    technology_applicability: [solar_pv, onshore_wind, csp, bess, small_hydro, hybrid]
+    region_applicability:
+      - Antofagasta
+      - Atacama
+      - "Tarapacá"
+      - Coquimbo
+    affected_sections: [compliance, land]
+    buyer_impact: >
+      Chilean mining concessions (concesiones mineras) can overlap with land earmarked
+      for renewable energy development. Mining concessions grant exploration and exploitation
+      rights that may conflict with solar or wind infrastructure. Agricultural easements
+      and water use rights can also create conflicts. A thorough title search (estudio de
+      títulos) at the Conservador de Bienes Raíces and Registro de Minería is essential
+      before any land commitment. In northern Chile this risk is particularly acute.
+    lender_impact: >
+      Lenders require a clean title legal opinion confirming no overlapping mining
+      concessions or adverse land encumbrances. Title conflicts can prevent construction
+      and must be resolved before credit committee approval.
+    mitigation_evidence:
+      - Title search (estudio de títulos) completed at Conservador de Bienes Raíces
+      - Mining concession register search confirming no overlapping concessions
+      - Legal opinion on title confirming land is clear for renewable energy use
+    validation_rule: >
+      If asset is in northern Chile and no title search reference is provided at L2+,
+      raise as MEDIUM risk. If title search reveals mining concession overlap, raise as HIGH risk.
+
+  - risk_id: ppa_financing_difficulty
+    label: "PPA Financing Difficulty (Pure Solar, No Storage)"
+    severity_default: medium
+    technology_applicability: [solar_pv]
+    affected_sections: [financials, grid_offtake]
+    buyer_impact: >
+      Pure solar PPAs without storage or grid flexibility are increasingly difficult to
+      execute and finance in Chile as the market matures and solar saturation increases.
+      Offtakers (mining companies, industrials) increasingly demand storage-bundled
+      PPAs or 24/7 renewable supply structures. A PPA term sheet without storage for
+      a northern Chile solar project signals elevated commercial risk that may prevent
+      financial close.
+    lender_impact: >
+      Project finance lenders increasingly require storage or a firm PPA with explicit
+      curtailment protection provisions for northern Chile solar assets. Pure solar
+      merchant-tail PPAs (where the last 5–10 years of project life are uncontracted)
+      are viewed as high risk by lenders and may require conservative debt sizing.
+    mitigation_evidence:
+      - BESS component integrated into project design
+      - PPA includes curtailment compensation or take-or-pay provisions
+      - Long-term PPA (≥15 years) covering full project life or majority of financed period
+    validation_rule: >
+      If asset_type is solar_pv, region is northern Chile, and revenue_model is
+      corporate_ppa without storage, note as MEDIUM risk and request PPA term details
+      including curtailment treatment.
+
+  - risk_id: rca_under_appeal
+    label: "RCA Under Appeal (Recurso de Reclamación)"
+    severity_default: critical
+    technology_applicability: [solar_pv, onshore_wind, csp, bess, small_hydro, hybrid]
+    affected_sections: [compliance]
+    buyer_impact: >
+      An RCA (Resolución de Calificación Ambiental) that is subject to a recurso de
+      reclamación (filed with the Comité de Ministros) or a judicial challenge can be
+      suspended or reversed. Duration of challenge processes can be 12–36 months or
+      longer. An appealed RCA creates binary project risk — the project cannot proceed
+      to construction without a final, uncontested RCA.
+    lender_impact: >
+      No lender will accept construction financing for a project with an RCA under
+      appeal. An appealed RCA is a hard blocker for L3 classification and for any
+      debt commitment. Lenders require a legal opinion confirming RCA finality before
+      credit committee approval.
+    mitigation_evidence:
+      - Legal opinion confirming RCA is final and uncontested
+      - Documentation that reclamation period has fully elapsed without challenge
+    validation_rule: >
+      If rca_status is rca_under_appeal, raise as CRITICAL regardless of lifecycle
+      stage. Block L3 classification. Require legal opinion on appeal status.
+
+  - risk_id: land_not_secured
+    label: "Land Rights Not Secured"
+    severity_default: high
+    technology_applicability: [solar_pv, onshore_wind, csp, bess, small_hydro, hybrid]
+    affected_sections: [land, compliance]
+    buyer_impact: >
+      Project cannot be built without enforceable land access. Risk of total loss of
+      development value if landowner withdraws or option lapses. In Chile, registration
+      of the lease at Conservador de Bienes Raíces is required for enforceability
+      against third parties.
+    lender_impact: >
+      Senior lenders will not commit to construction financing without a registered
+      long-term lease or title confirmation for all key parcels. Unregistered options
+      are insufficient for L3.
+    mitigation_evidence:
+      - Signed and registered long-term lease (arriendo) at Conservador de Bienes Raíces
+      - Or registered freehold title (dominio) in the SPV's name
+      - No adverse entries in the Conservador extract
+    validation_rule: >
+      If lifecycle_stage is ready_to_build or under_construction and land_control_status
+      is not freehold_registered or long_term_lease_registered, raise as HIGH risk.
+
+  - risk_id: grid_not_secured
+    label: "CEN Connection Agreement Not Signed"
+    severity_default: high
+    technology_applicability: [solar_pv, onshore_wind, csp, bess, small_hydro, hybrid]
+    affected_sections: [grid_offtake]
+    buyer_impact: >
+      Without a signed CEN connection agreement, the project cannot be connected to
+      SEIN. Grid reinforcement cost and timing are unknown and may increase total capex.
+    lender_impact: >
+      No lender will approve construction financing without a signed connection
+      agreement. The agreement must specify the connection point, capacity, voltage
+      level, and agreed cost contribution.
+    mitigation_evidence:
+      - CEN technical review approved
+      - Connection agreement signed with transmission line owner
+      - Connection cost agreed and included in capex
+    validation_rule: >
+      If lifecycle_stage is ready_to_build and grid_connection_status is not
+      connection_agreement_signed or connected, raise as HIGH risk.
+
+  - risk_id: unclear_revenue_route
+    label: "Revenue Route Not Confirmed"
+    severity_default: high
+    technology_applicability: [solar_pv, onshore_wind, csp, bess, small_hydro, hybrid]
+    affected_sections: [financials]
+    buyer_impact: >
+      Without a confirmed revenue route, IRR projections are speculative. Corporate
+      PPA counterparty and terms must be identified. For northern Chile assets, a
+      spot-only revenue assumption is not credible for investor or lender purposes.
+    lender_impact: >
+      No construction financing without committed revenue. Signed PPA or distribution
+      concesionaria contract is the minimum for L3. Non-binding term sheet is not
+      sufficient for lender credit committee.
+    mitigation_evidence:
+      - Signed long-term corporate PPA with creditworthy counterparty (≥10 years)
+      - Or distribution concesionaria contract awarded
+      - Or documented merchant strategy with lender-accepted downside analysis
+    validation_rule: >
+      If revenue_model is not identified and lifecycle_stage is L2+, raise as HIGH risk.
+      If no PPA is signed at L3, raise as HIGH risk.
+
+  - risk_id: missing_data_room
+    label: "No Accessible Data Room"
+    severity_default: medium
+    technology_applicability: [solar_pv, onshore_wind, csp, bess, small_hydro, hybrid]
+    affected_sections: [process]
+    buyer_impact: >
+      Inability to verify claims. Increases diligence timeline significantly.
+    lender_impact: >
+      No credit committee submission possible without document access.
+    mitigation_evidence:
+      - NDA-gated data room on Intralinks, Datasite, Drooms, or equivalent
+      - Index of available documents provided
+    validation_rule: >
+      If data_room_status is not_available at L2+, raise as MEDIUM risk.

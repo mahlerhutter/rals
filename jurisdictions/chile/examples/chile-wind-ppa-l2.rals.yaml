@@ -1,0 +1,383 @@
+# ============================================================================
+# RALS Jurisdiction Package — Chile
+# Example: chile-wind-ppa-l2.rals.yaml
+# ============================================================================
+# Asset:        Project Viento Sur Bio (fictional)
+# Technology:   Onshore wind, 80 MW
+# Stage:        Development (L2)
+# Location:     Biobío Region, southern Chile
+# Purpose:      Demonstrates L2 readiness: RCA approved (2025) and final; no
+#               indigenous territory conflict (confirmed by SEA screening);
+#               construction permit issued; long-term lease registered. CEN
+#               connection agreement NOT yet signed (technical review in progress).
+#               PPA term sheet from mining company (non-binding) — not yet executed.
+#               Financial model indicative; IRR 8.1% levered assuming PPA.
+# Risks shown:  grid_connection_delay (connection agreement not signed — hard blocker
+#               for L3); merchant_price_volatility (if PPA falls through);
+#               curtailment risk (lower in Biobío than Atacama, but not zero).
+# Why L2:       RCA final + permit issued + land registered = permitting/land
+#               milestones cleared. CEN connection agreement missing (L3 blocker).
+#               PPA term sheet only — not executed (L3 blocker). Meets all L2
+#               thresholds but not L3.
+# ============================================================================
+fictional: true
+source: "synthetic_example"
+confidentiality: "public_example"
+
+rals_version: "0.1"
+document_id: "rals:CL-EX-WND-DEV-L2-001"
+generated_at: "2026-05-15T09:00:00Z"
+generated_by: "rals-jurisdiction-example-generator"
+language: "en"
+
+rals_jurisdiction:
+  jurisdiction_package: CL
+  rals_jurisdiction_version: "0.1"
+  assessed_readiness_level: L2
+  readiness_label: "Investment Memo Ready"
+  jurisdiction_assessment_date: "2026-05-15"
+  assessment_notes: >
+    L2 classification: RCA final and uncontested; construction permit issued; land
+    lease registered at Conservador de Bienes Raíces; no PCPI requirement (confirmed
+    by SEA screening). CEN connection agreement not yet signed — hard blocker for L3.
+    PPA term sheet in place but not executed — hard blocker for L3 revenue threshold.
+    Financial model is indicative; DSCR analysis pending lender engagement. Asset
+    is investment-memo ready for non-binding offer stage.
+
+# ── Identity ──────────────────────────────────────────────────────────────────
+identity:
+  asset_name: "Project Viento Sur Bio"
+  asset_type: onshore_wind
+  lifecycle_stage: development
+  country: CL
+  region: "Biobío"
+  sub_region: "Commune of Tirúa (coastal range)"
+  total_capacity_mw: 80.0
+  number_of_turbines: 16
+  site_area_hectares: 1850
+  transaction_type: full_acquisition
+  equity_offered_pct: 100
+  spv_structure: true
+  spv_jurisdiction: "Chile"
+  spv_name: "Viento Sur Bio SpA"
+
+# ── Technical ─────────────────────────────────────────────────────────────────
+technical:
+  expected_lifetime_years: 25
+  design_basis_year: 2025
+
+  units:
+    - cluster_id: "Cluster-Norte"
+      turbines: 9
+      capacity_mw: 45.0
+    - cluster_id: "Cluster-Sur"
+      turbines: 7
+      capacity_mw: 35.0
+
+  turbine:
+    manufacturer: "Vestas"
+    model: "V162-6.0 MW (indicative — OEM selection to be confirmed)"
+    hub_height_m: 119
+    rotor_diameter_m: 162
+    nominal_power_mw: 5.0
+    units_total: 16
+    procurement_status: "OEM pre-qualification complete; firm order not placed"
+
+  site_wind_resource:
+    mean_wind_speed_ms: 8.4
+    wind_resource_data: "On-site mast measurement (2 masts, 18 months), ERA5 MCP"
+    measurement_period: "April 2024 to October 2025"
+    measurement_height_m: 100
+
+  production_estimates:
+    methodology: "Independent wind resource assessment by DNV Chile, PVsyst WindFarmer v6.4"
+    assessor: "DNV Chile SpA"
+    assessment_date: "2025-11-28"
+    p50_gwh_yr: 248.0
+    p75_gwh_yr: 239.0
+    p90_gwh_yr: 229.0
+    capacity_factor_p50_pct: 35.4
+    wake_losses_pct: 5.8
+    availability_assumption_pct: 97.0
+    curtailment_assumption_pct: 1.5
+    curtailment_note: >
+      DNV yield assessment includes 1.5% curtailment assumption based on Biobío regional
+      grid conditions. Biobío curtailment risk is materially lower than northern Chile
+      (Antofagasta/Atacama) but not zero. CEN dispatch data for the target connection
+      node shows no structural zero-price periods to date. Sensitivity on 3% curtailment
+      included in financial model.
+    bankable: true
+
+# ── Grid & Offtake ────────────────────────────────────────────────────────────
+grid_offtake:
+  grid_connection:
+    status: technical_review_submitted
+    grid_operator: "CEN (Coordinador Eléctrico Nacional)"
+    connection_system: "SEIN"
+    target_connection_point: "Sub-transmission substation Tirúa 110 kV (indicative)"
+    voltage_level_kv: 110
+    transmission_owner_indicative: "SAESA (Sociedad Austral de Electricidad S.A.)"
+    cen_application_reference: "CEN-BIO-2025-1241 (indicative)"
+    cen_application_date: "2025-10-02"
+    cen_technical_review_status: "In progress"
+    cen_technical_review_expected: "2026-Q2"
+    connection_agreement_status: "not_signed"
+    connection_evidence: >
+      CEN technical review application submitted October 2025 for 80 MW connection
+      at 110 kV. Technical review in progress; completion expected Q2 2026. Connection
+      agreement with SAESA not yet negotiated. Indicative connection infrastructure
+      cost: CLP 4,800m (~USD 5.2m) — not yet confirmed by SAESA. Connection agreement
+      NOT signed — this is a hard blocker for L3 classification.
+    curtailment_note: >
+      Biobío Region: curtailment risk is LOW relative to northern Chile but not zero.
+      DNV assessment includes 1.5% curtailment assumption. No structural zero-price
+      risk of the magnitude seen in Antofagasta/Atacama.
+
+  offtake_structure: corporate_ppa
+  revenue_model: corporate_ppa
+  pmgd_applicable: false
+  pmgd_note: "80 MW is well above 9 MW PMGD threshold. PMGD framework does not apply."
+
+  offtake_contracts:
+    - contract_id: "PPA-TERM-01"
+      status: term_sheet_under_negotiation
+      counterparty: "Chilean copper mining company (southern operations)"
+      counterparty_description: "Major Chilean mining company with investment-grade parent"
+      contract_type: corporate_ppa
+      volume_mw: 70
+      indicative_price_usd_mwh: 52.0
+      indicative_term_years: 15
+      currency: "USD"
+      delivery_structure: "pay_as_produced"
+      binding: false
+      binding_note: >
+        Term sheet received from mining company January 2026. Price USD 52/MWh,
+        15-year term, 70 MW. Commercial heads of terms agreed; legal documentation
+        not yet prepared. Mining company board approval for PPA contract pending.
+        PPA is NOT executed — does not meet L3 revenue threshold. Exclusivity
+        period: 60 days from February 2026 (expired — re-negotiation in progress).
+      residual_volume_mw: 10
+      residual_revenue_note: >
+        Remaining 10 MW capacity (not covered by PPA term sheet) to be sold at
+        SEIN spot market. Biobío spot price risk is manageable; no structural
+        zero-price exposure at this node. Merchant 10 MW modelled at P50 and P90
+        SEIN price forecast by Aurora Energy Research Chile.
+
+# ── Compliance ────────────────────────────────────────────────────────────────
+compliance:
+  rca_status: rca_approved_final
+  rca_authority: "SEA (Servicio de Evaluación Ambiental)"
+  rca_reference: "RA-0023/2025 (indicative)"
+  rca_issue_date: "2025-06-18"
+  rca_final_date: "2025-08-20"
+  rca_detail: >
+    RCA (Resolución de Calificación Ambiental) issued by SEA on 18 June 2025 for
+    80 MW onshore wind. Reclamation period (recurso de reclamación, 30 days from
+    notification) expired 20 August 2025 without challenge. RCA is FINAL and
+    uncontested. No judicial challenges filed. Legal opinion on RCA finality
+    obtained from Estudio Jurídico Vientos del Sur Ltda. (September 2025).
+    RCA conditions: annual avian monitoring; no construction during nesting season
+    (September–December); vibration monitoring at nearest dwelling.
+  rca_conditions_note: >
+    RCA conditions accepted and budgeted in O&M assumptions. Avian monitoring
+    cost: USD 45k/year included in opex. Construction schedule designed to avoid
+    September–December nesting restriction.
+  rca_risks: []
+
+  construction_permit_status: issued
+  construction_permit_authority: "Municipalidad de Tirúa"
+  construction_permit_reference: "PM-TIR-2025-0089 (indicative)"
+  construction_permit_date: "2025-09-12"
+  construction_permit_detail: >
+    Permiso de edificación issued by Municipalidad de Tirúa on 12 September 2025.
+    Permit valid for 36 months from issue date (until September 2028). No conditions
+    beyond standard RCA conditions. Permit is final.
+
+  indigenous_consultation_status: not_applicable
+  indigenous_consultation_detail: >
+    SEA screening during SEIA process (August 2024) confirmed no indigenous communities
+    or territories are within the area of influence of the project. No Mapuche or other
+    indigenous territorial claims identified in the project footprint or buffer zone
+    by CONADI or SEA. PCPI not required. SEA screening letter on file in data room.
+    This determination was confirmed by independent anthropological survey (January 2025).
+
+  conaf_permit_status: not_required
+  conaf_permit_detail: >
+    Project site is on previously cleared agricultural and grazing land. No native forest
+    within or adjacent to project footprint. CONAF permit not required. Confirmed by
+    CONAF Biobío regional office (January 2025 letter on file).
+
+  dga_water_rights_status: not_required
+  dga_water_rights_detail: >
+    Onshore wind only. No water extraction required for operation. DGA water rights
+    not applicable.
+
+# ── Land ──────────────────────────────────────────────────────────────────────
+land:
+  land_control_status: long_term_lease_registered
+  land_detail: >
+    Long-term lease (arriendo) signed with Agrícola Sur S.A. (private landowner) for
+    1,850 ha. Lease term: 30 years from 1 January 2026 (expiry 31 December 2055).
+    Annual lease: CLP 380m (~USD 410k), indexed to CPI Chile. Lease registered at
+    Conservador de Bienes Raíces de Tirúa on 15 February 2026. Registration extract
+    provided; no adverse encumbrances identified. Decommissioning obligation: site
+    restoration to agricultural condition within 24 months of operational end.
+  land_area_ha: 1850
+  land_lessor: "Agrícola Sur S.A. (private)"
+  lease_term_years: 30
+  lease_expiry: "2055-12-31"
+  land_registered: true
+  land_registrar: "Conservador de Bienes Raíces de Tirúa"
+  registration_date: "2026-02-15"
+  title_search_completed: true
+  title_search_outcome: >
+    Full estudio de títulos completed by Estudio Jurídico Vientos del Sur Ltda. in
+    January 2026. No mining concessions overlap identified. No agricultural easements
+    adverse to wind development. Lessor's title confirmed as fee simple (dominio pleno).
+  land_risks: []
+
+# ── Financials ────────────────────────────────────────────────────────────────
+financials:
+  reporting_currency: USD
+  financial_model_available: true
+  financial_model_status: "Indicative — not lender reviewed; DSCR analysis pending"
+  total_capex_usd: 82000000
+  capex_per_mw_usd: 1025000
+  capex_detail: >
+    Indicative capex: USD 82m (~USD 1,025/kW). Breakdown indicative only — EPC not
+    yet tendered. Grid connection (USD 5.2m indicative), turbines (USD 54m indicative),
+    civil works (USD 12m), development costs (USD 4m), remaining balance BOS.
+    Independent owner's engineer cost review in progress (WSP Chile); expected Q3 2026.
+  capex_confidence: medium
+
+  opex_usd_yr: 2100000
+  opex_per_mw_usd_yr: 26250
+  opex_detail: >
+    O&M service (indicative full-service contract); land lease; insurance; asset
+    management; avian monitoring (USD 45k/yr per RCA condition); grid charges;
+    administration. Opex confidence: medium — no binding O&M contract in place.
+  opex_confidence: medium
+
+  revenue_assumptions: >
+    PPA assumption: 70 MW at USD 52/MWh under non-binding term sheet, 15-year term.
+    Merchant assumption: 10 MW at Aurora P50 SEIN Biobío price forecast (USD 48/MWh
+    in year 1, declining to USD 38/MWh by year 15 in real terms).
+    P50 annual revenue: USD 13.8m. P90 annual revenue: USD 12.5m.
+
+  irr_levered_pct: 8.1
+  irr_levered_note: >
+    Indicative levered IRR 8.1% assumes: signed PPA at USD 52/MWh; 70:30 debt-equity
+    split; interest rate 6.5% (SOFR + 250 bps); 18-year loan tenor; P50 production.
+    IRR is pre-tax. Key sensitivities: PPA price -10% → IRR 6.9%; P90 yield → IRR 7.4%;
+    curtailment 3% → IRR 7.8%. DSCR analysis not yet completed (no lender engagement).
+    Financial model prepared by developer — NOT independently reviewed.
+
+  financial_model_risks:
+    - "Financial model not lender-reviewed — DSCR analysis pending"
+    - "Levered IRR assumes signed PPA that is currently non-binding only"
+    - "Grid connection cost (USD 5.2m) not yet confirmed by SAESA"
+    - "EPC not tendered — capex confidence medium only"
+
+# ── Process ───────────────────────────────────────────────────────────────────
+process:
+  process_type: limited_auction
+  invited_bidders_count: 8
+  data_room_status: available_under_nda
+  data_room_platform: "Datasite"
+  data_room_contents:
+    - "RCA RA-0023/2025 and legal opinion on finality (September 2025)"
+    - "SEA indigenous screening letter (August 2024)"
+    - "Anthropological survey confirming no indigenous territories (January 2025)"
+    - "CONAF non-applicability letter (January 2025)"
+    - "Construction permit PM-TIR-2025-0089 (September 2025)"
+    - "Long-term lease agreement and Conservador de Bienes Raíces extract (February 2026)"
+    - "Title search (Estudio Jurídico Vientos del Sur, January 2026)"
+    - "CEN technical review application (CEN-BIO-2025-1241)"
+    - "DNV wind resource and yield assessment (November 2025)"
+    - "Aurora SEIN price forecast — Biobío node (April 2026)"
+    - "PPA term sheet (January 2026) and correspondence"
+    - "Indicative financial model (developer version, May 2026)"
+    - "Corporate structure chart (Viento Sur Bio SpA)"
+  process_timeline:
+    cen_connection_agreement_expected: "2026-Q3"
+    ppa_execution_target: "2026-Q3"
+    indicative_nbo_due: "2026-08-31"
+    investment_committee_note_target: "2026-09-30"
+    indicative_binding_offer: "2026-11-30"
+    indicative_signing: "2027-Q1"
+    indicative_financial_close: "2027-Q2"
+    construction_start_target: "2027-Q3"
+    cod_target: "2028-Q4"
+  seller_contact: "transactions@vientosurbio-example.cl"
+  process_lead:
+    organization: "Andes Renewable Advisory SpA"
+    contact_role: "Director, M&A Chile"
+    contact_email: "deals@andes-advisory-example.cl"
+
+# ── Risk Flags (Jurisdiction Package) ────────────────────────────────────────
+risk_flags:
+  - risk_id: grid_not_secured
+    active: true
+    severity: high
+    note: >
+      CEN connection agreement NOT signed. Technical review in progress (submitted
+      October 2025, expected completion Q2 2026). Connection agreement with SAESA
+      not yet negotiated. Hard blocker for L3 classification and for construction
+      financing drawdown. This is the primary remaining risk for this asset.
+
+  - risk_id: unclear_revenue_route
+    active: true
+    severity: medium
+    note: >
+      PPA term sheet received (January 2026, USD 52/MWh, 15 years, 70 MW) but
+      NOT executed. Mining company board approval pending. Exclusivity period
+      expired; re-negotiation in progress. PPA contract not signed is a hard
+      blocker for L3 revenue threshold. 10 MW exposed to SEIN spot — manageable
+      in Biobío but must be disclosed.
+
+  - risk_id: curtailment_atacama
+    active: false
+    note: >
+      Asset is in Biobío Region, not Antofagasta/Atacama. Structural northern Chile
+      curtailment risk does not apply. DNV assessment includes 1.5% Biobío curtailment
+      — not zero, but materially lower. No zero-price spot risk at this node.
+
+  - risk_id: indigenous_consultation_delay
+    active: false
+    note: >
+      PCPI confirmed not applicable by SEA screening (August 2024) and anthropological
+      survey (January 2025). No indigenous territories in project area of influence.
+
+  - risk_id: dga_water_rights
+    active: false
+    note: "Onshore wind only. DGA water rights not required."
+
+  - risk_id: rca_under_appeal
+    active: false
+    note: >
+      RCA is final and uncontested. Reclamation period expired 20 August 2025
+      without challenge. Legal opinion confirms RCA finality.
+
+  - risk_id: land_not_secured
+    active: false
+    note: >
+      Long-term 30-year lease signed and registered at Conservador de Bienes Raíces
+      (February 2026). Title search confirms no adverse encumbrances. Land risk cleared.
+
+  - risk_id: merchant_price_volatility_chile
+    active: true
+    severity: low
+    note: >
+      10 MW of 80 MW capacity is uncontracted (exposed to SEIN Biobío spot). Biobío
+      spot price risk is LOW compared to Atacama — no structural zero-price risk.
+      If PPA negotiations for 70 MW fail, full 80 MW would be exposed to spot —
+      this scenario raises severity to MEDIUM. Aurora price forecast included in model.
+
+  - risk_id: ppa_financing_difficulty
+    active: true
+    severity: low
+    note: >
+      80 MW onshore wind (not pure solar). Storage not planned. PPA term sheet with
+      mining offtaker is the standard structure for this asset type in Chile. Risk
+      is LOW for wind compared to solar in this context — wind's non-solar generation
+      profile reduces merchant price correlation with solar oversupply events.

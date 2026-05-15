@@ -1,0 +1,282 @@
+# RALS Jurisdiction Package — Austria
+# risks.yaml
+# Structured risk taxonomy for Austrian renewable energy transactions
+# Version: 0.1
+
+jurisdiction_code: AT
+
+risks:
+
+  - risk_id: land_not_secured
+    label: "Land Rights Not Secured"
+    severity_default: high
+    affected_sections: [identity, compliance, process]
+    buyer_impact: >
+      Project cannot be built without enforceable land access. Risk of total loss
+      of development value if landowner withdraws or option lapses.
+    lender_impact: >
+      Senior lenders will not commit to construction financing without signed and
+      notarised Bestandsvertrag covering all key parcels.
+    mitigation_evidence:
+      - Signed and notarised Bestandsvertrag for all key parcels
+      - Grundbuch extract showing no adverse encumbrances
+      - For Agrargemeinschaft land: board resolution in place
+    validation_rule: >
+      If lifecycle_stage is ready_to_build or under_construction and
+      land_control_status is not owned or long_term_lease_secured, raise as HIGH risk.
+
+  - risk_id: grid_not_secured
+    label: "Grid Connection Not Secured"
+    severity_default: high
+    affected_sections: [grid_offtake]
+    buyer_impact: >
+      Without a valid Netzanschlusszusage, the project cannot be connected.
+      Grid reinforcement cost and timing are unknown and may be prohibitive.
+    lender_impact: >
+      No lender will approve construction financing without a signed Netzanschlussvertrag.
+    mitigation_evidence:
+      - Valid Netzanschlusszusage from DSO or APG (not expired)
+      - Signed Netzanschlussvertrag for L3+
+      - Grid reinforcement cost agreed and budgeted
+    validation_rule: >
+      If lifecycle_stage is ready_to_build and grid_connection_status is
+      pre_application or application_submitted, raise as HIGH risk.
+
+  - risk_id: grid_capacity_uncertain
+    label: "Grid Capacity Constraints (Regional)"
+    severity_default: medium
+    affected_sections: [grid_offtake]
+    buyer_impact: >
+      Connection offer may be conditional on grid reinforcement with uncertain
+      cost (up to EUR 1–3m+ for high-capacity points) and timeline (1–4 years).
+    lender_impact: >
+      Conditional grid offers increase capex uncertainty and may delay drawdown.
+    mitigation_evidence:
+      - Unconditional Netzanschlusszusage confirmed by Netzbetreiber
+      - Grid reinforcement scope and cost agreed in writing
+    validation_rule: >
+      If connection_evidence references a conditional offer, raise as MEDIUM risk
+      and request confirmation of reinforcement scope and cost.
+    jurisdiction_note: >
+      Particularly relevant in Burgenland, Lower Austria, and Upper Austria where
+      PV deployment has saturated some DSO substations as of 2025–2026.
+
+  - risk_id: permitting_not_started
+    label: "Permitting Not Yet Started"
+    severity_default: high
+    affected_sections: [compliance]
+    buyer_impact: >
+      Permitting timeline in Austria ranges from 12 months (simple PV, municipal permit)
+      to 4–6 years (UVP wind, contested sites). Start date is unknown.
+    lender_impact: >
+      No lender appetite without at least a submitted permit application.
+    mitigation_evidence:
+      - Pre-application consultation completed with Behörde
+      - Application dossier prepared
+    validation_rule: >
+      If lifecycle_stage is development or ready_to_build and permitting_status
+      is pre_application, raise as HIGH risk with timeline warning.
+
+  - risk_id: permitting_under_appeal
+    label: "Permit Under Appeal (VwG / VwGH)"
+    severity_default: critical
+    affected_sections: [compliance]
+    buyer_impact: >
+      An appeal to Verwaltungsgericht (VwG) or Verwaltungsgerichtshof (VwGH) can
+      suspend or reverse the permit. Duration: 12–36 months. Risk of total loss.
+    lender_impact: >
+      Lenders universally require Rechtskraft before credit committee approval.
+      Appeal status is a hard blocker for construction financing.
+    mitigation_evidence:
+      - Rechtskraft confirmed in writing by legal counsel
+      - Appeal period fully expired (documented date)
+    validation_rule: >
+      If permitting_status is approved_not_final or under_appeal, raise as CRITICAL
+      regardless of lifecycle_stage. Block RTB classification.
+    jurisdiction_note: >
+      Austrian wind projects are frequently subject to NGO appeals. Even PV projects
+      in sensitive landscape areas face challenges from Bürgerinitiative groups.
+
+  - risk_id: environmental_constraints
+    label: "Unresolved Environmental Constraints"
+    severity_default: medium
+    affected_sections: [compliance]
+    buyer_impact: >
+      Natura 2000 areas, bird flight corridors, and protected biotopes can force
+      design changes or route exclusions that increase cost or reduce yield.
+    lender_impact: >
+      Environmental conditions in UVP decisions may impose operational curtailment
+      (e.g. wind turbine shutdown during migration periods).
+    mitigation_evidence:
+      - Species surveys completed and filed
+      - No fatal Natura 2000 constraint identified
+      - Environmental conditions in permit accepted and budgeted
+    validation_rule: >
+      If environmental_status is under_review or not_started for L2+ assets,
+      raise as MEDIUM risk.
+
+  - risk_id: unclear_revenue_route
+    label: "Revenue Route Not Confirmed"
+    severity_default: high
+    affected_sections: [financials]
+    buyer_impact: >
+      Without a confirmed revenue route, IRR projections are speculative.
+      EAG tender eligibility or PPA counterparty must be identified.
+    lender_impact: >
+      No construction financing without committed revenue (EAG contract or signed PPA).
+    mitigation_evidence:
+      - OeMAG Zuschlagsbescheid confirming EAG market premium award
+      - Signed PPA with creditworthy counterparty
+      - Or documented merchant strategy with downside sensitivity
+    validation_rule: >
+      If revenue_model is not identified and lifecycle_stage is L2+, raise as HIGH risk.
+
+  - risk_id: merchant_exposure_high
+    label: "High Merchant Revenue Exposure"
+    severity_default: medium
+    affected_sections: [financials]
+    buyer_impact: >
+      Unhedged revenue exposes the asset to Austrian/CWE power price volatility.
+      Austria has experienced significant power price swings post-2022.
+    lender_impact: >
+      Lenders typically require ≥70% contracted revenue for construction financing.
+      Merchant assets require conservative P90-based revenue assumptions.
+    mitigation_evidence:
+      - Long-term PPA covering ≥70% of production
+      - Or documented merchant strategy with P90 sensitivity analysis
+    validation_rule: >
+      If revenue_model is merchant and no PPA is in place, raise MEDIUM flag.
+
+  - risk_id: capex_unvalidated
+    label: "Capex Not Independently Validated"
+    severity_default: medium
+    affected_sections: [financials]
+    buyer_impact: >
+      Developer capex estimates may understate grid reinforcement costs,
+      Alpine-terrain construction premiums, or substation costs.
+    lender_impact: >
+      Lender technical advisor will re-benchmark capex independently.
+      Discrepancies may require additional equity or reduce debt capacity.
+    mitigation_evidence:
+      - Independent owner's engineer cost estimate
+      - EPC indicative or firm quotation
+      - Grid reinforcement cost agreed with Netzbetreiber
+    validation_rule: >
+      If capex_confidence is low or undefined at L2+, raise as MEDIUM risk.
+
+  - risk_id: yield_unvalidated
+    label: "Energy Yield Not Independently Assessed"
+    severity_default: medium
+    affected_sections: [technical]
+    buyer_impact: >
+      Desktop yield estimates carry ±15–20% uncertainty. Bankable yield requires
+      independent third-party assessment with on-site data for wind.
+    lender_impact: >
+      No lender will base DSCR on non-bankable yield assessments.
+    mitigation_evidence:
+      - Independent yield assessment (DNV, Pöyry, TÜV, or equivalent)
+      - On-site mast measurement data (wind: ≥12 months)
+    validation_rule: >
+      If yield_assessment is desktop_only at L2+, raise as MEDIUM risk.
+
+  - risk_id: missing_data_room
+    label: "No Accessible Data Room"
+    severity_default: medium
+    affected_sections: [process]
+    buyer_impact: >
+      Inability to verify claims. Increases diligence timeline significantly.
+    lender_impact: >
+      No credit committee submission possible without document access.
+    mitigation_evidence:
+      - NDA-gated data room on Drooms, Datasite, or equivalent
+      - Index of available documents provided
+    validation_rule: >
+      If data_room_status is not_available at L2+, raise as MEDIUM risk.
+
+  - risk_id: counterparty_unclear
+    label: "Seller or Counterparty Identity Unclear"
+    severity_default: medium
+    affected_sections: [identity, process]
+    buyer_impact: >
+      AML/KYC requirements demand clear UBO identification. Unclear sellers
+      may indicate distressed or complex ownership situations.
+    lender_impact: >
+      Lenders require full KYC on the borrower entity and its UBOs.
+    mitigation_evidence:
+      - Named seller legal entity
+      - UBO identified
+      - Corporate structure chart available under NDA
+    validation_rule: >
+      If seller_legal_entity is missing or undisclosed at L1+, raise as MEDIUM risk.
+
+  - risk_id: title_or_ownership_unclear
+    label: "SPV Title or Ownership Unclear"
+    severity_default: high
+    affected_sections: [identity, process]
+    buyer_impact: >
+      Encumbered or disputed SPV shares prevent clean acquisition.
+    lender_impact: >
+      Lenders require clean title to the SPV and unencumbered project assets.
+    mitigation_evidence:
+      - Corporate structure chart with unencumbered SPV confirmed
+      - Grundbuch extract for real property held by SPV
+      - Legal opinion on title
+    validation_rule: >
+      If spv_structure is true and no corporate documentation is referenced at L2+,
+      raise as HIGH risk.
+
+  - risk_id: political_or_regulatory_risk
+    label: "Austrian Regulatory / Legislative Risk"
+    severity_default: medium
+    affected_sections: [compliance, financials]
+    buyer_impact: >
+      Pending ElWG reform and EABG may change grid connection, permitting,
+      and support scheme rules. Bundesland-level changes to Raumordnung
+      may affect development or operating permissions.
+    lender_impact: >
+      Regulatory risk is generally low in Austria by European standards,
+      but pending legislation creates uncertainty in grid access modelling.
+    mitigation_evidence:
+      - Legal counsel assessment of regulatory risk for specific asset
+      - EAG contract award locked in before legislative change
+    validation_rule: >
+      Flag if key assumptions depend on pending legislation (ElWG, EABG)
+      that has not yet passed as of the asset's marketing date.
+
+  - risk_id: curtailment_risk
+    label: "Grid Curtailment Risk"
+    severity_default: low
+    affected_sections: [grid_offtake, financials]
+    buyer_impact: >
+      Some DSO areas in Austria have imposed temporary curtailment orders
+      where grid capacity is exceeded. P50 yield may be overstated if
+      curtailment is not modelled.
+    lender_impact: >
+      Curtailment must be modelled in DSCR base case for affected areas.
+    mitigation_evidence:
+      - Grid operator confirmation of no active curtailment orders
+      - Yield assessment includes curtailment scenario
+    validation_rule: >
+      If connection point is in a constrained DSO zone and curtailment is
+      not mentioned in yield assessment, raise as LOW risk.
+
+  - risk_id: hydro_concession_renewal
+    label: "Hydro Concession Renewal Risk"
+    severity_default: high
+    affected_sections: [compliance, financials]
+    buyer_impact: >
+      Water rights concessions (Wasserrechtsbescheid) expire and are subject
+      to renewal on terms set by the water authority. Non-renewal or
+      significantly changed conditions can impair or eliminate asset value.
+    lender_impact: >
+      Lenders typically require remaining concession term to exceed loan tenor by ≥5 years,
+      or a committed renewal pathway from the water authority.
+    mitigation_evidence:
+      - Wasserrechtsbescheid with confirmed expiry date
+      - Water authority indication of renewal support
+      - Legal opinion on renewal probability
+    validation_rule: >
+      If asset_type is hydro and concession expiry is within 10 years of transaction
+      close, raise as HIGH risk.
+    jurisdiction_note: >
+      This risk is Austria-specific and has no equivalent in most other RALS jurisdictions.

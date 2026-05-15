@@ -1,0 +1,289 @@
+# ============================================================================
+# RALS Jurisdiction Package — Namibia (NA)
+# Example: namibia-solar-greenfield-l0.rals.yaml
+# ============================================================================
+# Asset:        Project Namib Sol (fictional)
+# Technology:   Solar PV (200 MW) + green hydrogen concept (speculative)
+# Stage:        Greenfield Concept — L0 (Teaser Only)
+# Location:     Hardap Region, central Namibia (high irradiance)
+# Purpose:      Demonstrates L0 Namibian asset at maximum risk exposure.
+#               No land agreement (communal land — no formal title).
+#               No NamPower grid inquiry submitted.
+#               No ECC application initiated.
+#               No NamPower engagement of any kind.
+#               H2 concept added by developer — purely speculative.
+#               This is a concept paper, not a transaction-ready asset.
+# ============================================================================
+fictional: true
+source: "synthetic_example"
+confidentiality: "public_example"
+
+rals_version: "0.1"
+document_id: "rals:NA-EX-PV-GF-L0-001"
+generated_at: "2026-05-15T09:00:00Z"
+generated_by: "rals-jurisdiction-example-generator"
+language: "en"
+
+rals_jurisdiction:
+  jurisdiction_package: NA
+  rals_jurisdiction_version: "0.1"
+  assessed_readiness_level: L0
+  readiness_label: "Teaser Only"
+  jurisdiction_assessment_date: "2026-05-15"
+  downgrade_reasons:
+    - "Land: communal land with no formal title or Communal Land Board registration — hard cap at L1 max; overall L0 due to additional gaps"
+    - "Grid: no NamPower inquiry submitted; no feasibility study; no connection point identified"
+    - "Permitting: no ECC application; no RERA generation licence application"
+    - "Offtake: no NamPower engagement; no PPA term sheet; no IPP tender participation"
+    - "H2 component: entirely speculative — no offtake agreement, no technology selection, no capex"
+    - "No bankable yield assessment of any kind"
+    - "No data room"
+
+# ── Identity ─────────────────────────────────────────────────────────────────
+identity:
+  asset_name: "Project Namib Sol"
+  asset_type: hybrid
+  lifecycle_stage: greenfield
+  country: NA
+  region: "Hardap"
+  sub_region: "Mariental District (approximate)"
+  total_capacity_mw_ac: 200.0
+  total_capacity_mw_dc: null
+  hydrogen_electrolysis_mw: 50.0
+  site_area_hectares: null
+  transaction_type: joint_venture
+  equity_offered_pct: 50
+  spv_structure: false
+  project_company_note: >
+    No SPV established. Developer is a foreign developer entity with no Namibian
+    subsidiary incorporated. No Namibian local content structure in place.
+
+# ── Technical ─────────────────────────────────────────────────────────────────
+technical:
+  expected_lifetime_years: 30
+  solar_pv:
+    concept: "Fixed-tilt bifacial modules — panel brand and specifications not selected"
+    approximate_module_mwp: 250.0
+    dc_ac_ratio_target: 1.25
+  hydrogen_concept:
+    electrolysis_technology: "PEM — not selected"
+    electrolysis_capacity_mw: 50
+    hydrogen_storage_concept: "Pressurised above-ground tanks — not designed"
+    hydrogen_offtake: "None — concept only; developer references European industrial buyers without any named counterparty"
+  production_estimates:
+    methodology: "Developer estimate citing Global Solar Atlas irradiance data for Hardap Region"
+    p50_gwh_yr: null
+    p90_gwh_yr: null
+    assessor: null
+    assessment_quality: no_assessment
+    assessment_note: >
+      No yield assessment of any kind. Developer references GHI of approximately 2,200 kWh/m²/yr
+      for Hardap Region from Global Solar Atlas. No desktop assessment has been prepared,
+      no shadowing or layout analysis, no grid availability modelling.
+      P50 and P90 are not calculated. Developer marketing material states "expected output
+      of ~400 GWh/yr" without methodology — this figure should not be used for any analysis.
+
+# ── Grid & Offtake ────────────────────────────────────────────────────────────
+grid_offtake:
+  grid_connection:
+    status: pre_application
+    grid_operator: "NamPower (target)"
+    connection_point_concept: "Unknown — no NamPower inquiry submitted"
+    connection_evidence: >
+      No grid inquiry submitted to NamPower. No connection point identified.
+      No NamPower engagement of any kind. Developer notes that the site is
+      "near existing NamPower infrastructure" without specifying the connection
+      point or voltage level.
+      NamPower technical feasibility study: not initiated.
+      Estimated timeline from inquiry to feasibility complete: 6–12 months.
+      Grid capacity in Hardap Region for 200 MW solar has not been confirmed
+      with NamPower; given NamPower's peak demand of approximately 1.5 GW,
+      a 200 MW project represents a material share of system demand requiring
+      explicit NamPower grid stability assessment.
+    grid_risk_note: >
+      NamPower monopoly on transmission. No alternative grid access route exists.
+      200 MW on a 1.5 GW peak grid requires NamPower to confirm system integration
+      capacity. Grid connection timeline alone (6–12 months for feasibility)
+      makes this a 2027+ commissioning scenario at the very earliest,
+      assuming all other approvals proceed without delay.
+  offtake_structure: undetermined
+  revenue_model: undetermined
+  revenue_note: >
+    Solar PV revenue: no NamPower engagement. No PPA term sheet. Not entered in the
+    2025 IPP tender process (deadline January 2026 — missed). Developer states intention
+    to "negotiate a bilateral PPA with NamPower" without any NamPower confirmation.
+    REFIT: not applicable (expired scheme; no new REFIT licences).
+    H2 revenue: no offtake agreement of any kind. Developer references "European
+    industrial demand for green hydrogen" without naming any counterparty.
+    Revenue is entirely speculative for both electricity and H2 components.
+
+# ── Compliance ────────────────────────────────────────────────────────────────
+compliance:
+  ecc_status: not_started
+  generation_licence_status: not_started
+  permitting_status: pre_application
+  permitting_detail: >
+    No ECC application submitted to MEFT Department of Environmental Affairs.
+    No EIA scoping initiated. No RERA generation licence application submitted.
+    No pre-application engagement with RERA or MME.
+    Permitting timeline from zero: ECC 4–6 months + generation licence 3–6 months
+    (RERA review and Ministerial decision) running in parallel if initiated.
+    Neither process has been started.
+  environmental_status: not_started
+  local_authority_notification: not_done
+  local_authority_note: >
+    Site is in or near communal area in Hardap Region. No notification to the
+    relevant Traditional Authority or Communal Authority has been made.
+    This is a mandatory step for any project in a communal area.
+
+# ── Land ─────────────────────────────────────────────────────────────────────
+land:
+  land_control_status: communal_unregistered
+  land_detail: >
+    Developer states the site is on communal land in Hardap Region near Mariental.
+    No formal land agreement exists. No Communal Land Board registration.
+    No engagement with the Ministry of Lands. No Traditional Authority consent letter.
+    Developer has visited the site informally and spoken with community members
+    but has no documented land rights of any kind.
+    Communal land without formal Communal Land Board registration is the weakest
+    form of site control in Namibia. This caps the readiness level at L1 maximum
+    under this jurisdiction package — and given all other gaps, the project is L0.
+  land_risks:
+    - "No land agreement whatsoever — communal unregistered = L1 cap"
+    - "No Communal Land Board registration initiated"
+    - "No Traditional Authority engagement documented"
+    - "Title insecurity: communal land cannot be mortgaged or encumbered"
+    - "RERA generation licence application requires land rights evidence — unavailable"
+
+# ── Financials ───────────────────────────────────────────────────────────────
+financials:
+  reporting_currency: EUR
+  total_capex_eur: null
+  capex_note: >
+    No capex estimate. Developer references "approximately EUR 180–220m for solar
+    and EUR 40–60m for the H2 component" without methodology, contractor engagement,
+    or independent assessment. Namibian EPC logistics premium not modelled.
+    Local content structuring cost not modelled. These figures should not be
+    used for any investment assessment.
+  capex_confidence: not_assessed
+  financial_model_available: false
+  financial_model_note: >
+    No financial model. No bankable yield. No NamPower PPA tariff. No H2 offtake price.
+    Return figures cited in developer materials are entirely speculative.
+    No local content structuring, FX risk, or NamPower-specific cost items
+    have been modelled.
+
+# ── Process ──────────────────────────────────────────────────────────────────
+process:
+  process_type: jv_concept_search
+  data_room_status: not_available
+  data_room_note: >
+    No data room. Developer has a 15-page concept presentation available on request.
+    No legal, technical, financial, or permitting documentation exists.
+  seller_contact: "namib-sol@example-developer.com"
+
+# ── Risk Flags ───────────────────────────────────────────────────────────────
+risk_flags:
+  - risk_id: communal_land_title_risk
+    active: true
+    severity: high
+    note: >
+      Communal land with zero formal registration. No Communal Land Board certificate.
+      No Traditional Authority consent. This is the hardest category of land risk in
+      Namibia and caps readiness at L1 maximum. Given all other gaps, the project is L0.
+
+  - risk_id: grid_not_secured
+    active: true
+    severity: high
+    note: >
+      No NamPower inquiry submitted. No connection point identified. NamPower monopoly
+      means there is no alternative grid access path. 200 MW on a 1.5 GW grid requires
+      explicit NamPower system stability confirmation.
+
+  - risk_id: grid_capacity_small_market
+    active: true
+    severity: high
+    note: >
+      200 MW represents approximately 13% of NamPower's peak demand (~1.5 GW).
+      NamPower grid integration of this scale requires explicit feasibility confirmation.
+      Risk is elevated to HIGH given the absence of any NamPower engagement.
+
+  - risk_id: permitting_not_started
+    active: true
+    severity: high
+    note: "No ECC application. No RERA generation licence application. No pre-engagement with MEFT, RERA, or MME."
+
+  - risk_id: rera_minister_approval_risk
+    active: true
+    severity: high
+    note: >
+      Generation licence requires Minister of Mines and Energy approval. Not only
+      no application has been submitted — there has been no engagement with RERA or MME.
+      Ministerial discretion adds political risk once the process is initiated.
+
+  - risk_id: unclear_revenue_route
+    active: true
+    severity: high
+    note: >
+      No NamPower engagement for PPA. No IPP tender participation (deadline missed).
+      REFIT not applicable (expired). Revenue entirely unconfirmed for both
+      solar PV and H2 components.
+
+  - risk_id: nampower_single_buyer_risk
+    active: true
+    severity: high
+    note: >
+      NamPower is the only buyer. Without any NamPower engagement, there is no revenue
+      path whatsoever. Single buyer concentration risk applies to any future PPA.
+
+  - risk_id: h2_offtake_uncertainty
+    active: true
+    severity: high
+    note: >
+      H2 component is entirely speculative. No offtake agreement. No named counterparty.
+      No technology selection. No capex. H2 is L0 sub-component and does not contribute
+      to overall readiness level.
+
+  - risk_id: local_content_requirement
+    active: true
+    severity: medium
+    note: >
+      No Namibian entity or JV partner identified. If pursuing IPP tender route,
+      39% Namibian ownership + 20% PDN is mandatory. Developer has no current
+      Namibian structuring in place.
+
+  - risk_id: limited_local_epc_om_capacity
+    active: true
+    severity: medium
+    note: "No EPC or O&M strategy. Namibia's limited contractor base not addressed in concept."
+
+  - risk_id: yield_unvalidated
+    active: true
+    severity: medium
+    note: "No yield assessment. Developer GHI reference without methodology. No P50/P90."
+
+  - risk_id: missing_data_room
+    active: true
+    severity: medium
+    note: "No data room. Concept presentation only."
+
+  - risk_id: currency_nad_zar_peg_risk
+    active: true
+    severity: medium
+    note: "NAD/ZAR peg to EUR/USD FX risk not addressed. NamPower PPA will be NAD-denominated."
+
+  - risk_id: capex_unvalidated
+    active: true
+    severity: medium
+    note: "No independent capex estimate. Developer figures cited without methodology."
+
+validator_note: >
+  Project Namib Sol demonstrates the full range of L0 risk factors in Namibia.
+  The communal unregistered land alone is a hard cap at L1 maximum under this
+  jurisdiction package. Combined with zero NamPower engagement, no permitting
+  activity, no bankable yield, no revenue route, and a speculative H2 concept,
+  the project is correctly classified at L0. The developer's marketing materials
+  present this as an "advanced concept" — this is not supported by any evidence.
+  An investor responding to this listing should initiate: (1) land tenure legal advice
+  from a Namibian attorney; (2) NamPower pre-engagement meeting; (3) MEFT and RERA
+  scoping consultation — before any other due diligence expenditure.

@@ -1,0 +1,165 @@
+# RALS Jurisdiction Package — Namibia
+# transaction-readiness.yaml
+# Version: 0.1
+
+jurisdiction_code: NA
+
+namibia_override_notes: >
+  Namibia applies three jurisdiction-specific hard rules that override standard RALS
+  readiness logic:
+  (1) Communal land without formal Communal Land Board registration caps maximum
+      readiness level at L1. No project can advance to L2 with communal unregistered
+      land as primary site control.
+  (2) A signed NamPower PPA (or confirmed IPP tender award with PPA heads of terms)
+      is required for L3. NamPower is the only offtaker; no alternative revenue route
+      exists without documented NamPower engagement.
+  (3) The generation licence requires Minister of Mines and Energy approval
+      (not only RERA recommendation). Minister's decision is required for L3.
+
+levels:
+
+  L0:
+    label: "Teaser Only"
+    description: >
+      Minimal information. Technology, approximate capacity, and region identified.
+      No land, grid, or permitting evidence required. May include early H2 concept.
+    minimum_requirements:
+      - Technology type identified (solar PV, wind, or hybrid/H2 concept)
+      - Region (Namibian administrative region) identified
+      - Approximate capacity stated
+      - Transaction type described
+      - Developer or advisor contact available
+    typical_use:
+      - Initial deal marketing or pipeline inclusion
+      - Early investor concept sharing
+      - Pre-engagement NamPower interest check
+    not_sufficient_for:
+      - Any investment committee consideration
+      - Non-binding offer
+      - NamPower grid inquiry (NamPower requires more specific information)
+    validation_notes: >
+      Green hydrogen components at L0 should be flagged with h2_offtake_uncertainty.
+      H2 concepts with no documented offtake are L0 regardless of wind or solar
+      component maturity.
+
+  L1:
+    label: "Screenable"
+    description: >
+      Sufficient for initial investor screening and early NamPower engagement.
+      Site identified, land tenure type known, no fatal constraint confirmed.
+      Communal unregistered land is acceptable at L1 but must be flagged.
+    minimum_requirements:
+      - All L0 requirements met
+      - Specific site location identified (region and approximate coordinates or cadastral ref)
+      - Land tenure type confirmed (freehold, state lease, communal registered, communal unregistered)
+      - If communal unregistered: documented and flagged — maximum L1 until registration
+      - No protected area or fatal environmental constraint identified
+      - NamPower as grid operator confirmed; connection point concept identified
+      - Desktop yield estimate available (Global Solar Atlas or Global Wind Atlas)
+      - Revenue route concept identified (NamPower MSB PPA, IPP tender, H2 offtake)
+      - Developer entity identified; UBO identified
+    typical_use:
+      - Investor NDA stage
+      - Strategic investor initial dialogue
+      - Early NamPower pre-engagement
+    not_sufficient_for:
+      - Non-binding offer with price indication
+      - NamPower formal grid application (requires more technical data)
+    validation_notes: >
+      Projects with communal unregistered land must be flagged communal_land_title_risk
+      as HIGH and capped at L1. Any indication that a project is advancing land
+      discussions without formal registration requires explicit notation.
+      H2 concepts: L1 is achievable for the overall project only if the core
+      solar/wind component meets L1 requirements; H2 remains L0 sub-component.
+
+  L2:
+    label: "Investment Memo Ready"
+    description: >
+      Sufficient for credible non-binding offer or investment committee screening.
+      Land control formally documented (not communal unregistered). ECC application
+      submitted. RERA generation licence application submitted. NamPower grid inquiry
+      active. Revenue route engagement documented (NamPower PPA term sheet or IPP
+      tender bid submitted).
+    minimum_requirements:
+      - All L1 requirements met
+      - Land: freehold title deed confirmed, OR registered state lease at Deeds Office,
+        OR Communal Land Board registration certificate (communal unregistered: NOT acceptable)
+      - ECC: EIA scoping initiated OR ECC application submitted to MEFT
+      - Generation licence: RERA application submitted and confirmed complete
+      - Grid: NamPower grid connection inquiry submitted; feasibility study in progress or complete
+      - Revenue: NamPower PPA term sheet OR IPP tender bid submitted to NamPower;
+        REFIT legacy projects: REFIT licence documented
+      - Yield: bankable yield assessment (P50/P90) by recognised assessor
+      - Financial model: investment memo level; NAD/FX risk addressed; local content costs modelled
+      - Corporate structure documented; local content ownership structure described (if IPP tender)
+      - "NDA-accessible data room with: land documents, ECC application, RERA application confirmation, NamPower grid inquiry evidence, corporate structure"
+      - Community notification documented (if communal area adjacency)
+    typical_use:
+      - Non-binding offer
+      - Investment committee screening by developers or infrastructure funds
+      - Development finance institution (DFI) initial screening
+    not_sufficient_for:
+      - DFI credit committee approval
+      - Commercial bank construction financing
+      - Binding offer at arm's length
+    validation_notes: >
+      For IPP tender projects (2025 NamPower tender): a bid submission supports L2.
+      IPP tender award confirmation is required for L3 (together with signed PPA).
+      RERA recommendation issued but Minister decision pending = maximum L2.
+      H2 components without signed offtake remain at L0 regardless of overall project level.
+
+  L3:
+    label: "Lender Diligence Ready"
+    description: >
+      Sufficient for DFI credit committee submission or binding offer from a specialist
+      infrastructure investor. Requires signed NamPower PPA (or confirmed IPP tender award),
+      Minister of Mines and Energy generation licence approval, ECC granted, registered
+      land title, and signed NamPower connection agreement.
+    minimum_requirements:
+      - All L2 requirements met
+      - "Land: registered freehold title deed or registered state lease confirmed; legal opinion from Namibian counsel on title validity; no encumbrances"
+      - "ECC: Environmental Clearance Certificate granted by MEFT; conditions accepted; validity confirmed through planned construction period"
+      - "Generation licence: granted by the Minister of Mines and Energy (RERA recommendation alone is NOT sufficient — Minister's decision required)"
+      - "Grid: NamPower technical feasibility study complete AND NamPower Grid Connection Agreement signed; connection costs and timeline confirmed"
+      - "Revenue: signed NamPower PPA with RERA-approved tariff; OR confirmed IPP tender award with PPA heads of terms signed; REFIT legacy: REFIT licence and off-take agreement confirmed and in force"
+      - "Yield: independent bankable yield assessment acceptable to lenders; P50/P90; curtailment and NamPower grid constraints modelled"
+      - "Financial model: lender-reviewed (DSCR, equity IRR); NamPower PPA tariff confirmed; EPC and O&M benchmarked; FX risk explicitly modelled"
+      - "Full corporate DD; local content compliance confirmed by Namibian counsel (39% Namibian ownership; 20% PDN for IPP tender projects)"
+      - Full diligence data room
+    typical_use:
+      - DFI (DBSA, DEG, Proparco, IFC, AFDB) credit committee submission
+      - Commercial bank financing with DFI guarantee
+      - Specialist infrastructure fund binding offer
+    not_sufficient_for:
+      - Financial close without EPC contract
+    validation_notes: >
+      L3 is the gate at which all three hard conditions must be satisfied simultaneously:
+      (i) signed NamPower PPA or confirmed award; (ii) Minister's generation licence;
+      (iii) registered land title. Missing any one of these three = maximum L2.
+      Validators should apply strict scrutiny to NamPower PPA evidence — heads of terms
+      without execution are not sufficient for L3.
+
+  L4:
+    label: "Data Room Ready"
+    description: >
+      Fully documented. EPC contract signed. All permits final. NamPower PPA executed
+      and effective. Land title confirmed. Ready for financial close.
+    minimum_requirements:
+      - All L3 requirements met
+      - EPC contract signed; contractor mobilisation plan agreed
+      - All permits final (ECC effective; generation licence conditions fulfilled)
+      - NamPower connection agreement executed; connection timeline confirmed
+      - NamPower PPA executed and effective (conditions precedent satisfied)
+      - Revenue contracts final; tariff confirmed and in force
+      - Financial model agreed; all assumptions locked with NamPower and lenders
+      - VDD complete (legal, technical, financial, environmental)
+      - Conditions precedent for financial close identified and substantially satisfied
+    typical_use:
+      - DFI financial close
+      - Commercial bank financial close
+      - Construction start authorisation
+    validation_notes: >
+      L4 is achievable in Namibia but requires sequential completion of the Minister's
+      generation licence, ECC, NamPower PPA, and NamPower connection agreement —
+      all of which have independent timelines. Realistic minimum timeline from L0 to L4:
+      18–36 months.

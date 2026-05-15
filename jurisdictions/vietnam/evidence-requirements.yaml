@@ -1,0 +1,398 @@
+# RALS Jurisdiction Package — Vietnam
+# evidence-requirements.yaml
+# Required evidence by readiness level
+# Version: 0.1
+
+jurisdiction_code: VN
+
+readiness_levels:
+  - L0
+  - L1
+  - L2
+  - L3
+  - L4
+
+evidence_categories:
+
+  site_identification:
+    L0:
+      required: false
+      description: "General location description or province name acceptable"
+    L1:
+      required: true
+      description: "Province and commune confirmed; approximate site area and coordinates available"
+    L2:
+      required: true
+      description: >
+        Precise cadastral parcel identification; site boundary as referenced in IRC or
+        land use plan; zoning category confirmed (industrial, commercial, or agricultural
+        conversion required)
+    L3:
+      required: true
+      description: >
+        Signed site plan as filed with provincial Construction Department; cadastral
+        boundaries confirmed against LURC or provincial land records; no material
+        conflicts with infrastructure corridors
+    L4:
+      required: true
+      description: "Full survey-grade site plan; as-built boundary filed with all permitting authorities"
+
+  land_control:
+    L0:
+      required: false
+      description: "Not required at teaser level"
+    L1:
+      required: true
+      description: >
+        Land ownership or LURC holder identified; contact with landowner or Vietnamese
+        JV partner established; preliminary understanding of whether agricultural
+        conversion is required
+    L2:
+      required: true
+      description: >
+        LURC copies or provincial land lease agreement provided; JV land access
+        agreement signed (for foreign investors); agricultural conversion approval
+        application submitted if required
+      vietnam_note: >
+        For JV structures: the JV agreement must specify land access rights and
+        reference the Vietnamese partner's LURC. An unexecuted JV term sheet is
+        insufficient for L2.
+    L3:
+      required: true
+      description: >
+        LURC secured for all key parcels and confirmed valid; if agricultural conversion
+        required, Quyet dinh giao dat (land allocation decision) from provincial PPC
+        obtained; long-term lease agreement (50 years industrial or 30 years commercial)
+        signed and registered
+      vietnam_note: >
+        Agricultural conversion without confirmed provincial approval is a hard blocker
+        for L3 classification. Provincial approval timelines are unpredictable — allow
+        12–24 months in scheduling.
+    L4:
+      required: true
+      description: >
+        All land agreements registered; no adverse encumbrances; lease registered
+        with provincial Land Registration Office; LURC extract provided confirming
+        project land parcels
+
+  grid_connection:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: >
+        Grid connection application submitted to NLDC/EVN; target connection point
+        and voltage level identified; EVN pre-feasibility confirmation or acknowledgement
+        of application received
+    L2:
+      required: true
+      description: >
+        EVN technical conditions letter (thu ky thuat) received confirming connection
+        point, voltage level, and indicative connection capacity; curtailment risk
+        disclosure mandatory for south-central provinces
+      vietnam_note: >
+        Technical conditions letter does not guarantee dispatch priority. A curtailment
+        analysis specific to the connection zone must accompany any L2 submission for
+        assets in Ninh Thuan, Binh Thuan, Khanh Hoa, or Phu Yen.
+    L3:
+      required: true
+      description: >
+        Signed EVN Grid Connection Agreement; connection cost and timeline agreed;
+        evacuation line routing and ownership confirmed; curtailment compensation
+        position disclosed and modelled in financial base case
+      vietnam_note: >
+        Signed Grid Connection Agreement is the minimum for L3. Absence of curtailment
+        compensation in the agreement must be explicitly disclosed and reflected in
+        downside financial scenarios.
+    L4:
+      required: true
+      description: >
+        Connection agreement executed; evacuation line and substation works contracted
+        or complete; energisation schedule confirmed by EVN; all connection cost
+        within agreed budget
+
+  permitting:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: >
+        IRC application submitted or IRC obtained; confirmation of which provincial
+        authority (DPI vs MPI) has jurisdiction
+    L2:
+      required: true
+      description: >
+        IRC obtained; ERC obtained or in progress; EIA submitted to MoNRE; construction
+        permit application pathway identified; no fatal objection from provincial authorities
+      vietnam_note: >
+        Both IRC and ERC are required for the project legal entity to exist and operate.
+        ERC is a corporate registration step but is a prerequisite for construction permit.
+    L3:
+      required: true
+      description: >
+        IRC obtained; ERC obtained; EIA approved by MoNRE; construction permit
+        (Giay phep xay dung) issued by provincial Construction Department and final
+        (appeal period expired or waived); all three instruments must be confirmed valid
+      vietnam_note: >
+        All four documents (IRC, ERC, EIA approval, construction permit) are required
+        for RTB classification. A project missing any one of these cannot be classified
+        as ready_to_build or L3.
+    L4:
+      required: true
+      description: >
+        All permits final and in place; no pending regulatory review or appeal;
+        all permit conditions precedent to construction start satisfied; construction
+        commencement notification filed with authorities
+
+  environmental:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: >
+        Preliminary environmental screening completed; no fatal ecological constraint
+        identified (protected forest, national park, critical watershed); agricultural
+        land conversion requirement assessed
+    L2:
+      required: true
+      description: >
+        EIA report prepared and submitted to MoNRE; preliminary assessment of
+        agricultural land conversion scope; species and habitat screening completed
+      vietnam_note: >
+        MoNRE EIA review typically takes 6–12 months. Submission confirmation and
+        MoNRE acknowledgement of receipt should be provided at L2.
+    L3:
+      required: true
+      description: >
+        EIA approved by MoNRE; all EIA conditions accepted; agricultural land
+        conversion approval (if required) obtained from provincial PPC; environmental
+        monitoring plan in place
+    L4:
+      required: true
+      description: >
+        All EIA conditions implemented; environmental monitoring active; MoNRE
+        compliance confirmation issued; all construction environmental obligations met
+
+  political_regulatory_risk:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: >
+        Regulatory framework identified (Decree 57/2025 DPPA or Decree 58/2025/ND-CP
+        transitional); acknowledgement that FiT programmes have expired; no war/conflict
+        risk applicable (Vietnam is a stable jurisdiction; standard political risk
+        insurance is not required but regulatory instability risk must be disclosed)
+      vietnam_note: >
+        War and political risk in the traditional sense is not applicable to Vietnam.
+        The material risk is decree-level regulatory instability. This category covers
+        the risk of revenue model disruption due to regulatory changes.
+    L2:
+      required: true
+      description: >
+        Revenue model confirmed against current regulatory framework (Decree 57 or 58);
+        regulatory instability risk disclosed; no material regulatory review pending
+        that could affect the project's revenue model
+    L3:
+      required: true
+      description: >
+        Legal opinion on regulatory risk for the specific revenue model; DPPA or
+        transitional contract confirmed as valid under current decree framework;
+        sensitivity analysis showing impact of decree change on financial model
+    L4:
+      required: true
+      description: >
+        All regulatory conditions confirmed; revenue contracts consistent with
+        applicable decree; legal counsel sign-off on regulatory risk position
+
+  technical_design:
+    L0:
+      required: false
+      description: "Technology type and approximate capacity sufficient"
+    L1:
+      required: true
+      description: "Preliminary layout; technology concept identified; target capacity stated"
+    L2:
+      required: true
+      description: >
+        Bankable technical concept; preliminary design including layout, equipment
+        concept, and grid connection design; indicative EPC cost available; no known
+        fatal engineering constraint
+    L3:
+      required: true
+      description: >
+        Detailed technical design; equipment specifications confirmed or shortlisted;
+        EPC procurement initiated; independent technical advisor review completed
+    L4:
+      required: true
+      description: "EPC contract signed; full design package; construction programme agreed"
+
+  energy_yield:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: >
+        Desktop yield estimate using global datasets (PVGIS, ERA5, Global Wind Atlas);
+        P50 indicated; no curtailment adjustment required at L1 but must be flagged
+        as excluded
+    L2:
+      required: true
+      description: >
+        Bankable yield assessment by a recognised independent assessor; P50 and P90
+        stated; curtailment scenario modelled for south-central provinces using
+        historically observed curtailment rates; assessor must address grid zone
+        curtailment risk explicitly
+      vietnam_note: >
+        A yield assessment that does not address curtailment for south-central zone
+        assets is incomplete and should not be treated as bankable at L2.
+    L3:
+      required: true
+      description: >
+        Independent yield assessment with on-site measurement data (wind: minimum
+        12 months mast or LiDAR data; solar: minimum 12 months pyranometer data
+        or validated satellite cross-check); curtailment scenario at P50 and P90;
+        assessor acknowledged by prospective lenders
+    L4:
+      required: true
+      description: >
+        Final yield assessment signed by independent assessor; lender's technical
+        advisor review complete; curtailment modelling accepted by lender
+
+  revenue_model:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: >
+        Revenue route identified: DPPA (Decree 57/2025), EVN spot market/VWEM,
+        EVN transitional contract (Decree 58/2025/ND-CP), or legacy FiT (must
+        confirm contract still active); uncontracted merchant acknowledged as such
+    L2:
+      required: true
+      description: >
+        Revenue model detailed and confirmed against current decree framework;
+        DPPA: counterparty identified and in negotiation; EVN spot/VWEM: price
+        assumption stated with reference to VWEM clearing prices; transitional:
+        70% minimum output guarantee eligibility confirmed; legacy FiT: contract
+        copy and commissioning certificate provided
+      vietnam_note: >
+        Uncontracted merchant-only revenue (VWEM spot without DPPA or transitional
+        contract) caps readiness at L2. A project without a committed revenue contract
+        cannot be classified L3 or above.
+    L3:
+      required: true
+      description: >
+        DPPA contract signed (Decree 57/2025), or EVN transitional contract executed
+        (Decree 58/2025/ND-CP), or legacy FiT contract confirmed active with
+        remaining term > loan tenor; revenue model reviewed by legal counsel for
+        compliance with applicable decree; EVN counterparty risk explicitly disclosed
+    L4:
+      required: true
+      description: >
+        Revenue contracts final and bankable; lender review of PPA/DPPA or EVN
+        contract complete; EVN counterparty risk mitigated by structural measures
+        (government guarantee, escrow, insurance) or accepted by lender with disclosure
+
+  financial_model:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: false
+      description: "Indicative IRR/equity return range acceptable"
+    L2:
+      required: true
+      description: >
+        Investment-memo-grade financial model; key assumptions stated including
+        curtailment scenario, VND/USD FX assumption, and repatriation cost;
+        P90 sensitivity included
+    L3:
+      required: true
+      description: >
+        Lender-reviewed financial model; DSCR analysis; FX and repatriation
+        modelling; curtailment downside modelled; debt sizing confirmed
+    L4:
+      required: true
+      description: >
+        Agreed base case model; lender model audited; all assumptions reviewed
+        by lender's financial advisor
+
+  corporate_ownership:
+    L0:
+      required: false
+      description: "Seller entity name acceptable"
+    L1:
+      required: true
+      description: >
+        SPV structure described; IRC-registered entity identified; JV structure
+        outlined if applicable; UBO identified at summary level
+    L2:
+      required: true
+      description: >
+        Corporate structure chart; UBO identification; JV agreement summary
+        (if JV structure); IRC and ERC copies; no material ownership dispute
+    L3:
+      required: true
+      description: >
+        Full corporate due diligence pack; JV agreement reviewed; UBO confirmed;
+        no encumbrances on SPV shares; IRC confirms permissible foreign ownership
+        percentage; change-of-control provisions in IRC/ERC reviewed
+    L4:
+      required: true
+      description: >
+        Legal opinion on title to SPV shares and transferability; IRC amendment
+        process for change of control confirmed; signing authority documented
+
+  data_room:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: false
+      description: "Optional: indicate data room platform if available"
+    L2:
+      required: true
+      description: >
+        NDA-accessible data room with: IRC copy, ERC copy (or status), EIA submission
+        confirmation, EVN technical conditions letter, LURC or land access agreement,
+        yield assessment, corporate structure chart
+    L3:
+      required: true
+      description: >
+        Full diligence data room; legal, technical, environmental, financial sections
+        populated; EVN Grid Connection Agreement; DPPA or EVN contract; EIA approval;
+        construction permit; all land documents
+    L4:
+      required: true
+      description: >
+        Complete data room; all conditions precedent documents uploaded; VDD reports
+        (technical, legal, financial, environmental) available; all regulatory approvals filed
+
+  insurance:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: false
+      description: "Not required"
+    L2:
+      required: false
+      description: "Construction insurance concept described if under construction"
+    L3:
+      required: true
+      description: >
+        Operating asset: all-risk, liability, and business interruption insurance
+        active and assignable; insurer acceptable to international lenders;
+        USD-denominated coverage confirmed or VND coverage with conversion provisions
+    L4:
+      required: true
+      description: >
+        Insurance review by lender's broker; assignment to lender documented;
+        political risk insurance considered for international financing structures

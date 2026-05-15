@@ -1,0 +1,295 @@
+# RALS Jurisdiction Package — Georgia
+# evidence-requirements.yaml
+# Required evidence by readiness level
+# Version: 0.1
+
+jurisdiction_code: GE
+
+readiness_levels:
+  - L0
+  - L1
+  - L2
+  - L3
+  - L4
+
+evidence_categories:
+
+  site_identification:
+    L0:
+      required: false
+      description: "General location description or region name acceptable"
+    L1:
+      required: true
+      description: "Municipality and approximate coordinates; confirmed site boundary concept"
+    L2:
+      required: true
+      description: "Precise site boundary (cadastral parcel numbers); NAPR registration status confirmed; zoning category confirmed"
+    L3:
+      required: true
+      description: "Signed cadastral plan as submitted to permitting authority; NAPR extract on file; no material planning conflicts"
+    L4:
+      required: true
+      description: "Full survey-grade site plan as filed with permitting authority; all boundary disputes resolved"
+
+  land_control:
+    L0:
+      required: false
+      description: "Not required at teaser level"
+    L1:
+      required: true
+      description: "Land ownership or state land status identified; contact with relevant authority (NAPR, municipality) established"
+    L2:
+      required: true
+      description: "Signed usufruct agreement (state land) or signed private purchase/lease agreement; registration at NAPR confirmed or in process"
+      georgia_note: >
+        State usufruct: Government Resolution 515 framework applies. Usufruct agreement
+        must be signed. NAPR registration required for L2 classification.
+        Agricultural land: confirm zoning status; if conversion required, confirm pathway.
+    L3:
+      required: true
+      description: "NAPR-registered usufruct agreement or private title/lease; NAPR extract showing no adverse encumbrances; all key parcels covered"
+      georgia_note: >
+        Forest land: forest clearance must be in hand. Agricultural conversion (if
+        required) must be approved. NAPR extract must be recent (not older than 3 months).
+    L4:
+      required: true
+      description: "All land agreements registered at NAPR; extract confirming no adverse entries; all key parcels documented; any conversion approvals final"
+
+  grid_connection:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: "Preliminary grid inquiry submitted to GSE or distribution company; target connection point or substation identified"
+    L2:
+      required: true
+      description: >
+        GSE technical conditions letter received; connection point and indicative
+        technical conditions confirmed; indicative connection cost available
+      georgia_note: >
+        Technical conditions letter from GSE is required at L2. This letter confirms
+        the connection point and indicative conditions but is not a binding commitment.
+        West Georgia projects: curtailment risk from GSE must be disclosed and quantified.
+    L3:
+      required: true
+      description: "Signed GSE grid connection agreement; connection infrastructure scope and cost agreed; COD timeline confirmed"
+      georgia_note: >
+        Signed GSE connection agreement is non-negotiable at L3. Without it, the
+        project is not RTB regardless of other approvals. Curtailment provisions
+        in the agreement must be reviewed.
+    L4:
+      required: true
+      description: "Signed connection agreement; connection infrastructure contracted or complete; testing schedule agreed with GSE"
+
+  construction_permit:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: "Permitting authority identified (municipality or Ministry of Regional Development); pre-application consultation status described"
+    L2:
+      required: true
+      description: "Construction permit application submitted or permit issued; no material adverse feedback from authority"
+      georgia_note: >
+        RES Class II–IV: municipal authority. Strategic/large projects (>50–100 MW):
+        Ministry of Regional Development. If concession agreement is required, confirm
+        application status. Timeline: 1–2 months for standard projects.
+    L3:
+      required: true
+      description: "Construction permit issued and in force; conditions precedent identified; if concession required: concession agreement signed"
+    L4:
+      required: true
+      description: "Construction permit final; all permit conditions precedent fulfilled; concession agreement (if required) signed and registered"
+
+  gnerc_licence:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: false
+      description: "GNERC licence requirement confirmed; eligibility assessed"
+    L2:
+      required: true
+      description: "GNERC generation licence application submitted or licence issued"
+      georgia_note: >
+        GNERC licence is required for commercial electricity generation in Georgia.
+        Application should be submitted in parallel with construction permit process.
+        Delays in GNERC processing are a known risk — allow 2–4 months minimum.
+    L3:
+      required: true
+      description: "GNERC generation licence issued and valid"
+      georgia_note: >
+        A valid GNERC licence is a hard requirement at L3. Pending licence is not
+        acceptable for lender diligence. Confirm licence number, scope, and duration.
+    L4:
+      required: true
+      description: "GNERC licence valid; conditions of licence confirmed and complied with"
+
+  environmental_clearance:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: "Environmental authority identified; preliminary screening for fatal constraints completed"
+    L2:
+      required: true
+      description: "EIA/environmental clearance application submitted or clearance obtained; no fatal environmental constraint identified"
+      georgia_note: >
+        Hydro projects: hydrological study must be initiated. River habitat impact
+        assessment may be required. Forest land projects: forest clearance pathway confirmed.
+    L3:
+      required: true
+      description: "Environmental clearance issued by competent authority; all environmental conditions documented"
+      georgia_note: >
+        Hydro projects: full hydrological report and EIA required. River flow data
+        (multi-year, P50/P90) required. Environmental conditions in clearance must be
+        reviewed and budgeted.
+    L4:
+      required: true
+      description: "Environmental clearance final; all conditions fulfilled; ongoing monitoring obligations documented"
+
+  hydrological_study:
+    L0:
+      required: false
+      description: "Not required (hydro technology only)"
+    L1:
+      required: true
+      description: "Hydro only: historical river flow data identified; hydrological study initiated or planned"
+    L2:
+      required: true
+      description: "Hydro only: hydrological study in progress or complete; preliminary P50/P90 generation estimates available"
+      georgia_note: >
+        Multi-year (minimum 5 years, ideally 10+) river flow data required for
+        a bankable hydrological assessment. Seasonal variability (summer/winter split)
+        must be explicitly modelled. Studies based on short data series carry
+        high uncertainty and should be flagged.
+    L3:
+      required: true
+      description: "Hydro only: independent bankable hydrological study complete; P50/P90 annual and seasonal generation estimates; dry year scenario included"
+      georgia_note: >
+        For L3, the hydrological study must be by a recognised independent assessor
+        and must include dry year (P90) and seasonal generation profiles. Lenders will
+        require this before credit committee approval.
+    L4:
+      required: true
+      description: "Hydro only: final hydrological assessment signed off by independent assessor; lender review completed"
+
+  revenue_model:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: "Revenue route identified (CfD auction, industrial PPA, ESCO market, or regulated tariff)"
+    L2:
+      required: true
+      description: "Revenue model detailed; CfD auction round identified and eligibility confirmed, OR industrial PPA heads of terms available"
+      georgia_note: >
+        CfD: confirm auction round, eligibility, and application status. Award is
+        NOT guaranteed — oversubscription is the norm. Revenue model must acknowledge
+        risk of non-award. Industrial PPA: counterparty identity and credit profile required.
+    L3:
+      required: true
+      description: >
+        CfD route: confirmed CfD contract award from Government auction (not merely
+        application submitted). Industrial PPA route: signed PPA (minimum 10 years)
+        with creditworthy buyer. ESCO market: documented fallback analysis only (not
+        considered primary revenue certainty for lender purposes).
+      georgia_note: >
+        A pending CfD application does NOT satisfy L3 revenue requirements. Only a
+        confirmed CfD contract award qualifies. For industrial PPA: buyer credit
+        quality must be assessed — Georgian industrial buyers vary significantly.
+    L4:
+      required: true
+      description: "Revenue contracts final and bankable; lender review of CfD contract or PPA complete; ESCO fallback documented"
+
+  technical_design:
+    L0:
+      required: false
+      description: "Indicative technology type and capacity sufficient"
+    L1:
+      required: true
+      description: "Preliminary layout or technology concept; hydro: indicative installed capacity and flow assumptions"
+    L2:
+      required: true
+      description: "Bankable technical concept; preliminary design basis; indicative EPC cost estimate"
+    L3:
+      required: true
+      description: "Detailed technical design; equipment specifications identified; EPC procurement commenced or EPC firm quotation received"
+    L4:
+      required: true
+      description: "EPC contract signed; final BOP design; construction programme agreed"
+
+  energy_yield:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: "Desktop yield estimate (PVGIS for solar; GWA for wind; historical flow data for hydro); P50 indicated"
+    L2:
+      required: true
+      description: "Preliminary independent yield assessment or bankable hydrological study; P50 and P90 indicated; seasonal profile for hydro"
+    L3:
+      required: true
+      description: >
+        Independent bankable yield assessment by recognised assessor; P50/P90 with
+        seasonal breakdown; for hydro: multi-year flow data; for solar/wind: on-site
+        measurement or long-term reanalysis correlation
+    L4:
+      required: true
+      description: "Final independent yield assessment; lender review completed; all assumptions agreed"
+
+  financial_model:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: false
+      description: "Indicative IRR/MOIC range acceptable; currency of returns (GEL/USD/EUR) stated"
+    L2:
+      required: true
+      description: "Investment-memo-grade financial model; key assumptions stated; sensitivity on P90 and GEL/USD exchange rate"
+    L3:
+      required: true
+      description: "Lender-reviewed financial model; DSCR analysis; debt sizing confirmed; currency risk and curtailment modelled"
+    L4:
+      required: true
+      description: "Agreed base case model; lender model audited; DSCR confirmed under all stress scenarios"
+
+  corporate_ownership:
+    L0:
+      required: false
+      description: "Seller entity name acceptable"
+    L1:
+      required: true
+      description: "SPV structure described; UBO identified at summary level"
+    L2:
+      required: true
+      description: "Corporate structure chart; UBO identification; no material ownership dispute; Georgian SPV confirmed"
+    L3:
+      required: true
+      description: "Full corporate due diligence pack; UBO confirmed; no encumbrances on SPV shares; Georgian LLC extract from Public Registry"
+    L4:
+      required: true
+      description: "Legal opinion on title to SPV shares; signing authority confirmed; all transfer conditions met"
+
+  data_room:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: false
+      description: "Optional: indicate data room platform if available"
+    L2:
+      required: true
+      description: "NDA-accessible data room with permit copies, land agreements, GSE technical conditions letter, environmental clearance, technical summary"
+    L3:
+      required: true
+      description: "Full diligence data room; legal, technical, environmental, financial sections populated; GNERC licence and CfD/PPA contracts included"
+    L4:
+      required: true
+      description: "Complete data room; all conditions precedent documents uploaded; VDD reports available"

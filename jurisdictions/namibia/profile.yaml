@@ -1,0 +1,129 @@
+# RALS Jurisdiction Package — Namibia
+# profile.yaml
+# Version: 0.1 | Status: active | Last reviewed: 2026-05-15
+
+jurisdiction_code: NA
+name: Namibia
+rals_jurisdiction_version: "0.1"
+status: active
+last_reviewed: "2026-05-15"
+
+supported_technologies:
+  - solar_pv
+  - onshore_wind
+  - green_hydrogen  # H2 in development; no operational offtake framework in place
+
+common_transaction_types:
+  - full_acquisition
+  - majority_stake
+  - minority_stake
+  - joint_venture
+  - development_stage_sale
+
+common_lifecycle_stages:
+  - greenfield
+  - development
+  - ready_to_build
+  - operating
+
+primary_authorities:
+  energy_ministry: "Ministry of Mines and Energy (MME)"
+  energy_ministry_note: >
+    The Minister of Mines and Energy is the final decision-maker on generation licences
+    recommended by RERA. This creates a political discretion layer that adds timing and
+    uncertainty risk beyond a purely technocratic regulator.
+  energy_regulator: "RERA — Renewable Energy and Electricity Authority (formerly ECB, the Electricity Control Board)"
+  energy_regulator_note: >
+    RERA assesses generation licence applications and makes recommendations to the Minister.
+    RERA also approves PPA tariff levels under the Modified Single Buyer (MSB) framework.
+  environmental_authority: "Ministry of Environment Forestry and Tourism (MEFT) — Department of Environmental Affairs"
+  environmental_authority_note: >
+    Responsible for Environmental Clearance Certificates (ECC). EIA is mandatory for
+    all listed activities including utility-scale renewable energy projects.
+  lands_authority: "Ministry of Lands Reform — Deeds Office"
+  lands_authority_note: >
+    Freehold and state-lease title registration. Title deed registration: 4–8 weeks typical.
+    Communal land management: Communal Land Boards under the Ministry of Lands.
+
+grid_authorities:
+  tso: "NamPower (Namibia Power Corporation)"
+  tso_note: >
+    NamPower is both the national transmission system operator (TSO) and the single buyer
+    of wholesale electricity under the Modified Single Buyer (MSB) model introduced
+    September 2019. NamPower holds a monopoly on transmission. There is no competitive
+    wholesale electricity market. All IPP electricity output must be sold to NamPower
+    (or under a NamPower-mediated PPA) unless an approved wheeling arrangement is in place.
+  grid_connection_process: >
+    Developer submits a grid connection inquiry to NamPower, which initiates a technical
+    feasibility study. Timeline for feasibility study and subsequent engineering: 6–12 months.
+    Grid connection agreement with NamPower required before construction. No independent or
+    competitive grid access mechanism exists — NamPower controls all connection approvals.
+  grid_capacity_note: >
+    Namibia has a small grid: NamPower's peak demand is approximately 1.5 GW.
+    The transmission network is limited in scope and coverage. New large-scale projects
+    (50 MW+) risk grid stability and may require significant transmission reinforcement.
+    NamPower is the only entity that can assess and commit to connection capacity.
+  wheeling_note: >
+    A wheeling framework exists in Namibia but is limited in practice. Wheeling requires
+    NamPower approval. Corporate PPAs with wheeling are rare and require NamPower's
+    explicit agreement. Validators should not assume wheeling-based revenue routes without
+    documented NamPower confirmation.
+
+market_design_notes:
+  market_structure: >
+    Namibia operates a Modified Single Buyer (MSB) model since September 2019.
+    NamPower is the single buyer of wholesale electricity and negotiates PPAs with IPPs
+    at tariff levels approved by RERA and the Minister. There is no day-ahead market
+    or merchant revenue route in the conventional sense.
+  refit_status: >
+    The Renewable Energy Feed-In Tariff (REFIT) scheme is effectively expired as a
+    route to market for new projects. Approximately 14 licences for 5 MW projects
+    (totalling ~70 MW) were issued under REFIT; most are operational. REFIT is a
+    legacy scheme only. New projects cannot access REFIT.
+  ipp_tender_2025: >
+    NamPower has launched a 2025 IPP tender for 120 MW of solar PV capacity,
+    structured as six 20 MW plants. This is a competitive bidding process. Local content
+    requirements apply: 39% Namibian ownership and 20% ownership by previously
+    disadvantaged Namibians (PDN). Bids were due January 2026. Awards not yet announced
+    as of the last review date.
+  green_hydrogen_ambition: >
+    Namibia has significant green hydrogen ambitions, anchored by the Hyphen Hydrogen
+    Energy project (5 GW wind/solar + 3 GW electrolyser). For most projects, however,
+    there is no operational H2 offtake framework. Hydrogen offtake agreements are
+    project-specific and not standardised. H2 components should be validated as L0
+    unless a documented offtake agreement exists.
+  local_content_requirements: >
+    2025 IPP tender requires 39% Namibian ownership and 20% ownership by previously
+    disadvantaged Namibians. Structuring for local content compliance requires
+    specialist legal advice and may affect SPV structure and financing terms.
+
+key_transaction_risks:
+  - nampower_single_buyer_risk
+  - rera_minister_approval_risk
+  - communal_land_title_risk
+  - local_content_requirement
+  - grid_capacity_small_market
+  - h2_offtake_uncertainty
+  - currency_nad_zar_peg_risk
+  - limited_local_epc_om_capacity
+
+validation_scope:
+  covers:
+    - field_interpretation
+    - evidence_requirements
+    - readiness_level_assignment
+    - risk_flag_evaluation
+  does_not_cover:
+    - local_content_compliance_structuring
+    - communal_land_formal_title_legal_opinion
+    - h2_offtake_commercial_terms
+    - nampower_creditworthiness_assessment
+
+disclaimer: >
+  This jurisdiction package is a technical reference for transaction-readiness assessment.
+  It is not legal advice, regulatory opinion, or investment advice.
+  Namibia's renewable energy regulatory framework is evolving; the 2025 IPP tender process
+  and H2 policy are subject to change. Always verify current conditions with qualified
+  Namibian legal counsel, NamPower, RERA, and MEFT before relying on this package.
+  Communal land tenure in particular requires specialist Namibian legal advice that this
+  package cannot substitute.

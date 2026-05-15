@@ -1,0 +1,311 @@
+# ============================================================================
+# RALS Jurisdiction Package — Vietnam
+# Example: vietnam-solar-development-l1.rals.yaml
+# ============================================================================
+# Asset:        Project Mat Troi Mekong (fictional — "Mekong Sun")
+# Technology:   Solar PV, utility-scale ground-mount
+# Capacity:     100 MW AC
+# Stage:        Development (L1)
+# Location:     Ninh Thuan Province — high-irradiance / high-curtailment zone
+# Purpose:      Demonstrates L1 readiness for a Vietnamese solar development project.
+#               IRC obtained; ERC in progress; EIA submitted but not approved;
+#               LURC not fully secured (agricultural conversion pending); EVN
+#               technical conditions letter received; no Grid Connection Agreement;
+#               no signed DPPA or EVN contract; revenue model aspirational only.
+# Risks shown:  evn_counterparty_risk, curtailment_uncompensated,
+#               lurc_agricultural_conversion, fx_convertibility_risk,
+#               irc_change_of_control, evn_grid_monopoly
+# ============================================================================
+fictional: true
+source: "synthetic_example"
+confidentiality: "public_example"
+
+rals_version: "0.1"
+document_id: "rals:VN-EX-PV-DEV-L1-001"
+generated_at: "2026-05-15T09:00:00Z"
+generated_by: "rals-jurisdiction-example-generator"
+language: "en"
+
+rals_jurisdiction:
+  jurisdiction_package: VN
+  rals_jurisdiction_version: "0.1"
+  assessed_readiness_level: L1
+  readiness_label: "Screenable"
+  jurisdiction_assessment_date: "2026-05-15"
+  assessment_notes: >
+    L1 assigned. IRC obtained and ERC in progress are positive indicators.
+    EVN technical conditions letter received confirms grid connection pathway.
+    However: EIA not yet approved, agricultural land conversion approval pending,
+    no EVN Grid Connection Agreement signed, and no DPPA counterparty identified.
+    Revenue model is aspirational (target DPPA under Decree 57/2025) — not contracted.
+    Ninh Thuan location triggers mandatory curtailment risk disclosure.
+    Asset cannot advance to L2 until EIA is submitted with MoNRE acknowledgement
+    and yield assessment with curtailment modelling is available.
+
+# ── Identity ──────────────────────────────────────────────────────────────────
+identity:
+  asset_name: "Project Mat Troi Mekong"
+  asset_type: solar_pv
+  lifecycle_stage: development
+  country: VN
+  region: "Ninh Thuan Province"
+  sub_region: "Ninh Phuoc District"
+  total_capacity_mw_ac: 100.0
+  total_capacity_mw_dc: 125.0
+  dc_ac_ratio: 1.25
+  site_area_hectares: 185
+  transaction_type: majority_stake
+  equity_offered_pct: 70
+  spv_structure: true
+  spv_jurisdiction: "Vietnam"
+  spv_note: >
+    Vietnamese-registered limited liability company (TNHH). JV structure with
+    Vietnamese land-holding partner. Foreign developer holds 70% via wholly
+    foreign-owned enterprise (WFOE) sub-holdco. Vietnamese partner holds 30%
+    and provides land access under JV agreement.
+
+# ── Technical ─────────────────────────────────────────────────────────────────
+technical:
+  expected_lifetime_years: 25
+  design_basis_year: 2025
+  mounting:
+    type: fixed_tilt
+    tilt_angle_deg: 15
+  module:
+    technology: monocrystalline_topcon
+    manufacturer: "TBC — procurement not yet launched"
+  inverter:
+    type: central_inverter
+  production_estimates:
+    methodology: "PVGIS v5.2 + Meteonorm 8, desktop assessment — no independent assessor engaged yet"
+    p50_gwh_yr: 185.0
+    p90_gwh_yr: null
+    curtailment_adjusted: false
+    curtailment_note: >
+      P50 estimate of 185 GWh/yr is NOT adjusted for curtailment. Ninh Thuan
+      Province is a HIGH-curtailment zone. Historically observed curtailment at
+      nearby projects has ranged from 15–25% annually. A bankable yield assessment
+      with curtailment scenario is required before this estimate can be used for
+      investment decision purposes. The true net-deliverable yield is materially
+      lower than 185 GWh/yr.
+    assessor: null
+    assessment_date: null
+
+# ── Grid and Offtake ──────────────────────────────────────────────────────────
+grid_offtake:
+  grid_connection:
+    status: technical_conditions_received
+    grid_operator: "EVN / NLDC (A0)"
+    voltage_level_kv: 110
+    connection_point: "Ninh Phuoc 110 kV Substation (target)"
+    connection_evidence: >
+      EVN technical conditions letter received dated 2026-02-10. Letter confirms
+      110 kV connection point at Ninh Phuoc substation and maximum connection
+      capacity of 105 MW AC. Grid Connection Agreement NOT yet signed. Total
+      process timeline to signed agreement estimated 6–9 months from receipt
+      of technical conditions.
+    grid_capacity_note: >
+      Ninh Thuan Province is one of the most congested grid zones in Vietnam.
+      EVN has not committed to a dispatch priority position for this project.
+      No curtailment compensation is anticipated in any EVN or DPPA contract.
+      Historical curtailment at 110 kV connected solar projects in this zone
+      has averaged 18–22% of potential generation.
+  offtake_structure: uncontracted
+  revenue_model: dppa_decree57
+  revenue_status: uncontracted
+  revenue_note: >
+    Target revenue model: DPPA under Decree 57/2025 — direct sale to large
+    industrial consumer(s) with minimum 300 kW load. No DPPA counterparty
+    has been identified or approached as of the marketing date. Residual
+    output would be sold via VWEM to EVN at spot prices. DPPA terms are
+    aspirational at this stage. Revenue model is entirely uncontracted and
+    dependent on identifying a creditworthy industrial offtaker. This caps
+    the asset at L1 from a revenue perspective.
+
+# ── Compliance ────────────────────────────────────────────────────────────────
+compliance:
+  permitting_status: irc_obtained
+  irc_status: obtained
+  irc_reference: "IRC-NT-2025-0047"
+  irc_issuer: "Ninh Thuan Provincial Department of Planning and Investment (DPI)"
+  irc_date: "2025-08-15"
+  irc_capacity_mw: 100.0
+  irc_note: >
+    IRC issued by Ninh Thuan DPI confirms 100 MW solar PV project. IRC references
+    land area of 185 ha in Ninh Phuoc District. IRC change-of-control provisions
+    require DPI notification and approval for any majority shareholder change.
+
+  erc_status: in_progress
+  erc_note: >
+    ERC filing submitted to Ninh Thuan Business Registration Office. Approval
+    expected within 10–15 working days. No known obstacle to issuance.
+
+  construction_permit_status: pre_application
+  construction_permit_note: >
+    Construction permit application cannot be submitted until EIA is approved
+    by MoNRE. Pre-application consultation with Ninh Thuan Construction Department
+    has not yet commenced.
+
+  eia_status: submitted
+  eia_submitter: "MoNRE (Ministry of Natural Resources and Environment)"
+  eia_submission_date: "2026-03-20"
+  eia_acknowledgement: true
+  eia_note: >
+    EIA report submitted to MoNRE on 2026-03-20. MoNRE acknowledgement of receipt
+    obtained. Review period: typically 6–12 months from submission. EIA covers
+    185 ha site including 120 ha of converted agricultural land (rice paddies).
+    EIA outcome will determine agricultural land conversion eligibility.
+    EIA approval has not been obtained as of the marketing date.
+
+# ── Land ─────────────────────────────────────────────────────────────────────
+land:
+  land_control_status: agricultural_conversion_pending
+  land_parcels_approx: 35
+  land_area_ha: 185
+  lurc_status: partial
+  lurc_note: >
+    Vietnamese JV partner holds LURCs for 65 ha (35% of site). Remaining 120 ha
+    is currently classified as agricultural (Grade 3 rice paddies). Agricultural
+    land conversion approval (Quyet dinh giao dat) must be obtained from Ninh Thuan
+    PPC following EIA approval. Conversion application is expected to be filed
+    within 30 days of EIA approval. Provincial approval timeline: estimated 12–18
+    months post-EIA approval, based on comparable projects in Ninh Thuan.
+  jv_land_access: true
+  jv_agreement_status: signed
+  jv_agreement_note: >
+    JV agreement between foreign developer (70%) and Vietnamese land-holding partner
+    (30%) signed 2025-10-01. Agreement specifies land access rights and confirms
+    Vietnamese partner's obligation to execute long-term lease covering all LURC
+    parcels upon conversion approval. Industrial lease term: 50 years.
+  land_risks:
+    - "Agricultural conversion approval not obtained — prerequisite for construction permit"
+    - "120 ha of rice paddy land; provincial conversion approval timeline 12–18 months"
+    - "Full LURC coverage dependent on EIA outcome"
+    - "JV partner land obligations enforceable under Vietnamese JV agreement law"
+
+# ── Financials ────────────────────────────────────────────────────────────────
+financials:
+  reporting_currency: USD
+  total_capex_usd: 85000000
+  capex_detail: >
+    Indicative capex estimate: USD 85m (approximately USD 850/kW AC). Includes
+    modules, inverters, civil works, and grid evacuation line. EVN connection
+    substation upgrade cost not yet confirmed by EVN — estimated USD 3–5m but
+    subject to EVN technical review. EPC not yet tendered. No independent
+    technical advisor cost review completed.
+  capex_confidence: low
+  opex_usd_yr: 1800000
+  opex_confidence: low
+  revenue_assumptions: >
+    Financial model based on aspirational DPPA scenario at USD 55/MWh for 70%
+    of output; residual 30% at VWEM spot (assumed USD 35/MWh). No curtailment
+    adjustment applied — indicative only. P50 yield of 185 GWh/yr used without
+    curtailment correction. These assumptions are materially optimistic and
+    should not be used for investment decision purposes without a bankable
+    yield assessment incorporating curtailment.
+  fx_note: >
+    Revenue under DPPA and VWEM contracts will be denominated in VND. USD
+    figures in this model assume full VND/USD conversion without restriction.
+    This assumption may not reflect actual SBV approval requirements.
+    FX convertibility and repatriation risk not modelled.
+  financial_model_available: true
+  financial_model_note: >
+    Indicative financial model available under NDA. DSCR analysis not completed.
+    No lender engagement has commenced. Model does not reflect curtailment risk
+    or FX convertibility risk adequately.
+
+# ── Process ──────────────────────────────────────────────────────────────────
+process:
+  process_type: bilateral_negotiation
+  data_room_status: available_under_nda
+  data_room_platform: "SharePoint (developer-hosted)"
+  data_room_contents:
+    - "IRC (Ninh Thuan DPI, August 2025)"
+    - "ERC filing confirmation"
+    - "EIA submission acknowledgement (MoNRE, March 2026)"
+    - "EVN technical conditions letter (February 2026)"
+    - "JV agreement (October 2025)"
+    - "LURC copies for 65 ha (Vietnamese partner parcels)"
+    - "Desktop yield assessment (PVGIS, no independent review)"
+    - "Indicative financial model (curtailment not modelled)"
+    - "Corporate structure chart"
+  process_timeline:
+    indicative_nbo_due: "2026-08-31"
+    indicative_binding_offer: "2026-12-31"
+    indicative_close: "2027-Q2"
+    critical_path_items:
+      - "EIA approval from MoNRE (expected Q1 2027)"
+      - "Agricultural land conversion approval from Ninh Thuan PPC (expected Q3 2027)"
+      - "EVN Grid Connection Agreement signing (target Q4 2026)"
+      - "ERC issuance (expected within 2 weeks)"
+  seller_contact: "advisor@example-vietnam-advisor.com"
+
+# ── Risk Flags (Jurisdiction Package) ────────────────────────────────────────
+risk_flags:
+  - risk_id: evn_counterparty_risk
+    active: true
+    severity: high
+    note: >
+      EVN is the only available grid operator and power buyer. No signed DPPA
+      yet. If DPPA not achieved, revenue will be pure VWEM spot market via
+      standard EVN contract with un-bankable standard terms. EVN counterparty
+      risk is a structural feature of the Vietnamese market.
+
+  - risk_id: curtailment_uncompensated
+    active: true
+    severity: high
+    note: >
+      Ninh Thuan Province is a HIGH-curtailment zone. Historical curtailment
+      18–22% annually at comparable connection points. No curtailment
+      compensation mechanism anticipated in any contract type. P50 yield
+      estimate of 185 GWh/yr does NOT reflect curtailment — true net yield
+      is materially lower. Mandatory disclosure at all levels above L0.
+
+  - risk_id: lurc_agricultural_conversion
+    active: true
+    severity: medium
+    note: >
+      120 ha of 185 ha site is rice paddy requiring agricultural conversion
+      approval from Ninh Thuan PPC. Approval is subject to EIA outcome and
+      PPC discretion. Timeline estimated 12–18 months post-EIA approval.
+      This is on the critical path to construction commencement.
+
+  - risk_id: fx_convertibility_risk
+    active: true
+    severity: high
+    note: >
+      Financial model assumes full VND/USD convertibility without restriction.
+      SBV approval requirements for large repatriations not modelled. For
+      any international financing structure, FX risk must be addressed through
+      structural mitigants or political risk insurance.
+
+  - risk_id: irc_change_of_control
+    active: true
+    severity: medium
+    note: >
+      IRC change-of-control provisions require DPI notification and approval
+      for the majority stake transfer contemplated in this transaction.
+      Legal counsel review and DPI pre-consultation required before signing.
+      Timeline impact must be incorporated in the closing schedule.
+
+  - risk_id: evn_grid_monopoly
+    active: true
+    severity: medium
+    note: >
+      EVN technical conditions letter received but Grid Connection Agreement
+      not signed. EVN is the sole grid operator; no alternative connection route.
+      Agreement negotiation timeline subject to EVN capacity and priorities.
+
+  - risk_id: fit_expired_claimed
+    active: false
+    note: >
+      Project is a new development; no FiT is claimed. Revenue model is
+      DPPA/VWEM under current Decree 57/2025 framework. Not applicable.
+
+  - risk_id: land_not_secured
+    active: true
+    severity: high
+    note: >
+      LURC secured for only 35% of site (65 ha of 185 ha). Remaining 120 ha
+      requires agricultural conversion approval. Land security is partial and
+      insufficient for construction commencement or L2+ classification.

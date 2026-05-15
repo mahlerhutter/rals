@@ -1,0 +1,144 @@
+# ============================================================================
+# RALS Jurisdiction Package — Germany (DE)
+# File: transaction-readiness.yaml
+# ============================================================================
+# Defines Germany-specific readiness level thresholds.
+# Evidence is cumulative: L3 must satisfy all L0–L3 criteria.
+# Key principle: No level inflation. Validator must apply most restrictive rule.
+# ============================================================================
+
+jurisdiction_code: DE
+
+readiness_levels:
+
+  L0:
+    label: "Teaser Only"
+    description: >
+      Technology, approximate capacity, and Bundesland identified. No permit,
+      grid, land, or environmental evidence. Suitable for market-sounding only.
+    minimum_requirements:
+      - "Technology identified (onshore wind, solar PV, BESS, etc.)"
+      - "Approximate capacity (MW) stated"
+      - "Bundesland identified"
+      - "No fatal exclusion zone violation (e.g., not in military no-fly zone or national park)"
+    typical_use:
+      - "Initial market soundings with buyers"
+      - "Pipeline registration"
+      - "Strategy presentations"
+    not_sufficient_for:
+      - "NBO (non-binding offer) solicitation"
+      - "EEG auction participation"
+      - "Any financing discussion"
+    validation_notes: >
+      A project with only a concept presentation and no site confirmation,
+      land contact, or permit pre-application is L0 regardless of developer claims.
+
+  L1:
+    label: "Screenable"
+    description: >
+      Site confirmed; key pathways identified; no fatal constraint known.
+      Scoping or pre-application contact with authority. Landowner identified.
+      Grid capacity at concept level checked. Buyer can conduct desktop screening.
+    minimum_requirements:
+      - "Site confirmed with cadastral reference or GPS boundary"
+      - "No Bundesland Ausschlussgebiet (exclusion zone) violation confirmed"
+      - "Landowner(s) identified; informal contact or LOI initiated"
+      - "Informal grid inquiry sent or NVP concept identified"
+      - "Scoping conference (Scopingtermin) completed or pre-application meeting held"
+      - "No Natura 2000 site conflict identified"
+      - "Revenue route identified (EEG auction vs merchant)"
+    typical_use:
+      - "Non-binding offer (NBO) solicitation at development stage"
+      - "Buyer due diligence screening"
+      - "Partnership discussions"
+    not_sufficient_for:
+      - "Binding offer or BO submission"
+      - "Debt financing discussion"
+    validation_notes: >
+      Species surveys may not yet have started at L1 — acceptable, but validator
+      should note that Rotmilan/bat risk is unquantified and flag it.
+
+  L2:
+    label: "Investment Memo Ready"
+    description: >
+      Core commercial risks mitigated at concept level. Permit application
+      submitted. NAZ received. Land option or lease initiated. Species surveys
+      underway or complete. EEG auction eligibility confirmed or PPA term sheet
+      in place. Revenue modelled. NBO-ready.
+    minimum_requirements:
+      - "BImSchG permit application submitted and declared vollständig (complete)"
+      - "Species survey initiated (desktop at minimum; 12-month bird/bat data recommended)"
+      - "NAB submitted; NAZ received from TSO/DSO (may be conditional)"
+      - "Land option or signed Pachtvertrag for at least key parcels"
+      - "Independent desktop yield assessment with P50 and P90"
+      - "EEG auction eligibility confirmed or PPA term sheet signed"
+      - "Investment memo financial model available"
+    typical_use:
+      - "NBO solicitation"
+      - "Investor roadshow"
+      - "Joint development partner search"
+    not_sufficient_for:
+      - "Binding offer (BO) / SPA"
+      - "Senior debt financing"
+      - "EPC award"
+    validation_notes: >
+      A permit that has been issued but is within its 1-month appeal window
+      (or under appeal) remains L2 maximum. Do not upgrade to L3 based on a
+      non-rechtskräftig permit. Conditional NAZ does not satisfy L3 grid threshold.
+
+  L3:
+    label: "Lender Diligence Ready"
+    description: >
+      All major risks documented and mitigated. BImSchG permit rechtskräftig.
+      Signed NAV. Pachtvertrag for all parcels with Grundbuch registrations.
+      EEG award OR binding PPA. Bankable yield assessment. Credit committee ready.
+    minimum_requirements:
+      - "BImSchG Genehmigungsbescheid issued AND rechtskräftig (1-month appeal window closed; no pending court challenge)"
+      - "Signed NAV (Netzanschlussvertrag) — unconditional; NVP confirmed; no reinforcement conditions outstanding"
+      - "Signed Pachtvertrag (≥25 years) for ALL parcels including cable route easements registered in Grundbuch"
+      - "Grundbuchauszüge confirming clean title for all parcels"
+      - "Bankable independent yield assessment (on-site mast ≥12 months for wind; PVGIS/validated solar data); curtailment modelled"
+      - "EEG Zuschlagsbescheid (auction award letter from BNetzA) OR binding PPA with creditworthy counterparty (≥10-year term)"
+      - "Lender-reviewed financial model with DSCR; Redispatch 2.0 curtailment modelled"
+      - "Corporate DD complete; SPV in Handelsregister; UBO confirmed"
+      - "Artenschutzrechtliche Stellungnahme legally confirmed; Rotmilan/bat mitigation plan in place"
+    typical_use:
+      - "Senior debt term sheet"
+      - "Credit committee submission"
+      - "Infrastructure fund binding offer"
+      - "Refinancing"
+    not_sufficient_for:
+      - "Financial close without EPC and insurance"
+      - "RTB premium valuation if NAV not yet signed"
+    validation_notes: >
+      Rechtskraft status is the most frequently misrepresented milestone in
+      German wind M&A. Validators must obtain written confirmation from the
+      Genehmigungsbehörde that no appeals were received within the appeal window.
+      If an appeal is pending (even from a third party), the asset is L2 until
+      resolved. Species protection appeals (§44 BNatSchG) can take 2–4 years.
+
+  L4:
+    label: "Data Room Ready"
+    description: >
+      EPC contracted or in advanced negotiation. All conditions precedent met.
+      Insurance bound. Financial close ready. Construction may be imminent.
+    minimum_requirements:
+      - "All L3 criteria met"
+      - "EPC contract signed or in final negotiation"
+      - "Construction all-risk and liability insurance bound"
+      - "Turbine supply agreement signed or in final terms"
+      - "Final engineering complete"
+      - "Financial model final; lender approval received"
+      - "For EEG: commissioning deadline within NAV timeline confirmed"
+      - "For BESS: §118(6) EnWG commissioning deadline compliance confirmed"
+    typical_use:
+      - "Financial close"
+      - "Construction start"
+      - "Syndicated debt drawdown"
+    not_sufficient_for:
+      - "Nothing — this is the highest readiness level"
+    validation_notes: >
+      BESS-specific: confirm that project commissioning can be achieved before
+      Aug 3, 2029 to preserve §118(6) EnWG network charge exemption.
+      Post-commissioning, the 20-year exemption is locked in.
+      If commissioning slips past this date, project economics change materially.

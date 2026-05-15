@@ -1,0 +1,287 @@
+# RALS Jurisdiction Package — Ukraine
+# risks.yaml
+# Version: 0.1
+# Includes standard renewable energy risks + Ukraine-specific war/conflict risks
+
+jurisdiction_code: UA
+
+risks:
+
+  # ── Standard renewable energy risks ──────────────────────────────────────────
+
+  - risk_id: land_not_secured
+    label: "Land Rights Not Secured"
+    severity_default: high
+    affected_sections: [identity, compliance]
+    buyer_impact: "No enforceable right to build. Title may be disputed in war context."
+    lender_impact: "No financing without long-term orenda and clean cadastral records."
+    mitigation_evidence:
+      - Signed orenda (≥20 years) for all key parcels
+      - State Cadastre extract confirming registration and no adverse entries
+      - Legal opinion on title (especially for de-occupied areas)
+    validation_rule: >
+      If lifecycle_stage is ready_to_build+ and land_control_status is not secured, raise HIGH.
+
+  - risk_id: grid_not_secured
+    label: "Grid Connection Not Confirmed (Post-Invasion)"
+    severity_default: high
+    affected_sections: [grid_offtake]
+    buyer_impact: "Pre-war connection agreements may be void if infrastructure is destroyed."
+    lender_impact: "No financing without current Ukrenergo/DSO grid status confirmation."
+    mitigation_evidence:
+      - Current (post-2022) Ukrenergo or DSO confirmation of connection point status
+      - Signed connection agreement referencing current grid conditions
+    validation_rule: >
+      If grid_connection_status is based only on pre-war documents, raise as HIGH risk.
+
+  - risk_id: permitting_not_started
+    label: "Permitting Not Started Under Current Rules"
+    severity_default: high
+    affected_sections: [compliance]
+    buyer_impact: "Wartime permitting procedures differ from pre-war. Timeline uncertain."
+    mitigation_evidence:
+      - Permit application submitted under current martial law procedures
+      - NEURC/Ministry confirmation of applicable permitting track
+    validation_rule: >
+      If permitting_status is pre_application and lifecycle_stage is development+, raise HIGH.
+
+  - risk_id: permitting_under_appeal
+    label: "Permit Challenged or Invalidated"
+    severity_default: high
+    affected_sections: [compliance]
+    buyer_impact: "Administrative or war-related invalidation of pre-war permits."
+    lender_impact: "Hard blocker for financing."
+    mitigation_evidence:
+      - Legal opinion confirming permit validity under current martial law
+    validation_rule: "If permit validity is unconfirmed post-2022, raise as HIGH."
+
+  - risk_id: environmental_constraints
+    label: "Unresolved Environmental Constraints"
+    severity_default: medium
+    affected_sections: [compliance]
+    buyer_impact: "OVD may impose constraints or require additional studies."
+    mitigation_evidence:
+      - OVD decision favourable; environmental conditions accepted
+    validation_rule: "If OVD not completed at L2+, raise MEDIUM."
+
+  - risk_id: unclear_revenue_route
+    label: "Revenue Route Not Confirmed"
+    severity_default: high
+    affected_sections: [financials]
+    buyer_impact: >
+      Pre-war FiT may be restructured or suspended. Market revenue is uncertain
+      due to DAM disruption. IFI-backed PPA may be only viable route.
+    mitigation_evidence:
+      - Restructured FiT agreement verified with Energorynok/NEURC
+      - Or signed IFI-backed PPA or green auction contract
+    validation_rule: "If revenue_model is undetermined at L2+, raise as HIGH."
+
+  - risk_id: merchant_exposure_high
+    label: "High Merchant Revenue Exposure"
+    severity_default: high
+    affected_sections: [financials]
+    buyer_impact: "Ukrainian DAM prices are regulated and below EU levels. High volatility."
+    mitigation_evidence:
+      - IFI-backed PPA or hedge structure covering majority of production
+    validation_rule: "If revenue_model is merchant_dam with no hedge, raise HIGH."
+
+  - risk_id: capex_unvalidated
+    label: "Capex Not Independently Validated"
+    severity_default: medium
+    affected_sections: [financials]
+    buyer_impact: "Supply chain disruption, FX, and security costs add material capex uncertainty."
+    mitigation_evidence:
+      - Independent owner's engineer cost estimate including war-context premiums
+    validation_rule: "If capex_confidence is low or undefined at L2+, raise MEDIUM."
+
+  - risk_id: yield_unvalidated
+    label: "Energy Yield Not Independently Assessed"
+    severity_default: medium
+    affected_sections: [technical]
+    buyer_impact: "Grid outage and curtailment from war damage must be modelled."
+    mitigation_evidence:
+      - Independent yield assessment with grid availability discount included
+    validation_rule: "If yield is desktop-only at L2+ without grid discount, raise MEDIUM."
+
+  - risk_id: missing_data_room
+    label: "No Accessible Data Room with Current Documents"
+    severity_default: medium
+    affected_sections: [process]
+    buyer_impact: "Pre-war data room is insufficient. Current status documents required."
+    mitigation_evidence:
+      - NDA-accessible data room with post-invasion status documents
+    validation_rule: "If data_room_status is not_available or only pre-war documents at L2+, raise MEDIUM."
+
+  - risk_id: counterparty_unclear
+    label: "Seller or SPV Identity / Sanctions Risk"
+    severity_default: high
+    affected_sections: [identity, process]
+    buyer_impact: "AML/KYC, sanctions compliance, and UBO identification are mandatory."
+    mitigation_evidence:
+      - UBO confirmed; sanctions screening by qualified international counsel
+      - Named Ukrainian TOV or AT SPV; corporate structure provided
+    validation_rule: >
+      If seller_legal_entity missing or UBO unconfirmed at L1+, raise as HIGH.
+      Sanctions screening is mandatory for any Ukraine transaction.
+
+  - risk_id: title_or_ownership_unclear
+    label: "SPV Ownership or Title Unclear"
+    severity_default: high
+    affected_sections: [identity, process]
+    buyer_impact: "Encumbered SPV shares or disputed ownership prevent acquisition."
+    mitigation_evidence:
+      - Corporate structure; no share pledges; legal opinion on title
+    validation_rule: "If spv_structure true and no corporate DD at L2+, raise HIGH."
+
+  - risk_id: curtailment_risk
+    label: "Grid Curtailment Due to War Damage"
+    severity_default: high
+    affected_sections: [grid_offtake, financials]
+    buyer_impact: >
+      Grid outages and balancing constraints due to infrastructure damage result
+      in significant curtailment. P50 yield models without grid availability discounts
+      are overstated.
+    lender_impact: "DSCR base case must use P90 with explicit grid availability factor."
+    mitigation_evidence:
+      - Grid availability factor from Ukrenergo for specific region and year
+      - Yield assessment includes explicit grid downtime modelling
+    validation_rule: >
+      If yield assessment does not include grid availability discount for war context,
+      raise as HIGH and require correction.
+
+  # ── Ukraine-specific war/conflict risks ──────────────────────────────────────
+
+  - risk_id: martial_law_risk
+    label: "Martial Law: Regulatory and Contractual Uncertainty"
+    severity_default: high
+    affected_sections: [compliance, financials, process]
+    buyer_impact: >
+      Ukrainian martial law modifies standard civil and administrative procedures.
+      Contracts, permits, land registrations, and judicial processes operate under
+      emergency rules that may differ from peacetime expectations. Rules may change
+      without notice.
+    lender_impact: >
+      Lenders require legal opinions confirming contract validity under martial law,
+      including enforceability of security, land rights, and revenue agreements.
+    mitigation_evidence:
+      - Legal opinion from qualified Ukrainian counsel on contract validity under martial law
+      - Confirmation that all key agreements are legally enforceable under current rules
+    validation_rule: >
+      Always raise MEDIUM or HIGH for any Ukrainian asset without a current legal opinion
+      on martial law enforceability of key contracts.
+
+  - risk_id: war_damage_risk
+    label: "Physical War Damage to Asset or Infrastructure"
+    severity_default: critical
+    affected_sections: [technical, grid_offtake]
+    buyer_impact: >
+      Russian strikes target energy infrastructure. PV, wind, and grid assets have
+      been damaged or destroyed in all regions of Ukraine, including Western oblasts.
+      Physical condition must be independently verified.
+    lender_impact: >
+      Lenders require physical site condition report (satellite imagery, field inspection,
+      or third-party assessment). An undamaged operating designation must be confirmed.
+    mitigation_evidence:
+      - Recent satellite imagery (≤6 months old) confirming site condition
+      - Or field inspection report from qualified assessor
+      - Or Ukrenergo/DSO confirmation of operational status
+    validation_rule: >
+      If physical condition of the asset has not been confirmed post-2022,
+      raise as CRITICAL and downgrade lifecycle_stage claim by at least one level.
+
+  - risk_id: occupation_or_security_risk
+    label: "Occupation or Active Combat Zone Risk"
+    severity_default: critical
+    affected_sections: [identity, technical, compliance]
+    buyer_impact: >
+      Assets in occupied territories are inaccessible, subject to Russian law,
+      and cannot be included in a legitimate Ukrainian transaction.
+      Assets near frontlines face direct kinetic risk.
+    lender_impact: >
+      No commercial or IFI financing for assets in occupied territories.
+      Near-frontline assets require extraordinary security analysis.
+    mitigation_evidence:
+      - Geolocation confirmed >50 km from current frontline (conservative buffer)
+      - Or independent security risk assessment confirming manageable risk
+      - Confirm asset is not in occupied oblast
+    validation_rule: >
+      If asset is in occupied oblast or within 50 km of confirmed frontline,
+      raise as CRITICAL and do not assign any readiness level above L0.
+
+  - risk_id: convertibility_transfer_risk
+    label: "Currency Convertibility and Transfer Restrictions"
+    severity_default: high
+    affected_sections: [financials, process]
+    buyer_impact: >
+      Ukraine's National Bank has imposed foreign exchange restrictions under martial law.
+      Profit repatriation in EUR or USD is restricted. Dividend distribution may be
+      prohibited or require NBU approval. Investment structure must address this explicitly.
+    lender_impact: >
+      IFI financing structures typically use EUR-denominated offshore accounts or
+      escrow arrangements to manage convertibility risk. Commercial lenders cannot
+      accept UAH-denominated revenue without convertibility cover.
+    mitigation_evidence:
+      - Investment structure includes convertibility mechanism (offshore escrow, IFI structure)
+      - Legal opinion on current NBU convertibility and transfer rules
+      - IFI-backed structure addressing repatriation risk
+    validation_rule: >
+      Raise HIGH for any Ukrainian transaction that does not explicitly address
+      convertibility and transfer restrictions in the financial structure.
+
+  - risk_id: sovereign_or_counterparty_risk
+    label: "Sovereign or State Counterparty Risk"
+    severity_default: high
+    affected_sections: [financials]
+    buyer_impact: >
+      Key counterparties in Ukrainian renewable energy (Energorynok for FiT,
+      Ukrenergo for grid, state-owned offtakers) are sovereign entities under stress.
+      Pre-war FiT restructuring demonstrated willingness to impose losses on project investors.
+    lender_impact: >
+      IFI involvement or sovereign guarantee backstop is typically required for
+      any commitment involving Ukrainian state counterparties.
+    mitigation_evidence:
+      - IFI guarantee or political risk insurance covering state counterparty default
+      - Or private PPA with creditworthy non-state counterparty
+      - Restructured FiT terms documented and legally confirmed
+    validation_rule: >
+      If revenue depends on Ukrainian state counterparty and no IFI mitigation is
+      in place, raise as HIGH risk.
+
+  - risk_id: grid_damage_or_reconstruction_risk
+    label: "Grid Infrastructure Damaged or Reconstruction Uncertain"
+    severity_default: critical
+    affected_sections: [grid_offtake]
+    buyer_impact: >
+      Ukrainian grid (generation, transmission, distribution) has suffered extensive war damage.
+      Approximately 50% of large substation capacity has been damaged or destroyed.
+      Grid reconstruction with EBRD/EIB support is underway but timeline is uncertain
+      and subject to ongoing strikes.
+    lender_impact: >
+      Construction financing assumes a functioning grid connection at commissioning.
+      Grid reconstruction must be independently confirmed with Ukrenergo with funded timeline.
+    mitigation_evidence:
+      - Ukrenergo written confirmation of connection point status and reconstruction timeline
+      - EBRD/EIB grid reconstruction project reference if applicable
+      - Grid availability modelled in financial model
+    validation_rule: >
+      If the specific connection point or local substation has been damaged and
+      reconstruction is not funded and confirmed, raise as CRITICAL.
+
+  - risk_id: war_risk_insurance_missing
+    label: "War-Risk Insurance Not in Place"
+    severity_default: high
+    affected_sections: [financials, process]
+    buyer_impact: >
+      Without war-risk insurance or IFI political risk guarantee, the asset is
+      exposed to total loss from armed conflict without compensation.
+    lender_impact: >
+      No IFI or commercial lender will finance Ukrainian assets without war-risk
+      insurance or equivalent political risk guarantee.
+    mitigation_evidence:
+      - War-risk insurance commitment from MIGA (World Bank), EBRD, BPIFrance,
+        ATI, or equivalent multilateral insurer
+      - Or IFI political risk guarantee in force
+      - Premium amount included in financial model opex
+    validation_rule: >
+      If no war-risk insurance or IFI guarantee is in place at L2+,
+      raise as HIGH risk. At L3, this is a hard blocker.

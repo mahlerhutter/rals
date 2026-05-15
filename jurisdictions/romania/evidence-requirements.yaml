@@ -1,0 +1,239 @@
+# RALS Jurisdiction Package — Romania
+# evidence-requirements.yaml
+# Version: 0.1
+
+jurisdiction_code: RO
+
+evidence_categories:
+
+  site_identification:
+    L0:
+      required: false
+      description: "County and approximate capacity acceptable"
+    L1:
+      required: true
+      description: "Municipality, cadastral zone, and approximate coordinates identified"
+    L2:
+      required: true
+      description: >
+        Cadastral parcel numbers; CF (Cartea Funciara) registration confirmed;
+        zoning category confirmed (industrial/energy use or agricultural de-registration pathway)
+    L3:
+      required: true
+      description: "Full cadastral plan as filed with permitting authority; zoning confirmed final"
+    L4:
+      required: true
+      description: "Survey-grade site plan; all CF registrations clean and confirmed"
+
+  land_control:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "Landowners identified; CF registration status assessed; initial contact made"
+    L2:
+      required: true
+      description: >
+        Signed arenda contract (lease ≥25 years) or pre-emption agreement for primary parcels;
+        CF extract confirming no adverse encumbrances
+      romania_note: >
+        Unregistered land (not inscris in CF) is a material risk. Flag any parcels
+        without CF number or with pending registration.
+    L3:
+      required: true
+      description: >
+        All key parcels under signed arenda contract; CF extracts clean;
+        agricultural de-registration completed or pathway confirmed for construction permit
+    L4:
+      required: true
+      description: "All land agreements registered; no adverse CF entries; legal opinion on title"
+
+  grid_connection:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "Target connection point identified; preliminary Transelectrica/DSO inquiry submitted"
+    L2:
+      required: true
+      description: >
+        Valid ATR (Aviz Tehnic de Racordare) from Transelectrica or DSO;
+        ATR expiry date confirmed; 5% financial guarantee in place (ANRE Order 20/2025);
+        indicative connection cost disclosed
+      romania_note: >
+        From 2026: confirm whether ATR was issued pre-2026 (may be grandfathered) or
+        post-2026 (requires participation in ANRE capacity auction). ATR without guarantee
+        is at risk of lapsing.
+    L3:
+      required: true
+      description: "Signed connection contract (contract de racordare); connection cost agreed and budgeted"
+    L4:
+      required: true
+      description: "Contract de racordare signed; Transelectrica/DSO works contracted; energisation schedule confirmed"
+
+  permitting:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "Permitting pathway identified; preliminary environmental screening completed"
+    L2:
+      required: true
+      description: >
+        Environmental permit (aviz de mediu) application submitted;
+        building permit pathway confirmed; no fatal administrative objection
+    L3:
+      required: true
+      description: >
+        Environmental permit and building permit both issued and definitive (no pending contestatie);
+        30-day challenge period elapsed
+    L4:
+      required: true
+      description: "All permits final; all conditions precedent fulfilled; construction start authorised"
+
+  environmental:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "Natura 2000 / protected area screening completed; no fatal constraint identified"
+    L2:
+      required: true
+      description: "EIM (Evaluare de Impact asupra Mediului) application submitted or screening decision received"
+    L3:
+      required: true
+      description: "Environmental impact assessment decision (decizie EIM) favourable and definitive"
+    L4:
+      required: true
+      description: "All environmental conditions fulfilled; monitoring programme in place"
+
+  technical_design:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "Technology type and approximate capacity confirmed"
+    L2:
+      required: true
+      description: "Preliminary layout; indicative EPC cost; equipment concept"
+    L3:
+      required: true
+      description: "Detailed design; EPC procurement launched or indicative contractor identified"
+    L4:
+      required: true
+      description: "EPC contract signed; BOP design complete; construction programme agreed"
+
+  energy_yield:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "Desktop yield estimate using PVGIS or GWA; P50 indicative"
+    L2:
+      required: true
+      description: "Bankable yield assessment; P50 and P90; assessor named"
+    L3:
+      required: true
+      description: >
+        Independent yield assessment; on-site wind measurement ≥12 months for wind;
+        curtailment scenario for Dobrogea assets
+    L4:
+      required: true
+      description: "Final yield assessment; lender review complete"
+
+  revenue_model:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "Revenue route identified (merchant, PPA, GC legacy)"
+    L2:
+      required: true
+      description: >
+        Merchant strategy with Romanian power price assumptions; or PPA heads of terms;
+        or GC entitlement confirmed for legacy assets
+    L3:
+      required: true
+      description: >
+        Signed PPA with creditworthy counterparty; or documented merchant strategy with
+        downside sensitivity; or GC entitlement confirmed with ANRE
+      romania_note: >
+        Do not model CfD revenue unless officially awarded. Classify as merchant/PPA base case.
+    L4:
+      required: true
+      description: "Revenue contracts final and bankable; all revenue documentation in data room"
+
+  support_scheme:
+    L0:
+      required: false
+    L1:
+      required: false
+    L2:
+      required: true
+      description: "GC entitlement confirmed for legacy assets; or explicit merchant/PPA strategy for new build"
+    L3:
+      required: true
+      description: "GC entitlement documentation; or PPA signed; or CfD award letter if applicable"
+    L4:
+      required: true
+      description: "All revenue/support documentation final"
+
+  financial_model:
+    L0:
+      required: false
+    L1:
+      required: false
+    L2:
+      required: true
+      description: "Investment memo model; Romanian power price assumptions; connection costs included"
+    L3:
+      required: true
+      description: "Lender-reviewed model; DSCR; curtailment modelled for Dobrogea; GC prices if applicable"
+    L4:
+      required: true
+      description: "Agreed base case; audited model"
+
+  corporate_ownership:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "SPV name and jurisdiction (typically Romanian S.R.L.)"
+    L2:
+      required: true
+      description: "Corporate structure chart; UBO identified; no material dispute"
+    L3:
+      required: true
+      description: "Full corporate DD; UBO confirmed; shares unencumbered; foreign ownership structure reviewed"
+    L4:
+      required: true
+      description: "Legal opinion on title to shares; signing authority confirmed"
+
+  data_room:
+    L0:
+      required: false
+    L1:
+      required: false
+    L2:
+      required: true
+      description: "NDA-accessible data room with ATR, permits, land contracts (CF extracts), corporate structure"
+    L3:
+      required: true
+      description: "Full diligence data room; legal, technical, environmental, financial sections"
+    L4:
+      required: true
+      description: "Complete data room; VDD reports; all conditions precedent documents"
+
+  insurance:
+    L0:
+      required: false
+    L1:
+      required: false
+    L2:
+      required: false
+    L3:
+      required: true
+      description: "Operating: all-risk, liability, BI insurance active and assignable"
+    L4:
+      required: true
+      description: "Insurance review by lender's broker; assignment documented"

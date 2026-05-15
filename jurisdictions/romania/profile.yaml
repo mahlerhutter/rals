@@ -1,0 +1,114 @@
+# RALS Jurisdiction Package — Romania
+# profile.yaml
+# Version: 0.1 | Status: active | Last reviewed: 2026-05
+
+jurisdiction_code: RO
+name: Romania
+rals_jurisdiction_version: "0.1"
+status: active
+last_reviewed: "2026-05"
+
+supported_technologies:
+  - solar_pv
+  - onshore_wind
+  - bess
+  - hybrid
+  - hydro
+  - biomass
+
+common_transaction_types:
+  - full_acquisition
+  - majority_stake
+  - minority_stake
+  - joint_venture
+  - refinancing
+
+common_lifecycle_stages:
+  - greenfield
+  - development
+  - ready_to_build
+  - under_construction
+  - operating
+
+primary_authorities:
+  energy_regulator: "ANRE (Autoritatea Nationala de Reglementare in domeniul Energiei)"
+  energy_regulator_url: "https://www.anre.ro"
+  ministry: "Ministerul Energiei (Ministry of Energy)"
+  ministry_url: "https://energie.gov.ro"
+  permitting_authority: >
+    County Council (Consiliu Judetean) for environmental permit;
+    local municipality for building permit (autorizatie de construire);
+    Ministry of Environment for environmental assessment (evaluare impact mediu)
+  support_scheme_administrator: "ANRE / Ministerul Energiei (for future CfD/tender schemes)"
+
+grid_authorities:
+  tso: "Transelectrica S.A."
+  tso_url: "https://www.transelectrica.ro"
+  primary_dso: "Electrica, E.ON, CEZ Distribution, Enel Energie Muntenia (regional)"
+  grid_connection_process: >
+    Connection governed by ANRE regulations. Process:
+    (1) Application for Aviz Tehnic de Racordare (ATR) — technical grid connection permit;
+    (2) ATR issued by Transelectrica (HV) or DSO (MV/LV);
+    (3) Connection contract (contract de racordare) signed;
+    (4) Physical works by TSO/DSO.
+    From 1 January 2026, available grid capacity is allocated via public auctions
+    (rather than first-come-first-served), per ANRE Order 53/2024.
+    Financial guarantee (5% of estimated connection cost) required under ANRE Order 20/2025.
+  grid_capacity_note: >
+    Romania's grid is significantly constrained in key renewable energy zones
+    (Dobrogea for wind and PV; Oltenia, Muntenia for PV). Over 60 GW of projects
+    hold valid ATRs but only a fraction can be physically connected without major
+    grid reinforcement. New auction-based allocation from 2026 creates a different
+    competitive dynamic for grid access.
+
+market_design_notes:
+  support_scheme: >
+    Romania operated a green certificate (GC) scheme under Law 220/2008 until 2017,
+    with operating assets retaining GC entitlements. New renewable projects (post-2017)
+    operate primarily on a merchant or PPA basis. A new Contracts for Difference (CfD)
+    scheme is under development as of 2026 but not yet operational. Developers and
+    investors should model merchant revenue as the primary base case for new builds.
+  merchant_market: >
+    OPCOM (Operatorul Pietei de Energie Electrica) operates Romanian power markets.
+    Romania is part of the South-East Europe (SEE) price zone. Day-ahead (PZU) and
+    intraday (PI) markets are in operation. Bilateral contracts are common for
+    corporate PPAs with major industrial offtakers.
+  transaction_readiness_gap: >
+    A significant gap exists in the Romanian market between nominal pipeline claims
+    (60+ GW of ATR-holding projects) and bankable, transaction-ready assets.
+    Many projects in "development" or "RTB" marketing have unvalidated grid offers,
+    unclear land rights, or permits that are not final. Validators and investors
+    must apply rigorous evidence requirements and not accept nominal claims at face value.
+  bess_note: >
+    Standalone BESS is an emerging asset class in Romania. ANRE Order 27/2025
+    assimilates certain BESS operators to producers. Several large RTB BESS transactions
+    (200 MW+) occurred in 2025, establishing a secondary market. Revenue routes
+    include merchant arbitrage, ancillary services (balancing), and future CfD potential.
+
+key_transaction_risks:
+  - grid_capacity_constraints_dobrogea
+  - atr_validity_and_conversion_risk
+  - land_title_and_registration_complexity
+  - permitting_administrative_delays
+  - revenue_route_uncertainty
+  - transaction_readiness_claim_inflation
+  - missing_independent_technical_validation
+  - curtailment_risk_dobrogea
+
+validation_scope:
+  covers:
+    - field_interpretation
+    - evidence_requirements
+    - readiness_level_assignment
+    - risk_flag_evaluation
+  does_not_cover:
+    - Romanian legal title verification
+    - Tax structuring
+    - Financial model audit
+
+disclaimer: >
+  This jurisdiction package is a technical reference for transaction-readiness assessment.
+  It is not legal advice. Romanian energy regulation, grid connection rules (particularly
+  the new 2026 auction system), and support scheme development change rapidly. Always
+  verify with qualified Romanian legal counsel, ANRE, and Transelectrica before relying
+  on this package.

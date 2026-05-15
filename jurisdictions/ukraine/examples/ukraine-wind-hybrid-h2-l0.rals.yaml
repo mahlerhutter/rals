@@ -1,0 +1,221 @@
+# ============================================================================
+# RALS Jurisdiction Package — Ukraine
+# Example: ukraine-wind-hybrid-h2-l0.rals.yaml
+# ============================================================================
+# Asset:        Project Stepovyi Viter (fictional; "Steppe Wind" in Ukrainian)
+# Technology:   Onshore wind + hydrogen-ready hybrid concept
+# Stage:        Greenfield Concept — L0 (Teaser Only)
+# Location:     Zaporizhzhia Oblast — PARTIALLY OCCUPIED
+# Purpose:      Demonstrates L0 Ukrainian asset with high strategic narrative
+#               but fundamental blockers: partially occupied oblast, no grid,
+#               no land, no war-risk mitigation, no IFI engagement.
+#               Hydrogen claim is entirely conceptual.
+# WARNING:      Zaporizhzhia Oblast is partially occupied. The described site
+#               is claimed to be in an unoccupied portion but independent
+#               verification is not available. Validator must flag CRITICAL
+#               security risk. No readiness level above L0 can be assigned.
+# ============================================================================
+fictional: true
+source: "synthetic_example"
+confidentiality: "public_example"
+
+rals_version: "0.1"
+document_id: "rals:UA-EX-WI-HY-L0-001"
+generated_at: "2026-05-15T09:00:00Z"
+generated_by: "rals-jurisdiction-example-generator"
+language: "en"
+
+rals_jurisdiction:
+  jurisdiction_package: UA
+  rals_jurisdiction_version: "0.1"
+  assessed_readiness_level: L0
+  readiness_label: "Teaser Only"
+  jurisdiction_assessment_date: "2026-05-15"
+  war_risk_override_applied: true
+  critical_security_warning: >
+    Zaporizhzhia Oblast is partially occupied by Russian forces as of 2026.
+    The developer claims the site is in an unoccupied portion of the oblast,
+    but independent geolocation verification is NOT AVAILABLE in this listing.
+    Validators MUST independently confirm the site is not in an occupied zone
+    before treating this listing as actionable. This asset is classified L0
+    and cannot advance without independent security confirmation.
+  downgrade_reasons:
+    - "CRITICAL: Oblast is partially occupied — site location unverified as unoccupied"
+    - "No grid connection of any kind"
+    - "No land agreement of any kind"
+    - "No permits initiated"
+    - "No war-risk insurance or IFI engagement"
+    - "Hydrogen component is a concept only — no offtake, no electrolysis, no capex"
+    - "Revenue route: entirely unconfirmed"
+
+# ── Identity ─────────────────────────────────────────────────────────────────
+identity:
+  asset_name: "Project Stepovyi Viter"
+  asset_type: hybrid
+  lifecycle_stage: greenfield
+  country: UA
+  region: "Zaporizhzhia Oblast"
+  sub_region: "Claimed: Vasylivka Rayon (developer states this area is unoccupied)"
+  total_capacity_mw_ac: 200.0
+  total_energy_mwh: null
+  hydrogen_electrolysis_mw: 50.0
+  site_area_hectares: null
+  transaction_type: joint_venture
+  equity_offered_pct: 50
+  spv_structure: false
+  project_company_note: "No SPV established. Developer is a Ukrainian LLC."
+
+# ── Technical ─────────────────────────────────────────────────────────────────
+technical:
+  expected_lifetime_years: 25
+  turbine:
+    concept: "5–8 MW class turbines — class and manufacturer not specified"
+    number_of_turbines_approx: 30
+  hydrogen_concept:
+    electrolysis_technology: "Alkaline — not selected"
+    electrolysis_capacity_mw: 50
+    hydrogen_storage_concept: "Above-ground compressed storage — not designed"
+    hydrogen_offtake: "None — concept only"
+  production_estimates:
+    methodology: "Developer estimate citing 'favorable steppe wind conditions'"
+    p50_gwh_yr: null
+    p90_gwh_yr: null
+    assessor: null
+    assessment_quality: no_assessment
+    assessment_note: >
+      No wind resource assessment of any kind. Developer references general GWA
+      (Global Wind Atlas) data for Zaporizhzhia Oblast. No desktop assessment
+      provided. P50 and P90 are not calculated.
+
+# ── Grid & Offtake ────────────────────────────────────────────────────────────
+grid_offtake:
+  grid_connection:
+    status: pre_application
+    grid_operator: "Ukrenergo NJSC (target)"
+    connection_point_concept: "Unknown — grid infrastructure in Zaporizhzhia Oblast is severely damaged"
+    connection_evidence: >
+      No grid inquiry submitted. No connection point identified.
+      Zaporizhzhia Oblast transmission infrastructure has suffered major war damage.
+      Ukrenergo has not published a connection capacity map for this oblast.
+      Physical grid connection feasibility is UNKNOWN and potentially impossible
+      in the near to medium term without major reconstruction.
+    grid_risk_note: >
+      CRITICAL: Zaporizhzhia grid infrastructure (including the Zaporizhzhia NPP switchyard)
+      has been severely disrupted by the conflict. No realistic grid connection timeline
+      can be stated without Ukrenergo post-war reconstruction plan data.
+  offtake_structure: undetermined
+  revenue_model: undetermined
+  revenue_note: >
+    Wind revenue: no route identified. Green auction eligibility: not assessed.
+    Hydrogen revenue: no offtake agreement of any kind. Hydrogen export to EU:
+    conceptual reference only — no pipeline, no shipping arrangement, no counterparty.
+    Revenue is entirely speculative.
+
+# ── Compliance ────────────────────────────────────────────────────────────────
+compliance:
+  permitting_status: pre_application
+  permitting_detail: >
+    No permits initiated. Pre-application consultation not possible while oblast
+    is partially occupied and local authorities are not fully functional.
+    Permitting timeline: indeterminate.
+  environmental_status: not_started
+
+# ── Land ─────────────────────────────────────────────────────────────────────
+land:
+  land_control_status: not_secured
+  land_detail: >
+    No land agreement of any kind. Developer states site is on steppe agricultural
+    land in Vasylivka Rayon. No cadastral research, no landowner identification,
+    no legal due diligence on title availability. Land records in Zaporizhzhia
+    Oblast may be disrupted by conflict and occupation.
+  land_risks:
+    - "No land agreement whatsoever"
+    - "Cadastre records in partially-occupied oblast may be damaged or disputed"
+    - "Territory control of claimed site UNVERIFIED — occupation risk CRITICAL"
+
+# ── Financials ───────────────────────────────────────────────────────────────
+financials:
+  reporting_currency: EUR
+  total_capex_eur: null
+  capex_note: >
+    No capex estimate. Developer references "EUR 150–200m" for wind component
+    and "EUR 40–60m" for electrolysis — entirely conceptual. No independent
+    cost assessment. No reconstruction or security cost modelled.
+  capex_confidence: not_assessed
+  financial_model_available: false
+  financial_model_note: >
+    No financial model. Return claims in developer marketing material are entirely
+    speculative and should not be used for any investment assessment.
+
+# ── Process ──────────────────────────────────────────────────────────────────
+process:
+  process_type: jv_concept_search
+  data_room_status: not_available
+  data_room_note: >
+    No data room. Developer has a 12-page concept presentation available
+    on request. No legal, technical, or financial documentation exists.
+  ifi_engagement: none
+  ifi_note: "No IFI contacts established."
+  seller_contact: "stepovyi@example-developer.ua"
+
+# ── Risk Flags ───────────────────────────────────────────────────────────────
+risk_flags:
+  - risk_id: occupation_or_security_risk
+    active: true
+    severity: critical
+    note: >
+      CRITICAL: Zaporizhzhia Oblast is partially occupied. Developer claims site
+      is in unoccupied rayon but this cannot be independently verified from this
+      listing. Validator must confirm location before any further processing.
+  - risk_id: war_damage_risk
+    active: true
+    severity: critical
+    note: "Zaporizhzhia grid infrastructure severely damaged. No operational grid path exists."
+  - risk_id: grid_damage_or_reconstruction_risk
+    active: true
+    severity: critical
+    note: "Grid connection in Zaporizhzhia Oblast is not feasible without major post-war reconstruction."
+  - risk_id: war_risk_insurance_missing
+    active: true
+    severity: high
+    note: "No insurance concept of any kind. No IFI engagement."
+  - risk_id: land_not_secured
+    active: true
+    severity: high
+    note: "No land agreement. Title in partially-occupied oblast: CRITICAL risk."
+  - risk_id: grid_not_secured
+    active: true
+    severity: high
+    note: "No grid inquiry. No connection point. Grid infrastructure damaged."
+  - risk_id: permitting_not_started
+    active: true
+    severity: high
+    note: "No permits. No permitting feasibility."
+  - risk_id: unclear_revenue_route
+    active: true
+    severity: high
+    note: "Revenue entirely unconfirmed for both wind and hydrogen components."
+  - risk_id: convertibility_transfer_risk
+    active: true
+    severity: high
+    note: "UAH/EUR convertibility risk not addressed. No structure proposed."
+  - risk_id: martial_law_risk
+    active: true
+    severity: high
+    note: "All contracts under Ukrainian martial law — no legal opinion."
+  - risk_id: yield_unvalidated
+    active: true
+    severity: medium
+    note: "No wind resource assessment of any kind."
+  - risk_id: missing_data_room
+    active: true
+    severity: medium
+    note: "No data room. Concept presentation only."
+
+validator_note: >
+  This asset demonstrates the maximum risk scenario. The security risk alone
+  (partially occupied oblast, unverified site location) prevents any classification
+  above L0. The absence of grid, land, permits, revenue, and IFI engagement means
+  this is a strategic concept paper, not a transaction-ready asset. Any investor
+  responding to this listing should conduct independent security geolocation
+  verification as the first step before any other due diligence.

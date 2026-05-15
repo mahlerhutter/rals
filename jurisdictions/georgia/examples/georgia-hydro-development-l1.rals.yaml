@@ -1,0 +1,262 @@
+# ============================================================================
+# RALS Jurisdiction Package — Georgia
+# Example: georgia-hydro-development-l1.rals.yaml
+# ============================================================================
+# Asset:        Project Mtkvari Hydro (fictional)
+# Technology:   Small run-of-river hydro, development stage
+# Stage:        Development — L1 (Screenable)
+# Location:     Samtskhe-Javakheti region (south Georgia, Mtkvari tributary)
+# Purpose:      Demonstrates L1 Georgian run-of-river hydro asset. Hydrological
+#               study in progress (not complete). State usufruct agreement in
+#               negotiation (not signed). Construction permit applied to
+#               municipality (pending). GSE technical conditions letter received;
+#               connection agreement not signed. GNERC licence not applied.
+#               Revenue: targeting CfD auction; no application submitted yet.
+#               L1 maximum due to: hydrological study incomplete, usufruct not
+#               signed, no construction permit, no confirmed revenue route.
+# Risks shown:  seasonal_hydro_variability, grid_congestion_west_georgia (N/A —
+#               east Georgia), cfd_auction_competition, land_not_secured,
+#               gnerc_licence_delay, yield_unvalidated
+# ============================================================================
+fictional: true
+source: "synthetic_example"
+confidentiality: "public_example"
+
+rals_version: "0.1"
+document_id: "rals:GE-EX-HY-DEV-L1-001"
+generated_at: "2026-05-15T09:00:00Z"
+generated_by: "rals-jurisdiction-example-generator"
+language: "en"
+
+rals_jurisdiction:
+  jurisdiction_package: GE
+  rals_jurisdiction_version: "0.1"
+  assessed_readiness_level: L1
+  readiness_label: "Screenable"
+  jurisdiction_assessment_date: "2026-05-15"
+  downgrade_reasons:
+    - "Hydrological study in progress — no bankable P50/P90 yet"
+    - "State usufruct agreement in negotiation — not signed; no NAPR registration"
+    - "Construction permit application submitted but not yet issued"
+    - "GSE grid connection agreement not signed (only technical conditions received)"
+    - "GNERC generation licence not applied for"
+    - "CfD not applied for — revenue route unconfirmed"
+
+# ── Identity ─────────────────────────────────────────────────────────────────
+identity:
+  asset_name: "Project Mtkvari Hydro"
+  asset_type: hydro_run_of_river
+  lifecycle_stage: development
+  country: GE
+  region: "Samtskhe-Javakheti"
+  sub_region: "Akhaltsikhe Municipality"
+  total_capacity_mw_ac: 8.0
+  site_area_hectares: 12
+  transaction_type: majority_stake
+  equity_offered_pct: 70
+  spv_structure: true
+  spv_jurisdiction: "Georgia"
+
+# ── Technical ─────────────────────────────────────────────────────────────────
+technical:
+  technology: hydro_run_of_river
+  expected_lifetime_years: 50
+  design_basis_year: 2026
+  hydro_type: run_of_river
+  river: "Tributary of Mtkvari River (Kura)"
+  head_m: 22.0
+  design_flow_m3s: 18.0
+  installed_capacity_mw: 8.0
+  production_estimates:
+    methodology: >
+      Preliminary desktop estimate based on available Georgian hydrological database
+      records (MEPA flow records, 8 years available). Full hydrological study in
+      progress — not complete. No independent assessor engaged yet.
+    p50_gwh_yr: 34.0
+    p90_gwh_yr: null
+    assessor: "Internal developer estimate (not bankable)"
+    assessment_date: "2025-11-01"
+    assessment_quality: desktop_only
+    assessment_note: >
+      Hydrological study has been commissioned from a local Georgian hydrological
+      consultancy. Expected completion: Q3 2026. Only 8 years of MEPA flow records
+      are available — this is below the recommended minimum of 10 years for bankable
+      studies. Seasonal variability is significant: estimated 70% of generation
+      occurs in April–September. P90 and dry year scenario not yet calculated.
+      This estimate carries ±25% uncertainty and is not suitable for lender use.
+
+# ── Grid & Offtake ────────────────────────────────────────────────────────────
+grid_offtake:
+  grid_connection:
+    status: technical_conditions_received
+    grid_operator: "Georgian State Electrosystem (GSE)"
+    voltage_level_kv: 35
+    connection_point_concept: "Akhaltsikhe 35 kV substation (indicative)"
+    connection_evidence: >
+      GSE technical conditions letter received November 2025 (reference GSE-2025-TC-0847).
+      Technical conditions confirm connection point at Akhaltsikhe 35 kV substation.
+      Indicative connection line length: 4.2 km. GSE connection agreement NOT yet
+      signed — negotiations ongoing. Connection agreement target: Q4 2026.
+      Samtskhe-Javakheti is east Georgia; no material GSE curtailment risk identified
+      at this stage, but to be confirmed at connection agreement stage.
+    grid_risk_note: >
+      Technical conditions letter is not a binding connection commitment. Connection
+      agreement is expected Q4 2026. Connection infrastructure cost (indicative:
+      USD 650,000) is not yet agreed or included in formal capex budget.
+  offtake_structure: to_be_determined
+  revenue_model: cfd_auction
+  revenue_note: >
+    Developer is targeting the Georgian Government CfD auction programme. No CfD
+    application has been submitted yet; the project is not eligible to apply until
+    construction permit and GSE technical conditions are in place. Target auction:
+    2027 round (if announced). The 2023 and 2024 auctions were oversubscribed —
+    CfD award is not guaranteed. ESCO market is the fallback, but no ESCO market
+    contract exists or has been negotiated. Revenue is unconfirmed at this stage.
+
+# ── Compliance ────────────────────────────────────────────────────────────────
+compliance:
+  permitting_status: application_submitted
+  permitting_authority: "Akhaltsikhe Municipality (construction permit)"
+  permitting_detail: >
+    Construction permit application submitted to Akhaltsikhe Municipality in
+    October 2025 under RES Class III classification. Decision pending — estimated
+    issuance Q2 2026. No major technical objections communicated by municipality.
+    Project does not require concession agreement (below strategic threshold).
+  gnerc_licence_status: not_applied
+  gnerc_licence_detail: >
+    GNERC generation licence not yet applied for. Developer plans to submit GNERC
+    application upon construction permit issuance. Estimated submission: Q3 2026.
+    GNERC licence is required for commercial electricity generation — absence
+    prevents RTB classification regardless of other permit status.
+  environmental_status: application_submitted
+  environmental_authority: "Ministry of Environmental Protection and Agriculture — Samtskhe-Javakheti Regional Office"
+  environmental_detail: >
+    EIA application submitted to the regional environmental authority in September 2025.
+    Preliminary screening: no Natura 2000 or protected area overlap identified.
+    Hydrological impact report on the Mtkvari tributary required — being prepared
+    in parallel with hydrological study. EIA decision estimated: Q3 2026. Forest land
+    is not involved; site is on open hillside with state land classification.
+
+# ── Land ─────────────────────────────────────────────────────────────────────
+land:
+  land_control_status: option_signed
+  land_area_ha: 12
+  land_detail: >
+    Site is on state-owned land in Akhaltsikhe Municipality. The developer has
+    signed a preliminary letter of intent with the local municipality for use
+    of the land, but the formal state usufruct agreement under Government
+    Resolution 515 has NOT yet been signed. Usufruct negotiation is ongoing
+    with the Ministry of Economy and the municipality. Expected usufruct agreement
+    signing: Q3 2026, for a 40-year term. NAPR registration will follow signing
+    (approximately 2–4 weeks). Usufruct is not yet registered at NAPR.
+  land_risks:
+    - "Usufruct agreement not yet signed — no enforceable land rights"
+    - "Usufruct negotiation in progress — terms not finalised"
+    - "NAPR registration not yet initiated"
+    - "Until usufruct is signed and NAPR-registered, project cannot advance to L2"
+
+# ── Financials ───────────────────────────────────────────────────────────────
+financials:
+  reporting_currency: USD
+  total_capex_usd: null
+  capex_note: >
+    No independent capex estimate. Developer indicative: USD 9–12m
+    (USD 1,125–1,500/kW installed). Grid connection infrastructure cost (indicative
+    USD 650,000) not yet agreed with GSE. Civil works and electromechanical supply
+    costs based on regional comparables — no formal EPC quotation obtained.
+  capex_confidence: not_assessed
+  financial_model_available: false
+  financial_model_note: >
+    No financial model available. IRR and MOIC projections depend on CfD tariff
+    (not yet known), hydrological P50/P90 (not yet finalised), and capex (not
+    yet validated). Financial model to be prepared once hydrological study and
+    CfD auction parameters are confirmed.
+  currency_note: >
+    Project costs primarily in USD/EUR (equipment) and GEL (civil works, local labour).
+    CfD tariff denomination to be confirmed upon auction announcement. GEL/USD
+    volatility risk applies.
+
+# ── Process ──────────────────────────────────────────────────────────────────
+process:
+  process_type: bilateral
+  data_room_status: partial
+  data_room_note: >
+    Partial documentation available under NDA: GSE technical conditions letter,
+    municipality construction permit application acknowledgement, EIA application,
+    preliminary hydrological data (MEPA records), letter of intent for usufruct,
+    corporate structure chart. No formal data room platform — shared via secure
+    email. Full data room to be established once construction permit and usufruct
+    are in place.
+  seller_contact: "mtkvari-hydro@example-developer.ge"
+
+# ── Risk Flags ───────────────────────────────────────────────────────────────
+risk_flags:
+  - risk_id: seasonal_hydro_variability
+    active: true
+    severity: high
+    note: >
+      Hydrological study incomplete. Only 8 years of MEPA flow data available
+      (below 10-year recommended minimum). P90 and dry year scenario not calculated.
+      Estimated 70% of generation in April–September. Winter revenue will be low.
+      This is the primary technical risk for this asset.
+
+  - risk_id: land_not_secured
+    active: true
+    severity: high
+    note: >
+      State usufruct agreement not yet signed. Only a letter of intent exists.
+      Usufruct negotiation ongoing with Ministry of Economy. Without signed and
+      NAPR-registered usufruct, the project has no enforceable site access rights.
+
+  - risk_id: grid_connection_delay
+    active: true
+    severity: medium
+    note: >
+      GSE technical conditions received but connection agreement not yet signed.
+      Connection agreement expected Q4 2026. Connection infrastructure cost not agreed.
+      GSE connection agreement is required for L3 and RTB classification.
+
+  - risk_id: gnerc_licence_delay
+    active: true
+    severity: medium
+    note: >
+      GNERC licence not yet applied for. Application planned after construction
+      permit issuance (Q3 2026). GNERC licence is required for commercial operation
+      and must be obtained before COD. GNERC processing delays are a known risk.
+
+  - risk_id: cfd_auction_competition
+    active: true
+    severity: medium
+    note: >
+      No CfD application submitted. CfD auction round not yet identified. Georgian
+      CfD auctions (2023: 300 MW; 2024: 800 MW) were oversubscribed. CfD award
+      is not guaranteed. Revenue is unconfirmed at this stage.
+
+  - risk_id: unclear_revenue_route
+    active: true
+    severity: high
+    note: >
+      Revenue route is entirely unconfirmed. CfD not applied for; ESCO market is
+      fallback only; no PPA discussions. IRR projections are speculative.
+
+  - risk_id: yield_unvalidated
+    active: true
+    severity: high
+    note: >
+      Hydrological study incomplete. Desktop estimate only with ±25% uncertainty.
+      P90 and dry year scenario not available. No independent assessor engaged.
+      Bankable yield assessment required before L2.
+
+  - risk_id: gel_usd_currency_risk
+    active: true
+    severity: medium
+    note: >
+      CfD tariff denomination unconfirmed. Civil works costs in GEL. Equipment
+      costs likely in USD/EUR. No currency sensitivity analysis available.
+
+  - risk_id: grid_congestion_west_georgia
+    active: false
+    note: >
+      Project is in Samtskhe-Javakheti (east Georgia). No material west Georgia
+      transmission congestion risk identified. GSE confirmation at connection
+      agreement stage recommended.

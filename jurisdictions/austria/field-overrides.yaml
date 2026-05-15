@@ -1,0 +1,224 @@
+# RALS Jurisdiction Package — Austria
+# field-overrides.yaml
+# Jurisdiction-specific interpretation of RALS base fields
+# Version: 0.1
+
+jurisdiction_code: AT
+
+fields:
+
+  identity.country:
+    required: true
+    importance: critical
+    allowed_values: ["AT"]
+    jurisdiction_note: >
+      Must be ISO 3166-1 alpha-2 "AT". Austrian assets are subject to federal and
+      Bundesland-level regulation. The Bundesland (region field) is highly relevant
+      for permitting risk assessment.
+
+  identity.region:
+    required: true
+    importance: high
+    allowed_values:
+      - Burgenland
+      - Carinthia
+      - Lower Austria
+      - Upper Austria
+      - Salzburg
+      - Styria
+      - Tyrol
+      - Vorarlberg
+      - Vienna
+    jurisdiction_note: >
+      The Bundesland is critical for permitting assessment. Wind development is heavily
+      restricted or effectively prohibited in Tyrol, Vorarlberg, and parts of Salzburg.
+      Burgenland and Lower Austria are the primary wind development regions.
+      PV development is active across all Bundesländer but setback and noise rules vary.
+    validation_warning: >
+      Wind assets in Alpine Bundesländer (Tyrol, Vorarlberg, Salzburg) require
+      explicit confirmation that cantonal spatial planning allows the proposed installation.
+
+  identity.lifecycle_stage:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      "ready_to_build" in Austria requires: (a) valid building permit or UVP decision
+      with no pending appeal, (b) confirmed grid connection offer (Netzanschlusszusage)
+      accepted or under execution, (c) land rights secured (Grundstücksvertrag or
+      Superädifikat). Absence of any of these conditions must be disclosed.
+
+  technical.technology:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      Hydro assets require a valid Wasserrechtsbescheid. Its duration and renewal
+      terms must be specified under compliance. BESS assets connected at distribution
+      level are regulated by the regional DSO; transmission-level BESS coordinates
+      with APG.
+
+  technical.capacity:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      Capacity thresholds trigger UVP requirements: PV ≥ 50 MWp (or as defined per
+      Bundesland spatial planning law), wind ≥ 6 turbines or ≥ 30 MW. Confirm
+      whether UVP applies and if the UVP decision is final and uncontested.
+
+  land.land_control_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - owned
+      - long_term_lease_secured
+      - option_agreement_signed
+      - option_under_negotiation
+      - not_secured
+    jurisdiction_note: >
+      Austrian land transactions for renewable projects typically use long-term lease
+      agreements (Bestandsverträge) of 20–30 years. For hydro assets, riparian rights
+      (Wasserrechte) and water-use agreements with adjacent landowners are also relevant.
+      Alpine terrain may involve shared ownership (Agrargemeinschaft) which requires
+      additional corporate consent steps.
+    validation_warning: >
+      Option agreements not yet converted to enforceable leases should be flagged as
+      land risk. Agrargemeinschaft land requires board approval.
+
+  land.land_evidence:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Expected evidence: signed Bestandsvertrag or Kaufvertrag registered in the
+      Grundbuch (land register), or a binding option agreement with clear conversion
+      timeline. For hydro: Wasserrechtsbescheid referencing the relevant water body.
+
+  grid_offtake.grid_connection_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - pre_application
+      - application_submitted
+      - feasibility_study_issued
+      - connection_offer_received
+      - connection_agreement_signed
+      - connected
+    jurisdiction_note: >
+      Austrian grid connection follows: (1) pre-application inquiry, (2) Netzstudie
+      (feasibility study, typically 8–16 weeks), (3) Netzanschlusszusage (connection
+      offer), (4) signed Netzanschlussvertrag. High-voltage connections (≥ 110 kV)
+      require APG coordination. Grid bottlenecks in some DSO areas may result in
+      conditional offers pending grid reinforcement with uncertain timelines.
+    validation_warning: >
+      A Netzstudie or Netzanschlusszusage that is more than 18 months old should be
+      re-confirmed with the Netzbetreiber. Grid capacity conditions may have changed.
+
+  grid_offtake.grid_capacity:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      DSO and APG capacity constraints are the primary grid risk in Austria. Confirm
+      whether the connection point is in a constrained zone. The pending ElWG reform
+      may introduce flexibility mechanisms, but these are not yet in force.
+
+  grid_offtake.connection_evidence:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      For L2 and above: a valid Netzanschlusszusage or signed Netzanschlussvertrag is
+      expected. For L3 (lender diligence): the signed agreement and confirmation that
+      grid reinforcement costs (if any) are defined and budgeted.
+
+  compliance.permitting_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - pre_application
+      - application_submitted
+      - under_review
+      - approved_not_final
+      - approved_final
+      - under_appeal
+      - rejected
+    jurisdiction_note: >
+      Austrian permitting is Bundesland-specific. Large projects (triggering UVP thresholds)
+      require a UVP decision from the Landesregierung or BMK. Smaller projects require
+      Baugenehmigung from municipal or Bezirk authorities under the applicable
+      Raumordnungsgesetz. Both must be final (rechtskräftig) for RTB classification.
+    validation_warning: >
+      "approved_not_final" status (within appeal window) must not be classified as RTB.
+      Austrian UVP decisions are frequently subject to NGO appeals. Confirm Rechtskraft.
+
+  compliance.environmental_status:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      UVP (Umweltverträglichkeitsprüfung) is the primary environmental permitting mechanism
+      for large Austrian renewables. Natura 2000 constraints apply to projects in or near
+      protected areas (Naturschutzgebiete, Europaschutzgebiete). Species surveys
+      (particularly birds and bats for wind) are expected at L2+.
+
+  revenue.revenue_model:
+    required: true
+    importance: critical
+    allowed_values:
+      - market_premium_eag
+      - feed_in_tariff_osg
+      - ppa_corporate
+      - ppa_utility
+      - merchant
+      - hybrid
+    jurisdiction_note: >
+      EAG market premium contracts are the primary support route for utility-scale assets.
+      Contracts are awarded via OeMAG tender rounds. A valid contract award notification
+      (Zuschlagsbescheid) from OeMAG is required to classify the revenue as supported.
+      Merchant or PPA-only assets carry higher revenue risk and should be flagged accordingly.
+
+  revenue.support_scheme:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      Specify: EAG market premium (Marktprämie), feed-in tariff (Einspeisetarif under ÖSG),
+      or none (merchant/PPA). For EAG contracts, include the tender round, awarded tariff
+      level (EUR/MWh), and contract duration.
+
+  financials.capex_confidence:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      Austria has well-established EPC contractors and established pricing benchmarks.
+      For Alpine or difficult terrain sites (wind, hydro, some PV), site-specific
+      engineering studies are expected at L2+. Grid reinforcement costs must be included
+      in total capex.
+
+  financials.opex_confidence:
+    required: false
+    importance: medium
+    jurisdiction_note: >
+      O&M benchmarks are well-established for PV and wind in Austria. For hydro,
+      concession fees (Wasserzins) and Wasserrechtsbescheid renewal costs should
+      be reflected in opex assumptions.
+
+  process.transaction_type:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Austrian M&A transactions typically use SPV share deals (GmbH or GmbH & Co KG).
+      Asset deals are less common due to transfer tax (Grunderwerbsteuer) and permitting
+      transfer considerations. Confirm SPV structure and whether permits are held at
+      SPV level.
+
+  process.data_room_status:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      For L2+: an NDA-accessible data room is expected with permit documents, land
+      agreements, grid connection letters, and technical reports. For L3+: full technical
+      due diligence package including yield assessment, grid study, and permit status
+      legal opinion is expected.
+
+  risks.risk_flags:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      See risks.yaml for Austria-specific risk taxonomy. Key flags to check:
+      land_not_secured, grid_not_secured, permitting_not_started, uvp_under_appeal,
+      hydro_concession_renewal, wind_state_restriction.

@@ -1,0 +1,208 @@
+# ============================================================================
+# RALS Jurisdiction Package — Austria
+# Example: austria-hydro-operating-l3.rals.yaml
+# ============================================================================
+# Asset:        Project Murbach (fictional)
+# Technology:   Small run-of-river hydro, operating
+# Stage:        Operating — L3 (refinancing)
+# Location:     Styria (Steiermark)
+# Purpose:      Demonstrates L3 operating hydro asset with valid Wasserrechtsbescheid,
+#               historical generation data, O&M records, and OeMAG FiT contract.
+# Risks shown:  Wasserrechtsbescheid expiry in 12 years (renewal risk disclosed),
+#               O&M contract expiring in 2 years, no independent yield reassessment
+#               for 4 years.
+# ============================================================================
+fictional: true
+source: "synthetic_example"
+confidentiality: "public_example"
+
+rals_version: "0.1"
+document_id: "rals:AT-EX-HY-OP-L3-001"
+generated_at: "2026-05-15T09:00:00Z"
+generated_by: "rals-jurisdiction-example-generator"
+language: "en"
+
+rals_jurisdiction:
+  jurisdiction_package: AT
+  rals_jurisdiction_version: "0.1"
+  assessed_readiness_level: L3
+  readiness_label: "Lender Diligence Ready"
+  jurisdiction_assessment_date: "2026-05-15"
+
+# ── Identity ─────────────────────────────────────────────────────────────────
+identity:
+  asset_name: "Project Murbach"
+  asset_type: hydro
+  lifecycle_stage: operating
+  country: AT
+  region: "Styria"
+  sub_region: "Murau District"
+  total_capacity_mw_ac: 4.2
+  site_area_hectares: 8
+  transaction_type: refinancing
+  equity_offered_pct: 100
+  spv_structure: true
+  spv_jurisdiction: "Austria"
+
+# ── Technical ─────────────────────────────────────────────────────────────────
+technical:
+  commissioning_date: "2008-06-01"
+  expected_lifetime_years: 60
+  hydro_type: run_of_river
+  head_m: 18.5
+  design_flow_m3s: 12.0
+  installed_capacity_mw: 4.2
+  production_estimates:
+    methodology: "Historical metered generation 2009–2025 (17 years)"
+    p50_gwh_yr: 22.1
+    p90_gwh_yr: 19.8
+    assessor: "TÜV Austria (2022 assessment)"
+    assessment_date: "2022-09-15"
+    historical_generation_available: true
+
+# ── Grid & Offtake ────────────────────────────────────────────────────────────
+grid_offtake:
+  grid_connection:
+    status: connected
+    grid_operator: "Netz Steiermark GmbH"
+    voltage_level_kv: 20
+    connection_point: "UW Murau"
+    connection_evidence: "Operational since 2008; Netzanschlussvertrag on file"
+  offtake_structure: feed_in_tariff
+  offtake_contracts:
+    - contract_type: feed_in_tariff_osg
+      counterparty: "OeMAG Abwicklungsstelle für Ökostrom AG"
+      counterparty_credit_rating: "State-backed"
+      tariff_eur_mwh: 81.4
+      start_date: "2008-06-01"
+      end_date: "2028-05-31"
+      remaining_years: 2.1
+      contract_note: >
+        ÖSG 2012 feed-in tariff contract expires May 2028. Post-expiry revenue will
+        be merchant (EPEX) unless EAG market premium tender is entered and awarded.
+        Revenue uncertainty after 2028 is material and must be disclosed.
+
+# ── Compliance ────────────────────────────────────────────────────────────────
+compliance:
+  permitting_status: approved_final
+  wasserrechtsbescheid:
+    status: valid
+    issuing_authority: "Wasserrechtsbehörde Steiermark (BH Murau)"
+    issued_date: "2007-03-15"
+    expiry_date: "2038-03-14"
+    remaining_years: 12.0
+    renewal_note: >
+      Wasserrechtsbescheid expires March 2038 — 12 years remaining. Water authority
+      (BH Murau) has indicated no formal objection to renewal based on current
+      operational record, but written commitment is not in place. Renewal risk:
+      MEDIUM. Any refinancing with tenor >10 years must address renewal pathway.
+  environmental_status: compliant
+  environmental_detail: >
+    All environmental monitoring conditions in Wasserrechtsbescheid are met.
+    Annual fish pass inspection reports on file 2009–2025. No material
+    environmental non-compliance recorded.
+
+# ── Land ─────────────────────────────────────────────────────────────────────
+land:
+  land_control_status: long_term_lease_secured
+  land_detail: >
+    25-year Bestandsvertrag with municipal landowner (Gemeinde Stadl-Murau) for
+    powerhouse, weir, and headrace area. Signed 2006; expires 2031.
+    Renewal clause in contract: 10-year automatic renewal unless terminated
+    by either party. Grundbuch extract: no adverse encumbrances.
+  land_risks:
+    - "Bestandsvertrag expires 2031 — 5 years remaining on original term; renewal clause in place"
+
+# ── Operating History ─────────────────────────────────────────────────────────
+operating_history:
+  years_operating: 17
+  historical_generation:
+    - year: 2023
+      gwh: 22.4
+    - year: 2024
+      gwh: 21.8
+    - year: 2025
+      gwh: 22.7
+  average_annual_gwh: 22.1
+  availability_pct: 96.2
+  om_contract:
+    operator: "Murbach Wasserkraft Betrieb GmbH"
+    contract_type: full_service
+    contract_expiry: "2028-05-31"
+    om_cost_eur_yr: 148000
+    om_note: "O&M contract co-terminous with OeMAG FiT. New O&M tender needed post-2028."
+
+# ── Financials ───────────────────────────────────────────────────────────────
+financials:
+  reporting_currency: EUR
+  ebitda_history:
+    - year: 2023
+      ebitda_eur: 1610000
+      margin_pct: 72
+    - year: 2024
+      ebitda_eur: 1570000
+      margin_pct: 71
+    - year: 2025
+      ebitda_eur: 1630000
+      margin_pct: 73
+  capex_confidence: high
+  capex_note: "No material capex anticipated until Wasserrechtsbescheid renewal period"
+  opex_eur_yr: 148000
+  opex_confidence: high
+  financial_model_available: true
+  financial_model_note: >
+    Lender-reviewed model available under NDA. Includes post-2028 merchant revenue
+    scenario (EPEX forward curves). DSCR >1.3x in base case; <1.1x in stressed
+    merchant scenario (P90 + -20% power price). Senior debt outstanding: EUR 2.1m.
+  senior_debt_outstanding_eur: 2100000
+  debt_maturity: "2029-06-30"
+  debt_note: "Existing debt with Raiffeisenbank Steiermark; refinancing at lower margin is motivation."
+
+# ── Process ──────────────────────────────────────────────────────────────────
+process:
+  process_type: bilateral
+  data_room_status: available_under_nda
+  data_room_platform: "SharePoint (advisor-hosted)"
+  data_room_contents:
+    - "Wasserrechtsbescheid (2007)"
+    - "Water authority informal renewal indication (letter, 2025)"
+    - "Netzanschlussvertrag"
+    - "OeMAG FiT contract"
+    - "Bestandsvertrag (land lease)"
+    - "Historical generation data 2009–2025"
+    - "TÜV Austria technical assessment (2022)"
+    - "O&M contract (Murbach Wasserkraft Betrieb)"
+    - "Annual fish pass inspection reports 2009–2025"
+    - "Lender-reviewed financial model"
+    - "Corporate structure and Grundbuch extracts"
+  asking_price:
+    indicated_range_eur_low: 12000000
+    indicated_range_eur_high: 15000000
+    ev_ebitda_multiple_implied: "7.5–9.5x"
+  process_timeline:
+    indicative_terms_due: "2026-07-31"
+    indicative_close: "2026-10-31"
+
+# ── Risk Flags ───────────────────────────────────────────────────────────────
+risk_flags:
+  - risk_id: hydro_concession_renewal
+    active: true
+    severity: medium
+    note: "Wasserrechtsbescheid expires 2038 (12 years). Renewal pathway not formally confirmed."
+  - risk_id: unclear_revenue_route
+    active: true
+    severity: medium
+    note: "OeMAG FiT expires May 2028. Post-2028 revenue: merchant unless EAG tender won."
+  - risk_id: land_not_secured
+    active: false
+    note: "Bestandsvertrag in place; renewal clause exists"
+  - risk_id: grid_not_secured
+    active: false
+    note: "Connected and operational since 2008"
+  - risk_id: permitting_under_appeal
+    active: false
+    note: "Wasserrechtsbescheid is final; no appeal"
+  - risk_id: yield_unvalidated
+    active: true
+    severity: low
+    note: "TÜV assessment from 2022 — consider refreshing for lender diligence"

@@ -1,0 +1,256 @@
+# RALS Jurisdiction Package — Austria
+# evidence-requirements.yaml
+# Required evidence by readiness level
+# Version: 0.1
+
+jurisdiction_code: AT
+
+readiness_levels:
+  - L0
+  - L1
+  - L2
+  - L3
+  - L4
+
+evidence_categories:
+
+  site_identification:
+    L0:
+      required: false
+      description: "General location description or region name acceptable"
+    L1:
+      required: true
+      description: "Municipality and approximate coordinates; confirmed site boundary concept"
+    L2:
+      required: true
+      description: "Precise site boundary (cadastral parcel numbers), zoning category confirmed"
+    L3:
+      required: true
+      description: "Signed cadastral plan, confirmed zoning, no material planning conflicts identified"
+    L4:
+      required: true
+      description: "Full survey-grade site plan as filed with permitting authority"
+
+  land_control:
+    L0:
+      required: false
+      description: "Not required at teaser level"
+    L1:
+      required: true
+      description: "Land ownership identified; contact with landowner established"
+    L2:
+      required: true
+      description: "Binding option agreement or signed Bestandsvertrag (lease) in place for primary parcels"
+      austria_note: >
+        Agrargemeinschaft land: board resolution authorising the option must be in place.
+    L3:
+      required: true
+      description: "Long-term Bestandsvertrag (≥20 years) signed and notarised; all key parcels covered"
+      austria_note: >
+        For hydro: Wasserrechtsbescheid references land-use rights. Confirm no encumbrances in Grundbuch.
+    L4:
+      required: true
+      description: "All land agreements registered or pre-registered; Grundbuch extract provided; no adverse entries"
+
+  grid_connection:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: "Preliminary grid inquiry submitted to Netzbetreiber; target connection point identified"
+    L2:
+      required: true
+      description: >
+        Valid Netzanschlusszusage (connection offer) received from DSO or APG;
+        connection voltage level and point confirmed; indicative cost estimate available
+      austria_note: >
+        Offers older than 18 months should be re-confirmed. Conditional offers pending
+        grid reinforcement must disclose reinforcement cost and timeline.
+    L3:
+      required: true
+      description: "Signed Netzanschlussvertrag; grid reinforcement scope and cost agreed; timeline confirmed"
+    L4:
+      required: true
+      description: "Signed agreement, grid reinforcement contracted or complete; energisation schedule agreed"
+
+  permitting:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: "Pre-application consultation with Behörde completed; UVP applicability assessed"
+    L2:
+      required: true
+      description: >
+        Building permit application submitted or UVP application lodged;
+        no major objections known from authority pre-screening
+    L3:
+      required: true
+      description: >
+        Valid, final (rechtskräftig) Baugenehmigung or UVP-Genehmigung in hand;
+        no pending appeals (Beschwerden) at VwG or VwGH
+      austria_note: >
+        Confirm Rechtskraft date and that the appeal period has fully expired.
+        NGO appeals (Bürgerinitiativen) to VwGH are common for wind projects.
+    L4:
+      required: true
+      description: "All conditions precedent in permit fulfilled; construction pre-conditions cleared"
+
+  environmental:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: "Preliminary Natura 2000 / Naturschutz screening completed; no fatal constraint identified"
+    L2:
+      required: true
+      description: >
+        Species surveys completed (birds and bats for wind; flora for all);
+        preliminary environmental impact assessment available
+    L3:
+      required: true
+      description: "Full environmental impact assessment as filed; species survey results included in UVP"
+    L4:
+      required: true
+      description: "All environmental conditions in UVP decision fulfilled; monitoring plan in place"
+
+  technical_design:
+    L0:
+      required: false
+      description: "Indicative layout or technology type sufficient"
+    L1:
+      required: true
+      description: "Preliminary layout; turbine/module type concept identified"
+    L2:
+      required: true
+      description: "Bankable technical concept; preliminary design basis; EPC indicative cost"
+    L3:
+      required: true
+      description: "Detailed technical design; equipment specifications confirmed; EPC procurement started"
+    L4:
+      required: true
+      description: "EPC contract signed; final BOP design; construction programme agreed"
+
+  energy_yield:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: "Desktop yield estimate using PVGIS / ERA5 / GWA; P50 indicated"
+    L2:
+      required: true
+      description: "Bankable yield assessment by recognised assessor (e.g. DNV, Pöyry, TÜV); P50 and P90"
+    L3:
+      required: true
+      description: "Independent yield assessment with ≥12 months on-site measurement data for wind"
+    L4:
+      required: true
+      description: "Final yield assessment signed by assessor; lender review completed"
+
+  revenue_model:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: true
+      description: "Revenue route identified (EAG tender, PPA, merchant)"
+    L2:
+      required: true
+      description: "Revenue model detailed; EAG tender round identified or PPA heads of terms"
+    L3:
+      required: true
+      description: >
+        Valid EAG Zuschlagsbescheid from OeMAG, or signed PPA, or documented merchant strategy
+        with downside analysis
+    L4:
+      required: true
+      description: "Revenue contracts final and bankable; lender review of PPA/support contract complete"
+
+  support_scheme:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: false
+      description: "Optional: indicate whether EAG tender eligibility has been assessed"
+    L2:
+      required: true
+      description: "EAG eligibility confirmed or alternative revenue route documented"
+    L3:
+      required: true
+      description: "OeMAG contract awarded (Zuschlagsbescheid) or equivalent revenue certainty"
+    L4:
+      required: true
+      description: "All revenue contracts final; OeMAG registration complete if applicable"
+
+  financial_model:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: false
+      description: "Indicative IRR/MOIC range acceptable"
+    L2:
+      required: true
+      description: "Investment-memo-grade financial model; key assumptions stated; sensitivity on P90"
+    L3:
+      required: true
+      description: "Lender-reviewed financial model; DSCR analysis; debt sizing confirmed"
+    L4:
+      required: true
+      description: "Agreed base case model; lender model audited by independent accountant"
+
+  corporate_ownership:
+    L0:
+      required: false
+      description: "Seller entity name acceptable"
+    L1:
+      required: true
+      description: "SPV structure described; UBO identified at summary level"
+    L2:
+      required: true
+      description: "Corporate structure chart; UBO identification; no material ownership dispute"
+    L3:
+      required: true
+      description: "Full corporate due diligence pack; UBO confirmed; no encumbrances on SPV shares"
+    L4:
+      required: true
+      description: "Legal opinion on title to SPV shares; signing authority confirmed"
+
+  data_room:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: false
+      description: "Optional: indicate data room platform if available"
+    L2:
+      required: true
+      description: "NDA-accessible data room with permit copies, land agreements, grid letters, technical summary"
+    L3:
+      required: true
+      description: "Full diligence data room; legal, technical, environmental, financial sections populated"
+    L4:
+      required: true
+      description: "Complete data room; all conditions precedent documents uploaded; VDD reports available"
+
+  insurance:
+    L0:
+      required: false
+      description: "Not required"
+    L1:
+      required: false
+      description: "Not required"
+    L2:
+      required: false
+      description: "Construction insurance concept described if under construction"
+    L3:
+      required: true
+      description: "Operating asset: all-risk, liability, and business interruption insurance active and assignable"
+    L4:
+      required: true
+      description: "Insurance review by lender's broker; assignment to lender documented"

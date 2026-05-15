@@ -1,0 +1,135 @@
+# RALS Jurisdiction Package — Vietnam
+# profile.yaml
+# Version: 0.1 | Status: active | Last reviewed: 2026-05-15
+
+jurisdiction_code: VN
+name: Vietnam
+rals_jurisdiction_version: "0.1"
+status: active
+last_reviewed: "2026-05-15"
+
+supported_technologies:
+  - solar_pv
+  - onshore_wind
+  - offshore_wind
+  - hydro
+  - bess
+
+common_transaction_types:
+  - full_acquisition
+  - majority_stake
+  - minority_stake
+  - refinancing
+  - joint_venture
+
+common_lifecycle_stages:
+  - greenfield
+  - development
+  - ready_to_build
+  - under_construction
+  - operating
+  - repowering_candidate
+
+primary_authorities:
+  energy_ministry: "Ministry of Industry and Trade (MOIT)"
+  energy_ministry_url: "https://www.moit.gov.vn"
+  state_utility: "Vietnam Electricity (EVN)"
+  state_utility_url: "https://www.evn.com.vn"
+  grid_dispatch: "National Load Dispatch Centre (NLDC — A0)"
+  environmental_authority: "Ministry of Natural Resources and Environment (MoNRE)"
+  environmental_authority_url: "https://www.monre.gov.vn"
+  investment_authority: "Ministry of Planning and Investment (MPI) / provincial DPI for IRC"
+  provincial_authorities: >
+    Provincial People's Committees (PPC) hold significant permitting and land-use
+    authority. Construction permits are issued by provincial Construction Departments.
+    Land use conversion approvals are made at provincial level.
+
+grid_authorities:
+  monopoly_utility: "Vietnam Electricity (EVN)"
+  grid_operator_note: >
+    EVN holds a monopoly over electricity transmission, distribution, and wholesale
+    purchasing in Vietnam. EVN is simultaneously the national grid operator, the primary
+    power buyer under EVN Power Purchase Agreements, and the parent of regional
+    distribution companies (EDCs). There is no independent system operator.
+  dispatch_centre: "NLDC (National Load Dispatch Centre / Trung tâm Điều độ Hệ thống điện Quốc gia, A0)"
+  grid_connection_process: >
+    Developer submits a grid connection application to NLDC/EVN. EVN issues a technical
+    conditions letter (thư kỹ thuật) typically within 30–45 days. A Grid Connection
+    Agreement is then negotiated and signed. Total process from application to signed
+    agreement: typically 6–12 months. Developer must fund evacuation line and substation
+    connection works if required.
+  grid_capacity_note: >
+    Vietnam faces severe transmission bottlenecks, particularly in south-central provinces
+    (Ninh Thuan, Binh Thuan, Khanh Hoa) where solar and wind capacity has significantly
+    outpaced grid investment. Curtailment in these zones reached 364 GWh of solar in 2020
+    alone. EVN's congestion management is non-transparent and quota-based. Grid
+    reinforcement timelines are unpredictable and depend on EVN/government capital allocation.
+
+market_design_notes:
+  fit_status: >
+    Vietnam's FiT (Feed-in Tariff) programmes — FiT 1 (2017), FiT 2 (2019), and FiT 3
+    (2020) — have all expired. No active FiT scheme exists as of 2025–2026. Projects that
+    commissioned under legacy FiT contracts continue to receive those tariffs for their
+    contracted term, but no new FiT contracts are being awarded. Any asset claiming active
+    FiT revenue should be verified against the contract's commissioning date and tariff term.
+  current_framework: >
+    Decree 58/2025/ND-CP establishes the current market-based framework for renewable
+    energy. Transitional projects (those developed under prior frameworks but not yet
+    commissioned) sell at market prices. The government guarantees a minimum contracted
+    output of 70% for 12 years for eligible transitional projects. New projects participate
+    in the Vietnam Wholesale Electricity Market (VWEM) spot market via EVN.
+  dppa_framework: >
+    Decree 57/2025 establishes the Direct Power Purchase Agreement (DPPA) framework,
+    allowing renewable generators to sell power directly to large industrial consumers
+    (minimum load 300 kW). Under DPPA, the generator also signs a contract with EVN
+    for VWEM spot market sales for output not contracted via DPPA. DPPA is the primary
+    bankable revenue route for new projects as of 2025–2026.
+  auction_status: >
+    No active competitive auction (AUCTT) mechanism for renewable energy is operational
+    as of 2025. Government has indicated auctions may be introduced but no firm timeline
+    or regulation exists.
+  evn_counterparty_note: >
+    EVN PPAs are widely viewed by international investors and lenders as un-bankable
+    in their standard form. Key concerns include: unfavorable force majeure definitions,
+    termination provisions that do not protect developer adequately, absence of
+    government guarantee on EVN payment obligations, and currency mismatch (VND-denominated
+    contracts vs USD-denominated financing). Significant legal and financial structuring
+    is typically required to make EVN contracts acceptable to international debt providers.
+  curtailment_note: >
+    Curtailment in south-central Vietnam is severe and systemic. Most EVN and DPPA
+    contracts do not include curtailment compensation mechanisms. Developers bear
+    full curtailment risk. Historical curtailment at some Ninh Thuan and Binh Thuan
+    sites has exceeded 20% of potential generation annually.
+
+key_transaction_risks:
+  - evn_counterparty_risk
+  - curtailment_uncompensated
+  - decree_regulatory_instability
+  - fx_convertibility_risk
+  - lurc_agricultural_conversion
+  - evn_grid_monopoly
+  - jv_structure_complexity
+  - ppa_bankability
+
+validation_scope:
+  covers:
+    - field_interpretation
+    - evidence_requirements
+    - readiness_level_assignment
+    - risk_flag_evaluation
+  does_not_cover:
+    - legal_title_verification
+    - financial_model_audit
+    - tax_structuring
+    - regulatory_compliance_certification
+    - vietnamese_law_advice
+
+disclaimer: >
+  This jurisdiction package is a technical reference for transaction-readiness assessment.
+  It is not legal advice. Vietnam's renewable energy regulatory framework is subject to
+  frequent and material change — including at the level of government decrees. The
+  Decree 57/2025 and Decree 58/2025/ND-CP frameworks described here reflect the position
+  as of May 2026. Always verify current requirements with qualified Vietnamese legal
+  counsel, an experienced local advisor, and MOIT/EVN directly before relying on this
+  package for a specific transaction. Foreign investors should obtain independent FX
+  and repatriation advice from a bank authorised to operate in Vietnam.

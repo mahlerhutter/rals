@@ -1,0 +1,222 @@
+# RALS Jurisdiction Package — Italy
+# field-overrides.yaml
+# Jurisdiction-specific interpretation of RALS base fields
+# Version: 0.1
+
+jurisdiction_code: IT
+
+fields:
+
+  identity.country:
+    required: true
+    importance: critical
+    allowed_values: ["IT"]
+    jurisdiction_note: >
+      ISO 3166-1 alpha-2 "IT". Italian assets are subject to national MASE rules,
+      regional (Regione) competences, and ARERA/Terna grid regulation.
+
+  identity.region:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      The Italian Regione (administrative region) is critical for permitting risk.
+      Southern regions (Puglia, Campania, Basilicata, Calabria, Sicily, Sardinia)
+      have the best renewable resource but the highest permitting variability and
+      grid saturation risk. Northern regions (Lombardia, Veneto, Trentino) have
+      less resource but typically faster administrative processes.
+    validation_warning: >
+      Puglia, Sicily, Sardinia: confirm no active regional moratorium or special
+      landscape designation affecting the specific site before assigning L2+.
+
+  identity.lifecycle_stage:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      "ready_to_build" in Italy REQUIRES: (a) Autorizzazione Unica (AU) final and
+      not under TAR or Consiglio di Stato appeal; (b) Soluzione di Connessione (SdC)
+      accepted and Convention signed; (c) Land under enforceable lease or purchase
+      agreement. Projects with "AU granted but appealed" must be classified at L1 maximum
+      until appeal is dismissed.
+    validation_warning: >
+      Italian AU decisions are routinely appealed at TAR Regionale and escalated to
+      Consiglio di Stato. Confirm no pending judicial challenge before classifying as RTB.
+
+  technical.technology:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      BESS assets require ARERA registration and comply with resolution 247/2023.
+      Offshore wind is subject to specific MASE authorization procedures and
+      is at very early development stage in Italy as of 2026.
+
+  technical.capacity:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      Projects ≥ 1 MW typically require Autorizzazione Unica (AU) from Regione.
+      Strategic or very large projects may be subject to national authorization via
+      MASE/CIPESS commission. Confirm applicable authorization track in compliance section.
+
+  land.land_control_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - owned
+      - long_term_lease_secured
+      - preliminary_deed_signed
+      - option_agreement_signed
+      - option_under_negotiation
+      - not_secured
+    jurisdiction_note: >
+      Italian land transactions for PV and wind use: contratto d'affitto (agricultural
+      lease, minimum 15 years for renewable use), compromesso/contratto preliminare
+      (preliminary purchase), or rogito notarile (notarised deed). All land agreements
+      should be reviewed for superficiario rights and cadastral category. Agricultural
+      land (terreni agricoli) conversion to industrial use is a key permitting constraint.
+    validation_warning: >
+      Mere letters of intent (LOI) or informal landowner agreements are not enforceable.
+      Must be a signed, legally binding agreement reviewed by Italian notary or lawyer.
+
+  land.land_evidence:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Expected evidence: signed contratto d'affitto or compromesso registered with
+      Agenzia delle Entrate; cadastral (catasto) extract confirming parcel category;
+      visura ipotecaria confirming no adverse mortgage or encumbrance.
+
+  grid_offtake.grid_connection_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - pre_application
+      - sdC_request_submitted
+      - sdC_issued
+      - sdC_accepted
+      - convention_signed
+      - construction_started
+      - connected
+    jurisdiction_note: >
+      Italy uses the "Soluzione di Connessione" (SdC) process. SdC issuance by Terna
+      or DSO is a milestone; acceptance (within 45 days) triggers cost obligations.
+      Convention (Convenzione di connessione) signing is the last formal step before
+      physical works. Queue position and acceptance of SdC are key evidence points.
+    validation_warning: >
+      Terna has imposed moratoria on SdC issuance in severely constrained zones
+      (particularly Southern Italy HV substations). Verify current queue status with Terna.
+
+  grid_offtake.grid_capacity:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      Italy's grid capacity situation is the primary transaction risk for Southern
+      Italian assets. Connection costs can range from EUR 0.5m (small PV, rural DSO)
+      to EUR 15m+ (large wind or PV requiring new Terna substation or line).
+    validation_warning: >
+      Grid connection cost must be included in total project capex. Unbudgeted
+      connection costs are a common cause of project distress in Italian M&A.
+
+  grid_offtake.connection_evidence:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      For L2: accepted SdC plus indicative connection cost estimate.
+      For L3: signed Convention (Convenzione di connessione) with Terna/DSO.
+      Include connection cost amount and timeline in the data room.
+
+  compliance.permitting_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - pre_application
+      - application_submitted
+      - under_review
+      - au_granted_not_final
+      - au_granted_final
+      - under_tar_appeal
+      - under_consiglio_di_stato_appeal
+      - rejected
+    jurisdiction_note: >
+      AU (Autorizzazione Unica) is the primary permitting milestone. AU "granted but
+      not final" includes the 60-day judicial challenge window. "au_granted_final"
+      means no pending TAR or Consiglio di Stato proceedings. For projects using PAS
+      or DILA, confirm the correct authorization code.
+    validation_warning: >
+      TAR and Consiglio di Stato appeals against AU decisions can take 12–36 months
+      and may result in annulment of the permit. Never classify as RTB unless AU is
+      final with no pending judicial challenge.
+
+  compliance.environmental_status:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      VIA (Valutazione di Impatto Ambientale) is typically integrated in the AU
+      procedure. Separate PAUR (Provvedimento Autorizzatorio Unico Regionale) may
+      apply for projects with complex environmental assessments. For wind in mountain
+      or coastal areas: avifauna and landscape impact studies are expected.
+
+  revenue.revenue_model:
+    required: true
+    importance: critical
+    allowed_values:
+      - gse_fer_incentive
+      - ppa_corporate
+      - ppa_utility
+      - merchant_gme
+      - capacity_market_msd
+      - hybrid
+    jurisdiction_note: >
+      FER 1 / FER 2 / FER X GSE incentive contracts are the primary support route.
+      Contracts are awarded via GSE tender (aste). A valid GSE contract admission
+      (ammissione) or award (aggiudicazione) is required for L3 revenue certainty.
+      PPA market (contratti di acquisto di lungo periodo) is growing for large assets.
+
+  revenue.support_scheme:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      Specify: FER 1, FER 2, FER X, or none (merchant/PPA). For GSE contracts:
+      include auction round, awarded incentive rate (EUR/MWh), contract duration (20 years),
+      and GSE CUP code if available. Confirm transferability of GSE contract in M&A context.
+    validation_warning: >
+      GSE incentive contracts may require GSE approval for assignment in M&A context.
+      Confirm transferability procedure with GSE before executing a share deal.
+
+  financials.capex_confidence:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      Grid connection costs are the primary capex uncertainty in Italy. EPC costs for
+      Southern Italian PV are well-benchmarked; wind EPC has logistics and road access
+      premiums. BESS capex benchmarks are evolving (2024–2026 is still early market).
+
+  financials.opex_confidence:
+    required: false
+    importance: medium
+    jurisdiction_note: >
+      Italian PV O&M benchmarks are well-established. Wind O&M in Southern Italy
+      carries terrain and logistics premiums. Include IMU (real estate tax) and
+      agricultural land lease costs in opex.
+
+  process.transaction_type:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Italian renewable M&A typically uses SPV share deals (S.r.l. or S.p.A.).
+      Asset deals are uncommon due to stamp duty and permit transfer complexity.
+      Confirm permits are held at SPV level and that GSE contract is assigned to the SPV.
+
+  process.data_room_status:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      For L2+: data room should include AU document, SdC acceptance, land agreements,
+      GSE admission/award letters, environmental studies, and technical reports.
+
+  risks.risk_flags:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      See risks.yaml for Italy-specific risk taxonomy. Key flags:
+      au_under_appeal, grid_queue_saturation, land_not_secured,
+      gse_contract_not_transferable, curtailment_southern_italy.

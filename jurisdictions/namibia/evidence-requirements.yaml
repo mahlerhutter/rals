@@ -1,0 +1,297 @@
+# RALS Jurisdiction Package — Namibia
+# evidence-requirements.yaml
+# Version: 0.1
+
+jurisdiction_code: NA
+
+global_note: >
+  Namibia's Modified Single Buyer model means NamPower is the single grid connection
+  authority and the only wholesale electricity buyer. Evidence requirements therefore
+  treat NamPower grid and PPA documentation as hard gate conditions at L3.
+  Communal land without formal registration is a hard cap at L1 maximum.
+  The generation licence requires Minister of Mines and Energy approval — not only
+  a RERA recommendation — which must be evidenced at L3.
+
+evidence_categories:
+
+  site_identification:
+    L0:
+      required: false
+      description: "Region and approximate capacity acceptable. Technology type identified."
+    L1:
+      required: true
+      description: "Specific region and district identified; GPS coordinates or cadastral reference available; no fatal site constraint apparent (e.g., protected area)"
+    L2:
+      required: true
+      description: >
+        Specific site identified with cadastral reference or survey coordinates;
+        land tenure type confirmed (freehold, state lease, communal);
+        no protected area or exclusion zone conflict identified;
+        NamPower connection point concept identified
+    L3:
+      required: true
+      description: >
+        Full cadastral registration or registered state lease confirmed;
+        site boundary survey complete; environmental sensitivity confirmed (no Natura-equivalent
+        protected area conflicts); NamPower confirmed connection point
+    L4:
+      required: true
+      description: "Survey-grade site plan; all cadastral records confirmed; Deeds Office registration verified"
+
+  land_control:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: >
+        Land tenure type identified (freehold, state lease, communal registered,
+        communal unregistered). If communal unregistered: documented and flagged as L1 maximum.
+    L2:
+      required: true
+      description: >
+        Freehold title deed or registered state lease agreement confirmed;
+        Deeds Office registration evidenced; no encumbrances;
+        OR communal registered: Communal Land Board registration certificate.
+        Communal unregistered: MAXIMUM L1 — cannot progress.
+      namibia_note: >
+        Power of Attorney agreements or informal community consent letters are NOT
+        acceptable land control evidence at L2. A registered right must be provided.
+        For state leases: signed lease with Ministry of Lands and Deeds Office registration.
+    L3:
+      required: true
+      description: >
+        Long-term freehold title or registered state lease (25+ years) confirmed;
+        legal opinion from Namibian counsel on title validity and absence of encumbrances;
+        land control covers full project site footprint (not partial)
+    L4:
+      required: true
+      description: "All land agreements final; Deeds Office registration confirmed; no adverse entries; legal opinion updated"
+
+  grid_connection:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "NamPower as grid operator confirmed; target region and approximate connection point concept identified"
+    L2:
+      required: true
+      description: >
+        NamPower grid connection inquiry submitted;
+        NamPower technical feasibility study complete or in progress;
+        connection point concept confirmed with NamPower
+      namibia_note: >
+        NamPower feasibility study timeline: 6–12 months from inquiry.
+        Do not assume grid capacity without NamPower confirmation.
+        Grid capacity is limited (~1.5 GW peak demand); large projects need explicit NamPower confirmation.
+    L3:
+      required: true
+      description: >
+        NamPower technical feasibility study complete (issued to developer);
+        NamPower Grid Connection Agreement signed;
+        connection costs and timeline confirmed by NamPower
+    L4:
+      required: true
+      description: "Connection agreement executed; physical connection works contracted; energisation date confirmed"
+
+  permitting_ecc:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "EIA requirement confirmed; no fatal environmental constraint identified (e.g., not in protected area)"
+    L2:
+      required: true
+      description: >
+        EIA scoping initiated with MEFT Department of Environmental Affairs;
+        EIA application submitted or ECC application submitted
+    L3:
+      required: true
+      description: >
+        Environmental Clearance Certificate (ECC) granted by MEFT;
+        ECC validity confirmed to cover construction period (3-year validity);
+        any ECC conditions reviewed and accepted
+    L4:
+      required: true
+      description: "ECC final; conditions fulfilled; no challenge or appeal pending; validity confirmed through construction"
+
+  permitting_generation_licence:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "RERA generation licence requirement confirmed; no regulatory bar to application"
+    L2:
+      required: true
+      description: >
+        RERA generation licence application submitted;
+        application includes: corporate documents, land rights evidence, location map;
+        RERA application confirmed complete (docketed)
+      namibia_note: >
+        Application must be complete and docketed by RERA. Incomplete applications
+        do not start the clock. Timeline from complete application to RERA recommendation: 3–6 months.
+        Minister of Mines and Energy then makes the final decision.
+    L3:
+      required: true
+      description: >
+        Generation licence granted by Minister of Mines and Energy
+        (not only RERA recommendation — Minister's decision required);
+        licence conditions reviewed and accepted
+      namibia_note: >
+        A positive RERA recommendation is NOT sufficient for L3. The Minister's final
+        decision is required. "RERA recommendation issued + minister_decision_pending"
+        supports maximum L2 only.
+    L4:
+      required: true
+      description: "Generation licence final; all conditions fulfilled; no appeal or challenge pending"
+
+  local_authority_notification:
+    L0:
+      required: false
+    L1:
+      required: false
+    L2:
+      required: true
+      description: >
+        For communal area projects: notification to Communal Authority (Traditional Authority)
+        documented; community engagement summary available.
+        For freehold/state lease: confirm no communal land adjacency issues requiring notification.
+    L3:
+      required: true
+      description: "Community consultation complete; any communal authority consent or notification documented"
+    L4:
+      required: true
+      description: "All community consultation records finalised; no outstanding community disputes"
+
+  technical_design:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "Technology type and approximate capacity identified"
+    L2:
+      required: true
+      description: "Preliminary technical concept; indicative turbine or panel layout; EPC indicative cost estimate"
+    L3:
+      required: true
+      description: "Detailed design; EPC procurement initiated or term sheet; technology selected"
+    L4:
+      required: true
+      description: "EPC contract signed; equipment procurement commitments; construction programme agreed"
+
+  energy_yield:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "Desktop yield estimate (e.g., Global Solar Atlas or Global Wind Atlas); P50 indicative"
+    L2:
+      required: true
+      description: >
+        Bankable yield assessment by a recognised assessor;
+        P50 and P90 calculated;
+        for wind: on-site met mast data minimum 6 months preferred
+    L3:
+      required: true
+      description: >
+        Independent bankable yield assessment;
+        for wind: on-site data ≥12 months;
+        curtailment and grid availability modelled (NamPower grid constraints);
+        assessor acceptable to lenders
+    L4:
+      required: true
+      description: "Final yield assessment; lender's independent engineer review complete; P50/P90 agreed"
+
+  revenue_and_offtake:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "Revenue route concept identified (NamPower MSB PPA, IPP tender, REFIT legacy, H2 offtake)"
+    L2:
+      required: true
+      description: >
+        NamPower engagement documented (letter of intent, feasibility MoU, or tender submission);
+        for ipp_tender_bid: bid submitted to NamPower, award pending;
+        for nampower_ppa: heads of terms or PPA term sheet;
+        REFIT legacy: existing REFIT licence documented;
+        H2 component: must be evidenced or treated as L0
+      namibia_note: >
+        An IPP tender bid submission supports L2. Award is required for L3.
+        H2 offtake without a signed agreement is L0 — do not elevate the overall
+        project level based on an H2 concept.
+    L3:
+      required: true
+      description: >
+        Signed NamPower PPA (MSB model) with RERA-approved tariff;
+        OR confirmed IPP tender award with PPA heads of terms signed;
+        REFIT legacy: REFIT licence and existing off-take agreement confirmed;
+        H2 component (if applicable): signed H2 offtake agreement with named creditworthy counterparty
+    L4:
+      required: true
+      description: "Revenue contracts final; PPA executed and effective; tariff confirmed; NamPower obligations clear"
+
+  financial_model:
+    L0:
+      required: false
+    L1:
+      required: false
+    L2:
+      required: true
+      description: >
+        Investment memo financial model;
+        NAD/EUR or NAD/USD FX risk addressed;
+        local content structuring cost (if IPP tender) modelled;
+        NamPower PPA tariff assumed or IPP tender pricing
+    L3:
+      required: true
+      description: >
+        Lender-reviewed financial model (DSCR, equity IRR);
+        NamPower PPA tariff confirmed;
+        FX risk modelled with NAD peg to ZAR noted;
+        EPC and O&M cost benchmarked (including Namibian contractor premium)
+    L4:
+      required: true
+      description: "Agreed base case model; audited; all assumptions confirmed with NamPower, lender, and EPC contractor"
+
+  corporate_ownership:
+    L0:
+      required: false
+    L1:
+      required: true
+      description: "Developer entity identified; Namibian Pty Ltd or foreign developer with Namibian JV concept; UBO identified"
+    L2:
+      required: true
+      description: >
+        Corporate structure documented; UBO confirmed;
+        for IPP tender projects: local content ownership structure (39% Namibian / 20% PDN) described;
+        AML/KYC screening completed
+    L3:
+      required: true
+      description: >
+        Full corporate DD; UBO confirmed with legal opinion;
+        local content compliance structure confirmed by Namibian counsel;
+        profit repatriation structure and FX conversion mechanism confirmed
+    L4:
+      required: true
+      description: "Legal opinion on corporate structure; signing authority; transfer mechanics agreed; local content compliance final"
+
+  data_room:
+    L0:
+      required: false
+    L1:
+      required: false
+    L2:
+      required: true
+      description: >
+        NDA-accessible data room;
+        land documents (title deed or registered lease or Communal Land Board certificate);
+        ECC application or ECC certificate;
+        RERA application confirmation;
+        NamPower grid inquiry evidence;
+        corporate structure
+    L3:
+      required: true
+      description: "Full diligence data room; all sections populated; signed NamPower PPA; ECC; generation licence; land title"
+    L4:
+      required: true
+      description: "Complete data room; VDD reports; all CP documents"

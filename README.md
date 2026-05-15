@@ -49,6 +49,15 @@ The roadmap toward v0.2 is consolidated in [RFC-0002](rfcs/0002-v0.2-roadmap.md)
 - **Bring-your-own-data-room.** RALS does not replace Drooms, Datasite, or Intralinks. It is the structured index that points into them.
 - **Seven sections.** `identity`, `technical`, `grid_offtake`, `financials`, `compliance`, `operating_history`, `process`.
 
+## Jurisdiction Packages
+
+RALS Jurisdiction Packages extend the base standard with country-specific interpretation, evidence requirements, readiness rules, and risk taxonomies. A validator equipped with a Jurisdiction Package can assess not just whether a RALS document is structurally valid, but whether it meets the evidence standards required for a specific readiness level in a specific country.
+
+Initial packages are available for **Austria, Italy, Romania, Ukraine, Germany, Vietnam, Namibia, Georgia, and Chile**.
+
+- → [`jurisdictions/README.md`](jurisdictions/README.md) — Package overview, validator workflow, and supported countries
+- → [`docs/rfcs/RFC-0003-jurisdiction-packages.md`](docs/rfcs/RFC-0003-jurisdiction-packages.md) — Design rationale and formal specification
+
 ## Repository layout
 
 | Path | Contents |
@@ -56,9 +65,10 @@ The roadmap toward v0.2 is consolidated in [RFC-0002](rfcs/0002-v0.2-roadmap.md)
 | [`SPEC.md`](SPEC.md) | The normative specification (v0.1). |
 | [`schema/`](schema/) | JSON Schema for validation. |
 | [`examples/`](examples/) | Six complete reference documents plus invalid cases. |
+| [`jurisdictions/`](jurisdictions/) | Jurisdiction Packages (AT, IT, RO, UA, DE, VN, NA, GE, CL). |
 | [`reference/`](reference/) | Reference validator, parsers, and auth-server. |
 | [`discovery/`](discovery/) | Discovery and authentication mechanism specs. |
-| [`docs/`](docs/) | Quickstarts, glossary, and compliance mappings. |
+| [`docs/`](docs/) | Quickstarts, glossary, compliance mappings, and RFCs. |
 | [`rfcs/`](rfcs/) | Design RFCs, including the v0.2 roadmap. |
 | [`tests/`](tests/) | Conformance test suite. |
 

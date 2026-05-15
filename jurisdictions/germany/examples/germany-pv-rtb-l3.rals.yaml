@@ -1,0 +1,249 @@
+# ============================================================================
+# RALS Jurisdiction Package — Germany (DE)
+# Example: germany-pv-rtb-l3.rals.yaml
+# ============================================================================
+# Asset:        Project Solarpark Saale (fictional)
+# Technology:   Ground-mount solar PV
+# Stage:        Ready-to-Build — L3 (Lender Diligence Ready)
+# Location:     Saalekreis, Saxony-Anhalt
+# Purpose:      Demonstrates a German solar PV project at L3.
+#               Bebauungsplan final. Baugenehmigung rechtskräftig (no appeal).
+#               Signed NAV. All parcels under signed Pachtvertrag with
+#               Grundbuch registrations complete. EEG auction won (Zuschlagsbescheid
+#               in hand). Bankable yield assessment. No Rotmilan risk.
+#               L3 classification is supportable. Revenue risk is low (EEG).
+# ============================================================================
+fictional: true
+source: "synthetic_example"
+confidentiality: "public_example"
+
+rals_version: "0.1"
+document_id: "rals:DE-EX-PV-RTB-L3-001"
+generated_at: "2026-05-15T09:00:00Z"
+generated_by: "rals-jurisdiction-example-generator"
+language: "en"
+
+rals_jurisdiction:
+  jurisdiction_package: DE
+  rals_jurisdiction_version: "0.1"
+  assessed_readiness_level: L3
+  readiness_label: "Lender Diligence Ready"
+  jurisdiction_assessment_date: "2026-05-15"
+  validation_notes:
+    - "Baugenehmigung rechtskräftig confirmed in writing from Bauordnungsamt Saalekreis"
+    - "EEG Zuschlagsbescheid in hand; commissioning deadline March 2028 — 22 months away"
+    - "NAV signed unconditionally with 50Hertz; NVP fixed at UW Halle-West 110 kV"
+    - "Post-2026 EEG: Zuschlagsbescheid pre-dates EEG scheme expiry; reference price locked"
+    - "RISK: commissioning must be achieved by March 2028 or Zuschlagsbescheid expires"
+
+# ── Identity ─────────────────────────────────────────────────────────────────
+identity:
+  asset_name: "Project Solarpark Saale"
+  asset_type: solar_pv
+  lifecycle_stage: ready_to_build
+  country: DE
+  region: "Saxony-Anhalt"
+  sub_region: "Saalekreis"
+  total_capacity_mw_ac: 72.0
+  total_capacity_mw_dc: 90.0
+  dc_ac_ratio: 1.25
+  site_area_hectares: 115
+  transaction_type: full_acquisition
+  equity_offered_pct: 100
+  spv_structure: true
+  spv_jurisdiction: "Germany"
+
+# ── Technical ─────────────────────────────────────────────────────────────────
+technical:
+  expected_lifetime_years: 30
+  design_basis_year: 2025
+  mounting:
+    type: fixed_tilt
+    tilt_angle_deg: 25
+    bifacial: true
+  module:
+    technology: "Bifacial PERC/TOPCon — JinkoSolar/Canadian Solar shortlisted (not contracted)"
+    power_w_peak: 660
+  inverter:
+    type: "Central inverter — Sungrow or ABB (not contracted)"
+  production_estimates:
+    methodology: "PVGIS v5.2 + on-site irradiance data cross-check; Meteonorm validation"
+    p50_gwh_yr: 78.5
+    p90_gwh_yr: 72.1
+    assessor: "TÜV Rheinland Energy GmbH"
+    assessment_date: "2025-11-15"
+    assessment_quality: bankable_independent
+    curtailment_modelled: true
+    curtailment_assumption_pct: 2.0
+    assessment_note: >
+      Bankable independent yield assessment by TÜV Rheinland. Saalekreis irradiance
+      data used (DWD station Halle). Soiling and degradation included (0.5%/yr).
+      2% Redispatch 2.0 curtailment applied based on 50Hertz 2023–2024 transparency
+      data — Saalekreis node not in heavily congested zone.
+
+# ── Grid & Offtake ────────────────────────────────────────────────────────────
+grid_offtake:
+  grid_connection:
+    status: nav_signed
+    grid_operator: "50Hertz Transmission GmbH"
+    voltage_level_kv: 110
+    connection_point: "UW Halle-West 110 kV (50Hertz)"
+    connection_evidence: >
+      NAB submitted to 50Hertz April 2025. NAZ issued July 2025 — UNCONDITIONAL.
+      Grid capacity at UW Halle-West confirmed for 72 MW AC injection without
+      reinforcement. NAV signed November 2025. Connection fee paid (EUR 640,000).
+      50Hertz grid execution schedule: Q4 2026 (substation bay extension only;
+      no major works). Connection infrastructure: single 110 kV cable run 2.4 km
+      to UW Halle-West. Developer's cable contractor (Prysmian) contracted.
+  offtake_structure: eeg_market_premium
+  revenue_model: eeg_market_premium
+  revenue_note: >
+    EEG market premium won at BNetzA ground-mount solar auction (March 2026).
+    Zuschlagsbescheid (auction award letter) issued April 2026.
+    Reference price (Referenzvergütung): EUR 6.48/MWh.
+    Support term: 20 years from first commissioning date.
+    Commissioning deadline: March 31, 2028 (24 months from award).
+    Direktvermarktungsvertrag signed with ENERTRAG Direktvermarktung GmbH.
+    Revenue is locked for 20 years at EEG reference price + market premium.
+    Post-2026 EEG reform risk: Zuschlagsbescheid pre-dates any potential regime
+    change; grandfathering expected but not yet codified in new law.
+
+# ── Compliance ────────────────────────────────────────────────────────────────
+compliance:
+  permitting_status: permit_rechtskraeftig
+  permitting_authority: "Bauordnungsamt Saalekreis; Bebauungsplan: Gemeinde Teutschenthal"
+  permitting_detail: >
+    Bebauungsplan (local land-use plan) finalized by Gemeinde Teutschenthal,
+    September 2024. No objections raised during public participation process.
+    Baugenehmigung (building permit) issued January 2026 by Bauordnungsamt Saalekreis.
+    1-month appeal window: closed February 28, 2026. No appeals received.
+    Written Rechtskraft confirmation from Bauordnungsamt dated March 5, 2026: in data room.
+    Permit valid for 3 years (start of construction by January 2029 — within timeline).
+  environmental_status: compliant
+  environmental_detail: >
+    Natura 2000 screening: site not in or adjacent to protected area (confirmed by
+    Lower Saxony-Anhalt environmental authority). No sensitive habitats on site.
+    UVP screening: not required (site below threshold for mandatory UVP).
+    Artenschutzrechtliche Vorprüfung: no significant species impact identified.
+    No Rotmilan territory within 3 km (confirmed by ecological survey, June 2025).
+    Bat survey: minor foraging use; no constraint. No mitigation requirements.
+
+# ── Land ─────────────────────────────────────────────────────────────────────
+land:
+  land_control_status: pachtvertrag_signed
+  land_parcels: 9
+  land_area_ha: 115
+  land_detail: >
+    9 parcels (115 ha). All under signed Pachtvertrag (agricultural lease,
+    30-year term, from 2024). Annual land payments: EUR 1,200/ha (total EUR 138k/yr).
+    Grundbuchauszüge obtained for all 9 parcels: clean title; no encumbrances.
+    Dienstbarkeit (easement) for 2.4 km 110 kV cable route registered in Grundbuch.
+    Access road easement registered in Grundbuch.
+    Landowners: 4 private agricultural owners (parcels 1–7) and 1 municipality
+    (parcels 8–9, Gemeinde Teutschenthal).
+    No senior mortgages on any parcel. Grundbuch is clean.
+  land_risks: []
+
+# ── Financials ───────────────────────────────────────────────────────────────
+financials:
+  reporting_currency: EUR
+  total_capex_eur: 54000000
+  capex_detail: >
+    Total capex: EUR 54m. Breakdown: modules (EUR 28m, 440 Wp × 204,545 modules;
+    indicative Q1 2026 pricing); inverters (EUR 6m); mounting/civil (EUR 10m);
+    grid connection (EUR 3.5m inc. Prysmian cable); SCADA/metering (EUR 0.8m);
+    owner's costs/development (EUR 5.7m). Independent owner's engineer cost review
+    by MVGM (Germany) completed March 2026: EUR 54m confirmed +/- 8%.
+  capex_confidence: high
+  opex_eur_yr: 1040000
+  opex_confidence: high
+  opex_detail: >
+    O&M (full service, 30-year): EUR 700k/yr. Insurance: EUR 200k/yr.
+    Land lease: EUR 138k/yr. Management: EUR 2k/yr (SPV admin).
+    Note: degradation-adjusted yield discounted at 0.5%/yr in financial model.
+  financial_model_available: true
+  financial_model_note: >
+    Lender-reviewed financial model available in data room.
+    Levered IRR (P50, EEG): 9.2%. DSCR: 1.38× (base), 1.22× (P90).
+    Debt: 65% gearing assumed. Senior debt term: 18 years.
+    Sensitivities: curtailment (+2%), capex (+8%), yield (P90). All DSCR >1.15×.
+    EPC signed: EUR 46m fixed-price with Belectric GmbH.
+
+# ── Process ──────────────────────────────────────────────────────────────────
+process:
+  process_type: limited_auction
+  data_room_status: full
+  data_room_platform: "Datasite"
+  data_room_contents:
+    - "Bebauungsplan final version (Gemeinde Teutschenthal)"
+    - "Baugenehmigung + Rechtskraft confirmation (March 2026)"
+    - "50Hertz NAV (signed November 2025) + NAZ (unconditional)"
+    - "Pachtvertrag (all 9 parcels, signed 2024)"
+    - "Grundbuchauszüge (all 9 parcels)"
+    - "Dienstbarkeit registrations (cable route + access)"
+    - "BNetzA Zuschlagsbescheid (April 2026)"
+    - "Direktvermarktungsvertrag (ENERTRAG)"
+    - "TÜV Rheinland yield assessment (November 2025)"
+    - "MVGM owner's engineer cost review (March 2026)"
+    - "EPC contract (Belectric GmbH, EUR 46m fixed price)"
+    - "Lender-reviewed financial model"
+    - "Corporate DD report"
+    - "SPV (Solarpark Saale GmbH) Handelsregister extract"
+    - "Insurance concept (construction all-risk + BI)"
+  asking_price:
+    indicated_range_eur_low: 9000000
+    indicated_range_eur_high: 13000000
+    note: "RTB solar premium; EEG locked; EPC contracted; no development risk remaining"
+  process_timeline:
+    indicative_nbo_due: "2026-07-31"
+    indicative_binding_offer: "2026-10-31"
+    indicative_close: "2026-12-31"
+    construction_start_target: "2027-Q1"
+    commissioning_target: "2027-Q4"
+    eeg_commissioning_deadline: "2028-03-31"
+
+# ── Risk Flags ────────────────────────────────────────────────────────────────
+risk_flags:
+  - risk_id: permitting_under_appeal
+    active: false
+    note: "Baugenehmigung rechtskräftig as of March 5, 2026. Written confirmation in data room."
+  - risk_id: species_protection_rotmilan
+    active: false
+    note: "Ecological survey confirmed no Rotmilan territory within 3 km. No species constraint."
+  - risk_id: grid_connection_delay
+    active: false
+    note: "NAV signed unconditionally. 50Hertz execution: Q4 2026. No reinforcement required."
+  - risk_id: curtailment_risk
+    active: true
+    severity: low
+    note: "2% curtailment modelled per TÜV Rheinland. Saalekreis node not in heavily curtailed zone. Low risk."
+  - risk_id: land_not_secured
+    active: false
+    note: "Pachtvertrag signed all 9 parcels. Grundbuch clean. Easements registered."
+  - risk_id: eeg_post_2026_uncertainty
+    active: true
+    severity: low
+    note: >
+      Zuschlagsbescheid awarded April 2026 (pre-dates any regime change).
+      Reference price EUR 6.48/MWh locked for 20 years. Grandfathering expected
+      but post-2026 EEG reform not yet codified. Low risk — award predates reform.
+  - risk_id: unclear_revenue_route
+    active: false
+    note: "EEG Zuschlagsbescheid in hand. Direktvermarktungsvertrag signed. Revenue confirmed."
+  - risk_id: capex_unvalidated
+    active: false
+    note: "Owner's engineer review complete (MVGM). EPC fixed-price signed with Belectric."
+  - risk_id: epc_commissioning_deadline
+    active: true
+    severity: medium
+    note: >
+      Zuschlagsbescheid commissioning deadline: March 31, 2028. Construction target Q1 2027.
+      Window: 14 months — achievable but tight if delays occur. Buyer should confirm
+      EPC contract penalties and liquidated damages for delay.
+
+validator_note: >
+  This asset meets all L3 criteria for Germany: permit rechtskräftig, signed NAV
+  (unconditional), full Pachtvertrag + Grundbuch, EEG auction win confirmed,
+  bankable yield with curtailment modelled, EPC in place. The primary residual
+  risk is the EEG commissioning deadline (March 2028) which the buyer must track.
+  Post-2026 EEG grandfathering is expected but not yet legally confirmed.

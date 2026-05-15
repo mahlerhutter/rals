@@ -1,0 +1,280 @@
+# ============================================================================
+# RALS Jurisdiction Package — Germany (DE)
+# File: evidence-requirements.yaml
+# ============================================================================
+# Evidence is cumulative: L3 must meet all L0, L1, L2, and L3 requirements.
+# Evidence must be current: capex >12 months old, yield >24 months old,
+# or regulatory references that predate major EEG/BImSchG amendments should
+# be re-verified before relying on for transaction decisions.
+# ============================================================================
+
+jurisdiction_code: DE
+
+evidence_categories:
+
+  site_identification:
+    L0:
+      required: true
+      description: "Technology, approximate capacity, Bundesland, municipality identified."
+    L1:
+      required: true
+      description: "GPS coordinates or cadastral reference. Site boundary sketch. No fatal planning constraint identified (e.g., not in protected area, no aviation exclusion zone)."
+    L2:
+      required: true
+      description: "Confirmed cadastral parcels. Flächennutzungsplan (land use plan) excerpt confirming zoning compatibility or Bebauungsplan in preparation. No Bundesland distance restrictions violated."
+      germany_note: "Confirm site is not in Bundesland Ausschlussgebiet (exclusion zone) for wind."
+    L3:
+      required: true
+      description: "Site confirmed final. All parcels identified. No outstanding spatial planning constraints. Bundesland distance rules confirmed compliant."
+    L4:
+      required: true
+      description: "Site survey complete. Final engineering boundary confirmed. All utility crossings mapped."
+
+  land_control:
+    L0:
+      required: false
+      description: "Land identified. Owner not yet contacted."
+    L1:
+      required: true
+      description: "Landowner(s) identified. At least informal contact made or LOI initiated."
+    L2:
+      required: true
+      description: "Signed option agreement or signed Pachtvertrag (lease) for at least key parcels. Cable route identified."
+      germany_note: "Option agreement is acceptable at L2. Full signed Pachtvertrag required for L3."
+    L3:
+      required: true
+      description: "Signed Pachtvertrag (≥25 years) for all parcels. Grundbuchauszug (land register extract) confirming clean title for all parcels. Cable route easements (Dienstbarkeit) registered in Grundbuch."
+      germany_note: >
+        Registered Dienstbarkeit for cable routes is a hard requirement for
+        lender financing. Unregistered easements are not acceptable at L3.
+        If any parcel has a senior mortgage, written Rangrücktrittsvereinbarung
+        (subordination) from mortgage holder required.
+    L4:
+      required: true
+      description: "All land registrations complete. No outstanding encumbrances. Insurance (property + liability) active."
+
+  grid_connection:
+    L0:
+      required: false
+      description: "No grid inquiry required."
+    L1:
+      required: true
+      description: "Informal grid inquiry sent or preliminary grid capacity check completed. NVP identified in concept."
+    L2:
+      required: true
+      description: "Formal NAB (Netzanschlussbegehren) submitted to TSO/DSO. NAZ received (Netzanschlusszusage — connection offer). NAZ must state a specific Netzverknüpfungspunkt (NVP) and capacity."
+      germany_note: >
+        A conditional NAZ ('conditional on grid reinforcement') must be disclosed
+        and assessed separately. It does not constitute secured grid at L2 unless
+        reinforcement is timetabled and financed.
+    L3:
+      required: true
+      description: "Signed NAV (Netzanschlussvertrag). NVP fixed. Grid capacity reserved. Connection execution timeline agreed with TSO/DSO. No unresolved reinforcement conditions."
+      germany_note: >
+        Unconditional signed NAV is the German L3 grid threshold. Conditional
+        NAZ or unsigned NAV = maximum L2 classification.
+    L4:
+      required: true
+      description: "NAV in force. Connection infrastructure under construction or complete. Commissioning schedule agreed. For BESS: §118(6) EnWG eligibility confirmed (commissioning before Aug 3, 2029)."
+
+  permitting:
+    L0:
+      required: false
+      description: "No permit required."
+    L1:
+      required: true
+      description: "Scoping conference (Scopingtermin) conducted or BImSchG pre-application meeting held. No fatal planning constraint identified."
+      germany_note: "For solar: confirm Bebauungsplan is in preparation or approved."
+    L2:
+      required: true
+      description: "BImSchG permit application submitted and declared vollständig (complete) by authority. Public announcement made. Environmental documentation submitted."
+      germany_note: >
+        For wind: confirm species survey data (Rotmilan/bats) has been submitted
+        with the application. Missing species data = application incomplete.
+    L3:
+      required: true
+      description: "BImSchG Genehmigungsbescheid issued. 1-month appeal window closed (permit rechtskräftig). No pending Verwaltungsgericht or OVG challenge."
+      germany_note: >
+        permit_rechtskraeftig is the hard threshold for L3 in Germany.
+        A permit within its appeal window (permit_issued_under_appeal) is L2 maximum.
+        Written confirmation from the Genehmigungsbehörde of no appeals received
+        is strongly recommended. If environmental associations (UmweltVerbände) are
+        active in the area, this should be specifically verified.
+    L4:
+      required: true
+      description: "All construction permits final. Baugenehmigung in force. Any operational conditions (e.g., species monitoring plan) documented and accepted."
+
+  environmental:
+    L0:
+      required: false
+      description: "No environmental assessment required."
+    L1:
+      required: true
+      description: "Natura 2000 screening completed (no significant effect found or screening negative). No protected habitat on site identified."
+    L2:
+      required: true
+      description: "UVP scoping agreed with authority. Species baseline surveys initiated or desktop screening complete. Artenschutzrechtliche Vorprüfung (species pre-screening) submitted."
+      germany_note: >
+        For wind: 2-year bird/bat baseline survey ideally completed before permit
+        application. If survey is <12 months, flag as gap — permit may be issued
+        with conditions. Rotmilan risk should be explicitly assessed.
+    L3:
+      required: true
+      description: "UVP complete and approved as part of BImSchG permit. Artenschutzrechtliche Stellungnahme (species impact statement) included in permit and confirmed legally sufficient. Any mitigation measures (radar shutdown systems, seasonal curtailment) documented."
+      germany_note: >
+        If Rotmilan mitigation requires an approved Vogelschlagvermeidungssystem
+        (radar-triggered shutdown), confirm it is designed and approved as part of
+        permit conditions. Missing mitigation documentation = L3 gap.
+    L4:
+      required: true
+      description: "All environmental conditions met. Species monitoring plan approved. Compensation measures (Ausgleichsmaßnahmen) agreed and financed."
+
+  technical_design:
+    L0:
+      required: false
+      description: "Indicative capacity and technology only."
+    L1:
+      required: true
+      description: "Turbine class or module type identified. Layout concept available."
+    L2:
+      required: true
+      description: "Preliminary design by qualified engineer. Layout included in permit application. Turbine type/model identified (may not be contracted)."
+    L3:
+      required: true
+      description: "Final design. Turbine/module supply letter of intent or term sheet. OEM selection confirmed. EPC term sheet or preliminary contract."
+    L4:
+      required: true
+      description: "Final engineering complete. Supply contracts signed or being signed. Insurance bound."
+
+  energy_yield:
+    L0:
+      required: false
+      description: "No yield assessment required."
+    L1:
+      required: true
+      description: "Desktop yield estimate using public wind atlas (e.g., ERA5, DWD data) or PVGIS. Methodology documented."
+    L2:
+      required: true
+      description: "Independent desktop assessment. P50 and P90 produced. For wind: DWD station data or ERA5 with terrain correction. Uncertainty quantified."
+      germany_note: "PVGIS v5+ or equivalent for solar. P90 must be calculated — single P50 is insufficient for L2+."
+    L3:
+      required: true
+      description: "Bankable independent yield assessment by accredited assessor (e.g., DNV, Windguard, TÜV). For wind: on-site mast data ≥12 months. Curtailment (Redispatch 2.0) modelled."
+      germany_note: >
+        Redispatch 2.0 curtailment must be explicitly modelled for wind projects
+        in congested zones (northern Germany). Assessors should apply historic
+        curtailment data from TSO transparency platforms.
+    L4:
+      required: true
+      description: "Final bankable yield assessment. Technical due diligence complete. Degradation modelling (solar). Wake losses validated (wind)."
+
+  revenue_model:
+    L0:
+      required: false
+      description: "No revenue model required."
+    L1:
+      required: true
+      description: "Revenue route identified (EEG auction vs merchant PPA vs spot)."
+    L2:
+      required: true
+      description: "EEG auction eligibility confirmed (capacity in eligible tier) or PPA term sheet. Directvermarktung pathway identified."
+    L3:
+      required: true
+      description: "EEG Zuschlagsbescheid (auction award letter) from BNetzA issued; OR binding PPA executed with creditworthy counterparty (≥10 year term for lender acceptability)."
+      germany_note: >
+        EEG award must be for the specific project (auction ID confirmed). Award
+        letters expire if construction not completed in time — confirm deadline.
+        For merchant PPA: counterparty credit rating and offtake term must be
+        reviewed by lender's independent model.
+    L4:
+      required: true
+      description: "Revenue contract in force. Direktvermarktungsvertrag signed. EEG support payments to start upon commissioning confirmed."
+
+  support_scheme:
+    L0:
+      required: false
+      description: "Not assessed."
+    L1:
+      required: false
+      description: "EEG auction track identified."
+    L2:
+      required: true
+      description: "EEG auction calendar confirmed (next auction date, bid volume, price ceiling)."
+      germany_note: >
+        Confirm that the EEG support scheme extends beyond 2026. If project
+        relies on EEG support after Dec 31, 2026, flag post-2026 uncertainty.
+        This is a material risk requiring validation_warning.
+    L3:
+      required: true
+      description: "Zuschlagsbescheid in hand. 20-year support term and reference price confirmed."
+    L4:
+      required: true
+      description: "EEG contract documentation complete. No expiry or deadline risk on commissioning obligation."
+
+  financial_model:
+    L0:
+      required: false
+      description: "Not required."
+    L1:
+      required: false
+      description: "Indicative returns if available."
+    L2:
+      required: true
+      description: "Investment memo financial model. P50/P90 scenarios. Capex and opex indicative. Revenue model (EEG/PPA) reflected. IRR range provided."
+    L3:
+      required: true
+      description: "Lender-reviewed financial model. DSCR sensitised (yield, curtailment, opex). Redispatch 2.0 curtailment modelled. Post-2026 EEG risk sensitised if relevant."
+    L4:
+      required: true
+      description: "Bankable financial model reviewed by lender. Term sheet agreed. Refinancing assumptions confirmed."
+
+  corporate_ownership:
+    L0:
+      required: false
+      description: "Developer identity disclosed."
+    L1:
+      required: true
+      description: "Developer and SPV structure identified."
+    L2:
+      required: true
+      description: "SPV confirmed. Shareholder structure documented. UBO (Beneficial Owner) identified."
+    L3:
+      required: true
+      description: "Legal DD complete. No encumbrances on shares. SPV in Handelsregister (commercial register). All director/authority consents for disposal confirmed."
+    L4:
+      required: true
+      description: "SPA/shareholder agreement in negotiation. Legal DD complete. Title confirmation in hand."
+
+  data_room:
+    L0:
+      required: false
+      description: "Teaser information only."
+    L1:
+      required: false
+      description: "Limited documentation acceptable."
+    L2:
+      required: true
+      description: "Partial data room: permit application, species survey report (if submitted), NAZ, land option agreements, yield assessment, financial model."
+    L3:
+      required: true
+      description: "Full data room: BImSchG permit with Rechtskraft confirmation, signed NAV, signed Pachtvertrag (all parcels), Grundbuchauszüge, easement registrations, bankable yield assessment, EEG Zuschlagsbescheid or PPA, lender-reviewed financial model, corporate docs."
+    L4:
+      required: true
+      description: "Complete data room. All technical, legal, financial, environmental documentation. EPC contract or term sheet. Insurance certificates."
+
+  insurance:
+    L0:
+      required: false
+      description: "Not required."
+    L1:
+      required: false
+      description: "Not required."
+    L2:
+      required: false
+      description: "Not required."
+    L3:
+      required: false
+      description: "Construction all-risk and third-party liability insurance conceptually confirmed."
+    L4:
+      required: true
+      description: "All-risk construction insurance bound. Third-party liability confirmed. For operating assets: all-risk operational insurance + BI (Betriebsunterbrechung) insurance active."

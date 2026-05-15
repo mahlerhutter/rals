@@ -1,0 +1,270 @@
+# RALS Jurisdiction Package — Namibia
+# field-overrides.yaml
+# Version: 0.1
+
+jurisdiction_code: NA
+
+global_override_note: >
+  Namibia's Modified Single Buyer (MSB) model means NamPower is the single offtaker
+  for all grid-connected electricity. There is no competitive wholesale market.
+  Communal land tenure presents a distinct title risk category not present in most
+  European jurisdictions. The generation licensing process requires Ministerial
+  approval (not only a regulator decision), adding political discretion risk.
+  All Namibia-specific risk categories in risks.yaml are relevant for any project
+  assessed under this package.
+
+fields:
+
+  identity.country:
+    required: true
+    importance: critical
+    allowed_values: ["NA"]
+    jurisdiction_note: >
+      ISO 3166-1 alpha-2 "NA" (Namibia). Do not confuse with "NA" as a null value
+      in data systems — in RALS context, "NA" is a valid jurisdiction code for Namibia.
+
+  identity.region:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Namibian administrative regions: Erongo, Hardap, //Karas (Karas), Kavango East,
+      Kavango West, Khomas, Kunene, Ohangwena, Omaheke, Omusati, Oshana, Oshikoto,
+      Otjozondjupa, Zambezi. Use the official region name.
+      Key renewable energy regions: Hardap (solar; central; high irradiance),
+      //Karas (solar and wind; southern), Erongo (coastal; wind resource).
+      Note that //Karas uses a special character in official Namibian naming;
+      "Karas" is also acceptable in documentation.
+
+  identity.lifecycle_stage:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      "ready_to_build" requires: ECC obtained, generation licence granted by Minister,
+      NamPower connection agreement signed, and land title secured (freehold or
+      registered state lease). Communal unregistered land prevents RTB classification.
+      "operating" applies to legacy REFIT projects and any new commissioned IPP plants.
+
+  technical.technology:
+    required: true
+    importance: critical
+    allowed_values:
+      - solar_pv
+      - onshore_wind
+      - green_hydrogen
+      - hybrid
+    jurisdiction_note: >
+      Solar PV and onshore wind are the primary supported technologies under the MSB
+      and 2025 IPP tender frameworks. Green hydrogen is in development — no standardised
+      offtake framework exists. Hybrid projects (solar + wind, or solar/wind + H2) may
+      apply but the H2 component must be validated separately and treated as L0 unless
+      a documented offtake exists.
+
+  technical.capacity:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Namibia's grid (peak demand ~1.5 GW) is small. Projects above 50 MW should
+      include a NamPower grid stability confirmation or technical feasibility note.
+      The 2025 IPP tender uses 20 MW tranches. Large utility-scale projects (100 MW+)
+      require explicit NamPower grid absorption confirmation.
+
+  land.land_control_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - freehold_registered
+      - state_lease_registered
+      - communal_registered
+      - communal_unregistered
+      - option_signed
+      - not_secured
+    jurisdiction_note: >
+      Namibia has three main land tenure categories:
+      (1) Freehold: surveyed and registered title, most commercial land — strongest form.
+      (2) State land: leasehold from the Government of Namibia, registered at Ministry
+          of Lands. Commonly used for large-scale projects. Lease term typically 25–99 years.
+      (3) Communal land: governed by the Communal Land Reform Act 2002, managed by
+          Communal Land Boards. Formal registration is possible but slow and risky.
+          Unregistered communal land creates significant title insecurity.
+      Title deed registration at the Deeds Office: 4–8 weeks for freehold/state lease.
+    validation_warning: >
+      communal_unregistered land caps maximum readiness level at L1.
+      No project can advance beyond L1 if the primary site control is communal
+      unregistered tenure. Raise as HIGH risk (communal_land_title_risk) and
+      require formal registration or alternative site control before L2.
+
+  land.land_evidence:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Expected evidence by tenure type:
+      Freehold: title deed from the Deeds Office; confirmation of no encumbrances.
+      State lease: signed lease agreement with Ministry of Lands; Deeds Office registration.
+      Communal registered: Communal Land Board registration certificate.
+      Communal unregistered: do not accept as valid land control above L1.
+      Option agreements: signed option must specify conversion path to title.
+    validation_warning: >
+      Power of Attorney land agreements or informal community consent letters are NOT
+      acceptable as land control evidence at L2 or above. A formal title or registered
+      right must be evidenced.
+
+  grid_offtake.grid_connection_status:
+    required: true
+    importance: critical
+    allowed_values:
+      - pre_application
+      - feasibility_study_submitted
+      - feasibility_complete
+      - connection_agreement_signed
+      - connected
+    jurisdiction_note: >
+      NamPower is the sole grid operator and single buyer. Grid connection process:
+      (1) pre_application: no inquiry submitted to NamPower;
+      (2) feasibility_study_submitted: inquiry sent to NamPower, study not yet complete;
+      (3) feasibility_complete: NamPower technical feasibility study completed and issued;
+      (4) connection_agreement_signed: NamPower Grid Connection Agreement executed;
+      (5) connected: physical connection complete.
+      Timeline from inquiry to feasibility_complete: 6–12 months.
+      NamPower monopoly on transmission means no alternative grid access route exists.
+    validation_warning: >
+      connection_agreement_signed is required for L3 (lender diligence ready).
+      feasibility_complete (without signed agreement) supports maximum L2.
+      pre_application caps at L1 maximum.
+
+  grid_offtake.grid_operator:
+    required: true
+    importance: high
+    allowed_values: ["NamPower"]
+    jurisdiction_note: >
+      NamPower is the only transmission operator and the single buyer of wholesale
+      electricity in Namibia. This field should always be "NamPower" for grid-connected
+      projects. Off-grid or direct industrial supply projects are an exception but
+      require documented NamPower confirmation that no connection is required.
+
+  revenue.revenue_model:
+    required: true
+    importance: critical
+    allowed_values:
+      - nampower_ppa
+      - ipp_tender_bid
+      - refit_legacy
+      - h2_offtake_agreement
+      - off_grid_direct_supply
+    jurisdiction_note: >
+      nampower_ppa: NamPower Modified Single Buyer PPA — the standard route for new
+        IPPs; tariff level approved by RERA and Minister.
+      ipp_tender_bid: 2025 NamPower IPP tender (120 MW solar; 6 × 20 MW); competitive
+        bid submitted but award not yet confirmed; treat as L2 until award confirmed.
+      refit_legacy: legacy REFIT scheme (expired for new projects); valid only for
+        existing REFIT-licensed projects (approx. 14 projects, ~70 MW total).
+      h2_offtake_agreement: green hydrogen offtake; treat as L0 unless signed agreement
+        with a creditworthy counterparty is documented.
+      off_grid_direct_supply: direct industrial supply bypassing NamPower; requires
+        NamPower waiver or agreement; unusual and requires explicit documentation.
+    validation_warning: >
+      refit_legacy is valid only for projects with an existing REFIT licence.
+      Any new project claiming REFIT revenue should be flagged as HIGH risk
+      (expired scheme — no new REFIT licences are being issued).
+      h2_offtake_agreement: treat the H2 component as L0 unless a signed, documented
+      offtake agreement with a named creditworthy counterparty exists.
+
+  revenue.ppa_counterparty:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      For nampower_ppa or ipp_tender_bid: counterparty is NamPower.
+      Note that NamPower as sole buyer creates offtake concentration risk
+      (nampower_single_buyer_risk). NamPower creditworthiness and ability to honour
+      long-term PPA obligations should be assessed; NamPower is majority state-owned
+      and financially supported by the Government of Namibia.
+
+  compliance.permitting_status:
+    required: true
+    importance: critical
+    jurisdiction_note: >
+      Namibian permitting has two key components that should be tracked separately:
+      (1) Environmental Clearance Certificate (ECC) from MEFT Department of Environmental
+          Affairs. EIA mandatory for listed activities. ECC validity: 3 years. Timeline:
+          4–6 months from complete application.
+      (2) Generation Licence from RERA (Renewable Energy and Electricity Authority).
+          Application includes corporate documents, land rights evidence, location map.
+          RERA reviews application and makes recommendation to the Minister of Mines
+          and Energy. The Minister is the final decision-maker (not RERA). Timeline:
+          3–6 months from complete application.
+      Both ECC and generation licence are required for L3 (lender diligence ready).
+      Generation licence application submitted supports L2.
+    validation_warning: >
+      The Minister of Mines and Energy is the final decision-maker on generation licences.
+      A positive RERA recommendation does not guarantee Ministerial approval.
+      This Ministerial discretion creates political risk (rera_minister_approval_risk).
+      Track ECC and generation licence status as separate sub-fields where possible.
+
+  compliance.ecc_status:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      Environmental Clearance Certificate from MEFT. Track as:
+      not_started | eia_scoping_initiated | eia_submitted | ecc_granted | ecc_expired.
+      ECC validity: 3 years. Ensure validity covers construction start date.
+      ECC expiry before construction start is a hard blocker.
+
+  compliance.generation_licence_status:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      RERA generation licence process:
+      not_started | application_submitted | rera_review | rera_recommendation_issued |
+      minister_decision_pending | licence_granted | licence_refused.
+      Note that licence_granted requires Minister of Mines and Energy approval.
+      rera_recommendation_issued + minister_decision_pending supports L2.
+      licence_granted supports L3.
+
+  compliance.local_authority_notification:
+    required: false
+    importance: medium
+    jurisdiction_note: >
+      For projects in communal areas or near communal boundaries: notification to the
+      relevant Communal Authority (Traditional Authority) is mandatory under Namibian law.
+      Failure to notify can create community opposition risk and permitting delays.
+
+  financials.currency:
+    required: false
+    importance: medium
+    jurisdiction_note: >
+      Namibia Dollar (NAD) is pegged to the South African Rand (ZAR) at 1:1.
+      This peg provides relative currency stability within the ZAR area but does not
+      eliminate EUR/USD exchange rate risk for international investors.
+      NAD/ZAR is freely convertible. NAD/EUR and NAD/USD are subject to
+      ordinary FX risk plus potential transfer restrictions.
+      NamPower PPAs are typically denominated in NAD or ZAR.
+      Model EUR/USD FX risk explicitly in any financial model for non-ZAR-area investors.
+
+  financials.local_content_note:
+    required: false
+    importance: high
+    jurisdiction_note: >
+      The 2025 IPP tender requires 39% Namibian ownership and 20% previously
+      disadvantaged Namibian (PDN) ownership. These requirements affect SPV structure,
+      shareholder agreements, and financing terms. Local content non-compliance is a
+      disqualifier for tender-based projects. Specialist Namibian legal advice required
+      for structuring.
+
+  process.transaction_type:
+    required: true
+    importance: high
+    jurisdiction_note: >
+      Namibian SPVs are typically incorporated as Namibian private companies (Pty) Ltd
+      under the Companies Act. For IPP tender projects, Namibian incorporation is required.
+      Foreign investment in Namibian companies requires compliance with the Namibia
+      Investment Promotion Act (NIPA). No known foreign ownership caps for renewables,
+      but local content rules (above) apply for tender-based projects.
+
+  risks.risk_flags:
+    required: false
+    importance: critical
+    jurisdiction_note: >
+      Namibia-specific risks defined in risks.yaml:
+      nampower_single_buyer_risk, rera_minister_approval_risk, communal_land_title_risk,
+      local_content_requirement, grid_capacity_small_market, h2_offtake_uncertainty,
+      currency_nad_zar_peg_risk, limited_local_epc_om_capacity.
+      These should be evaluated for every Namibian asset.

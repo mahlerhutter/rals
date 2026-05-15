@@ -1,0 +1,120 @@
+# RALS Jurisdiction Package — Italy
+# profile.yaml
+# Version: 0.1 | Status: active | Last reviewed: 2026-05
+
+jurisdiction_code: IT
+name: Italy
+rals_jurisdiction_version: "0.1"
+status: active
+last_reviewed: "2026-05"
+
+supported_technologies:
+  - solar_pv
+  - onshore_wind
+  - offshore_wind
+  - bess
+  - hybrid
+  - biomass
+
+common_transaction_types:
+  - full_acquisition
+  - majority_stake
+  - minority_stake
+  - joint_venture
+  - refinancing
+  - ppa_only
+
+common_lifecycle_stages:
+  - greenfield
+  - development
+  - ready_to_build
+  - under_construction
+  - operating
+  - repowering_candidate
+
+primary_authorities:
+  energy_regulator: "ARERA (Autorità di Regolazione per Energia Reti e Ambiente)"
+  energy_regulator_url: "https://www.arera.it"
+  ministry: "MASE (Ministero dell'Ambiente e della Sicurezza Energetica)"
+  ministry_url: "https://www.mase.gov.it"
+  permitting_authority_large: "MASE (via Commissione Tecnica PNRR-PNIEC for projects ≥1 MW or strategic)"
+  permitting_authority_regional: "Regione (for projects below applicable thresholds)"
+  support_scheme_administrator: "GSE (Gestore dei Servizi Energetici)"
+  support_scheme_administrator_url: "https://www.gse.it"
+
+grid_authorities:
+  tso: "Terna S.p.A."
+  tso_url: "https://www.terna.it"
+  primary_dso: "Enel Distribuzione, E-Distribuzione, A2A, Hera (regional)"
+  grid_connection_process: >
+    Connection (allacciamento) managed by Terna (HV/EHV) or regional DSO.
+    Process: (1) Request for Soluzione di Connessione (SdC); (2) SdC issued by Terna/DSO;
+    (3) Acceptance of SdC (accettazione) within 45 days; (4) Convention (Convenzione
+    di connessione) signed; (5) Technical realization by Terna/DSO.
+    SdC acceptance initiates cost obligation for grid works.
+  grid_capacity_note: >
+    Italy's transmission grid faces significant capacity constraints, particularly in
+    Southern Italy (Campania, Puglia, Basilicata, Calabria, Sicily, Sardinia)
+    where renewable resource is highest. Queue saturation has led Terna to impose
+    moratoria on new SdC issuance in constrained zones. New capacity allocation rules
+    were introduced in 2024-2025. Connection costs can be material (EUR 1–15m+
+    for large projects requiring transmission reinforcement).
+
+market_design_notes:
+  support_scheme: >
+    FER 1 Decree (DM 4 July 2019) and FER 2 Decree (approved 2023–2024) define
+    incentive mechanisms for renewable energy. Support is administered by GSE as
+    feed-in premium (incentivo tariffa onnicomprensiva) via competitive auctions.
+    FER X (the successor to FER 2) auction procedures are run periodically.
+    Projects without GSE contracts compete on merchant or PPA basis.
+  merchant_market: >
+    GME (Gestore dei Mercati Energetici) operates Italian power markets (MGP day-ahead,
+    MI intraday). Italian power price is typically above EEX reference due to grid
+    constraints and import dependency. PPA market is active and growing for large
+    corporate buyers.
+  authorisation_routes: >
+    Three main authorization tracks:
+    (1) Autorizzazione Unica (AU) — for projects >1 MW, coordinated by Regione or
+    Provinca Autonoma; includes environmental and grid in single procedure;
+    typical duration 18–48 months depending on region and controversy.
+    (2) Procedura Abilitativa Semplificata (PAS) — for projects <1 MW, streamlined.
+    (3) DILA (Dichiarazione di Inizio Lavori Asseverata) — smallest projects,
+    communication-only.
+    For large strategic projects: MASE commission (ex-CIPESS) may take national competence.
+  rtb_definition: >
+    "Ready to Build" in Italy requires: Autorizzazione Unica (AU) that is final and
+    not subject to pending TAR/Consiglio di Stato appeal, accepted SdC (Soluzione
+    di Connessione) from Terna or DSO, and land under enforceable lease (contratto
+    d'affitto or preliminary deed of sale). Absence of any of these is a blocker.
+  bess_note: >
+    BESS is explicitly regulated since ARERA resolution 247/2023. Storage assimilated
+    to generation for grid connection purposes. FER 2 / FER X include storage
+    co-incentivisation. Stand-alone BESS is eligible for capacity market (MSD/MCM).
+
+key_transaction_risks:
+  - grid_queue_saturation_southern_italy
+  - au_permitting_regional_variability
+  - appeal_risk_tar_consiglio_di_stato
+  - land_control_complexity
+  - grid_connection_cost_uncertainty
+  - revenue_route_clarity
+  - gse_contract_transferability
+  - curtailment_southern_italy
+
+validation_scope:
+  covers:
+    - field_interpretation
+    - evidence_requirements
+    - readiness_level_assignment
+    - risk_flag_evaluation
+  does_not_cover:
+    - legal_title_verification
+    - tax_structuring
+    - environmental_compliance_certification
+    - regulatory_compliance_audit
+
+disclaimer: >
+  This jurisdiction package is a technical reference for transaction-readiness assessment.
+  It is not legal advice. Italian renewable energy regulation, grid connection rules,
+  and support scheme terms change frequently. Always verify with qualified Italian
+  legal counsel and Terna or the relevant DSO before relying on this package.
