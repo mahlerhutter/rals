@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rals.org/schema/v0.1/extensions/bess.schema.json",
+  "title": "RALS Extension: BESS",
+  "type": "object",
+  "properties": {
+    "technical": {
+      "properties": {
+        "storage": {
+          "type": "object",
+          "properties": {
+            "technology": { "type": "string" },
+            "capacity_mwh": { "type": "number" },
+            "power_mw": { "type": "number" },
+            "duration_hours": { "type": "number" },
+            "cycles_per_year": { "type": "number" },
+            "degradation_pct_yr": { "type": "number" }
+          }
+        }
+      }
+    }
+  }
+}
