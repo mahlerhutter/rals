@@ -1,5 +1,7 @@
 # RALS — Renewable Asset Listing Standard
 
+**🌐 [www.rals.energy](https://www.rals.energy)**
+
 RALS is a machine-readable standard for renewable energy asset listings, enabling AI-driven discovery and evaluation while preserving deal confidentiality.
 
 It defines a vendor-neutral YAML format that sellers and M&A advisors host on their own domains, so that buyer agents — including LLM-based systems acting for institutional investors — can discover, parse, and pre-qualify utility-scale renewable assets without proprietary data rooms or bespoke spreadsheet templates.

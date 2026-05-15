@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://rals.org/schema/v0.1/rals.schema.json",
+  "$id": "https://www.rals.energy/schema/v0.1/rals.schema.json",
   "title": "Renewable Asset Listing Standard (RALS) v0.1",
   "description": "JSON Schema for RALS, defining the structure of renewable energy asset listings.",
   "type": "object",
