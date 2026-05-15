@@ -1,0 +1,18 @@
+{
+  "name": "@rals/validator",
+  "version": "0.1.0",
+  "description": "Reference validator for the Renewable Asset Listing Standard (RALS)",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "ajv": "^8.12.0",
+    "ajv-formats": "^3.0.1",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "vitest": "^1.2.0"
+  }
+}

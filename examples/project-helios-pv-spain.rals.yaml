@@ -1,0 +1,546 @@
+# ============================================================================
+# Renewable Asset Listing Standard (RALS) — Example Document
+# ============================================================================
+#
+# Asset:        Project Helios (fictional)
+# Description:  87.5 MW operating PV plant in Castilla-La Mancha, Spain
+# Profile:      Level 3 (Complete) — includes all confidentiality tiers
+# Purpose:      Reference example accompanying RALS Specification v0.1
+#
+# This is a fictional asset. All names, financial figures, counterparties,
+# and operational data are invented for illustration. Any resemblance to
+# real assets, transactions, or entities is coincidental.
+#
+# Tier markers in comments:
+#   [P] = public           (included in Teaser Profile)
+#   [N] = nda_required     (visible after NDA)
+#   [F] = final_shortlist  (visible only to admitted final bidders)
+#
+# In production deployments, tier filtering is performed server-side
+# based on the requesting agent's authorization scope. This file shows
+# all tiers for documentation purposes.
+# ============================================================================
+
+rals_version: "0.1"
+document_id: "rals:01H8XY7K9M2N3P4Q5R6S7T8U9V"
+generated_at: "2026-05-15T10:00:00Z"
+generated_by: "manual-reference-example"
+language: "en"
+
+# ----------------------------------------------------------------------------
+# 1. IDENTITY
+# ----------------------------------------------------------------------------
+identity:
+  asset_name: "Project Helios"                        # [P]
+  asset_type: solar_pv                                # [P]
+  lifecycle_stage: operating                          # [P]
+  country: ES                                         # [P]
+  region: "Castilla-La Mancha"                        # [P]
+  sub_region: "Albacete Province"                     # [P]
+  coordinates: [-3.4521, 39.8842]                     # [N] (centroid would be [P] for portfolios)
+  site_area_hectares: 142                             # [P]
+  total_capacity_mw_ac: 87.5                          # [P]
+  total_capacity_mw_dc: 105.0                         # [P]
+  dc_ac_ratio: 1.20                                   # [P]
+  transaction_type: full_acquisition                  # [P]
+  equity_offered_pct: 100                             # [P]
+  seller_legal_entity: "Helios Iberica Holdings S.L." # [N]
+  seller_jurisdiction: "Spain"                        # [N]
+  internal_reference: "WEI-IB-2026-014"               # [F]
+  spv_structure: true                                 # [N]
+  spv_jurisdiction: "Spain"                           # [N]
+
+# ----------------------------------------------------------------------------
+# 2. TECHNICAL
+# ----------------------------------------------------------------------------
+technical:
+  commissioning_date: "2023-09-15"                    # [P]
+  expected_lifetime_years: 35                         # [P]
+  design_basis_year: 2022                             # [P]
+
+  units:                                              # [N]
+    - block_id: "B1"
+      modules: 142500
+      inverters: 18
+      capacity_mw_ac: 43.75
+      capacity_mw_dc: 52.5
+    - block_id: "B2"
+      modules: 142500
+      inverters: 18
+      capacity_mw_ac: 43.75
+      capacity_mw_dc: 52.5
+
+  module:                                             # [N]
+    manufacturer: "Trina Solar"
+    model: "Vertex S+ TSM-NEG9R.28 440W"
+    technology: "monocrystalline_topcon"
+    bifacial: true
+    bifaciality_factor: 0.80
+    nominal_power_w: 440
+    units_total: 285000
+    warranty_product_years: 25
+    warranty_performance_years: 30
+    warranty_performance_end_pct: 87.4
+
+  inverter:                                           # [N]
+    manufacturer: "Sungrow"
+    model: "SG3125HV-MV"
+    nominal_power_kw: 3125
+    units_total: 36
+    warranty_years_remaining: 7.8
+
+  mounting:                                           # [P]
+    type: single_axis_tracker
+    manufacturer: "Nextracker"
+    model: "NX Horizon-XTR"
+    tilt_range_deg: [-60, 60]
+
+  production_estimates:
+    methodology: "PVsyst v7.4, third-party yield assessment"  # [P]
+    assessor: "DNV"                                            # [N]
+    assessment_date: "2022-04-18"                              # [N]
+    p50_gwh_yr: 167.2                                          # [N]
+    p75_gwh_yr: 161.8                                          # [N]
+    p90_gwh_yr: 155.4                                          # [N]
+    reference_year: 2025                                       # [N]
+    confidence_interval: "10-year exceedance"                  # [N]
+
+  performance_ratio: 0.842                            # [N]
+  specific_yield_kwh_kwp: 1591                        # [N]
+
+  degradation_curve:                                  # [N]
+    methodology: "Manufacturer warranty curve, validated"
+    year_1_pct: 2.0
+    year_2_to_25_pct_yr: 0.55
+    year_26_to_35_pct_yr: 0.80
+
+  losses_breakdown:                                   # [N]
+    soiling_pct: 2.5
+    shading_pct: 1.2
+    mismatch_pct: 0.8
+    dc_cable_pct: 1.1
+    inverter_pct: 1.8
+    ac_cable_pct: 0.6
+    transformer_pct: 1.0
+    availability_pct: 1.5
+    total_pct: 10.5
+
+# ----------------------------------------------------------------------------
+# 3. GRID & OFFTAKE
+# ----------------------------------------------------------------------------
+grid_offtake:
+
+  grid_connection:
+    connection_point: "Substation Albacete-Sur"        # [N]
+    voltage_level_kv: 132                              # [P]
+    connection_capacity_mw: 90                         # [P]
+    grid_operator: "Red Eléctrica de España (REE)"     # [P]
+    line_length_km: 4.2                                # [N]
+    line_ownership: "asset"                            # [N]
+    connection_agreement_date: "2022-03-15"            # [N]
+    connection_agreement_term_years: 35                # [N]
+    grid_code_compliance: "ENTSO-E NC RfG, Spanish OS 7.5" # [N]
+
+  offtake_structure: hybrid                            # [P]
+
+  offtake_contracts:
+    - contract_id: "PPA-01"
+      counterparty: "Investment-grade European utility" # [P] (anonymized)
+      counterparty_actual: "Iberdrola Clientes S.A.U."  # [F]
+      counterparty_credit_rating: "BBB+"                # [P]
+      counterparty_rating_agency: "S&P"                 # [N]
+      contract_type: corporate_ppa                      # [P]
+      structure_type: pay_as_produced                   # [P]
+      delivery_form: physical                           # [P]
+      capacity_mw: 50                                   # [P]
+      volume_mwh_yr: 95000                              # [N]
+      price_eur_mwh: 42.50                              # [F]
+      price_floor_eur_mwh: 38.00                        # [F]
+      price_cap_eur_mwh: 55.00                          # [F]
+      indexation: "CPI Spain, cap 3% / floor 1%"        # [F]
+      start_date: "2024-01-01"                          # [N]
+      end_date: "2033-12-31"                            # [N]
+      remaining_years: 7.6                              # [N]
+      change_of_control_clause: true                    # [N]
+      change_of_control_consent_required: true          # [N]
+
+    - contract_id: "CFD-01"
+      counterparty: "REER Spain Auction Round 2"        # [P]
+      counterparty_credit_rating: "AA"                  # [P]
+      contract_type: cfd                                # [P]
+      structure_type: pay_as_produced                   # [P]
+      delivery_form: financial                          # [P]
+      capacity_mw: 37.5                                 # [P]
+      volume_mwh_yr: 72000                              # [N]
+      price_eur_mwh: 28.40                              # [N]
+      indexation: "none (fixed nominal)"                # [N]
+      start_date: "2022-10-01"                          # [N]
+      end_date: "2032-09-30"                            # [N]
+      remaining_years: 6.4                              # [N]
+      change_of_control_clause: false                   # [N]
+
+  curtailment_history:                                  # [N]
+    methodology: "REE dispatch records, compensated and uncompensated"
+    annual:
+      - year: 2023
+        curtailment_pct: 0.4
+        compensated_pct: 0.4
+      - year: 2024
+        curtailment_pct: 1.1
+        compensated_pct: 0.9
+      - year: 2025
+        curtailment_pct: 1.8
+        compensated_pct: 1.5
+
+  balancing_responsibility: aggregator                  # [N]
+  balancing_partner: "Anonymized energy trader"         # [N]
+  balancing_fee_eur_mwh: 0.85                           # [F]
+
+  green_certificates:                                   # [N]
+    scheme: "Spanish Guarantees of Origin (CNMC)"
+    annual_volume_mwh: 167000
+    monetization: "bundled with corporate PPA"
+
+# ----------------------------------------------------------------------------
+# 4. FINANCIALS
+# ----------------------------------------------------------------------------
+financials:
+  reporting_currency: EUR                               # [P]
+  reporting_basis: "IFRS"                               # [N]
+  fiscal_year_end: "12-31"                              # [N]
+
+  capex:                                                # [N]
+    total_eur: 58300000
+    per_mw_ac_eur: 666000
+    breakdown:
+      modules_eur: 18200000
+      inverters_eur: 4100000
+      mounting_eur: 8900000
+      bos_eur: 6300000
+      civil_works_eur: 5800000
+      grid_connection_eur: 7200000
+      development_permits_eur: 2400000
+      epc_margin_eur: 3900000
+      financing_costs_eur: 1500000
+    realized_vs_budget_pct: 102.4
+    final_account_settled: true
+
+  opex_breakdown:                                       # [N]
+    currency: EUR
+    basis_year: 2025
+    per_mw_per_year:
+      om_service: 8500
+      land_lease: 3200
+      insurance: 1800
+      asset_management: 1200
+      direct_marketing: 900
+      grid_charges: 2100
+      monitoring_scada: 400
+      administrative: 700
+      other: 500
+    total_per_mw_yr: 19300
+    total_annual_eur: 1688750
+    inflation_assumption_pct: 2.0
+
+  revenue_history:                                      # [N]
+    - year: 2024
+      gross_revenue_eur: 6840000
+      ppa_revenue_eur: 4087500
+      cfd_revenue_eur: 2044800
+      merchant_revenue_eur: 707700
+    - year: 2025
+      gross_revenue_eur: 7120000
+      ppa_revenue_eur: 4350000
+      cfd_revenue_eur: 2044800
+      merchant_revenue_eur: 725200
+
+  ebitda_history:                                       # [N]
+    - year: 2024
+      ebitda_eur: 5120000
+      margin_pct: 74.9
+    - year: 2025
+      ebitda_eur: 5430000
+      margin_pct: 76.3
+
+  debt_structure:                                       # [N]
+    senior_debt:
+      outstanding_eur: 42800000
+      original_principal_eur: 49500000
+      lender: "Anonymized Spanish bank syndicate"
+      margin_bps: 180
+      reference_rate: "EURIBOR 6M"
+      hedging: "80% interest rate swap to 2030-06-30"
+      maturity: "2032-06-30"
+      amortization: "sculpted to DSCR 1.30x P50"
+      dscr_p50: 1.35
+      dscr_p90: 1.18
+      cash_sweep: "100% above 1.40x DSCR"
+      change_of_control_clause: true
+    mezzanine:
+      outstanding_eur: 0
+    refinancing_options_open: true                       # [N]
+    refinancing_window: "2027-2028"                      # [N]
+
+  subsidy_remaining:                                     # [N]
+    scheme: "REER Spain Auction Round 2"
+    award_date: "2021-10-15"
+    guaranteed_price_eur_mwh: 28.40
+    remaining_years: 6.4
+    remaining_volume_mwh: null
+    indexation: "none (fixed nominal)"
+
+  tax_position:                                          # [N]
+    nol_carryforward_eur: 2800000
+    nol_expiry: "no time limit (Spain)"
+    accelerated_depreciation: true
+    sociedades_rate_pct: 25
+
+  asking_price:                                          # [F]
+    indicated_range_eur_low: 78000000
+    indicated_range_eur_high: 92000000
+    basis: "enterprise value, cash-free debt-free"
+    valuation_date: "2026-04-01"
+
+  valuation_reference:                                   # [N]
+    methodology: "DCF, 10-year explicit + terminal"
+    discount_rate_pct: 6.8
+    base_case_npv_eur: 85400000
+    valuator: "Big-Four advisory firm"
+    valuation_date: "2026-04-01"
+
+# ----------------------------------------------------------------------------
+# 5. COMPLIANCE
+# ----------------------------------------------------------------------------
+compliance:
+
+  permits:                                               # [N]
+    - permit_type: "construction_permit"
+      issuing_authority: "Junta de Castilla-La Mancha, Consejería de Desarrollo Sostenible"
+      reference: "EXP-2022-CLM-PV-0142"
+      issue_date: "2022-08-12"
+      valid_until: "2052-08-12"
+      conditions: "Biannual avian monitoring; soil management plan"
+      status: active
+
+    - permit_type: "environmental_authorization"
+      issuing_authority: "Ministerio para la Transición Ecológica"
+      reference: "DIA-2021-1287"
+      issue_date: "2021-11-30"
+      valid_until: null
+      conditions: "Wildlife corridor preservation; no construction during nesting season Mar-Jun"
+      status: active
+
+    - permit_type: "grid_connection_authorization"
+      issuing_authority: "Red Eléctrica de España"
+      issue_date: "2022-03-15"
+      valid_until: null
+      status: active
+
+    - permit_type: "operating_license"
+      issuing_authority: "Junta de Castilla-La Mancha"
+      issue_date: "2023-09-10"
+      valid_until: null
+      status: active
+
+  land_rights:                                           # [N]
+    structure: long_term_lease
+    consolidation: "SPV holds all leases"
+    lessor: "Multiple private landowners (47 parcels)"
+    lease_duration_years: 35
+    remaining_years: 32
+    annual_lease_eur: 280000
+    indexation: "CPI Spain"
+    early_termination_rights: "lessor: none; lessee: 12-month notice"
+    decommissioning_obligation: "site restoration to agricultural condition"
+    title_insurance: true
+
+  environmental_assessments:                             # [N]
+    - assessment_type: "EIA (Environmental Impact Assessment)"
+      completed_date: "2021-11-30"
+      authority: "Ministerio para la Transición Ecológica"
+      outcome: "favorable DIA with conditions"
+      reference: "DIA-2021-1287"
+    - assessment_type: "Avian and bat impact study"
+      completed_date: "2021-08-15"
+      methodology: "12-month baseline monitoring"
+      outcome: "low impact, no Natura 2000 conflicts"
+    - assessment_type: "Cultural heritage screening"
+      completed_date: "2021-06-22"
+      outcome: "no findings"
+
+  eu_taxonomy_alignment:                                 # [P]
+    applicable_activity: "4.1 Electricity generation using solar photovoltaic technology"
+    substantial_contribution: climate_change_mitigation
+    dnsh_assessment_complete: true
+    dnsh_assessment_date: "2024-06-30"
+    dnsh_climate_adaptation: passed
+    dnsh_water: passed
+    dnsh_circular_economy: passed
+    dnsh_pollution: passed
+    dnsh_biodiversity: passed
+    minimum_safeguards_complete: true
+    taxonomy_aligned_capex_pct: 100
+    taxonomy_aligned_opex_pct: 100
+    taxonomy_aligned_turnover_pct: 100
+
+  litigation_disputes: []                                # [N]
+
+  insurance_coverage:                                    # [N]
+    operational_all_risks:
+      insurer: "Pan-European industrial insurer"
+      coverage_eur: 65000000
+      deductible_eur: 50000
+      renewal_date: "2026-09-30"
+    business_interruption:
+      coverage_months: 18
+      daily_indemnity_eur: 18500
+    third_party_liability:
+      coverage_eur: 10000000
+    cyber:
+      coverage_eur: 2000000
+
+  decommissioning_obligation:                            # [N]
+    regulatory_requirement: "Spanish Royal Decree 413/2014, Article 19"
+    estimated_cost_eur: 1400000
+    estimated_cost_per_mw_eur: 16000
+    cost_basis_year: 2024
+    bond_amount_eur: 1750000
+    bond_provider: "European insurance group"
+    bond_renewal: annual
+
+  esg:                                                   # [P]
+    scope_1_2_emissions_tco2e_yr: 0
+    avoided_emissions_tco2e_yr: 58450
+    avoided_emissions_methodology: "Spanish grid emission factor 0.35 tCO2e/MWh"
+    biodiversity_net_gain_pct: 8.2
+    community_benefit_scheme: "annual contribution €45k to local municipality"
+
+# ----------------------------------------------------------------------------
+# 6. OPERATING HISTORY
+# ----------------------------------------------------------------------------
+operating_history:
+
+  monthly_production:                                    # [N]
+    inline_summary:
+      - year: 2024
+        gross_mwh: 163800
+        net_mwh: 161200
+        availability_pct: 97.9
+        performance_ratio: 0.838
+      - year: 2025
+        gross_mwh: 167400
+        net_mwh: 164900
+        availability_pct: 98.1
+        performance_ratio: 0.844
+    detailed_url: "https://dataroom.example.com/helios/production-2023-2025.csv"
+    detailed_access: nda_required
+    detailed_schema: ["month", "gross_mwh", "net_mwh", "availability_pct", "irradiance_kwh_m2", "ambient_temp_c"]
+
+  availability_history:                                  # [N]
+    - year: 2024
+      availability_pct: 97.9
+      planned_outages_hours: 142
+      unplanned_outages_hours: 41
+    - year: 2025
+      availability_pct: 98.1
+      planned_outages_hours: 138
+      unplanned_outages_hours: 32
+
+  major_events:                                          # [N]
+    - date: "2024-07-22"
+      type: inverter_failure
+      affected_capacity_mw: 12.5
+      duration_hours: 48
+      root_cause: "DC overvoltage protection module failure"
+      resolved_under_warranty: true
+      revenue_impact_eur: 38000
+      bi_insurance_claim: false
+
+    - date: "2025-03-04"
+      type: grid_event
+      affected_capacity_mw: 87.5
+      duration_hours: 6
+      root_cause: "REE-initiated grid stability dispatch"
+      resolved_under_warranty: false
+      revenue_impact_eur: 12500
+      compensated_by_ree: true
+
+  service_contract:                                      # [N]
+    provider: "Trina Solar Service Iberia"
+    type: full_service
+    start_date: "2023-09-15"
+    duration_years: 10
+    remaining_years: 7.4
+    annual_fee_eur: 595000
+    indexation: "CPI Spain"
+    sla_availability_pct: 98.0
+    sla_response_hours: 24
+    liquidated_damages: "€2,500 per percentage point below SLA"
+    change_of_control_clause: false
+
+  warranty_status:                                       # [N]
+    module_product_remaining_years: 22.4
+    module_performance_remaining_years: 27.4
+    inverter_remaining_years: 7.8
+    mounting_remaining_years: 12.4
+    epc_workmanship_remaining_years: 3.4
+
+  scada_access: read_only_post_closing                   # [P]
+  scada_provider: "Trina Cloud + custom dashboard"       # [N]
+
+# ----------------------------------------------------------------------------
+# 7. PROCESS
+# ----------------------------------------------------------------------------
+process:
+
+  process_type: limited_auction                          # [P]
+  invited_bidders_count: 12                              # [P]
+
+  process_lead:                                          # [P]
+    organization: "Iberia Renewables Advisory"
+    contact_role: "Managing Director, M&A"
+    contact_email: "deals@advisor.example.com"
+    contact_phone: null
+
+  process_timeline:                                      # [P]
+    teaser_distribution: "2026-04-15"
+    information_memorandum_distribution: "2026-05-20"
+    site_visits: "2026-06-15 to 2026-06-30"
+    non_binding_offers_due: "2026-07-15"
+    management_presentations: "2026-08-01 to 2026-08-31"
+    binding_offers_due: "2026-10-15"
+    signing_target: "2026-12-15"
+    closing_target: "2027-Q1"
+    long_stop_date: "2027-06-30"
+
+  closing_conditions:                                    # [N]
+    regulatory_approvals_required: ["FDI screening Spain (Ley 19/2003)"]
+    consents_required: ["Senior lender change of control", "Iberdrola PPA change of control"]
+    estimated_signing_to_closing_months: 3
+
+  data_room:                                             # [N]
+    provider: "Datasite"
+    url: "https://datasite.com/projects/helios-2026"
+    access_mechanism: "NDA + invitation"
+    document_count_approx: 1850
+    structure: "9 folders aligned to vendor DD reports"
+    vendor_dd_reports:
+      - "Technical (DNV)"
+      - "Commercial (Aurora)"
+      - "Legal (Spanish law firm)"
+      - "Tax (Big Four)"
+      - "ESG (Big Four)"
+
+  nda_template: "https://advisor.example.com/helios/nda-template.pdf"  # [P]
+
+  access_endpoint: "https://advisor.example.com/.well-known/rals/auth" # [P]
+
+  confidentiality_note: |                                # [P]
+    Project name "Helios" is itself confidential.
+    Refer to as "Iberian Solar Opportunity" in any external communication.
+    Site visits coordinated through the M&A advisor only — no direct contact
+    with operations staff prior to final shortlist admission.
+
+# ============================================================================
+# End of RALS document for Project Helios
+# ============================================================================

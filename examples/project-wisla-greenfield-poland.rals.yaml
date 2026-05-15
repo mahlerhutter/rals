@@ -1,0 +1,669 @@
+# ============================================================================
+# Renewable Asset Listing Standard (RALS) — Example Document
+# ============================================================================
+#
+# Asset:        Project Wisła (fictional)
+# Description:  Greenfield 120 MWp / 96 MW AC utility-scale solar PV
+#               development project in Wielkopolskie Voivodeship, Poland.
+#               Lifecycle stage: late-stage development. Building permit
+#               issued, environmental decision final, Warunki Przyłączenia
+#               (Connection Conditions) issued; Umowa Przyłączeniowa
+#               (Connection Agreement) execution pending. No PPA secured,
+#               no CfD won yet. Sponsor (mid-cap Polish developer) divesting
+#               at late-development stage to redeploy capital to next-wave
+#               pipeline.
+# Profile:      Level 3 (Complete) — includes all confidentiality tiers
+# Purpose:      Reference example accompanying RALS Specification v0.1
+#
+# This is a fictional asset. All names, financial figures, parcel
+# references, and contract terms are invented. The specific location,
+# municipalities, and SPV are fabricated. Any resemblance to real assets,
+# transactions, or entities is coincidental.
+#
+# Why this example exists:
+#   Greenfield development assets stress RALS along four dimensions that
+#   Operating and Ready-to-Build assets do not:
+#   (a) what's being sold IS the optionality and the work-product — permits,
+#       land rights, connection rights, development know-how — not the
+#       physical asset, which doesn't exist yet,
+#   (b) risk profile dominates the value calculation — each unresolved
+#       milestone has a probability and a value-at-stake,
+#   (c) operating_history is irrelevant; in its place must be a granular
+#       development_milestone_tracker,
+#   (d) financial story is binary: either the project gets to RTB and the
+#       buyer realizes development margin, or one of the unresolved risks
+#       materializes and the value collapses.
+#
+#   Poland 2026 is the canonical European late-stage development market:
+#   grid connection scarcity, CfD-vs-PPA-vs-merchant optionality, evolving
+#   land-use restrictions. This example tests whether RALS can carry that
+#   complexity in a structured form.
+#
+# Author's note on accuracy:
+#   Polish regulatory specifics drawn from publicly available 2024-2026
+#   sources (RES Act, CfD auction mechanics, Connection Conditions /
+#   Connection Agreement procedure, voivodeship spatial planning rules).
+#   Exact local fees and timing assumptions are illustrative.
+#
+# Tier markers in comments:
+#   [P] = public           (included in Teaser Profile)
+#   [N] = nda_required     (visible after NDA)
+#   [F] = final_shortlist  (visible only to admitted final bidders)
+# ============================================================================
+
+rals_version: "0.1"
+document_id: "rals:01HG2P5R8T3V6W1X4Y7Z9A2B5D"
+generated_at: "2026-05-15T10:00:00Z"
+generated_by: "manual-reference-example"
+language: "en"
+
+# ----------------------------------------------------------------------------
+# 1. IDENTITY
+# ----------------------------------------------------------------------------
+identity:
+  asset_name: "Project Wisła"                        # [P]
+  asset_type: solar_pv                               # [P]
+  lifecycle_stage: development                       # [P]
+  development_sub_stage: late_stage_pre_rtb          # [P]
+  development_completion_pct_estimated: 78           # [P]
+  country: PL                                        # [P]
+  region: "Wielkopolskie Voivodeship"                # [P]
+  sub_region: "Powiat Pleszewski"                    # [P]
+  coordinates: [17.7842, 51.8923]                    # [N]   # centroid of consolidated parcels
+  site_area_hectares: 145                            # [P]
+  site_configuration: "single contiguous site, 23 consolidated parcels" # [P]
+  planned_capacity_mwp_dc: 120                       # [P]
+  planned_capacity_mw_ac: 96                         # [P]
+  dc_ac_ratio_planned: 1.25                          # [P]
+  transaction_type: full_acquisition                 # [P]
+  equity_offered_pct: 100                            # [P]
+  seller_legal_entity: "Wisła Solar Development Sp. z o.o."  # [N]
+  seller_jurisdiction: "Poland"                      # [N]
+  ultimate_parent_jurisdiction: "Poland"             # [N]
+  internal_reference: "WIS-PL-2026-014"              # [F]
+  spv_structure: true                                # [N]
+  spv_form: "Spółka z ograniczoną odpowiedzialnością (Sp. z o.o.)"  # [N]
+  developer_pipeline_context: |                      # [P]
+    Sponsor is established Polish mid-cap solar developer with track record
+    of bringing 600+ MWp through full lifecycle since 2020. Wisła divestment
+    funds redeployment to next-wave pipeline (3 sites, ~280 MWp combined,
+    earlier development stage).
+
+# ----------------------------------------------------------------------------
+# 2. TECHNICAL (DESIGN STAGE)
+# ----------------------------------------------------------------------------
+# At development stage, technical section reflects DESIGN BASIS — what the
+# project will be built to. Final equipment selection often deferred to EPC
+# tender post-acquisition, giving buyer optionality.
+# ----------------------------------------------------------------------------
+technical:
+  design_stage: "preliminary_design_pre_epc"         # [P]
+  expected_commissioning_date_target: "2027-09-30"   # [P]
+  expected_lifetime_years: 35                        # [P]
+  design_basis_year: 2025                            # [P]
+
+  preliminary_design:                                # [P]
+    nameplate_power_mwp_dc: 120
+    nameplate_power_mw_ac: 96
+    dc_ac_ratio: 1.25
+    grid_export_limit_mw: 96
+    module_technology_assumed: "bifacial TOPCon, ≥575 W"
+    mounting_assumed: "single-axis tracker"
+    inverter_topology_assumed: "central inverter, 5 MW units"
+
+  equipment_procurement_status:                      # [N]
+    module_supply: "not contracted; assumed at EPC tender"
+    inverter_supply: "not contracted"
+    mounting_supply: "not contracted"
+    transformer_supply: "preliminary discussions with two European OEMs; 12-month delivery lead time confirmed"
+    epc_contractor_status: "shortlist of 4 Polish EPC contractors prepared; binding offers post-acquisition"
+
+  solar_resource:                                    # [P]
+    methodology: "Satellite GHI (Meteonorm v8) cross-validated with regional pyranometer station 28 km from site"
+    assessor: "DNV"
+    assessment_date: "2025-03-22"
+    ghi_kwh_m2_yr: 1185                              # Poland-typical for Wielkopolskie
+    temperature_mean_c: 9.4
+    snow_load_design_kpa: 1.4
+
+  production_estimates:                              # [N]
+    methodology: "PVsyst v7.4 simulation, third-party"
+    assessor: "DNV"
+    assessment_date: "2025-04-18"
+    p50_gwh_yr: 137.4
+    p75_gwh_yr: 132.6
+    p90_gwh_yr: 127.2
+    specific_yield_kwh_kwp_dc: 1145
+    performance_ratio_modeled: 0.832
+
+  site_characteristics:                              # [N]
+    topography: "flat, agricultural class IV-V (lower-grade arable)"
+    soil_type: "sandy loam, well-drained"
+    elevation_m: 142
+    flood_risk_zone: "outside flood risk zone per state hydrological survey"
+    archaeology_screening: "completed, no findings"
+    avifauna_screening: "completed, no significant impact zones"
+
+# ----------------------------------------------------------------------------
+# 3. GRID & OFFTAKE (UNCONTRACTED — OPTIONALITY)
+# ----------------------------------------------------------------------------
+# Grid connection is the dominant value driver and risk in Polish solar
+# development 2026. Connection Conditions (Warunki Przyłączenia) without
+# executed Connection Agreement (Umowa Przyłączeniowa) is the typical
+# Polish late-development bottleneck.
+#
+# Offtake is uncommitted — sold as optionality across CfD, PPA, merchant.
+# ----------------------------------------------------------------------------
+grid_offtake:
+
+  grid_connection:
+    connection_point: "GPZ Pleszew 110 kV"                # [N]
+    voltage_level_kv: 110                                 # [P]
+    requested_connection_capacity_mw: 96                  # [P]
+    distribution_operator: "ENERGA-OPERATOR SA"           # [P]
+    connection_application_filed: "2023-11-22"            # [N]
+    warunki_przylaczenia_issued: true                     # [P]
+    warunki_przylaczenia_date: "2024-08-30"               # [N]
+    warunki_przylaczenia_reference: "WP-2024-PLE-082"     # [N]
+    warunki_przylaczenia_validity_years: 2                # [P]
+    warunki_przylaczenia_expiry: "2026-08-30"             # [P]
+    umowa_przylaczeniowa_status: "in negotiation"         # [P]
+    umowa_przylaczeniowa_target_signing: "2026-07-31"     # [P]
+    umowa_przylaczeniowa_critical_path: true              # [P]
+    umowa_przylaczeniowa_critical_path_note: |            # [P]
+      Connection Agreement execution before Warunki Przyłączenia expiry
+      (2026-08-30) is the most material near-term milestone. Missing this
+      window would require re-application and substantially extend timeline.
+    connection_works_dso_side_required: true              # [N]
+    connection_works_dso_estimated_cost_pln: 14_800_000   # [N]
+    connection_works_developer_side_required: true        # [N]
+    connection_works_developer_estimated_cost_pln: 8_400_000  # [N]
+    connection_charge_pln: 9_600_000                       # [N]
+    connection_charge_basis: "regulated tariff per Energy Law, calculated 100 PLN/kW"  # [N]
+    grid_code_compliance_basis: "PSE NC RfG implementation in Polish grid code"  # [N]
+
+  grid_connection_risk_assessment:                        # [N]
+    overall_risk: medium
+    risk_factors:
+      - factor: "DSO capacity in Pleszew GPZ"
+        risk_level: medium
+        mitigation: "Confirmed in Warunki Przyłączenia; revalidation needed if delayed past expiry"
+      - factor: "Cost escalation in connection works"
+        risk_level: medium
+        mitigation: "Connection charge fixed; DSO-side works at DSO risk; developer-side at developer risk"
+      - factor: "Connection Agreement execution timing"
+        risk_level: medium_high
+        mitigation: "Active negotiation; legal counsel engaged; weekly status meetings"
+
+  offtake_strategy: not_yet_committed                     # [P]
+  offtake_optionality_preserved: true                     # [P]
+
+  offtake_optionality_analyzed:                           # [N]
+    - option_id: "OPT-CFD"
+      framework: "Polish CfD auction (RES Act)"
+      participating_auction: "URE auction, planned 2026-Q4 or 2027-Q2"
+      eligibility_status: "expected eligible if RTB by Q3 2026; technology basket: PV/wind ≥1 MW"
+      modeled_reference_price_pln_mwh: 295
+      modeled_clearing_price_pln_mwh_estimated: 275
+      contract_term_years: 15
+      production_window_max_months_from_award: 42
+      pros: "Bankable 15-year revenue floor; lender preference"
+      cons: "Sub-merchant prices currently; rigid CfD structure; bid bond required (PLN 60,000/MWp)"
+
+    - option_id: "OPT-CORPORATE-PPA"
+      framework: "Corporate physical or virtual PPA"
+      potential_offtaker_pipeline: |
+        3 large industrial offtakers identified (manufacturing, data centers,
+        retail); preliminary indicative pricing discussions, no LOIs signed
+      modeled_price_eur_mwh_estimated: 65
+      modeled_price_eur_mwh_range: [58, 72]
+      contract_term_years_typical: [10, 15]
+      pros: "Higher pricing than CfD currently; flexible structure"
+      cons: "Counterparty credit; no statutory protection; pricing negotiation post-acquisition"
+
+    - option_id: "OPT-MERCHANT"
+      framework: "Polish wholesale market (TGE Day-Ahead + Intraday)"
+      modeled_capture_price_pln_mwh_estimated: 290
+      modeled_capture_price_pln_mwh_decline_2030_pct: 12
+      pros: "Maximum near-term revenue; no commitment lock-in"
+      cons: "Volatility; capture price degradation as PV penetration grows; lender restrictions"
+
+    - option_id: "OPT-HYBRID-CFD-PPA"
+      framework: "Split allocation: portion CfD-bid, portion long-term PPA"
+      typical_split_pct: "30% CfD / 70% PPA"
+      pros: "Combines CfD stability with PPA price upside"
+      cons: "Requires structuring within CfD volume rules"
+
+  capacity_market_eligibility:                            # [N]
+    polish_capacity_market_eligible: false
+    reason: "Solar PV without storage not eligible for Polish capacity market as standalone; hybrid with BESS could be added in repowering scenarios"
+
+  green_certificates:                                     # [N]
+    scheme: "Polish Gwarancje Pochodzenia (Guarantees of Origin)"
+    revenue_potential_pln_mwh_2025: 4.5
+    notes: "Standard for Polish RES; revenue typically captured within PPA premium rather than separately sold"
+
+# ----------------------------------------------------------------------------
+# 4. FINANCIALS (DEVELOPMENT STAGE)
+# ----------------------------------------------------------------------------
+# Financials at development stage are projections + sunk costs + valuation
+# range. No EBITDA history exists. Buyer values development margin plus
+# probabilistic completion plus future cashflows.
+# ----------------------------------------------------------------------------
+financials:
+  reporting_currency: PLN                            # [P]
+  secondary_reporting_currency: EUR                  # [N]
+  functional_currency: PLN                           # [N]
+  reporting_basis: "Polish Accounting Act (UoR)"     # [N]
+  fiscal_year_end: "12-31"                           # [N]
+  fx_eur_pln_assumption: 4.30                        # [N]
+  fx_basis_date: "2026-04-30"                        # [N]
+
+  development_costs_to_date:                         # [N]
+    total_sunk_costs_pln: 6_840_000
+    total_sunk_costs_eur: 1_590_000
+    breakdown_pln:
+      land_options_and_acquisition: 2_400_000
+      permitting_legal_environmental: 1_650_000
+      grid_connection_application_and_fees: 980_000
+      technical_studies: 720_000
+      project_management_overhead: 720_000
+      development_financing_costs: 370_000
+    period_capitalized: "2022-Q3 to 2026-Q1"
+
+  projected_capex_to_completion:                     # [N]
+    methodology: "Conceptual EPC budget, market-validated, basis Q1 2026 prices"
+    total_pln: 408_000_000
+    total_eur: 94_900_000
+    per_mwp_dc_pln: 3_400_000
+    per_mwp_dc_eur: 791_000
+    breakdown_pln:
+      modules: 178_000_000
+      inverters: 32_000_000
+      mounting_tracker: 64_000_000
+      bos_cabling: 28_000_000
+      civil_works_roads_fencing: 24_000_000
+      grid_connection_charge_dso: 9_600_000
+      developer_side_connection_works: 8_400_000
+      transformer_substation: 22_000_000
+      epc_margin: 28_000_000
+      contingency: 14_000_000
+    cost_escalation_exposure: "high — 70% of capex tied to module/inverter pricing, 12-18 months out"
+
+  buy_side_residual_development_costs:               # [N]
+    total_pln: 4_200_000
+    description: |
+      Costs remaining post-acquisition to bring project to RTB:
+      - Umowa Przyłączeniowa execution + connection charge payment
+      - EPC tender + contractor selection
+      - Final design + civil engineering
+      - CfD auction participation (if elected) + bid bond
+      - Insurance placement
+      - Pre-construction permits update
+    estimated_duration_months: 4
+
+  valuation_summary:                                 # [F]
+    methodology: "Risk-adjusted residual value: P50 NPV at COD discounted to today, less buy-side residual development costs, less risk premia"
+    base_case_npv_at_cod_eur: 31_500_000
+    risk_adjusted_npv_today_eur: 22_400_000
+    sunk_cost_recovery_eur: 1_590_000
+    development_margin_eur: 20_800_000
+    development_margin_per_mwp_dc_eur_k: 173
+
+  asking_price:                                      # [F]
+    indicated_range_eur_low: 18_000_000
+    indicated_range_eur_high: 24_000_000
+    basis: |
+      Cash consideration for 100% equity of SPV, on RTB-substitution basis:
+      base price + RTB completion bonus + project-finance-bankability bonus,
+      paid at signing with milestone deferred consideration through COD
+    valuation_date: "2026-04-25"
+    structure_options:
+      - "Pure cash at signing"
+      - "Cash at signing + RTB earn-out + COD earn-out"
+      - "Cash + assumed development obligation completion by sponsor as service"
+
+  development_margin_benchmarking:                   # [N]
+    polish_market_2025_range_eur_per_mwp_dc_k: [120, 220]
+    polish_market_2025_range_average_eur_per_mwp_dc_k: 168
+    project_premium_or_discount_pct: 3
+    project_premium_or_discount_drivers:
+      - "Site quality (above-average specific yield)"
+      - "Connection Conditions secured (premium vs uncontracted)"
+      - "Connection Agreement execution risk (discount)"
+      - "Land rights fully consolidated (premium)"
+
+  tax_position:                                      # [N]
+    corporate_income_tax_rate_pct: 19
+    nol_carryforward_pln: 0
+    accumulated_tax_losses_to_carry_forward_eur: 0
+    vat_status: "VAT-registered, recoverable, 23% standard rate"
+    real_estate_tax_status: "agricultural land tax applies until project-purpose reclassification"
+
+# ----------------------------------------------------------------------------
+# 5. COMPLIANCE (DEVELOPMENT-STAGE STATUS)
+# ----------------------------------------------------------------------------
+compliance:
+
+  permits:                                           # [N]
+    - permit_type: "decyzja_o_srodowiskowych_uwarunkowaniach"
+      english_name: "Environmental Decision"
+      issuing_authority: "Wójt Gminy [name] (Mayor of Commune)"
+      reference: "DSU.6220.4.2023"
+      issue_date: "2024-02-15"
+      valid_until: "2030-02-15"
+      conditions: "Construction outside avian breeding season Mar 15-Jul 15"
+      legal_challenge_period_expired: true
+      challenges_filed: 0
+      status: "final and binding"
+
+    - permit_type: "warunki_zabudowy_or_mpzp_basis"
+      english_name: "Land Use Determination / Local Spatial Plan basis"
+      basis: "Decyzja o warunkach zabudowy (Decision on Development Conditions) — site outside MPZP coverage"
+      issuing_authority: "Wójt Gminy [name]"
+      reference: "WZ.6730.18.2024"
+      issue_date: "2024-06-20"
+      valid_until: null
+      legal_challenge_period_expired: true
+      status: "final and binding"
+
+    - permit_type: "pozwolenie_na_budowe"
+      english_name: "Building Permit"
+      issuing_authority: "Starosta Pleszewski (County Governor)"
+      reference: "AB.6740.124.2025"
+      issue_date: "2025-09-30"
+      valid_until: "2028-09-30"
+      legal_challenge_period_expired: true
+      challenges_filed: 0
+      construction_commencement_required_by: "2028-09-30"
+      status: "final and binding"
+
+    - permit_type: "koncesja_na_wytwarzanie_energii_elektrycznej"
+      english_name: "Electricity Generation License"
+      issuing_authority: "Prezes URE (President of Energy Regulatory Office)"
+      status: "to be applied for post-construction, pre-COD"
+      anticipated_application: "2027-Q2"
+
+  land_rights:                                       # [N]
+    structure: "mixed: purchased + long-term lease"
+    total_parcels: 23
+    purchased_parcels: 14
+    leased_parcels: 9
+    purchased_area_hectares: 89.2
+    leased_area_hectares: 55.8
+    lease_duration_typical_years: 29
+    lease_indexation: "annual CPI Poland"
+    annual_lease_cost_pln_total: 760_000
+    annual_lease_cost_per_hectare_pln: 13_620
+    notarial_certifications_complete: true
+    title_search_completed: true
+    title_encumbrances: "none material; minor easements for adjacent agricultural access"
+    consolidation_status: "complete"
+    rolnik_indywidualny_consent_status: "not applicable (commercial structure)"
+    agricultural_classification: "Class IV-V (eligible for non-agricultural use)"
+    declassification_status: "completed for purchased parcels; ongoing for leased"
+
+  environmental_assessments:                         # [N]
+    - assessment_type: "Karta Informacyjna Przedsięwzięcia (KIP)"
+      english_name: "Project Information Card"
+      completed_date: "2023-05-20"
+      authority: "Wójt Gminy [name]"
+      outcome: "Screened — no full EIA required"
+    - assessment_type: "Inwentaryzacja przyrodnicza"
+      english_name: "Natural Heritage Inventory"
+      completed_date: "2023-10-15"
+      outcome: "No protected species or habitats found onsite"
+    - assessment_type: "Avifauna study"
+      completed_date: "2024-01-30"
+      methodology: "12-month observation per Polish standard"
+      outcome: "Low impact; no nest mitigation required"
+
+  eu_taxonomy_alignment:                             # [P]
+    applicable_activity: "4.1 Electricity generation using solar photovoltaic technology"
+    substantial_contribution: climate_change_mitigation
+    dnsh_assessment_complete: true
+    dnsh_assessment_date: "2025-08-10"
+    dnsh_climate_adaptation: passed
+    dnsh_water: passed
+    dnsh_circular_economy: passed_with_conditions
+    dnsh_circular_economy_notes: "Module recycling commitment to be confirmed at EPC contracting"
+    dnsh_pollution: passed
+    dnsh_biodiversity: passed
+    minimum_safeguards_complete: true
+    taxonomy_aligned_capex_pct: 100
+    taxonomy_aligned_opex_pct: 100
+    taxonomy_aligned_turnover_pct: 100
+
+  poland_specific_compliance:                        # [P]
+    res_act_eligibility: "eligible as new installation under auction system"
+    cfd_auction_participation_status: "not yet entered"
+    res_act_grid_priority_status: "renewable priority dispatch applicable post-COD"
+    capacity_market_eligibility: false
+    capacity_market_eligibility_reason: "Standalone PV not eligible without storage"
+    rural_development_land_restrictions: |
+      Polish 2023-2024 amendments restrict large-scale PV on Class I-III
+      agricultural land. Project site is Class IV-V (eligible).
+      Monitoring legislative developments for further restrictions.
+    foreign_investment_screening: "no specific FDI screening for solar PV; standard merger control if turnover thresholds met"
+
+  litigation_disputes: []                            # [N]
+
+  insurance_coverage:                                # [N]
+    development_phase:
+      directors_and_officers_usd: 5_000_000
+      professional_indemnity_eur: 3_000_000
+    construction_phase_target:
+      construction_all_risks_eur: 120_000_000
+      delay_in_start_up_months: 18
+      to_be_placed: "pre-NTP"
+    operational_phase_target:
+      operational_all_risks_eur: 120_000_000
+      to_be_placed: "pre-energization"
+
+  decommissioning_obligation:                       # [N]
+    regulatory_requirement: "Polish Construction Law + environmental conditions"
+    estimated_cost_eur: 3_400_000
+    cost_basis_year: 2025
+    bond_requirement_at_cod: "to be confirmed in Connection Agreement and EPC contract"
+
+  esg:                                               # [P]
+    expected_avoided_emissions_tco2e_yr: 87_500
+    avoided_emissions_methodology: "Polish grid emission factor 2025 (KOBiZE) 0.638 tCO2e/MWh"
+    biodiversity_net_gain_target: "match-or-improve baseline"
+    community_engagement: "active local engagement; no objections in permit consultation periods"
+    indigenous_engagement: "not applicable in Polish context"
+
+# ----------------------------------------------------------------------------
+# 6. DEVELOPMENT MILESTONE TRACKER
+# ----------------------------------------------------------------------------
+# Replaces "operating_history" for development-stage assets. Tracks completed
+# and outstanding milestones with status, risk, and value-at-stake.
+# Spec note: v0.1 conditional rule — when lifecycle_stage in [greenfield,
+# development], operating_history is replaced by development_milestone_tracker.
+# ----------------------------------------------------------------------------
+development_milestone_tracker:
+  reporting_basis: "milestone status as of 2026-04-30"   # [P]
+  overall_status_summary: |                              # [P]
+    Late-stage development. Major non-grid milestones complete (land,
+    environment, building permit). Grid connection critical path open;
+    Umowa Przyłączeniowa execution is the dominant near-term value gate.
+
+  completed_milestones:                                  # [N]
+    - milestone: "Site identification and screening"
+      completed_date: "2022-Q3"
+      cost_pln: 180_000
+    - milestone: "Land option agreements (initial set)"
+      completed_date: "2023-Q1"
+      cost_pln: 420_000
+    - milestone: "Connection application filed with ENERGA-OPERATOR"
+      completed_date: "2023-11-22"
+      cost_pln: 280_000
+    - milestone: "Environmental Decision (DSU)"
+      completed_date: "2024-02-15"
+      cost_pln: 380_000
+    - milestone: "Land Use Determination (Warunki Zabudowy)"
+      completed_date: "2024-06-20"
+      cost_pln: 220_000
+    - milestone: "Warunki Przyłączenia (Connection Conditions) issued"
+      completed_date: "2024-08-30"
+      cost_pln: 380_000
+    - milestone: "Land purchases completed (14 parcels)"
+      completed_date: "2024-12-15"
+      cost_pln: 1_980_000
+    - milestone: "Lease agreements executed (9 parcels)"
+      completed_date: "2025-03-20"
+      cost_pln: 240_000
+    - milestone: "Building Permit (Pozwolenie na Budowę)"
+      completed_date: "2025-09-30"
+      cost_pln: 580_000
+    - milestone: "DNV solar resource and yield assessment"
+      completed_date: "2025-04-18"
+      cost_pln: 320_000
+    - milestone: "EPC contractor shortlist (4 contractors)"
+      completed_date: "2026-02-28"
+      cost_pln: 0  # internal time
+
+  outstanding_milestones:                                # [P]
+    - milestone_id: "M1"
+      milestone: "Umowa Przyłączeniowa execution + connection charge payment"
+      criticality: critical
+      target_date: "2026-07-31"
+      latest_acceptable_date: "2026-08-30"
+      latest_acceptable_date_basis: "Warunki Przyłączenia expiry"
+      remaining_cost_pln: 9_600_000
+      probability_pct_estimated: 80
+      value_at_stake_eur: 22_400_000  # full project value if M1 fails
+
+    - milestone_id: "M2"
+      milestone: "Offtake commitment (CfD bid won OR PPA signed)"
+      criticality: high
+      target_date: "2026-Q4 to 2027-Q1"
+      remaining_cost_pln: 280_000  # bid bond if CfD route
+      probability_pct_estimated: 90
+      value_at_stake_eur: 6_500_000  # value impact if delayed or sub-optimal terms
+
+    - milestone_id: "M3"
+      milestone: "EPC contract executed and notice to proceed"
+      criticality: high
+      target_date: "2026-Q4"
+      remaining_cost_pln: 0  # captured in capex
+      probability_pct_estimated: 95
+      value_at_stake_eur: 4_500_000  # delay/cost-overrun impact
+
+    - milestone_id: "M4"
+      milestone: "Senior debt facility committed"
+      criticality: medium
+      target_date: "2027-Q1"
+      probability_pct_estimated: 85
+      value_at_stake_eur: 3_200_000  # equity-only execution if debt fails
+
+    - milestone_id: "M5"
+      milestone: "Generation license (Koncesja) issued"
+      criticality: low
+      target_date: "2027-Q3"
+      probability_pct_estimated: 98
+      value_at_stake_eur: 800_000
+
+    - milestone_id: "M6"
+      milestone: "Commercial Operation Date achieved"
+      criticality: critical
+      target_date: "2027-09-30"
+      latest_acceptable_date: "2028-06-30"
+      probability_pct_estimated: 88
+      value_at_stake_eur: 22_400_000
+
+  risk_register_summary:                                 # [F]
+    top_risks_by_value_at_stake:
+      - risk: "Umowa Przyłączeniowa execution failure or significant delay"
+        residual_risk: medium
+        impact_eur: 22_400_000
+      - risk: "Capex inflation between signing and EPC commitment"
+        residual_risk: medium
+        impact_eur: 4_500_000
+      - risk: "Offtake market deterioration"
+        residual_risk: low_medium
+        impact_eur: 6_500_000
+      - risk: "Regulatory changes (land-use restrictions, RES Act amendments)"
+        residual_risk: low
+        impact_eur: 3_200_000
+
+# ----------------------------------------------------------------------------
+# 7. PROCESS
+# ----------------------------------------------------------------------------
+process:
+
+  process_type: limited_auction                      # [P]
+  invited_bidders_count: 16                          # [P]
+  bidder_profile: |                                  # [P]
+    Mix of strategics (utilities, IPPs with Polish presence), Central European
+    development specialists, and infrastructure funds with EPC partnership
+    capability. Sponsor screening for buy-side ability to execute remaining
+    development milestones.
+
+  process_lead:                                      # [P]
+    organization: "Anonymized Central European renewables M&A advisory"
+    contact_role: "Director, CEE Renewables"
+    contact_email: "wisla@advisor.example.com"
+    contact_phone: null
+
+  process_timeline:                                  # [P]
+    teaser_distribution: "2026-04-22"
+    information_memorandum_distribution: "2026-05-25"
+    site_visits: "2026-06-10 to 2026-06-30"
+    non_binding_offers_due: "2026-07-15"
+    management_presentations: "2026-08-05 to 2026-08-25"
+    binding_offers_due: "2026-09-15"
+    signing_target: "2026-10-15"
+    closing_target: "2026-11-30"
+    long_stop_date: "2027-02-28"
+    notes: |
+      Compressed timeline reflects Warunki Przyłączenia expiry pressure
+      (2026-08-30). Sponsor preference for early signing to enable buyer
+      participation in Umowa Przyłączeniowa execution.
+
+  closing_conditions:                                # [N]
+    regulatory_approvals_required:
+      - "UOKiK merger control review if turnover thresholds met (Polish competition authority)"
+      - "No FDI screening for solar PV under current Polish regime"
+    consents_required:
+      - "Lessor notification for leased parcels (statutory)"
+      - "EPC contractor introduction (no consent, but courtesy notification)"
+    estimated_signing_to_closing_months: 1.5
+    risk_allocation: |
+      Vendor warranties on completed milestones (land, permits, Warunki).
+      Buyer assumes risk of outstanding milestones from signing onwards.
+      Earn-out structure aligns incentives if vendor retains
+      transitional development services role through RTB.
+
+  data_room:                                         # [N]
+    provider: "Datasite"
+    url: "https://datasite.com/projects/wisla-2026"
+    access_mechanism: "NDA + invitation + 2FA"
+    document_count_approx: 980
+    structure: |
+      9 folders: Identity & SPV, Land & Title, Permits, Grid Connection,
+      Technical Studies, Financial Model, Tax, ESG, Process
+    vendor_dd_reports:
+      - "Technical (DNV solar yield + preliminary design review)"
+      - "Legal (Polish top-tier law firm — land, permits, grid)"
+      - "Tax (Big Four Poland)"
+      - "Commercial / Market (Aurora Energy Research CEE)"
+
+  nda_template: "https://advisor.example.com/wisla/nda-template.pdf"  # [P]
+
+  access_endpoint: "https://advisor.example.com/.well-known/rals/auth" # [P]
+
+  confidentiality_note: |                            # [P]
+    Project name "Wisła" is itself confidential.
+    Refer to as "Greater Poland Solar Development Opportunity" in any external
+    communication. Direct contact with DSO representatives, commune
+    authorities, or landowners prior to final shortlist admission is strictly
+    prohibited — sponsor manages all stakeholder relationships through to
+    closing to avoid disrupting Umowa Przyłączeniowa negotiation.
+    Specific Connection Conditions reference, parcel-level title information,
+    and offtake pipeline counterparty identities are treated as
+    final_shortlist tier.
+
+# ============================================================================
+# End of RALS document for Project Wisła
+# ============================================================================

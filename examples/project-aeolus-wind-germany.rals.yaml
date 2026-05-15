@@ -1,0 +1,717 @@
+# ============================================================================
+# Renewable Asset Listing Standard (RALS) — Example Document
+# ============================================================================
+#
+# Asset:        Project Aeolus (fictional)
+# Description:  148.5 MW operating onshore wind farm in Schleswig-Holstein,
+#               Germany. 33 turbines, mix of Vestas V150-4.5 MW and Nordex
+#               N163/5.X. Operating since 2021, partially in EEG remaining
+#               support, partially exposed to merchant/PPA.
+# Profile:      Level 3 (Complete) — includes all confidentiality tiers
+# Purpose:      Reference example accompanying RALS Specification v0.1
+#
+# This is a fictional asset. All names, financial figures, counterparties,
+# turbine configurations, and operational data are invented for illustration.
+# Any resemblance to real assets, transactions, or entities is coincidental.
+#
+# Why this example exists:
+#   Onshore wind in Germany combines (a) high CAPEX intensity vs solar,
+#   (b) more complex permitting under BImSchG / BNatSchG, (c) EEG legacy
+#   support mechanics (Marktprämie, anzulegender Wert), (d) repowering
+#   optionality which is a major value driver in DE 2026. This example
+#   stress-tests RALS against that complexity.
+#
+# Tier markers in comments:
+#   [P] = public           (included in Teaser Profile)
+#   [N] = nda_required     (visible after NDA)
+#   [F] = final_shortlist  (visible only to admitted final bidders)
+# ============================================================================
+
+rals_version: "0.1"
+document_id: "rals:01HC4N8P5Q7R2S6T9V3W1X4Y5Z"
+generated_at: "2026-05-15T10:00:00Z"
+generated_by: "manual-reference-example"
+language: "en"
+
+# ----------------------------------------------------------------------------
+# 1. IDENTITY
+# ----------------------------------------------------------------------------
+identity:
+  asset_name: "Project Aeolus"                       # [P]
+  asset_type: onshore_wind                           # [P]
+  lifecycle_stage: operating                         # [P]
+  country: DE                                        # [P]
+  region: "Schleswig-Holstein"                       # [P]
+  sub_region: "Kreis Dithmarschen"                   # [P]
+  coordinates: [9.0847, 54.1923]                     # [N]
+  site_area_hectares: 480                            # [P]
+  site_configuration: "two clusters, 12 km apart, single SPV" # [P]
+  total_capacity_mw: 148.5                           # [P]
+  number_of_turbines: 33                             # [P]
+  transaction_type: full_acquisition                 # [P]
+  equity_offered_pct: 100                            # [P]
+  seller_legal_entity: "Aeolus Nord Wind GmbH & Co. KG" # [N]
+  seller_jurisdiction: "Germany"                     # [N]
+  internal_reference: "AEOL-2026-007"                # [F]
+  spv_structure: true                                # [N]
+  spv_jurisdiction: "Germany"                        # [N]
+  spv_form: "GmbH & Co. KG"                          # [N]
+  spv_tax_grouping: "no Organschaft"                 # [N]
+
+# ----------------------------------------------------------------------------
+# 2. TECHNICAL
+# ----------------------------------------------------------------------------
+technical:
+  commissioning_date: "2021-11-20"                   # [P]
+  expected_lifetime_years: 25                        # [P]
+  design_basis_year: 2020                            # [P]
+  repowering_potential: true                         # [P]
+  repowering_eligible_from: "2041-11-20"             # [P]
+
+  units:                                             # [N]
+    - cluster_id: "Cluster-Nord"
+      turbines: 18
+      total_capacity_mw: 81.0
+      turbine_model_ref: "TURB-01"
+    - cluster_id: "Cluster-Süd"
+      turbines: 15
+      total_capacity_mw: 67.5
+      turbine_model_ref: "TURB-02"
+
+  turbine_configurations:                            # [N]
+    - id: "TURB-01"
+      manufacturer: "Vestas"
+      model: "V150-4.5 MW"
+      nominal_power_mw: 4.5
+      rotor_diameter_m: 150
+      hub_height_m: 166
+      total_height_m: 241
+      iec_class: "IEC IIA"
+      cut_in_speed_ms: 3.0
+      cut_out_speed_ms: 25.0
+      units_total: 18
+      warranty_remaining_years: 5.4
+    - id: "TURB-02"
+      manufacturer: "Nordex"
+      model: "N163/5.X"
+      nominal_power_mw: 4.5
+      rotor_diameter_m: 163
+      hub_height_m: 164
+      total_height_m: 246
+      iec_class: "IEC S (site-specific)"
+      cut_in_speed_ms: 3.0
+      cut_out_speed_ms: 25.0
+      units_total: 15
+      warranty_remaining_years: 6.1
+
+  wind_resource:                                     # [N]
+    methodology: "10-year mast measurement + WAsP/Meteodyn modeling"
+    long_term_mean_wind_speed_hub_height_ms: 7.85
+    weibull_a: 8.85
+    weibull_k: 2.15
+    measurement_height_m: 140
+    measurement_period_years: 10.3
+    correlated_to_reanalysis: true
+    reanalysis_source: "ERA5"
+
+  production_estimates:
+    methodology: "WindPRO v3.6, third-party yield assessment" # [P]
+    assessor: "TÜV NORD"                                       # [N]
+    assessment_date: "2020-08-22"                              # [N]
+    p50_gwh_yr: 462.0                                          # [N]
+    p75_gwh_yr: 438.4                                          # [N]
+    p90_gwh_yr: 412.7                                          # [N]
+    p99_gwh_yr: 381.2                                          # [N]
+    reference_period: "20-year mean"                           # [N]
+    uncertainty_pct: 9.8                                       # [N]
+
+  capacity_factor: 0.355                             # [N]
+  full_load_hours_yr: 3110                           # [N]
+  net_specific_yield_kwh_kw: 3110                    # [N]
+
+  losses_breakdown:                                  # [N]
+    wake_losses_pct: 7.8
+    electrical_losses_pct: 2.1
+    availability_losses_pct: 3.0
+    icing_losses_pct: 0.4
+    blade_degradation_pct: 0.5
+    environmental_curtailment_pct: 2.1
+    grid_curtailment_pct: 1.4
+    total_pct: 17.3
+
+  degradation_curve:                                 # [N]
+    methodology: "Industry benchmark, validated against operating data"
+    annual_pct: 0.20
+    notes: "Modern turbines show minimal aerodynamic degradation"
+
+  noise_emission:                                    # [N]
+    night_mode_required: true
+    night_mode_capacity_reduction_pct: 8.5
+    affected_turbines_count: 11
+    noise_compliance_basis: "TA Lärm 1998, immission threshold 45 dB(A) night at nearest dwelling"
+
+  shadow_flicker:                                    # [N]
+    automatic_shutdown_system: true
+    max_annual_minutes_per_dwelling: 30
+    actual_2025_minutes: 24.5
+
+# ----------------------------------------------------------------------------
+# 3. GRID & OFFTAKE
+# ----------------------------------------------------------------------------
+grid_offtake:
+
+  grid_connection:
+    connection_point: "UW Brunsbüttel-Süd 110 kV"    # [N]
+    voltage_level_kv: 110                            # [P]
+    connection_capacity_mw: 150                      # [P]
+    grid_operator: "SH Netz AG"                      # [P]
+    line_length_km: 8.6                              # [N]
+    line_ownership: "shared (cable pooling)"         # [N]
+    pooling_partners_count: 2                        # [N]
+    connection_agreement_date: "2019-07-30"          # [N]
+    grid_code_compliance: "VDE-AR-N 4120 (HS-Anschlussregel)" # [N]
+    redispatch_2_0_obligation: true                  # [N]
+    redispatch_2_0_implementation_date: "2021-10-01" # [N]
+
+  offtake_structure: hybrid                          # [P]
+
+  offtake_contracts:
+    - contract_id: "EEG-MP-01"
+      counterparty: "EEG anzulegender Wert via Direktvermarktung" # [P]
+      counterparty_credit_rating: "AAA (sovereign-backed)" # [P]
+      contract_type: gleitende_marktpraemie          # [P]
+      structure_type: pay_as_produced                # [P]
+      delivery_form: financial                       # [P]
+      capacity_mw: 148.5                             # [P]
+      volume_mwh_yr: 462000                          # [N]
+      anzulegender_wert_eur_mwh: 61.20               # [N]
+      reference_market: "EPEX Spot Day-Ahead Germany" # [N]
+      direktvermarktungs_fee_eur_mwh: 1.85           # [N]
+      direktvermarkter: "Anonymized leading DV company" # [N]
+      direktvermarkter_term_remaining_years: 1.8     # [N]
+      eeg_award_basis: "2020 Wind Onshore Auction Round 1, Gebotswert 5.95 ct/kWh" # [N]
+      start_date: "2021-11-20"                       # [N]
+      end_date: "2041-11-20"                         # [N]
+      remaining_years: 15.5                          # [N]
+      change_of_control_clause: false                # [N]
+      notes: "Standard EEG support; gleitende Marktprämie pays delta between AW and reference market price; no separate counterparty risk."
+
+    - contract_id: "PPA-CORP-01"
+      counterparty: "Investment-grade German industrial group" # [P] (anonymized)
+      counterparty_actual: "Anonymized Industrial AG"  # [F]
+      counterparty_credit_rating: "A-"                # [P]
+      counterparty_rating_agency: "S&P"               # [N]
+      contract_type: corporate_ppa                    # [P]
+      structure_type: as_produced_with_baseload_floor # [P]
+      delivery_form: physical                         # [P]
+      capacity_mw: 50                                 # [P]
+      volume_mwh_yr: 155000                           # [N]
+      price_eur_mwh: 58.50                            # [F]
+      price_floor_eur_mwh: 52.00                     # [F]
+      price_cap_eur_mwh: 75.00                       # [F]
+      indexation: "70% fixed, 30% German CPI"        # [F]
+      start_date: "2024-04-01"                       # [N]
+      end_date: "2034-03-31"                         # [N]
+      remaining_years: 7.9                           # [N]
+      go_certificates_included: true                 # [N]
+      change_of_control_clause: true                 # [N]
+      change_of_control_consent_required: true       # [N]
+      notes: "PPA layered on top of EEG MP; the 50 MW notional is allocated pro rata across generation, complementing the gleitende Marktprämie revenue stack."
+
+  curtailment_history:                               # [N]
+    methodology: "Combined Einspeisemanagement (§14 EEG / §13 EnWG) plus environmental"
+    annual:
+      - year: 2022
+        grid_curtailment_pct: 4.2
+        environmental_curtailment_pct: 1.9
+        compensated_pct: 4.2
+      - year: 2023
+        grid_curtailment_pct: 3.1
+        environmental_curtailment_pct: 2.1
+        compensated_pct: 3.1
+      - year: 2024
+        grid_curtailment_pct: 2.4
+        environmental_curtailment_pct: 2.2
+        compensated_pct: 2.4
+      - year: 2025
+        grid_curtailment_pct: 1.4
+        environmental_curtailment_pct: 2.1
+        compensated_pct: 1.4
+
+  balancing_responsibility: direktvermarkter         # [N]
+  balancing_fee_eur_mwh: 0.65                        # [F]
+
+  green_certificates:                                # [N]
+    scheme: "Herkunftsnachweise (HKN, Umweltbundesamt)"
+    annual_volume_mwh: 460000
+    monetization: "bundled within Corporate PPA for 50 MW, remainder marketed separately"
+    remainder_avg_price_eur_mwh: 1.20
+
+# ----------------------------------------------------------------------------
+# 4. FINANCIALS
+# ----------------------------------------------------------------------------
+financials:
+  reporting_currency: EUR                            # [P]
+  reporting_basis: "HGB"                             # [N]
+  fiscal_year_end: "12-31"                           # [N]
+
+  capex:                                             # [N]
+    total_eur: 215_800_000
+    per_mw_eur: 1_453_000
+    breakdown:
+      turbines_eur: 142_500_000
+      foundations_eur: 14_800_000
+      civil_works_roads_eur: 9_400_000
+      cabling_internal_eur: 6_200_000
+      grid_connection_eur: 18_500_000
+      development_permits_eur: 8_400_000
+      financing_costs_eur: 6_800_000
+      contingency_used_eur: 2_900_000
+      epc_margin_eur: 6_300_000
+    realized_vs_budget_pct: 103.8
+    cost_overrun_drivers: "foundation reinforcement due to soil findings; partial offset from negotiated turbine discount"
+    final_account_settled: true
+
+  opex_breakdown:                                    # [N]
+    currency: EUR
+    basis_year: 2025
+    per_mw_per_year:
+      om_service: 28000     # Significantly higher than PV due to turbine maintenance
+      land_lease: 12500     # German Pachtmodell typically higher per MW than Iberia
+      insurance: 3200
+      asset_management: 1800
+      direct_marketing: 2700  # Direktvermarktungsfee + balancing
+      grid_charges: 1900
+      monitoring_scada: 600
+      administrative: 1400
+      gewerbesteuer_reserve: 4200  # German trade tax provision
+      other: 1100
+    total_per_mw_yr: 57400
+    total_annual_eur: 8_523_900
+    inflation_assumption_pct: 2.5
+    notes: "OM service contract structure: 6 years premium, then reduced — see operating_history.service_contract"
+
+  revenue_history:                                   # [N]
+    - year: 2022
+      gross_revenue_eur: 26_400_000
+      eeg_mp_revenue_eur: 26_400_000
+      ppa_revenue_eur: 0
+      hkn_revenue_eur: 580_000
+      notes: "Pre-PPA year; revenue exceeded AW substantially due to 2022 power price spikes"
+    - year: 2023
+      gross_revenue_eur: 28_100_000
+      eeg_mp_revenue_eur: 28_100_000
+      ppa_revenue_eur: 0
+      hkn_revenue_eur: 620_000
+    - year: 2024
+      gross_revenue_eur: 30_750_000
+      eeg_mp_revenue_eur: 21_650_000
+      ppa_revenue_eur: 9_100_000
+      hkn_revenue_eur: 480_000
+    - year: 2025
+      gross_revenue_eur: 32_900_000
+      eeg_mp_revenue_eur: 22_800_000
+      ppa_revenue_eur: 10_100_000
+      hkn_revenue_eur: 510_000
+
+  ebitda_history:                                    # [N]
+    - year: 2022
+      ebitda_eur: 19_300_000
+      margin_pct: 73.1
+    - year: 2023
+      ebitda_eur: 20_400_000
+      margin_pct: 72.6
+    - year: 2024
+      ebitda_eur: 22_100_000
+      margin_pct: 71.9
+    - year: 2025
+      ebitda_eur: 24_200_000
+      margin_pct: 73.6
+
+  debt_structure:                                    # [N]
+    senior_debt:
+      outstanding_eur: 142_000_000
+      original_principal_eur: 168_000_000
+      lender: "Anonymized German Landesbank-led syndicate (3 banks)"
+      margin_bps: 165
+      reference_rate: "EURIBOR 6M"
+      hedging: "85% interest rate swap to 2031-12-31"
+      maturity: "2036-09-30"
+      amortization: "tailor-made to DSCR 1.25x P50 / 1.10x P90"
+      dscr_p50: 1.32
+      dscr_p90: 1.15
+      cash_sweep: "75% above 1.35x trailing DSCR"
+      lock_up_dscr: 1.20
+      change_of_control_clause: true
+      change_of_control_consent_required: true
+    mezzanine:
+      outstanding_eur: 0
+    refinancing_options_open: true
+    refinancing_window: "2028-2029"
+    notes: "Significant refinancing potential post-PPA stabilization"
+
+  subsidy_remaining:                                 # [N]
+    scheme: "EEG 2017 / 2020 wind onshore auction"
+    award_date: "2020-02-01"
+    anzulegender_wert_eur_mwh: 61.20
+    gueltestellenfaktor: 1.05
+    remaining_years: 15.5
+    remaining_volume_mwh: null
+    indexation: "none (fixed nominal anzulegender Wert)"
+
+  tax_position:                                      # [N]
+    nol_carryforward_eur: 4_200_000
+    gewerbesteuer_hebesatz_pct: 380
+    sonderabschreibung_remaining_eur: 0
+    sonder_afa_completed: true
+    koerperschaftsteuer_status: "regular taxation"
+
+  asking_price:                                      # [F]
+    indicated_range_eur_low: 245_000_000
+    indicated_range_eur_high: 280_000_000
+    basis: "enterprise value, cash-free debt-free"
+    valuation_date: "2026-03-15"
+    multiples_indication:
+      ev_ebitda_2025x: 10.1
+      ev_per_mw_eur: 1_650_000
+
+  valuation_reference:                               # [N]
+    methodology: "DCF, 20-year explicit through EEG end + 5-year extension scenarios"
+    discount_rate_wacc_pct: 6.4
+    base_case_ev_eur: 261_000_000
+    repowering_uplift_modeled: true
+    repowering_uplift_eur: 35_000_000
+    valuator: "Big-Four advisory firm"
+    valuation_date: "2026-03-15"
+
+# ----------------------------------------------------------------------------
+# 5. COMPLIANCE
+# ----------------------------------------------------------------------------
+compliance:
+
+  permits:                                           # [N]
+    - permit_type: "bimschg_genehmigung"
+      issuing_authority: "Landrat Kreis Dithmarschen"
+      reference: "32-2020-WEA-Aeolus-148"
+      issue_date: "2020-09-14"
+      valid_until: null
+      conditions: |
+        - Fledermaus-Abschaltung 01.04.-31.10., Sonnenuntergang -1h bis +5h, bei Windgeschwindigkeit <6 m/s und Temperatur >10°C
+        - Avifauna monitoring annual through 2030
+        - Schattenwurf max 30 min/Tag und 30 h/Jahr pro Immissionsort
+        - TA Lärm Nachtwert 45 dB(A) am IO Brunsdorf
+      status: "active"
+
+    - permit_type: "naturschutzrechtliche_ausnahmegenehmigung"
+      issuing_authority: "LLUR Schleswig-Holstein"
+      reference: "§45 BNatSchG-2020-0182"
+      issue_date: "2020-11-08"
+      valid_until: null
+      conditions: "compensation measures: 18 ha extensive grassland creation, fulfilled"
+      status: "active"
+
+    - permit_type: "wege_und_zufahrtsgenehmigung"
+      issuing_authority: "Amt Marne-Nordsee + Landesstraßenbauverwaltung"
+      issue_date: "2020-10-22"
+      valid_until: null
+      status: "active"
+
+    - permit_type: "luftverkehrsrechtliche_zustimmung"
+      issuing_authority: "Bundesaufsichtsamt für Flugsicherung"
+      issue_date: "2020-08-30"
+      valid_until: null
+      conditions: "BNK system (bedarfsgesteuerte Nachtkennzeichnung) mandatory from 2024 — installed and operational"
+      status: "active"
+
+  bnk_system_status: "operational since 2024-08-15" # [P]
+
+  land_rights:                                       # [N]
+    structure: "long_term_lease"
+    consolidation: "SPV holds all 42 lease agreements"
+    landowner_count: 42
+    landowner_type_mix: "37 private, 4 municipal, 1 church-owned"
+    lease_duration_years: 30
+    remaining_years_avg: 25.4
+    annual_lease_total_eur: 1_855_000
+    lease_structure: "fixed base + revenue share above threshold price"
+    base_lease_eur_per_mw: 8_500
+    revenue_share_threshold_eur_mwh: 50
+    revenue_share_pct: 4.5
+    indexation: "German CPI"
+    early_termination_rights: "lessor: none; lessee: 24-month notice from year 11"
+    decommissioning_obligation: "full restoration, foundation removal to 2m below grade"
+    landowner_consent_change_of_control: "not required (statutory regime)"
+
+  environmental_assessments:                         # [N]
+    - assessment_type: "UVP (Umweltverträglichkeitsprüfung)"
+      completed_date: "2020-05-30"
+      authority: "Landrat Kreis Dithmarschen"
+      outcome: "UVP-Pflicht festgestellt, UVP durchgeführt, positiv"
+    - assessment_type: "Artenschutzrechtliche Prüfung"
+      completed_date: "2020-04-15"
+      focus_species: ["Rotmilan", "Seeadler", "Mopsfledermaus", "Großer Abendsegler"]
+      outcome: "Vorhaben zulässig mit Abschaltungs- und Monitoring-Auflagen"
+      ongoing_monitoring: true
+      monitoring_results_2024: "no significant impact detected"
+    - assessment_type: "Schallimmissionsprognose"
+      completed_date: "2020-03-22"
+      methodology: "TA Lärm 1998, Abschnitt A.2.2"
+    - assessment_type: "Schattenwurfprognose"
+      completed_date: "2020-03-25"
+
+  eu_taxonomy_alignment:                             # [P]
+    applicable_activity: "4.3 Electricity generation from wind power"
+    substantial_contribution: climate_change_mitigation
+    dnsh_assessment_complete: true
+    dnsh_assessment_date: "2024-08-20"
+    dnsh_climate_adaptation: passed
+    dnsh_water: passed
+    dnsh_circular_economy: passed_with_conditions
+    dnsh_circular_economy_notes: "Blade recycling commitment per WindEurope industry pledge; decommissioning plan addresses turbine end-of-life"
+    dnsh_pollution: passed
+    dnsh_biodiversity: passed
+    dnsh_biodiversity_notes: "Permit-mandated bat curtailment and avian monitoring in place"
+    minimum_safeguards_complete: true
+    taxonomy_aligned_capex_pct: 100
+    taxonomy_aligned_opex_pct: 100
+    taxonomy_aligned_turnover_pct: 100
+
+  litigation_disputes:                               # [N]
+    - dispute_type: "neighbor objection"
+      status: "settled"
+      settled_date: "2022-04-18"
+      resolution: "Acoustic monitoring report shared, settlement payment of €15k to affected household; no precedent for further claims"
+
+  insurance_coverage:                                # [N]
+    operational_all_risks:
+      insurer: "Pan-European industrial insurer"
+      coverage_eur: 230_000_000
+      deductible_eur: 100_000
+      renewal_date: "2026-11-01"
+    business_interruption:
+      coverage_months: 18
+      daily_indemnity_eur: 75_000
+    third_party_liability:
+      coverage_eur: 25_000_000
+    machinery_breakdown:
+      coverage_eur: 50_000_000
+      deductible_eur: 250_000
+    serial_loss_clause: true
+    cyber:
+      coverage_eur: 5_000_000
+
+  decommissioning_obligation:                       # [N]
+    regulatory_requirement: "§35 BauGB, §16 BImSchG, plus permit conditions"
+    estimated_cost_eur: 9_900_000
+    estimated_cost_per_turbine_eur: 300_000
+    cost_basis_year: 2024
+    cost_basis_source: "Gutachten 2024 by certified engineer, indexed"
+    bond_amount_eur: 11_500_000
+    bond_provider: "European insurance group"
+    bond_type: "Bürgschaft, on first demand"
+    bond_renewal: annual
+    foundation_removal_depth_m: 2.0
+    repowering_scenario_credit: "decommissioning cost partially offset if repowering rather than full removal"
+
+  esg:                                               # [P]
+    scope_1_2_emissions_tco2e_yr: 0
+    avoided_emissions_tco2e_yr: 217_000
+    avoided_emissions_methodology: "German grid emission factor 2024 (UBA) 0.47 tCO2e/MWh"
+    biodiversity_compensation_completed: true
+    biodiversity_compensation_area_hectares: 18
+    community_benefit_scheme: "annual contribution €250k to affected municipalities under §6 EEG Akzeptanzregelung"
+    eeg_buergerwind_anteil_pct: 0
+
+# ----------------------------------------------------------------------------
+# 6. OPERATING HISTORY
+# ----------------------------------------------------------------------------
+operating_history:
+
+  monthly_production:                                # [N]
+    inline_summary:
+      - year: 2022
+        gross_mwh: 478_200
+        net_mwh: 458_400
+        availability_pct: 96.8
+        capacity_factor_pct: 35.2
+        notes: "Strong wind year"
+      - year: 2023
+        gross_mwh: 462_500
+        net_mwh: 443_100
+        availability_pct: 97.2
+        capacity_factor_pct: 34.1
+      - year: 2024
+        gross_mwh: 471_800
+        net_mwh: 452_600
+        availability_pct: 97.8
+        capacity_factor_pct: 34.8
+      - year: 2025
+        gross_mwh: 458_400
+        net_mwh: 440_900
+        availability_pct: 98.0
+        capacity_factor_pct: 33.9
+        notes: "Slightly below-average wind year"
+    detailed_url: "https://dataroom.example.com/aeolus/production-monthly-2022-2025.csv"
+    detailed_access: "nda_required"
+    detailed_schema: ["month", "turbine_id", "gross_mwh", "net_mwh", "availability_pct", "mean_wind_speed_hub_ms", "curtailment_mwh"]
+
+  availability_history:                              # [N]
+    - year: 2022
+      availability_pct: 96.8
+      planned_outages_hours: 480
+      unplanned_outages_hours: 245
+    - year: 2023
+      availability_pct: 97.2
+      planned_outages_hours: 460
+      unplanned_outages_hours: 196
+    - year: 2024
+      availability_pct: 97.8
+      planned_outages_hours: 445
+      unplanned_outages_hours: 142
+    - year: 2025
+      availability_pct: 98.0
+      planned_outages_hours: 440
+      unplanned_outages_hours: 128
+
+  major_events:                                      # [N]
+    - date: "2022-03-08"
+      type: "gearbox_failure"
+      turbine_id: "TURB-01-N03"
+      duration_hours: 720
+      root_cause: "premature bearing wear, manufacturer-confirmed serial defect"
+      resolved_under_warranty: true
+      revenue_impact_eur: 142_000
+      bi_insurance_claim: false
+      serial_defect_extended_warranty: "all V150 gearboxes covered through 2028"
+
+    - date: "2023-11-22"
+      type: "lightning_strike"
+      turbine_id: "TURB-02-S07"
+      duration_hours: 96
+      root_cause: "blade lightning damage despite LPS"
+      resolved_under_warranty: false
+      revenue_impact_eur: 38_000
+      bi_insurance_claim: true
+      bi_claim_settled_eur: 28_000
+
+    - date: "2024-07-14"
+      type: "grid_event"
+      affected_capacity_mw: 148.5
+      duration_hours: 4
+      root_cause: "SH Netz redispatch instruction during heat wave"
+      resolved_under_warranty: false
+      revenue_impact_eur: 28_000
+      compensated_by_dso: true
+
+    - date: "2025-02-19"
+      type: "storm_curtailment"
+      affected_capacity_mw: 148.5
+      duration_hours: 8
+      root_cause: "cut-out wind speeds during winter storm Doris"
+      resolved_under_warranty: false
+      revenue_impact_eur: 0
+
+  service_contract:                                  # [N]
+    structure: "split between manufacturers"
+    contracts:
+      - provider: "Vestas Northern Europe A/S"
+        scope: "TURB-01 cluster (18 V150 turbines)"
+        type: "AOM 5000 Full Scope"
+        start_date: "2021-11-20"
+        initial_duration_years: 10
+        remaining_years: 5.4
+        annual_fee_eur: 2_280_000
+        indexation: "German CPI capped at 3%"
+        sla_availability_pct: 97.0
+        sla_response_hours: 24
+        liquidated_damages: "€8,500 per percentage point below SLA"
+        change_of_control_clause: false
+      - provider: "Nordex Service Deutschland GmbH"
+        scope: "TURB-02 cluster (15 N163 turbines)"
+        type: "Premium Plus Full Service"
+        start_date: "2021-11-20"
+        initial_duration_years: 12
+        remaining_years: 7.4
+        annual_fee_eur: 1_950_000
+        indexation: "German CPI capped at 3%"
+        sla_availability_pct: 97.0
+        change_of_control_clause: false
+
+  warranty_status:                                   # [N]
+    turbine_warranty_remaining_avg_years: 5.7
+    serial_defect_extensions:
+      - component: "V150 gearbox bearings"
+        extension_until: "2028-11-20"
+      - component: "N163 pitch system"
+        extension_until: "2027-11-20"
+    epc_workmanship_remaining_years: 0
+    epc_workmanship_extension_negotiated: false
+
+  scada_access: "read_only_pre_closing"              # [P]
+  scada_provider: "Vestas Online Business + Nordex Control + WindFarm Management overlay" # [N]
+
+# ----------------------------------------------------------------------------
+# 7. PROCESS
+# ----------------------------------------------------------------------------
+process:
+
+  process_type: limited_auction                      # [P]
+  invited_bidders_count: 14                          # [P]
+
+  process_lead:                                      # [P]
+    organization: "Northern European Renewables Advisors"
+    contact_role: "Partner, Wind M&A"
+    contact_email: "aeolus@advisor.example.com"
+    contact_phone: null
+
+  process_timeline:                                  # [P]
+    teaser_distribution: "2026-05-08"
+    information_memorandum_distribution: "2026-06-10"
+    site_visits: "2026-07-01 to 2026-07-18"
+    non_binding_offers_due: "2026-08-15"
+    management_presentations: "2026-09-01 to 2026-09-26"
+    binding_offers_due: "2026-11-15"
+    signing_target: "2026-12-20"
+    closing_target: "2027-Q2"
+    long_stop_date: "2027-09-30"
+
+  closing_conditions:                                # [N]
+    regulatory_approvals_required:
+      - "Bundeskartellamt merger control (if buyer + seller turnover thresholds met)"
+      - "FDI screening under AWG/AWV (if non-EU/EFTA buyer or sensitive sector overlap)"
+    consents_required:
+      - "Senior lender syndicate change-of-control approval"
+      - "Corporate PPA counterparty change-of-control consent"
+      - "Direktvermarkter contract assignment notification"
+    landowner_consents_required: false
+    estimated_signing_to_closing_months: 4
+
+  data_room:                                         # [N]
+    provider: "Drooms"
+    url: "https://drooms.com/projects/aeolus-2026"
+    access_mechanism: "NDA + invitation + 2FA"
+    document_count_approx: 2_400
+    structure: "11 folders aligned to vendor DD reports + repowering scenario module"
+    vendor_dd_reports:
+      - "Technical (TÜV NORD)"
+      - "Commercial / Market (Aurora)"
+      - "Legal (German Top-50 law firm)"
+      - "Tax (Big Four)"
+      - "ESG (Big Four)"
+      - "Repowering (specialized wind consultancy)"
+
+  nda_template: "https://advisor.example.com/aeolus/nda-template.pdf" # [P]
+
+  access_endpoint: "https://advisor.example.com/.well-known/rals/auth" # [P]
+
+  confidentiality_note: |                            # [P]
+    Project name "Aeolus" is itself confidential.
+    Refer to as "North German Wind Opportunity" in any external communication.
+    Site visits coordinated through advisor only — no direct contact with
+    operations staff or service provider technicians prior to final
+    shortlist admission. Drone overflights of the site are explicitly
+    prohibited under the NDA.
+
+# ============================================================================
+# End of RALS document for Project Aeolus
+# ============================================================================

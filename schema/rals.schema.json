@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rals.org/schema/v0.1/rals.schema.json",
+  "title": "Renewable Asset Listing Standard (RALS) v0.1",
+  "description": "JSON Schema for RALS, defining the structure of renewable energy asset listings.",
+  "type": "object",
+  "required": ["rals_version", "document_id", "identity", "technical", "grid_offtake", "process"],
+  "properties": {
+    "rals_version": {
+      "type": "string",
+      "const": "0.1"
+    },
+    "document_id": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "generated_by": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "identity": {
+      "type": "object",
+      "required": ["asset_name", "asset_type", "lifecycle_stage", "country", "transaction_type"],
+      "properties": {
+        "asset_name": { "type": "string" },
+        "asset_type": {
+          "type": "string",
+          "enum": ["solar_pv", "onshore_wind", "offshore_wind", "bess", "hybrid", "hydro", "biomass", "geothermal", "csp"]
+        },
+        "lifecycle_stage": {
+          "type": "string",
+          "enum": ["greenfield", "development", "ready_to_build", "under_construction", "commissioning", "operating", "repowering_candidate", "decommissioning"]
+        },
+        "country": { "type": "string", "minLength": 2, "maxLength": 2 },
+        "region": { "type": "string" },
+        "sub_region": { "type": "string" },
+        "coordinates": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "site_area_hectares": { "type": "number" },
+        "site_configuration": { "type": "string" },
+        "total_capacity_mw": { "type": "number" },
+        "total_capacity_mw_ac": { "type": "number" },
+        "total_capacity_mw_dc": { "type": "number" },
+        "dc_ac_ratio": { "type": "number" },
+        "total_energy_mwh": { "type": "number" },
+        "number_of_turbines": { "type": "integer" },
+        "transaction_type": {
+          "type": "string",
+          "enum": ["full_acquisition", "majority_stake", "minority_stake", "refinancing", "joint_venture", "ppa_only"]
+        },
+        "equity_offered_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+        "seller_legal_entity": { "type": "string" },
+        "seller_jurisdiction": { "type": "string" },
+        "internal_reference": { "type": "string" },
+        "spv_structure": { "type": "boolean" },
+        "spv_jurisdiction": { "type": "string" },
+        "spv_form": { "type": "string" },
+        "spv_tax_grouping": { "type": "string" }
+      }
+    },
+    "technical": {
+      "type": "object",
+      "properties": {
+        "commissioning_date": { "type": "string", "format": "date" },
+        "expected_lifetime_years": { "type": "integer" },
+        "design_basis_year": { "type": "integer" },
+        "repowering_potential": { "type": "boolean" },
+        "repowering_eligible_from": { "type": "string", "format": "date" },
+        "units": { "type": "array" },
+        "production_estimates": { "type": "object" },
+        "capacity_factor": { "type": "number" },
+        "performance_ratio": { "type": "number" },
+        "specific_yield_kwh_kwp": { "type": "number" },
+        "losses_breakdown": { "type": "object" },
+        "degradation_curve": { "type": "object" },
+        "module": { "type": "object" },
+        "inverter": { "type": "object" },
+        "mounting": { "type": "object" },
+        "turbine_configurations": { "type": "array" },
+        "wind_resource": { "type": "object" },
+        "noise_emission": { "type": "object" },
+        "shadow_flicker": { "type": "object" }
+      }
+    },
+    "grid_offtake": {
+      "type": "object",
+      "required": ["grid_connection", "offtake_structure"],
+      "properties": {
+        "grid_connection": { "type": "object" },
+        "offtake_structure": {
+          "type": "string",
+          "enum": ["feed_in_tariff", "cfd", "corporate_ppa", "utility_ppa", "merchant", "hybrid"]
+        },
+        "offtake_contracts": { "type": "array" },
+        "curtailment_history": { "type": "object" },
+        "balancing_responsibility": { "type": "string" },
+        "balancing_fee_eur_mwh": { "type": "number" },
+        "green_certificates": { "type": "object" }
+      }
+    },
+    "financials": {
+      "type": "object",
+      "properties": {
+        "reporting_currency": { "type": "string" },
+        "reporting_basis": { "type": "string" },
+        "fiscal_year_end": { "type": "string" },
+        "capex": { "type": "object" },
+        "opex_breakdown": { "type": "object" },
+        "revenue_history": { "type": "array" },
+        "ebitda_history": { "type": "array" },
+        "debt_structure": { "type": "object" },
+        "subsidy_remaining": { "type": "object" },
+        "tax_position": { "type": "object" },
+        "asking_price": { "type": "object" },
+        "valuation_reference": { "type": "object" }
+      }
+    },
+    "compliance": {
+      "type": "object",
+      "properties": {
+        "permits": { "type": "array" },
+        "land_rights": { "type": "object" },
+        "environmental_assessments": { "type": "array" },
+        "eu_taxonomy_alignment": { "type": "object" },
+        "litigation_disputes": { "type": "array" },
+        "insurance_coverage": { "type": "object" },
+        "decommissioning_obligation": { "type": "object" },
+        "esg": { "type": "object" },
+        "bnk_system_status": { "type": "string" }
+      }
+    },
+    "operating_history": {
+      "type": "object",
+      "properties": {
+        "monthly_production": { "type": "object" },
+        "availability_history": { "type": "array" },
+        "major_events": { "type": "array" },
+        "service_contract": { "type": "object" },
+        "warranty_status": { "type": "object" },
+        "scada_access": { "type": "string" },
+        "scada_provider": { "type": "string" }
+      }
+    },
+    "process": {
+      "type": "object",
+      "required": ["process_type", "process_lead", "process_timeline"],
+      "properties": {
+        "process_type": {
+          "type": "string",
+          "enum": ["bilateral", "limited_auction", "broad_auction", "open_market"]
+        },
+        "invited_bidders_count": { "type": "integer" },
+        "process_lead": { "type": "object" },
+        "process_timeline": { "type": "object" },
+        "closing_conditions": { "type": "object" },
+        "data_room": { "type": "object" },
+        "nda_template": { "type": "string" },
+        "access_endpoint": { "type": "string" },
+        "confidentiality_note": { "type": "string" }
+      }
+    }
+  }
+}

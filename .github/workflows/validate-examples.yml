@@ -1,0 +1,44 @@
+name: Validate Examples
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install Dependencies
+        working-directory: reference/validator
+        run: npm ci
+        
+      - name: Validate valid examples
+        working-directory: reference/validator
+        run: |
+          for file in ../../examples/*.rals.yaml; do
+            echo "Validating $file..."
+            node src/cli.js "$file" ../../schema/rals.schema.json
+          done
+          
+      - name: Validate invalid examples (should fail)
+        working-directory: reference/validator
+        run: |
+          # This should fail if the examples are invalid. We expect failure.
+          if [ -d ../../examples/invalid ]; then
+            for file in ../../examples/invalid/*.rals.yaml; do
+              echo "Validating $file (expecting failure)..."
+              if node src/cli.js "$file" ../../schema/rals.schema.json; then
+                echo "Error: $file was expected to be invalid, but passed."
+                exit 1
+              fi
+            done
+          fi

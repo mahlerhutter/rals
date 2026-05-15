@@ -1,0 +1,772 @@
+# ============================================================================
+# Renewable Asset Listing Standard (RALS) — Example Document
+# ============================================================================
+#
+# Asset:        Project Mekong (fictional)
+# Description:  38 MW run-of-river small hydropower plant in Lào Cai
+#               Province, Northwest Vietnam. Operating since 2018, currently
+#               under legacy FiT-derived PPA with EVN, evaluating transition
+#               to DPPA mechanism under Decree 57/2025. Single-stage,
+#               cascade-compatible design. International sponsor (European
+#               renewable developer) divesting to focus on Southeast Asian
+#               solar pipeline.
+# Profile:      Level 3 (Complete) — includes all confidentiality tiers
+# Purpose:      Reference example accompanying RALS Specification v0.1
+#
+# This is a fictional asset. All names, financial figures, counterparties,
+# hydrological data, and contract terms are invented for illustration. The
+# specific river, micro-location, and SPV are fabricated. Any resemblance
+# to real assets, transactions, or entities is coincidental.
+#
+# Why this example exists:
+#   Hydropower stresses RALS along four dimensions that PV, Wind, and BESS
+#   do not:
+#   (a) hydrology as the dominant production variable — 30+ year flow time
+#       series rather than wind/solar resource assessment,
+#   (b) water rights and concession structures rather than land lease or
+#       freehold,
+#   (c) cascading downstream/upstream interdependencies (sediment management,
+#       fish passage, ecological flow obligations),
+#   (d) emerging-market regulatory context (Vietnam DPPA mechanism under
+#       Decree 57/2025, NSMO as independent grid operator, EVN as legacy
+#       offtaker, USD/VND currency exposure).
+#   This example demonstrates RALS in a non-EU, non-OECD jurisdiction with
+#   different valuation drivers, transferability constraints, and risk
+#   factors than the European/UK examples.
+#
+# Author's note on accuracy:
+#   Vietnamese hydro regulatory specifics are drawn from publicly available
+#   sources (Decree 57/2025, Electricity Law 2024, EVN PPA templates).
+#   Where exact figures (e.g. provincial water royalty rates, specific
+#   concession term limits) varied across sources or were unclear, the
+#   example uses plausible values flagged in comments. Implementers building
+#   real Vietnam-context RALS files should verify with Vietnamese counsel.
+#
+# Tier markers in comments:
+#   [P] = public           (included in Teaser Profile)
+#   [N] = nda_required     (visible after NDA)
+#   [F] = final_shortlist  (visible only to admitted final bidders)
+# ============================================================================
+
+rals_version: "0.1"
+document_id: "rals:01HE7K2M4N6P8Q1R3S5T7V9W2X"
+generated_at: "2026-05-15T10:00:00Z"
+generated_by: "manual-reference-example"
+language: "en"
+
+# ----------------------------------------------------------------------------
+# 1. IDENTITY
+# ----------------------------------------------------------------------------
+identity:
+  asset_name: "Project Mekong"                       # [P]
+  asset_type: hydro                                  # [P]
+  asset_subtype: run_of_river                        # [P]
+  lifecycle_stage: operating                         # [P]
+  country: VN                                        # [P]
+  region: "Lào Cai Province"                         # [P]
+  sub_region: "Bát Xát District"                     # [P]
+  river_basin: "Red River (Sông Hồng) tributary"     # [P]
+  coordinates: [103.7842, 22.5118]                   # [N]
+  site_area_hectares: 18.4                           # [P]
+  total_capacity_mw: 38.0                            # [P]
+  small_hydro_classification: true                   # [P]
+  small_hydro_threshold_basis: "Vietnam: ≤50 MW per Electricity Law 2024 classification"  # [P]
+  cascade_position: "standalone (no upstream/downstream cascade)" # [P]
+  transaction_type: full_acquisition                 # [P]
+  equity_offered_pct: 100                            # [P]
+  seller_legal_entity: "Mekong Hydro Power JSC"      # [N]
+  seller_jurisdiction: "Vietnam"                     # [N]
+  ultimate_parent_jurisdiction: "Luxembourg"         # [N]
+  internal_reference: "MKG-VN-2026-001"              # [F]
+  spv_structure: true                                # [N]
+  spv_form: "Joint Stock Company (Công ty cổ phần)"  # [N]
+  ultimate_beneficial_ownership_disclosed: true     # [N]
+  foreign_ownership_pct: 100                         # [N]
+  investment_certificate_reference: "IRC-Lào Cai-2014-018"  # [N]
+
+# ----------------------------------------------------------------------------
+# 2. TECHNICAL
+# ----------------------------------------------------------------------------
+technical:
+  commissioning_date: "2018-06-22"                   # [P]
+  expected_lifetime_years: 50                        # [P]
+  design_basis_year: 2014                            # [P]
+
+  hydro_configuration:                               # [P]
+    plant_type: run_of_river
+    diversion_type: weir_with_intake
+    head_type: medium_head
+    gross_head_m: 145
+    net_head_m: 138
+    design_flow_m3_s: 32.4
+    minimum_operating_flow_m3_s: 4.8
+    penstock_length_m: 1850
+    penstock_material: "welded steel, internally coated"
+    powerhouse_type: "surface, separate building"
+
+  turbines:                                          # [N]
+    - turbine_id: "T1"
+      manufacturer: "Andritz Hydro"
+      model: "Francis vertical-shaft"
+      nominal_capacity_mw: 19.0
+      rated_flow_m3_s: 16.2
+      rated_head_m: 138
+      synchronous_speed_rpm: 600
+      efficiency_peak_pct: 93.8
+      installation_year: 2018
+      major_overhaul_history:
+        - year: 2024
+          scope: "scheduled wear ring replacement, runner inspection"
+          duration_days: 28
+    - turbine_id: "T2"
+      manufacturer: "Andritz Hydro"
+      model: "Francis vertical-shaft"
+      nominal_capacity_mw: 19.0
+      rated_flow_m3_s: 16.2
+      rated_head_m: 138
+      synchronous_speed_rpm: 600
+      efficiency_peak_pct: 93.8
+      installation_year: 2018
+      major_overhaul_history:
+        - year: 2024
+          scope: "scheduled wear ring replacement, runner inspection"
+          duration_days: 31
+
+  generators:                                        # [N]
+    count: 2
+    manufacturer: "Andritz Hydro"
+    type: "synchronous, vertical-shaft"
+    voltage_kv: 10.5
+    nominal_power_mva_each: 22.0
+    cooling: "air-cooled with heat exchangers"
+    excitation: "static brushless"
+
+  step_up_transformer:                               # [N]
+    count: 1
+    manufacturer: "Anonymized regional OEM"
+    rating_mva: 45
+    voltage_ratio: "10.5/110 kV"
+    type: "outdoor, oil-immersed"
+
+  hydrological_basis:
+    methodology: "30-year river gauge record + regional regression analysis" # [P]
+    gauge_station_reference: "Bát Xát-Upper, MoNRE network"                   # [N]
+    record_period_years: 32                                                   # [N]
+    mean_annual_flow_m3_s: 14.8                                               # [N]
+    design_flood_return_period_years: 1000                                    # [N]
+    design_flood_flow_m3_s: 285                                               # [N]
+    climate_change_sensitivity_assessment: true                               # [N]
+    climate_change_sensitivity_outcome: |                                     # [N]
+      Third-party climate study (2023): central projection -4% mean annual
+      flow by 2050 under RCP 4.5; -9% under RCP 8.5. Increased seasonality
+      with higher peak monsoon flow and lower dry-season flow. Generation
+      impact modeled at -3% to -7% by 2045 under base case.
+
+  production_estimates:                              # [N]
+    methodology: "FlowSim hydrological model + plant operation simulation, third-party"
+    assessor: "International consultancy (anonymized, hydro specialist)"
+    assessment_date: "2017-09-15, validated 2023-11-08"
+    p50_gwh_yr: 162.4
+    p75_gwh_yr: 148.8
+    p90_gwh_yr: 134.2
+    p99_gwh_yr: 118.6
+    capacity_factor_p50_pct: 48.8
+    seasonal_distribution_pct:
+      wet_season_may_oct: 72
+      dry_season_nov_apr: 28
+    drought_year_2020_actual_gwh: 119.4
+    notes: "Strong seasonality; revenue concentration in wet season creates working capital seasonality."
+
+  efficiency_metrics:                                # [N]
+    overall_plant_efficiency_design_pct: 88.5
+    overall_plant_efficiency_actual_2025_pct: 87.1
+    auxiliary_consumption_pct_of_gross: 0.8
+
+  civil_infrastructure:                              # [N]
+    weir:
+      type: "concrete gravity weir"
+      height_m: 16
+      crest_length_m: 78
+      design_basis: "1-in-1000-year flood"
+      condition_2025: "good — last inspection 2024-Q4"
+    intake_structure:
+      sediment_excluder_type: "Coanda-style screen + sluicing"
+      fish_screen_present: true
+      fish_screen_mesh_mm: 12
+    sediment_management:
+      strategy: "sluice-flushing during high-flow events"
+      annual_sediment_removal_m3_estimated: 18000
+      downstream_release_protocol: "documented, regulator-approved"
+    fish_passage:
+      provision: "vertical-slot fish ladder"
+      target_species: ["Schizothorax wangchiachii", "endemic Cyprinidae"]
+      monitoring: "annual catch-and-release study by Vietnamese university partner"
+
+# ----------------------------------------------------------------------------
+# 3. GRID & OFFTAKE
+# ----------------------------------------------------------------------------
+grid_offtake:
+
+  grid_connection:                                   # mixed
+    connection_point: "EVN NPC Lào Cai 110 kV substation"  # [N]
+    voltage_level_kv: 110                                  # [P]
+    connection_capacity_mw: 45                             # [P]
+    grid_operator: "Northern Power Corporation (EVN NPC)"  # [P]
+    system_operator: "National Power System and Market Operation Limited Liability Company (NSMO)" # [P]
+    nsmo_independence_note: "NSMO operates independently of EVN since August 2024"  # [P]
+    transmission_line_length_km: 12.4                      # [N]
+    transmission_line_ownership: "asset (developer-built, regulator-required)"  # [N]
+    connection_agreement_date: "2017-11-30"                # [N]
+    grid_code_compliance: "Circular 39/2015/TT-BCT (Vietnam Grid Code)"  # [N]
+    curtailment_priority: "renewable_priority_per_decree_11_2017"  # [N]
+
+  offtake_structure: legacy_fit_ppa_transitioning            # [P]
+  offtake_transition_note: |                                 # [P]
+    Asset operates under legacy PPA executed 2017 based on small-hydro
+    avoided-cost tariff regime. Buyer can elect to continue legacy PPA,
+    transition to DPPA mechanism under Decree 57/2025, or hybrid (partial
+    DPPA, residual VWEM exposure). Decree 57/2025 explicitly permits
+    hydropower in DPPA framework. Optionality is itself a value driver.
+
+  offtake_contracts:
+    - contract_id: "EVN-PPA-2017"
+      counterparty: "Vietnam Electricity (EVN)"             # [P]
+      counterparty_credit_rating: "BB+ (sovereign-equivalent, Fitch 2025)"  # [P]
+      contract_type: avoided_cost_tariff                    # [P]
+      structure_type: pay_as_produced_with_seasonal_tariff  # [P]
+      delivery_form: physical                               # [P]
+      capacity_mw: 38                                       # [P]
+      original_term_years: 20                               # [N]
+      remaining_years: 12.1                                 # [N]
+      start_date: "2018-06-22"                              # [N]
+      end_date: "2038-06-22"                                # [N]
+      tariff_structure:                                     # [N]
+        wet_season_peak_vnd_kwh: 1485
+        wet_season_normal_vnd_kwh: 1015
+        wet_season_off_peak_vnd_kwh: 622
+        dry_season_peak_vnd_kwh: 2125
+        dry_season_normal_vnd_kwh: 1455
+        dry_season_off_peak_vnd_kwh: 890
+        notes: "VND-denominated; no USD indexation. Annual review by MOIT regulated tariff schedule."
+      tariff_review_mechanism: "MOIT annual avoided-cost tariff schedule, applies prospectively"  # [N]
+      currency: VND                                         # [N]
+      payment_currency: VND                                 # [N]
+      currency_convertibility_risk: "moderate — VND is managed float; profit repatriation requires SBV procedure"  # [F]
+      change_of_control_clause: false                       # [N]
+      change_of_control_notice_required: true               # [N]
+      assignment_requires_evn_consent: true                 # [N]
+
+  alternative_offtake_options_analysed:              # [N]
+    - option_id: "DPPA-PHYSICAL"
+      framework: "Decree 57/2025 Model 1 (private wire)"
+      feasibility: "low — no large electricity user within private-wire distance"
+      modeled_revenue_uplift_pct: null
+    - option_id: "DPPA-VIRTUAL"
+      framework: "Decree 57/2025 Model 2 (grid-connected CfD)"
+      feasibility: "moderate — requires VWEM participation, NSMO registration, and CfD with eligible large user (≥200,000 kWh/month)"
+      potential_counterparty_pipeline: "3 identified industrial offtakers in DD"
+      modeled_revenue_uplift_pct: 8.5
+      modeled_revenue_volatility_increase: "significant — VWEM spot price exposure"
+
+  curtailment_history:                                # [N]
+    - year: 2021
+      curtailment_pct: 0.0
+    - year: 2022
+      curtailment_pct: 0.4
+      cause: "grid constraint during regional flood event"
+    - year: 2023
+      curtailment_pct: 0.0
+    - year: 2024
+      curtailment_pct: 0.8
+      cause: "scheduled grid maintenance + brief overload event"
+    - year: 2025
+      curtailment_pct: 0.2
+    notes: "Small hydro retains renewable priority dispatch under Decree 11/2017"
+
+  green_certificates:                                # [N]
+    scheme: "International REC (I-REC Standard Foundation, Vietnam)"
+    annual_volume_mwh: 160000
+    monetization: "monetized via I-REC platform, bundled with REC fee structure"
+    avg_revenue_usd_mwh_2025: 1.85
+    annual_rec_revenue_usd: 296000
+    notes: "I-REC is the dominant voluntary GO scheme in Vietnam; REGO scheme remains under development."
+
+# ----------------------------------------------------------------------------
+# 4. FINANCIALS
+# ----------------------------------------------------------------------------
+financials:
+  reporting_currency: USD                            # [P]
+  functional_currency: VND                           # [N]
+  reporting_basis: "VAS (Vietnamese Accounting Standards), reconciled to IFRS for sponsor reporting" # [N]
+  fiscal_year_end: "12-31"                           # [N]
+  fx_assumption_usd_vnd: 25750                       # [N]
+  fx_basis_date: "2026-04-30"                        # [N]
+  fx_risk_management: "no formal hedging; natural hedge limited (USD-equity-funded asset, VND revenue)" # [N]
+
+  capex:                                             # [N]
+    total_usd: 78_400_000
+    per_mw_usd: 2_063_000
+    breakdown:
+      civil_works_weir_intake_usd: 18_900_000
+      penstock_usd: 9_400_000
+      powerhouse_usd: 6_800_000
+      turbines_usd: 12_500_000
+      generators_usd: 7_200_000
+      ee_works_transformer_switchgear_usd: 5_800_000
+      transmission_line_usd: 6_400_000
+      land_resettlement_usd: 2_100_000
+      development_permits_usd: 3_900_000
+      financing_costs_usd: 4_200_000
+      contingency_used_usd: 1_200_000
+    notes: "Higher per-MW capex than typical due to medium-head, long penstock, and developer-built transmission line."
+
+  opex_breakdown:                                    # [N]
+    currency: USD
+    basis_year: 2025
+    annual_total:
+      om_in_house_team_usd: 580_000                  # 22 full-time staff on site
+      major_maintenance_provision_usd: 420_000       # accrual for periodic overhauls
+      water_resource_tax_usd: 1_240_000              # Vietnam-specific: tax on water usage volume
+      land_use_levy_usd: 86_000
+      insurance_usd: 245_000
+      asset_management_usd: 195_000
+      grid_use_and_metering_usd: 145_000
+      monitoring_scada_usd: 38_000
+      provincial_environmental_fees_usd: 92_000
+      administrative_usd: 215_000
+      other_usd: 95_000
+    total_annual_usd: 3_351_000
+    per_mw_yr_usd: 88_184
+    inflation_assumption_pct: 3.5
+    notes: |
+      Vietnam-specific cost: water resource tax (thuế tài nguyên nước)
+      assessed on water volume passed through turbines; rate varies by
+      province. Lào Cai rate assumed at modeled value; verify with current
+      provincial schedule.
+
+  revenue_history:                                   # [N]
+    - year: 2022
+      gross_revenue_usd: 7_840_000
+      ppa_revenue_usd: 7_560_000
+      rec_revenue_usd: 280_000
+      production_gwh: 158.2
+      notes: "Strong wet season, above-P50 production"
+    - year: 2023
+      gross_revenue_usd: 7_290_000
+      ppa_revenue_usd: 7_010_000
+      rec_revenue_usd: 280_000
+      production_gwh: 148.4
+    - year: 2024
+      gross_revenue_usd: 7_960_000
+      ppa_revenue_usd: 7_672_000
+      rec_revenue_usd: 288_000
+      production_gwh: 161.6
+    - year: 2025
+      gross_revenue_usd: 7_812_000
+      ppa_revenue_usd: 7_516_000
+      rec_revenue_usd: 296_000
+      production_gwh: 159.1
+
+  ebitda_history:                                    # [N]
+    - year: 2022
+      ebitda_usd: 4_780_000
+      margin_pct: 61.0
+    - year: 2023
+      ebitda_usd: 4_180_000
+      margin_pct: 57.3
+    - year: 2024
+      ebitda_usd: 4_840_000
+      margin_pct: 60.8
+    - year: 2025
+      ebitda_usd: 4_690_000
+      margin_pct: 60.0
+
+  debt_structure:                                    # [N]
+    senior_debt:
+      outstanding_usd: 28_400_000
+      original_principal_usd: 52_000_000
+      lender: "International development finance institution + commercial bank co-lender"
+      currency: USD
+      margin_bps: 295
+      reference_rate: "Term SOFR 6M"
+      hedging: "fully hedged interest rate swap to maturity"
+      maturity: "2031-03-31"
+      amortization: "tailor-made, sculpted to hydrological P75"
+      dscr_p50: 1.45
+      dscr_p90: 1.18
+      cash_sweep: "60% above 1.40x trailing DSCR"
+      change_of_control_clause: true
+      change_of_control_consent_required: true
+      cross_default_with_evn_ppa: true
+    refinancing_options_open: true
+    refinancing_window: "2027-2028"
+
+  tax_position:                                      # [N]
+    corporate_income_tax_rate_pct: 10               # Preferential rate for renewable energy projects
+    cit_holiday_status: "4-year tax holiday expired; currently in 50%-reduction phase (years 5-9)"
+    cit_normalization_year: 2027
+    cit_normalization_rate_pct: 20
+    nol_carryforward_usd: 0
+    vat_status: "VAT-registered, 10% standard rate, recoverable"
+    withholding_tax_dividend_offshore_pct: 5         # Per VN-EU tax treaties; verify per parent jurisdiction
+    withholding_tax_interest_offshore_pct: 5
+
+  asking_price:                                      # [F]
+    indicated_range_usd_low: 62_000_000
+    indicated_range_usd_high: 75_000_000
+    basis: "100% equity, enterprise value cash-free debt-free at signing"
+    valuation_date: "2026-04-10"
+    multiples_indication:
+      ev_ebitda_2025x: 14.6
+      ev_per_mw_usd: 1_800_000
+
+  valuation_reference:                               # [N]
+    methodology: "DCF, remaining PPA term explicit + post-PPA scenarios (DPPA / merchant / repowering)"
+    discount_rate_wacc_pct: 11.8
+    discount_rate_post_tax_equity_pct: 14.5
+    country_risk_premium_pct: 4.2
+    base_case_ev_usd: 68_500_000
+    sensitivity_minus_10_pct_hydrology: 60_800_000
+    sensitivity_vnd_devaluation_10_pct: 62_300_000
+    sensitivity_post_ppa_merchant_pessimistic: 56_900_000
+    valuator: "Big-Four advisory, Southeast Asia practice"
+    valuation_date: "2026-04-10"
+
+# ----------------------------------------------------------------------------
+# 5. COMPLIANCE
+# ----------------------------------------------------------------------------
+compliance:
+
+  permits:                                           # [N]
+    - permit_type: "investment_registration_certificate"
+      issuing_authority: "Lào Cai Provincial People's Committee"
+      reference: "IRC-Lào Cai-2014-018"
+      issue_date: "2014-08-22"
+      valid_until: "2064-08-22"
+      project_term_years: 50
+      conditions: "Operate within design parameters; report annually"
+      status: "active"
+
+    - permit_type: "electricity_operation_license"
+      issuing_authority: "Ministry of Industry and Trade (MOIT)"
+      reference: "EOL-2018-MOIT-0142"
+      issue_date: "2018-05-30"
+      valid_until: "2028-05-30"
+      renewal_status: "renewal procedure to be initiated 2027-Q4"
+      status: "active"
+
+    - permit_type: "water_use_right"
+      issuing_authority: "Ministry of Natural Resources and Environment (MoNRE) + Lào Cai DoNRE"
+      reference: "WUR-Lào Cai-2014-007"
+      issue_date: "2014-09-15"
+      valid_until: "2034-09-15"
+      conditions: |
+        - Maximum abstraction 32.4 m³/s during operation
+        - Minimum ecological flow downstream of weir: 1.85 m³/s year-round
+        - Sediment management plan mandatory
+        - Annual reporting to provincial DoNRE
+      status: "active, compliance verified annually"
+
+    - permit_type: "environmental_impact_assessment_approval"
+      issuing_authority: "MoNRE"
+      reference: "EIA-MoNRE-2014-082"
+      issue_date: "2014-05-18"
+      valid_until: null
+      conditions: "Post-construction environmental management plan in place"
+      status: "active"
+
+    - permit_type: "construction_permit"
+      issuing_authority: "Lào Cai DOC"
+      reference: "CP-Lào Cai-2015-141"
+      issue_date: "2015-02-10"
+      status: "executed (construction complete)"
+
+    - permit_type: "fire_safety_certification"
+      issuing_authority: "Provincial Police, Fire Prevention Department"
+      reference: "FSC-LC-2018-038"
+      issue_date: "2018-04-15"
+      valid_until: "2028-04-15"
+      status: "active"
+
+  water_rights:                                      # [N]
+    rights_holder: "Mekong Hydro Power JSC (SPV)"
+    abstraction_volume_design_m3_yr: 1_022_000_000
+    minimum_ecological_flow_m3_s: 1.85
+    minimum_ecological_flow_basis: "10% of mean annual flow, regulator-mandated"
+    actual_ecological_flow_compliance_pct: 100
+    water_resource_tax_basis: "volume-based, provincial rate per m³"
+    competing_water_users_downstream: "agriculture (estimated 1,200 ha irrigated); two small downstream villages"
+    water_use_priority: "domestic > agriculture > industrial/power generation"
+
+  land_rights:                                       # [N]
+    structure: "long_term_land_use_rights"
+    legal_basis: "Land Law 2024 + Investment Law 2020"
+    land_use_certificate_count: 11
+    total_area_hectares: 18.4
+    land_use_term_years: 50
+    remaining_years: 38
+    land_use_rights_renewable: true
+    annual_land_use_levy_usd: 86_000
+    resettlement_completed: true
+    resettlement_households: 14
+    resettlement_compensation_basis: "provincial compensation schedule, third-party-audited"
+    ongoing_resettlement_obligations: "none — completed pre-construction with 5-year post-resettlement monitoring closed 2023"
+
+  environmental_assessments:                         # [N]
+    - assessment_type: "Environmental Impact Assessment"
+      completed_date: "2014-05-18"
+      authority: "MoNRE"
+      outcome: "Approved with mitigation conditions"
+    - assessment_type: "Post-construction Environmental Audit"
+      completed_date: "2019-06-30"
+      authority: "Independent consultancy, regulator-recognized"
+      outcome: "Compliant; minor recommendations implemented"
+    - assessment_type: "Periodic Environmental Compliance Report"
+      frequency: "annual"
+      most_recent: "2024-12-15"
+      outcome: "Compliant"
+    - assessment_type: "Fish passage effectiveness study"
+      completed_date: "2023-11-20"
+      partner: "Vietnamese university hydrobiology department"
+      outcome: "Vertical-slot ladder shows 68% upstream passage success for target species; mitigation considered effective per MoNRE assessment"
+
+  eu_taxonomy_alignment:                             # [P]
+    applicability_note: "Vietnam asset; EU Taxonomy alignment included for European institutional investor reporting purposes"
+    applicable_activity: "4.5 Electricity generation from hydropower"
+    substantial_contribution: climate_change_mitigation
+    dnsh_assessment_complete: true
+    dnsh_assessment_date: "2025-09-30"
+    dnsh_climate_adaptation: passed
+    dnsh_water: passed_with_conditions
+    dnsh_water_notes: |
+      Ecological flow requirement met. Run-of-river design minimizes
+      hydromorphological impact. WFD-equivalent assessment not directly
+      applicable (non-EU jurisdiction); third-party gap analysis confirms
+      substantive equivalence on biodiversity and water-body status criteria.
+    dnsh_circular_economy: passed
+    dnsh_pollution: passed
+    dnsh_biodiversity: passed_with_conditions
+    dnsh_biodiversity_notes: "Fish passage operational and monitored; sediment management plan executed; no impact on critical or near-threatened species per IUCN assessment."
+    minimum_safeguards_complete: true
+    minimum_safeguards_notes: "Resettlement audited against IFC Performance Standard 5; certification obtained 2019."
+    taxonomy_aligned_capex_pct: 100
+    taxonomy_aligned_opex_pct: 100
+    taxonomy_aligned_turnover_pct: 100
+    notes: "EU Taxonomy alignment for hydropower includes stricter biodiversity criteria than other technologies; project assessed by Big-Four for sponsor SFDR Article 9 fund reporting."
+
+  vietnam_specific_compliance:                       # [P]
+    moit_electricity_operation_license_status: "active, renewal due 2028"
+    monre_water_use_right_status: "active, renewal due 2034"
+    decree_57_2025_dppa_eligibility: "eligible (small hydro ≤50 MW, operating, grid-connected)"
+    dppa_registration_status: "not registered; optionality preserved for buyer"
+    nsmo_market_participant_status: "not currently registered for VWEM; required for DPPA Model 2 transition"
+    foreign_investment_restrictions: "none for hydropower under Investment Law 2020; sector not on conditional or prohibited list for foreign investors"
+    profit_repatriation_status: "compliant; quarterly dividends paid to parent via SBV-registered channel since 2020"
+
+  litigation_disputes: []                            # [N]
+
+  insurance_coverage:                                # [N]
+    operational_all_risks:
+      insurer: "International insurer, Singapore branch + local fronting"
+      coverage_usd: 110_000_000
+      deductible_usd: 250_000
+      renewal_date: "2026-06-30"
+    business_interruption:
+      coverage_months: 18
+      daily_indemnity_usd: 24_000
+    third_party_liability:
+      coverage_usd: 15_000_000
+    natural_catastrophe_coverage: true
+    natural_catastrophe_sublimits:
+      flood_usd: 25_000_000
+      earthquake_usd: 15_000_000
+    political_risk_insurance:
+      provider: "MIGA"
+      coverage_usd: 25_000_000
+      risks_covered: ["transfer restriction", "expropriation", "war and civil disturbance"]
+      remaining_term_years: 4.5
+
+  decommissioning_obligation:                       # [N]
+    regulatory_requirement: "Land Law 2024 + provincial decommissioning provisions"
+    obligation_trigger: "end of land use term or operational cessation, whichever earlier"
+    estimated_cost_usd: 4_800_000
+    cost_basis_year: 2024
+    bond_amount_usd: 0
+    bond_required: "no — provisional reserve via cash accrual mechanism per lender requirements"
+    accrual_balance_usd: 1_240_000
+    accrual_target_funding_year: 2034
+
+  esg:                                               # [P]
+    scope_1_2_emissions_tco2e_yr: 0
+    avoided_emissions_tco2e_yr: 99_500
+    avoided_emissions_methodology: "Vietnam grid emission factor 2024 (MoNRE) 0.625 tCO2e/MWh"
+    biodiversity_monitoring_active: true
+    community_benefit_scheme: "annual contribution to commune-level development fund + scholarship program for local students"
+    indigenous_engagement: "no indigenous groups in immediate project area; broader Lào Cai region has ethnic minority populations; community engagement protocol in place"
+    ifc_performance_standards_compliance: "PS1-PS8 compliance assessed 2019, maintained"
+
+# ----------------------------------------------------------------------------
+# 6. OPERATING HISTORY
+# ----------------------------------------------------------------------------
+operating_history:
+
+  monthly_production:                                # [N]
+    inline_summary:
+      - year: 2022
+        gross_gwh: 158.2
+        net_gwh: 156.9
+        availability_pct: 97.2
+        capacity_factor_pct: 47.6
+        notes: "Above-P50 wet season"
+      - year: 2023
+        gross_gwh: 148.4
+        net_gwh: 147.2
+        availability_pct: 96.8
+        capacity_factor_pct: 44.6
+        notes: "Slightly below-P50 production year"
+      - year: 2024
+        gross_gwh: 161.6
+        net_gwh: 160.2
+        availability_pct: 97.5
+        capacity_factor_pct: 48.6
+        notes: "Strong wet season"
+      - year: 2025
+        gross_gwh: 159.1
+        net_gwh: 157.8
+        availability_pct: 98.1
+        capacity_factor_pct: 47.9
+    detailed_url: "https://dataroom.example.com/mekong/production-monthly-2018-2025.csv"
+    detailed_access: "nda_required"
+    detailed_schema: ["month", "unit_id", "gross_mwh", "net_mwh", "availability_pct", "river_inflow_m3_s", "head_m"]
+
+  availability_history:                              # [N]
+    - year: 2022
+      availability_pct: 97.2
+      planned_outages_hours: 168
+      unplanned_outages_hours: 76
+    - year: 2023
+      availability_pct: 96.8
+      planned_outages_hours: 192
+      unplanned_outages_hours: 89
+    - year: 2024
+      availability_pct: 97.5
+      planned_outages_hours: 145
+      unplanned_outages_hours: 65
+      notes: "Wear ring replacement on both units"
+    - year: 2025
+      availability_pct: 98.1
+      planned_outages_hours: 132
+      unplanned_outages_hours: 33
+
+  major_events:                                      # [N]
+    - date: "2022-09-08"
+      type: "extreme_flood_event"
+      duration_hours: 72
+      root_cause: "tropical depression remnant, 200-year return period flood"
+      damage: "minor — sediment buildup; weir structurally intact"
+      revenue_impact_usd: 142_000
+      insurance_claim: false
+      lesson_learned: "sediment management plan updated; flushing protocol revised"
+
+    - date: "2024-03-15"
+      type: "transformer_fault"
+      affected_capacity_mw: 38.0
+      duration_hours: 96
+      root_cause: "Bushing failure on step-up transformer"
+      resolved_under_warranty: false
+      revenue_impact_usd: 68_000
+      bi_insurance_claim: true
+      bi_claim_settled_usd: 42_000
+
+    - date: "2024-Q3"
+      type: "scheduled_major_overhaul"
+      affected_capacity_mw: 19.0
+      duration_days: 28
+      scope: "T1 wear ring replacement, runner inspection, generator inspection"
+      cost_usd: 285_000
+
+  service_arrangements:                              # [N]
+    structure: "in-house O&M with OEM support for major overhauls"
+    in_house_team_size: 22
+    in_house_team_composition: "8 engineers, 12 technicians, 2 administrative"
+    oem_support_contract:
+      provider: "Andritz Hydro Vietnam"
+      type: "remote diagnostics + major overhaul support"
+      annual_fee_usd: 95_000
+      duration_remaining_years: 4
+
+  scada_access: "read_only_pre_closing"              # [P]
+  scada_provider: "Andritz Hydro Monitoring Suite + custom dashboard" # [N]
+
+# ----------------------------------------------------------------------------
+# 7. PROCESS
+# ----------------------------------------------------------------------------
+process:
+
+  process_type: limited_auction                      # [P]
+  invited_bidders_count: 11                          # [P]
+  bidder_profile: "Southeast Asian strategics + regional infrastructure funds + EU/Asian renewable developers" # [P]
+
+  process_lead:                                      # [P]
+    organization: "Anonymized Southeast Asian renewables M&A advisory"
+    contact_role: "Director, Hydropower and Hydroelectric Assets"
+    contact_email: "mekong@advisor.example.com"
+    contact_phone: null
+
+  process_timeline:                                  # [P]
+    teaser_distribution: "2026-05-08"
+    information_memorandum_distribution: "2026-06-15"
+    site_visits: "2026-07-15 to 2026-08-15"
+    non_binding_offers_due: "2026-09-30"
+    management_presentations: "2026-10-15 to 2026-11-15"
+    binding_offers_due: "2026-12-20"
+    signing_target: "2027-02-15"
+    closing_target: "2027-Q3"
+    long_stop_date: "2027-12-31"
+    notes: "Extended timeline reflects Vietnam regulatory approval requirements; signing-to-closing window assumes 4-6 months for MOIT, MPI, and SBV approvals"
+
+  closing_conditions:                                # [N]
+    regulatory_approvals_required:
+      - "MOIT consent for indirect change of control of electricity operation license holder"
+      - "MPI / provincial People's Committee acknowledgment of indirect ownership change"
+      - "SBV registration of foreign investment capital transaction"
+      - "EVN PPA novation / consent (if asset retained on legacy PPA)"
+    consents_required:
+      - "Senior lender change-of-control consent (DFI + commercial co-lender)"
+      - "MIGA political risk insurance assignment or renewal"
+      - "OEM service contract assignment"
+    estimated_signing_to_closing_months: 6
+    foreign_investment_screening: "no specific FDI screening required for hydropower; standard Investment Law 2020 procedure applies"
+
+  data_room:                                         # [N]
+    provider: "Datasite"
+    url: "https://datasite.com/projects/mekong-2026"
+    access_mechanism: "NDA + invitation + 2FA"
+    document_count_approx: 1_950
+    structure: "13 folders aligned to vendor DD scope + Vietnam-specific regulatory module"
+    vendor_dd_reports:
+      - "Technical (international hydro specialist)"
+      - "Hydrological (long-term flow assessment + climate sensitivity)"
+      - "Commercial (Vietnam power market analysis, DPPA scenarios)"
+      - "Legal (Vietnam law firm, top-tier)"
+      - "Tax (Big Four Vietnam)"
+      - "ESG and Resettlement Audit (specialist IFC PS-experienced firm)"
+
+  nda_template: "https://advisor.example.com/mekong/nda-template.pdf"  # [P]
+
+  access_endpoint: "https://advisor.example.com/.well-known/rals/auth"  # [P]
+
+  confidentiality_note: |                            # [P]
+    Project name "Mekong" is itself confidential.
+    Refer to as "Northwest Vietnam Hydro Opportunity" in any external
+    communication.
+    Site visits coordinated through advisor only — direct contact with
+    Vietnamese provincial authorities, EVN representatives, or operational
+    staff prior to final shortlist admission is strictly prohibited.
+    Buyer must demonstrate Vietnam operational capability (in-country
+    presence, partnership with Vietnamese co-investor, or credentialed
+    local operating partner) prior to management presentation invitation.
+
+# ============================================================================
+# End of RALS document for Project Mekong
+# ============================================================================
