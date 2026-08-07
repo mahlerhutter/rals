@@ -42,6 +42,20 @@ Input: RALS YAML document
   → Step 8: Output report (level, missing evidence, active risks, warnings)
 ```
 
+**Reference implementation:** `reference/validator` implements this workflow —
+`rals-validate --jurisdiction=<code> --readiness=<lN> file.rals.yaml` (see
+`src/jurisdiction.js`). Steps 4 (field-overrides.yaml) and 7 (risk_flags
+cross-check against risks.yaml) are fully machine-checked. Steps 5-6
+(evidence-requirements.yaml, and the `validation_rule` prose in risks.yaml)
+are written as human-readable evidence descriptions, not RALS field paths —
+there is no structured mapping from "valid Netzanschlusszusage received from
+DSO or APG" to a document field, and the reference validator does not invent
+one (see the module doc comment in `src/jurisdiction.js` for why: doing so
+would mean the reference implementation asserting jurisdiction-specific
+legal/technical judgment beyond what the package data actually encodes). It
+reports the document's self-declared readiness level rather than deriving
+one from evidence.
+
 ## Why Jurisdiction-Specific Evidence Matters
 
 A solar asset classified as "ready-to-build" means something different in each market:

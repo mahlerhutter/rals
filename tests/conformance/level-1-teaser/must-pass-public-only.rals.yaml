@@ -1,0 +1,32 @@
+# CONFORMANCE TEST — Level 1 (Teaser)
+# Expected: PASS
+# Reason: A document carrying only public-tier fields (SPEC 4.3) is already
+# a complete Teaser Profile — Level 1 validates filterToTeaser(doc), and this
+# document has nothing for that filter to remove. No nda_required or
+# final_shortlist field appears anywhere.
+
+rals_version: "0.1"
+document_id: "rals:CONFORMANCE-L1-PASS-001"
+generated_at: "2026-05-15T09:00:00Z"
+
+identity:
+  asset_name: "Conformance Test Asset"
+  asset_type: solar_pv
+  lifecycle_stage: operating
+  country: AT
+  transaction_type: full_acquisition
+
+technical:
+  commissioning_date: "2023-01-01"
+
+grid_offtake:
+  grid_connection:
+    voltage_level_kv: 110
+  offtake_structure: feed_in_tariff
+
+process:
+  process_type: bilateral
+  process_lead:
+    organization: "Conformance Advisory GmbH"
+  process_timeline:
+    closing_target: "2026-12-31"

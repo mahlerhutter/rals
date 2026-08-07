@@ -57,9 +57,8 @@ identity:
   region: "Zaporizhzhia Oblast"
   sub_region: "Claimed: Vasylivka Rayon (developer states this area is unoccupied)"
   total_capacity_mw_ac: 200.0
-  total_energy_mwh: null
   hydrogen_electrolysis_mw: 50.0
-  site_area_hectares: null
+  # site_area_hectares omitted — not yet determined (concept stage)
   transaction_type: joint_venture
   equity_offered_pct: 50
   spv_structure: false
@@ -78,9 +77,7 @@ technical:
     hydrogen_offtake: "None — concept only"
   production_estimates:
     methodology: "Developer estimate citing 'favorable steppe wind conditions'"
-    p50_gwh_yr: null
-    p90_gwh_yr: null
-    assessor: null
+    # p50_gwh_yr, p90_gwh_yr, assessor omitted — no assessment exists (see assessment_note)
     assessment_quality: no_assessment
     assessment_note: >
       No wind resource assessment of any kind. Developer references general GWA
@@ -149,7 +146,15 @@ financials:
 
 # ── Process ──────────────────────────────────────────────────────────────────
 process:
-  process_type: jv_concept_search
+  process_type: bilateral
+  process_lead:
+    organization: "Stepovyi Wind-Hydrogen Development"
+    contact_role: "Developer Principal"
+    contact_email: "stepovyi@example-developer.ua"
+    contact_phone: null
+  process_timeline:
+    concept_stage_started: "2026-01-15"
+    indicative_jv_partner_target: "2027-Q1"
   data_room_status: not_available
   data_room_note: >
     No data room. Developer has a 12-page concept presentation available

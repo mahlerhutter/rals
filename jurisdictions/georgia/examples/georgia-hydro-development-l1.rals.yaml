@@ -45,7 +45,7 @@ rals_jurisdiction:
 # ── Identity ─────────────────────────────────────────────────────────────────
 identity:
   asset_name: "Project Mtkvari Hydro"
-  asset_type: hydro_run_of_river
+  asset_type: hydro
   lifecycle_stage: development
   country: GE
   region: "Samtskhe-Javakheti"
@@ -73,7 +73,7 @@ technical:
       records (MEPA flow records, 8 years available). Full hydrological study in
       progress — not complete. No independent assessor engaged yet.
     p50_gwh_yr: 34.0
-    p90_gwh_yr: null
+    # p90_gwh_yr omitted — not yet calculated (see risk_flags: seasonal_hydro_variability)
     assessor: "Internal developer estimate (not bankable)"
     assessment_date: "2025-11-01"
     assessment_quality: desktop_only
@@ -179,6 +179,16 @@ financials:
 # ── Process ──────────────────────────────────────────────────────────────────
 process:
   process_type: bilateral
+  process_lead:
+    organization: "Caucasus Hydro Development LLC"
+    contact_role: "Project Director"
+    contact_email: "mtkvari-hydro@example-developer.ge"
+    contact_phone: null
+  process_timeline:
+    construction_permit_expected: "2026-Q4"
+    grid_connection_agreement_expected: "2027-Q1"
+    indicative_nbo_due: "2027-Q1"
+    indicative_financial_close: "2027-Q3"
   data_room_status: partial
   data_room_note: >
     Partial documentation available under NDA: GSE technical conditions letter,

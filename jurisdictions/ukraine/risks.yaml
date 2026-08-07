@@ -285,3 +285,21 @@ risks:
     validation_rule: >
       If no war-risk insurance or IFI guarantee is in place at L2+,
       raise as HIGH risk. At L3, this is a hard blocker.
+
+  - risk_id: land_not_registered
+    label: "Land Parcel Cadastre Registration Inconsistency"
+    severity_default: high
+    affected_sections: [compliance, process]
+    buyer_impact: >
+      Land may be under an enforceable agreement with the landowner but still carry
+      cadastre (Держгеокадастр) registration inconsistencies for one or more parcels —
+      distinct from title being disputed, this is a registration-data defect that can
+      block permitting or financing until corrected.
+    lender_impact: >
+      Lenders require clean cadastre records for all parcels securing the project;
+      unresolved inconsistencies delay or block construction financing.
+    mitigation_evidence:
+      - Cadastre extract for each parcel showing no open inconsistencies
+      - Land surveyor confirmation reconciling any historical boundary or registration discrepancy
+    validation_rule: >
+      If any parcel's cadastre extract shows an unresolved inconsistency, raise as HIGH risk.

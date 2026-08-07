@@ -59,7 +59,7 @@ technical:
   production_estimates:
     methodology: "Desktop wind resource assessment using ERA5 reanalysis data"
     p50_gwh_yr: 198.0
-    p90_gwh_yr: null
+    # p90_gwh_yr omitted — not modelled (see assessment_note)
     assessor: "Internal developer estimate — no independent assessor"
     assessment_date: "2025-10-01"
     assessment_quality: desktop_only
@@ -138,7 +138,15 @@ financials:
 
 # ── Process ──────────────────────────────────────────────────────────────────
 process:
-  process_type: bilateral_jv_search
+  process_type: bilateral
+  process_lead:
+    organization: "Tramontana Wind Development S.r.l."
+    contact_role: "Development Director"
+    contact_email: "tramontana-dev@example-developer.it"
+    contact_phone: null
+  process_timeline:
+    jv_partner_search_started: "2026-01-15"
+    indicative_mou_target: "2026-Q4"
   data_room_status: not_available
   data_room_note: >
     No formal data room. Developer has desktop studies and ERA5 wind data.

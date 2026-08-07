@@ -79,7 +79,7 @@ technical:
   production_estimates:
     methodology: "PVGIS v5.2 + Meteonorm 8, desktop assessment — no independent assessor engaged yet"
     p50_gwh_yr: 185.0
-    p90_gwh_yr: null
+    # p90_gwh_yr omitted — not calculated
     curtailment_adjusted: false
     curtailment_note: >
       P50 estimate of 185 GWh/yr is NOT adjusted for curtailment. Ninh Thuan
@@ -88,8 +88,7 @@ technical:
       with curtailment scenario is required before this estimate can be used for
       investment decision purposes. The true net-deliverable yield is materially
       lower than 185 GWh/yr.
-    assessor: null
-    assessment_date: null
+    # assessor, assessment_date omitted — no independent assessor engaged yet
 
 # ── Grid and Offtake ──────────────────────────────────────────────────────────
 grid_offtake:
@@ -216,7 +215,12 @@ financials:
 
 # ── Process ──────────────────────────────────────────────────────────────────
 process:
-  process_type: bilateral_negotiation
+  process_type: bilateral
+  process_lead:
+    organization: "Ninh Thuan Solar Development JSC"
+    contact_role: "Development Director"
+    contact_email: "deals@ninhthuan-solar-dev.example.vn"
+    contact_phone: null
   data_room_status: available_under_nda
   data_room_platform: "SharePoint (developer-hosted)"
   data_room_contents:

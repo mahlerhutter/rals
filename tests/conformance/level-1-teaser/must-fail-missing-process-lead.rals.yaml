@@ -1,0 +1,31 @@
+# CONFORMANCE TEST — Level 1 (Teaser)
+# Expected: FAIL
+# Reason: process.process_lead is a required, public-tier field (SPEC 12).
+# It is entirely absent here (not just filtered out), so it is missing from
+# both the full document and its Teaser projection — the base schema's
+# `process.required` check rejects it at Level 1.
+
+rals_version: "0.1"
+document_id: "rals:CONFORMANCE-L1-FAIL-001"
+generated_at: "2026-05-15T09:00:00Z"
+
+identity:
+  asset_name: "Conformance Test Asset"
+  asset_type: solar_pv
+  lifecycle_stage: operating
+  country: AT
+  transaction_type: full_acquisition
+
+technical:
+  commissioning_date: "2023-01-01"
+
+grid_offtake:
+  grid_connection:
+    voltage_level_kv: 110
+  offtake_structure: feed_in_tariff
+
+process:
+  process_type: bilateral
+  process_timeline:
+    closing_target: "2026-12-31"
+  # process_lead intentionally omitted — see header comment.

@@ -1,0 +1,45 @@
+# CONFORMANCE TEST — Level 3 (Complete)
+# Expected: FAIL
+# Reason: financials.asking_price.indicated_range_eur_low is a string here
+# instead of a number. asking_price is entirely final_shortlist tier (SPEC
+# 9.5), so it is stripped out of both the Level 1 Teaser and Level 2
+# Standard projections — this document validates cleanly at --level=1 and
+# --level=2. The defect only surfaces at Level 3, which validates the full,
+# unfiltered document. This is the same tier-scoped-filter mechanism the
+# Level 2 fixtures exercise, one tier up.
+
+rals_version: "0.1"
+document_id: "rals:CONFORMANCE-L3-FAIL-001"
+generated_at: "2026-05-15T09:00:00Z"
+
+identity:
+  asset_name: "Conformance Test Asset"
+  asset_type: solar_pv
+  lifecycle_stage: operating
+  country: AT
+  transaction_type: full_acquisition
+  seller_legal_entity: "Conformance Test Seller GmbH"
+  internal_reference: "CONF-TEST-042"
+
+technical:
+  commissioning_date: "2023-01-01"
+
+grid_offtake:
+  grid_connection:
+    voltage_level_kv: 110
+    connection_agreement_date: "2022-03-15"
+  offtake_structure: feed_in_tariff
+
+financials:
+  capex:
+    total_eur: 42000000
+  asking_price:
+    indicated_range_eur_low: "seventy-eight million"  # defect: must be a number
+    indicated_range_eur_high: 92000000
+
+process:
+  process_type: bilateral
+  process_lead:
+    organization: "Conformance Advisory GmbH"
+  process_timeline:
+    closing_target: "2026-12-31"

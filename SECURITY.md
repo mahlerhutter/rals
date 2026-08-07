@@ -10,7 +10,7 @@ If you discover a vulnerability in the RALS specification, schema, or reference 
 
 **Do not open a public issue.**
 
-Instead, please email `security@orls.org`. We aim to acknowledge receipt within 48 hours and provide a timeline for a fix.
+Instead, please email `security@rals.energy`. We aim to acknowledge receipt within 48 hours and provide a timeline for a fix.
 
 ### What is considered a vulnerability?
 - Schema definitions that inadvertently expose sensitive fields in default filtering implementations.

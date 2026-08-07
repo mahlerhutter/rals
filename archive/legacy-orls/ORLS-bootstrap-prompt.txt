@@ -1,0 +1,288 @@
+# Task: Bootstrap Open Renewables Listing Standard (ORLS) Repository
+
+Du baust das offizielle GitHub-Repo für **ORLS — Open Renewables Listing Standard** — einen offenen, machine-readable Standard für den Verkauf, das Refinancing und die Partnerschaftsstrukturierung von renewable energy assets (utility-scale PV, Wind onshore/offshore, BESS, Hybrid, Hydro, Biomass, Geothermal, CSP). Spec v0.1 als Working Draft. Lizenz CC BY 4.0 für die Spec, MIT für Code.
+
+## Kontext
+
+ORLS ist eine YAML 1.2-basierte `.orls.yaml`-Datei, die Verkäufer oder M&A-Berater auf ihrer Domain hosten — primär unter `/.well-known/orls.yaml` —, damit AI-Agents im Auftrag institutioneller Käufer (IPPs, Funds, PE, Utilities) renewable energy assets entdecken, parsen und vorqualifizieren können, ohne proprietäre Data Rooms oder bespoke Excel-Templates.
+
+**Zentrale Designentscheidung — zwei-tier Confidentiality:**
+
+Anders als Property-Listings sind Renewable-Asset-Transaktionen confidential by default. Jedes Feld trägt einen Tier: `public` (Teaser Profile, ohne Auth), `nda_required` (nach NDA über OAuth-2.0-Flow), `final_shortlist` (nur für finale Bieter). Default für nicht-getaggte Felder: `nda_required`.
+
+**Sieben Top-Level-Sektionen:** `identity`, `technical`, `grid_offtake`, `financials`, `compliance`, `operating_history`, `process`.
+
+**Fokus-Märkte:** EU-weit, mit dezidierten Compliance-Annexen für Deutschland (EEG, BImSchG, BNatSchG), Österreich (ElWG, EAG, UVP-G), und Querverweis auf EU Taxonomy (VO 2020/852) und SFDR.
+
+**Editor:** Manuel Mendel. Das Repo muss wie ein **echter offener Standard** wirken, nicht wie ein Solo-Produkt. Klarer Pfad zur Dezentralisierung der Governance (BDFL → Steering Committee) sichtbar machen. Keine kommerziellen Plugs im Spec-Repo.
+
+## Deliverable
+
+Erstelle die komplette Verzeichnis- und Dateistruktur unten. Jede `.md`-Datei muss **vollständig ausformuliert** sein — keine TODOs, keine Platzhalter. Code-Beispiele müssen lauffähig sein (Node.js 20+ für Validator und Parser-JS, Python 3.11+ für Parser-Python).
+
+## Struktur
+
+```
+orls-spec/
+├── README.md
+├── SPEC.md
+├── CHANGELOG.md
+├── GOVERNANCE.md
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── SECURITY.md
+├── LICENSE                            (CC BY 4.0 Volltext)
+├── LICENSE-CODE                       (MIT Volltext)
+│
+├── spec/v0.1/
+│   ├── README.md
+│   ├── 00-introduction.md
+│   ├── 01-identity.md
+│   ├── 02-technical.md
+│   ├── 03-grid-offtake.md
+│   ├── 04-financials.md
+│   ├── 05-compliance.md
+│   ├── 06-operating-history.md
+│   ├── 07-process.md
+│   ├── 08-discovery.md
+│   ├── 09-confidentiality.md
+│   ├── 10-validation.md
+│   ├── 11-security.md
+│   └── grammar.ebnf
+│
+├── schema/
+│   ├── orls.schema.json               (JSON Schema Draft 2020-12, komplett)
+│   ├── orls.schema.yaml               (YAML-Variante)
+│   ├── conditional-rules.md           (z.B. operating_history MUST if lifecycle=operating)
+│   └── extensions/
+│       ├── solar-pv.schema.json       (Solar-PV-spezifische Validierung)
+│       ├── wind-onshore.schema.json
+│       ├── wind-offshore.schema.json
+│       ├── bess.schema.json
+│       └── hybrid.schema.json
+│
+├── examples/
+│   ├── README.md
+│   ├── project-helios-pv-spain.orls.yaml      (87.5 MW operating PV, Level 3)
+│   ├── project-aeolus-wind-germany.orls.yaml  (150 MW operating Onshore-Wind)
+│   ├── project-prometheus-bess-uk.orls.yaml   (100 MW / 200 MWh BESS, ready-to-build)
+│   ├── project-poseidon-offshore-nl.orls.yaml (400 MW offshore wind, under construction)
+│   ├── project-vesta-hybrid-italy.orls.yaml   (PV + BESS hybrid)
+│   ├── project-rhea-greenfield-pl.orls.yaml   (Polish PV development, lifecycle=development)
+│   ├── teaser-only-helios.orls.yaml           (gleiche Helios-Daten, Level 1 Teaser)
+│   └── invalid/
+│       ├── README.md
+│       ├── missing-required-permits.orls.yaml
+│       ├── inconsistent-lifecycle-operating-history.orls.yaml
+│       ├── invalid-coordinates.orls.yaml
+│       └── opex-categories-renamed.orls.yaml
+│
+├── rfcs/
+│   ├── README.md
+│   ├── 0000-template.md
+│   └── 0001-spec-v0-1.md              (Retrospektiv: Designentscheidungen)
+│
+├── reference/
+│   ├── validator/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/index.js
+│   │   ├── src/validator.js
+│   │   ├── src/tier-filter.js         (Filtert Felder nach Auth-Scope)
+│   │   ├── src/cli.js
+│   │   └── tests/validator.test.js
+│   ├── parser-js/
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src/index.js
+│   │   └── src/discovery.js           (Well-known URI + Link Tag + Registry)
+│   ├── parser-python/
+│   │   ├── README.md
+│   │   ├── pyproject.toml
+│   │   └── src/orls/__init__.py
+│   └── auth-server/
+│       ├── README.md
+│       ├── package.json
+│       └── src/index.js               (Reference OAuth 2.0 Flow für NDA-Tier)
+│
+├── discovery/
+│   ├── README.md
+│   ├── well-known.md                  (/.well-known/orls.yaml Spec)
+│   ├── link-tag.md
+│   ├── registry.md                    (Optionale ORLS Registry)
+│   └── auth-flow.md                   (Zwei-Tier Auth-Mechanismus)
+│
+├── docs/
+│   ├── quickstart-seller.md           (Verkäufer-Onboarding)
+│   ├── quickstart-buyer-agent.md      (Buyer-Agent-Integration)
+│   ├── quickstart-advisor.md          (M&A-Berater-Workflow)
+│   ├── for-ai-providers.md            (OpenAI/Anthropic/Google Crawler-Guidance)
+│   ├── industry-context.md            (Wie heutige Asset-Sale-Prozesse funktionieren — kontext-erklärend)
+│   ├── faq.md
+│   ├── glossary.md                    (RTB, COD, P50/75/90, DSCR, etc.)
+│   └── compliance/
+│       ├── eu-taxonomy.md
+│       ├── sfdr.md
+│       ├── germany.md                 (EEG, BImSchG, BNatSchG)
+│       ├── austria.md                 (ElWG, EAG, UVP-G)
+│       ├── spain.md                   (REER, Royal Decree 413/2014)
+│       └── italy.md                   (Conto Energia legacy, FER X)
+│
+├── tests/
+│   ├── conformance/
+│   │   ├── README.md
+│   │   ├── level-1-teaser/
+│   │   ├── level-2-standard/
+│   │   └── level-3-complete/
+│   └── README.md
+│
+└── .github/
+    ├── ISSUE_TEMPLATE/
+    │   ├── spec-clarification.md
+    │   ├── bug-validator.md
+    │   ├── rfc-proposal.md
+    │   └── compliance-mapping.md     (Vorschlag neuer Länder-Compliance)
+    ├── PULL_REQUEST_TEMPLATE.md
+    ├── workflows/
+    │   ├── validate-examples.yml
+    │   ├── schema-check.yml
+    │   ├── conformance-tests.yml
+    │   └── tier-leak-check.yml       (CI: kein nda_required Feld darf in Teaser-Examples sein)
+    ├── CODEOWNERS
+    └── FUNDING.yml
+```
+
+## Inhaltliche Vorgaben
+
+### Top-Level
+
+**README.md** beginnt mit einem Ein-Satz-Pitch („ORLS is a machine-readable standard for renewable energy asset listings, enabling AI-driven discovery and evaluation while preserving deal confidentiality"), dann ein 30-Sekunden-Verständnis-Beispiel (anonymisierter Teaser-Block), dann Status (v0.1 Working Draft, breaking changes erwartet), dann Quickstart-Links, dann Governance-Verweis. Maximal 250 Zeilen. Keine Marketingsprache. Keine Emoji-Inflation.
+
+**SPEC.md** ist das normative Herzstück. RFC-2119-Sprache durchgängig (MUST, SHOULD, MAY, MUST NOT). Definiert ORLS als YAML 1.2 Subset, UTF-8, max 512 KB. Beschreibt alle sieben Sektionen mit Feldnamen, Typen, Pflicht/Optional, Confidentiality-Tier, Validierungsregeln. Inhaltsverzeichnis mit Ankerlinks. Mindestens 1200 Zeilen. Sektion-Detail bleibt in `spec/v0.1/0X-*.md` — `SPEC.md` ist die zusammenfassende Ankerseite mit Verweisen.
+
+**GOVERNANCE.md**: Ehrlich. Aktuell BDFL-Modell (Editor: Manuel Mendel), aber expliziter Pfad: bei 5 unabhängigen Adoptern wird ein Steering Committee gebildet (3–5 Sitze, mindestens 2 außerhalb des Editor-Netzwerks). RFC-Prozess für Spec-Änderungen. Wer kann RFCs einreichen (jeder). Wer mergt (aktuell Editor; nach SC-Bildung: SC mit Mehrheit). Konfliktlösung. Versions-Kadenz (Major-Updates max alle 18 Monate, Minor jederzeit, Patches für Bugfixes).
+
+**CONTRIBUTING.md**: Wie man Issues meldet, RFCs schreibt, Beispiele beiträgt, Compliance-Mappings für neue Jurisdiktionen vorschlägt, Tests erweitert. Setup für lokales Testen (`npm install`, Validator gegen Examples laufen lassen).
+
+**SECURITY.md**: Vulnerability-Disclosure-Prozess. Sicherheits-Email. Verantwortliche Offenlegungsfrist (90 Tage). Besonderer Fokus: Tier-Leaks (Fall, dass ein Server versehentlich `final_shortlist`-Felder im Teaser exponiert) werden als hochkritische Bugs behandelt.
+
+**CODE_OF_CONDUCT.md**: Contributor Covenant v2.1, plus Branchen-spezifische Klausel: keine kompetitive Intelligence-Sammlung über echte laufende M&A-Prozesse via Issues oder PRs.
+
+### Spec-Sektionen
+
+**spec/v0.1/00-introduction.md**: Erklärt den Standard für jemanden, der die Renewable-M&A-Welt nicht kennt. Wie funktioniert ein Asset-Sale heute (Data Room → IM → NBO → BO → SPA → Closing), wo ist der Schmerzpunkt (manuelle Datenextraktion, redundante Modellierung durch jeden Bieter, asymmetrische Information), wie ORLS das adressiert.
+
+**spec/v0.1/01-identity.md bis 07-process.md**: Eine Datei pro Sektion. Jede mit: vollständiger Feldtabelle (Feld, Typ, Pflicht/Optional, Tier, Beschreibung), Datentyp-Definitionen, Beispiel-Snippets, Edge Cases, Versionierungs-Notes. Verlinke auf das JSON Schema.
+
+**spec/v0.1/08-discovery.md**: Drei Discovery-Methoden detailliert (Well-Known URI, HTML Link Tag, Registry-Submission). Request/Response-Beispiele. HTTP-Header-Konventionen (`Content-Type: application/yaml; charset=utf-8`, `Cache-Control` Empfehlungen, ETag-Support).
+
+**spec/v0.1/09-confidentiality.md**: Das wichtigste konzeptionelle Dokument. Erklärt die drei Tiers, Default-Klassifikation, Filter-Mechanik, Audit-Anforderungen. Mit konkreten Beispielen: welche Information ist in welchem Tier sichtbar, und warum.
+
+**spec/v0.1/10-validation.md**: Conformance-Levels (Level 1 Teaser / Level 2 Standard / Level 3 Complete). Was MUST/SHOULD/MAY pro Level. Wie ein konformer Validator Tier-Filtering testet.
+
+**spec/v0.1/11-security.md**: Threat Model. Bedrohungen: (1) Tier-Leak durch Misconfig, (2) Unauthorized Agent Access, (3) Document-Tampering nach Retrieval, (4) Replay von alten Versions, (5) Audit-Log-Manipulation. Mitigations. JWS-Signing reserved für v0.2.
+
+**spec/v0.1/grammar.ebnf**: Formale EBNF-Grammatik für die ORLS-YAML-Struktur. Pragmatisch — keine vollständige YAML-Grammatik, sondern die ORLS-spezifischen Constraints.
+
+### Schemas
+
+**schema/orls.schema.json**: Vollständiges JSON Schema Draft 2020-12. Validiert alle sieben Sektionen, conditional rules (z.B. `operating_history` required if `lifecycle_stage` in `[operating, commissioning, repowering_candidate]`), enum-Werte für alle controlled vocabularies. Coordinates als `[longitude, latitude]` array WGS84. ISO-Standards überall: 8601 für Daten, 4217 für Currency, 3166-1 alpha-2 für Country Codes, 3166-2 für Subdivisions. Mindestens 1500 Zeilen.
+
+**schema/extensions/solar-pv.schema.json** (und Pendants für wind-onshore, wind-offshore, bess, hybrid): Technologie-spezifische zusätzliche Validierungs-Regeln. Z.B. `dc_ac_ratio` MUST exist if `asset_type=solar_pv`, `hub_height_m` MUST exist if `asset_type in [onshore_wind, offshore_wind]`, `bess_chemistry` MUST exist if `asset_type=bess`.
+
+**schema/conditional-rules.md**: Menschen-lesbare Erklärung aller cross-field-Validierungen, weil JSON Schema das schwer lesbar ausdrückt.
+
+### Examples
+
+**Sechs vollständige Examples** (PV Spain, Onshore Wind Germany, BESS UK, Offshore Wind NL, Hybrid PV+BESS Italy, Greenfield PV Poland) — jedes Level 3 Complete, jedes mit realistischen aber fiktiven Zahlen, jedes mit lokalen Compliance-Spezifika (deutsche EEG-Förderung, italienische FER-X-Auktion, polnische CfD-Auktion etc.). Mindestens 300 Zeilen pro Datei.
+
+**teaser-only-helios.orls.yaml**: Das Helios-Beispiel reduziert auf Level 1 Teaser. Zeigt explizit, was öffentlich sichtbar bleibt vs. was gefiltert wird.
+
+**examples/invalid/**: Vier kaputte Examples mit Top-of-File-Kommentar, was kaputt ist:
+- `missing-required-permits.orls.yaml`: operating asset ohne `compliance.permits[].construction_permit`
+- `inconsistent-lifecycle-operating-history.orls.yaml`: `lifecycle_stage: development` aber `operating_history` befüllt
+- `invalid-coordinates.orls.yaml`: Koordinaten außerhalb des `country`-Polygons
+- `opex-categories-renamed.orls.yaml`: kanonische OPEX-Taxonomie verletzt (`om_service` zu `operations_maintenance` umbenannt)
+
+### Reference Implementations
+
+**reference/validator/**: Node.js 20+ CLI Validator. Verwendet `ajv` für JSON Schema, `js-yaml` für Parsing. Flags: `--level=1|2|3` für Conformance Level, `--tier=public|nda|shortlist` für Tier-Filtering-Test. Exit Code 0 bei Erfolg, 1 bei Validation Error, 2 bei Parse Error, 3 bei Tier-Leak. Vitest-Tests gegen alle `examples/*.orls.yaml`.
+
+**reference/parser-js/**: NPM-publizierbares Paket `@orls/parser`. Funktionen: `parse(text) -> ORLSDocument`, `validate(doc) -> ValidationResult`, `fromUrl(url, {token}) -> ORLSDocument`, `discover(domain) -> ORLSDocument[]` (probiert well-known + link tag), `filterByTier(doc, tier) -> ORLSDocument`.
+
+**reference/parser-python/**: Pip-installierbares Paket `orls`. Funktionen: `parse(text) -> ORLSDocument`, `validate(doc) -> ValidationResult`, `from_url(url, token=None) -> ORLSDocument`, `discover(domain) -> List[ORLSDocument]`, `filter_by_tier(doc, tier) -> ORLSDocument`.
+
+**reference/auth-server/**: Minimaler Reference Express-Server für den Zwei-Tier OAuth-2.0-Flow. Endpunkte: `POST /.well-known/orls/auth` (Token-Ausgabe nach NDA-Hash-Verifikation), `GET /assets/:id.orls.yaml` (Bearer-Token-protected). In-Memory Store, nur für Demo — nicht produktionsreif, das wird explizit dokumentiert.
+
+### Discovery
+
+**discovery/well-known.md, link-tag.md, registry.md, auth-flow.md**: Normative Specs für die jeweilige Methode. Jede mit Request/Response-Beispielen, HTTP-Header-Details, Caching-Empfehlungen, Fehlerbehandlung. `auth-flow.md` enthält das vollständige Sequenzdiagramm des OAuth-2.0-Flows mit NDA-Hash, Buyer-Legal-Entity-Verifikation, Token-Scopes (`orls.teaser`, `orls.full`, `orls.shortlist`).
+
+### Docs
+
+**docs/quickstart-seller.md**: 5-Minuten-Anleitung für Verkäufer. Wie man ein bestehendes IM in ein ORLS-File übersetzt. Wo hosten, wie verlinken, wie Tier-Filtering aufsetzen.
+
+**docs/quickstart-buyer-agent.md**: 5-Minuten-Anleitung für Buyer-Agent-Implementer. Wie crawlt man ORLS-Files, wie authentifiziert man, wie persistiert man Audit-Logs.
+
+**docs/quickstart-advisor.md**: M&A-Berater-Workflow. Wie ORLS in den Process-Letter aufgenommen wird, wie Bidder-Tier-Promotion gehandhabt wird.
+
+**docs/industry-context.md**: Erklärt jemandem von außen, wie Renewable-Asset-Sales heute funktionieren. Process-Stufen, Player (IPPs, Funds, Strategics, Advisors), typische Timelines, typische Pain Points. Macht das Repo für jemanden lesbar, der nicht aus der Branche kommt — wichtig, weil AI-Tooling-Maintainer typischerweise nicht aus der Branche kommen.
+
+**docs/for-ai-providers.md**: An OpenAI, Anthropic, Google adressiert. User-Agent-Konvention (`Mozilla/5.0 (compatible; ORLSBot/1.0; +https://orls.org/bot)`), Rate Limiting (max 1 req/s pro Domain), Cache-Respekt, Tier-Awareness (ein responsabler Crawler hält öffentliche Teaser-Caches, fragt nie unauthentisiert nach NDA-Tier-Files).
+
+**docs/glossary.md**: Branchenterminologie. Ein paar Dutzend Begriffe mit präzisen Definitionen: COD, RTB, PPA, CfD, REER, EEG, FER-X, DSCR, P50/P75/P90, Curtailment, Balancing Responsibility, Direktvermarktung, DNSH, Sociedades, NOL, MAC-Clause, Drag-Along, Tag-Along, etc.
+
+**docs/compliance/eu-taxonomy.md**: Wie ORLS-Felder auf EU-Taxonomy-Anforderungen mappen. Konkret: welche `compliance.eu_taxonomy_alignment.*`-Felder erfüllen welche Anforderung aus dem delegierten Klimaschutz-Rechtsakt. DNSH-Kriterien für Activity 4.1 (Solar PV), 4.3 (Onshore Wind), 4.10 (Energy Storage).
+
+**docs/compliance/germany.md**: EEG (Markprämie/Anlagenförderung/Anzulegender Wert), BImSchG (Genehmigungspflichten >50m), BNatSchG (Artenschutzrechtliche Ausnahmegenehmigungen). Welche ORLS-Felder welche deutsche Pflichtangabe erfüllen.
+
+**docs/compliance/austria.md**: ElWG (Landeselektrizitätsrechte, Anlagengenehmigungen), EAG (Marktprämie, Investitionsförderung), UVP-G (Umweltverträglichkeitsprüfung). Adressiert die spezifische ÖVI-Praxis.
+
+**docs/compliance/spain.md**: REER-Auktionen, Royal Decree 413/2014, FDI-Screening Ley 19/2003.
+
+**docs/compliance/italy.md**: Legacy Conto Energia, FER-X-Auktion, autorizzazione unica.
+
+### Tests
+
+**tests/conformance/level-1-teaser/, level-2-standard/, level-3-complete/**: Jede Stufe mit `must-pass/` und `must-reject/` Subdirectories. Pro Stufe mindestens 10 Test-Files. Jeder Test-File hat einen Header-Kommentar mit erwarteter Ausgabe und Begründung.
+
+### GitHub Workflows
+
+**`.github/workflows/validate-examples.yml`**: Bei jedem PR alle `examples/*.orls.yaml` (außer `invalid/`) mit dem Validator prüfen — alle müssen Level 3 erreichen. Alle `examples/invalid/` müssen failen.
+
+**`.github/workflows/schema-check.yml`**: JSON Schema selbst validieren (Meta-Schema Draft 2020-12 conformance).
+
+**`.github/workflows/conformance-tests.yml`**: Komplette Conformance Test Suite laufen lassen.
+
+**`.github/workflows/tier-leak-check.yml`**: Der kritische Test. Lädt jedes Example, filtert auf Tier `public`, prüft dass kein Feld mit `nda_required` oder `final_shortlist` Annotation im resultierenden Teaser auftaucht. Ein Leak ist ein Build-Failing-Error.
+
+## Style-Regeln
+
+- **Sprache:** Englisch für Spec, Schemas, Code, Discovery, technische Docs. Deutsch nur in `docs/compliance/germany.md` und `docs/compliance/austria.md` für Rechtsterminologie, die im Original eindeutiger ist. Glossar zweisprachig wo hilfreich.
+- **Tone:** Trocken, präzise, RFC-mäßig. Keine Marketingsprache. Keine Emojis in SPEC.md, spec/, schema/, reference/. Sparsamer Emoji-Einsatz nur in README.md erlaubt — maximal 3 in der gesamten Datei.
+- **Keine Editor-Promotion:** Manuel Mendel wird in `GOVERNANCE.md` und `README.md`-Acknowledgements genannt, sonst nirgends. Keine Verlinkung auf externe Manuel-Mendel-Properties, keine kommerziellen Plugs, keine Pricing-Hinweise. ORLS ist ein Standard, keine Produktkampagne.
+- **Versionierung:** Semver. Spec ist v0.1.0 (Working Draft, breaking changes erwartet bis v1.0.0). Reference-Implementierungen tracken Spec-Version mit Major-Match.
+- **Code:** ESM für JS (`"type": "module"`). Python 3.11+ Type Hints. Minimale Abhängigkeiten: `ajv`, `js-yaml`, `express`, `pyyaml`, `jsonschema`, `vitest`, `pytest`. Keine Frameworks ohne Notwendigkeit.
+- **Datentypen:** Daten als ISO 8601 (`YYYY-MM-DD` oder `YYYY-MM-DDTHH:MM:SSZ`), Geldbeträge als Zahl mit explizitem `currency`-Feld (kein gemischtes `"42500 EUR"`), Koordinaten WGS84 als `[longitude, latitude]` Array (GeoJSON-Konvention), Country-Codes ISO 3166-1 alpha-2, Subdivisions ISO 3166-2.
+- **YAML-Konventionen:** snake_case für Feldnamen, Enum-Werte snake_case, Listen für mehrwertige Felder auch wenn nur ein Element. Inline Comments für Tier-Annotationen in Examples (`# [P]`, `# [N]`, `# [F]`).
+
+## Critical Design Decisions die im Repo dokumentiert werden müssen
+
+Im `rfcs/0001-spec-v0-1.md` müssen folgende Entscheidungen mit Begründung dokumentiert werden, weil sie kontrovers sind:
+
+1. **Warum YAML statt JSON-LD/Schema.org:** Lesbarkeit durch Deal-Teams, Version-Control-Freundlichkeit, geringere Verschachtelung. Schema.org-Mapping reserved für v0.2.
+2. **Warum drei Tiers, nicht zwei oder vier:** Mappt auf existierende M&A-Practice (Teaser / IM nach NDA / Final Bidder Access).
+3. **Warum kanonische OPEX-Taxonomie statt Freiformat:** Vergleichbarkeit zwischen Assets. Trade-off: Verkäufer können nicht eigene Buckets verwenden.
+4. **Warum kein Asking Price by default:** Process-Disziplin. Verkäufer offenbaren typischerweise nur indikative Bands oder gar nichts.
+5. **Warum eigene Discovery statt nur schema.org/RealEstateListing-Erweiterung:** RealEstateListing ist für Wohnungs- und Gewerbeimmobilien-Listings konzipiert; Renewable-Assets sind kein Real Estate im klassischen Sinn (cash-flow-generierendes Industrieasset).
+6. **Warum OAuth 2.0 statt einfacher API-Keys:** Standard-Industrieprotokoll, ermöglicht Multi-Buyer-Setups, audit-fähig.
+
+## Ausführung
+
+1. Lege die komplette Verzeichnisstruktur an.
+2. Schreibe alle Dateien in dieser Reihenfolge: Top-Level → Spec-Sektionen → Schemas → Examples → Reference-Implementations → Discovery → Docs → Tests → GitHub-Workflows.
+3. Validiere am Ende: Alle `examples/*.orls.yaml` (außer `invalid/`) müssen gegen `schema/orls.schema.json` validieren. Alle `examples/invalid/*` müssen failen.
+4. Führe den Tier-Leak-Check aus: Filtere jedes Example auf Tier `public`, stelle sicher, dass kein `nda_required` oder `final_shortlist` Feld leaks.
+5. Generiere am Schluss eine `BOOTSTRAP_REPORT.md` im Repo-Root mit: Anzahl Dateien, Gesamtzeilenzahl, Anzahl Examples pro Asset-Typ, Anzahl Compliance-Mappings pro Land, offene TODOs (falls Annahmen getroffen — dokumentiere sie).
+
+Beginne. Frage nicht zwischendurch nach — triff begründete Annahmen, dokumentiere sie im Report. Wenn ein Detail unklar ist (z.B. exakte EAG-Tarife für Österreich 2026), nimm plausible Werte und markiere im Report.

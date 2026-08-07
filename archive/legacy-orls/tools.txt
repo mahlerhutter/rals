@@ -1,0 +1,371 @@
+ORLS macht aus chaotischen Renewable-Deals vergleichbare, AI-readable Investment Objects.
+
+Die 7 Tools, die auf die Landing Page gehören
+
+1. ORLS Listing Builder
+
+Claim:
+Turn any renewable asset into a standardized investment listing.
+
+Was es macht:
+Seller, Developer oder Advisor gibt Projektdaten ein und erzeugt ein ORLS-konformes Listing.
+
+Input:
+PV/Wind/BESS/Hydro/H2-Projekt, Standort, MW, Status, Grid, Land, Permits, Revenue, Capex, Opex, Timeline.
+
+Output:
+JSON, PDF Teaser, AI-readable Listing, Share Link.
+
+Landing-Page-Text:
+
+Create structured listings for renewable assets in minutes — not weeks of spreadsheet chaos.
+
+Das ist dein Primärprodukt.
+
+⸻
+
+2. Teaser-to-ORLS Converter
+
+Claim:
+Convert existing teasers, PDFs and Excel sheets into machine-readable renewable asset listings.
+
+Was es macht:
+Upload von PDF, Excel, Word, CIM, Advisor-Teaser. Tool extrahiert Daten, mapped sie auf ORLS und zeigt fehlende Felder.
+
+Warum wichtig:
+Das ist der schnellste Adoption-Wedge. Niemand will ein neues Formular ausfüllen. Alle haben schon schlechte PDFs.
+
+Landing-Page-Text:
+
+Upload your existing project teaser. ORLS extracts, structures and validates the asset data automatically.
+
+Das ist wahrscheinlich dein stärkster Lead Magnet.
+
+⸻
+
+3. ORLS Validator
+
+Claim:
+Know whether a listing is investor-ready, lender-ready or just marketing fluff.
+
+Was es macht:
+Prüft Vollständigkeit, Konsistenz, Plausibilität und Transaktionsreife.
+
+Scoring-Level:
+
+* L0 — Teaser only
+* L1 — Screenable
+* L2 — Investment memo ready
+* L3 — Lender diligence ready
+* L4 — Data room ready
+
+Landing-Page-Text:
+
+Validate renewable asset listings before they waste investor time.
+
+Das ist der Trust-Layer. Ohne Validator ist ORLS nur ein Datenformat.
+
+⸻
+
+4. Investment Readiness Score
+
+Claim:
+Instantly see what blocks a renewable asset from being investable.
+
+Was es macht:
+Bewertet Projektqualität entlang harter Deal-Dimensionen:
+
+{
+  "grid_certainty": 72,
+  "land_security": 91,
+  "permit_maturity": 64,
+  "revenue_bankability": 58,
+  "capex_confidence": 69,
+  "counterparty_quality": 77,
+  "transaction_readiness": 62
+}
+
+Landing-Page-Text:
+
+Identify the gaps between “project exists” and “project is financeable.”
+
+Das ist sexy, weil es nicht nur strukturiert, sondern urteilt.
+
+⸻
+
+5. Buyer Matching Engine
+
+Claim:
+Match assets with the right capital — not just any inbox.
+
+Was es macht:
+Investor-Profile gegen ORLS-Listings matchen: Technologie, Land, Ticket Size, Risk Appetite, Stage, Revenue Model, ESG, Grid Risk.
+
+Beispiel:
+Ein Investor sucht:
+
+{
+  "technology": ["solar_pv", "battery_storage"],
+  "countries": ["italy", "spain", "romania"],
+  "stage": ["rtb", "operational"],
+  "ticket_size_eur": "10m-100m",
+  "minimum_irr": 0.08,
+  "merchant_exposure": "limited"
+}
+
+Landing-Page-Text:
+
+Let institutional buyers define what they want. Let ORLS find what fits.
+
+Das ist der Marktplatz-Hebel — aber ohne sofort Marktplatz sein zu müssen.
+
+⸻
+
+6. Data Room Index Generator
+
+Claim:
+Generate the data room structure investors expect.
+
+Was es macht:
+Aus dem ORLS Listing wird automatisch eine Due-Diligence-Checkliste / Data-Room-Struktur erzeugt.
+
+Module:
+
+* Corporate / Ownership
+* Land Rights
+* Grid Connection
+* Permits
+* Technical Design
+* Yield Reports
+* Financial Model
+* PPA / Subsidy / Merchant Exposure
+* ESG / Environmental
+* Legal Claims / Litigation
+* Insurance
+* Construction / EPC
+* O&M
+
+Landing-Page-Text:
+
+Move from teaser to diligence without reinventing the folder structure every time.
+
+Das ist extrem nützlich für Advisors und Developer.
+
+⸻
+
+7. AI Buyer Brief Generator
+
+Claim:
+Generate an investor-grade asset brief from structured project data.
+
+Was es macht:
+Aus ORLS-Daten entsteht automatisch ein Buyer Brief:
+
+* Executive summary
+* Investment highlights
+* Red flags
+* Missing information
+* Comparable risks
+* Key diligence questions
+* Suggested next steps
+
+Landing-Page-Text:
+
+Give buyers an AI-readable asset and a human-readable investment brief.
+
+Das verkauft sofort, weil es sichtbaren Output produziert.
+
+⸻
+
+Landing-Page-Struktur
+
+Hero
+
+Headline:
+The Open Listing Standard for Renewable Energy Transactions
+
+Subline:
+ORLS turns renewable assets into machine-readable investment objects — enabling sellers, advisors, investors and AI agents to screen, compare and transact projects faster.
+
+CTA 1: Convert a Project Teaser
+CTA 2: View ORLS Example Listing
+
+⸻
+
+Section: The Problem
+
+Renewable transactions are still trapped in PDFs, Excel sheets and fragmented data rooms.
+
+* Every advisor uses a different teaser.
+* Every buyer asks for the same data again.
+* Every project is hard to compare.
+* AI agents cannot reliably parse dealflow.
+* Good assets get lost in bad packaging.
+
+⸻
+
+Section: The ORLS Tool Stack
+
+Hier stellst du die 7 Tools vor:
+
+1. Listing Builder
+2. Teaser-to-ORLS Converter
+3. ORLS Validator
+4. Investment Readiness Score
+5. Buyer Matching Engine
+6. Data Room Index Generator
+7. AI Buyer Brief Generator
+
+⸻
+
+Section: The Killer Demo
+
+Das muss auf die Page:
+
+Upload teaser → get structured asset
+
+PDF teaser
+↓
+ORLS extraction
+↓
+Validation score
+↓
+Missing data report
+↓
+Investor brief
+↓
+Buyer matching
+
+Das ist die Story.
+
+Nicht: „We created a standard.“
+
+Sondern:
+
+Upload your messy renewable project teaser. Get a structured, validated, investor-readable asset object.
+
+⸻
+
+Section: Example Asset Types
+
+Zeige 5 Karten:
+
+Solar PV RTB
+
+For ready-to-build photovoltaic projects with permits, grid connection and land rights.
+
+Operational Wind Farm
+
+For producing assets with historical generation, O&M data and refinancing potential.
+
+Co-located BESS
+
+For battery projects connected to PV, wind or standalone grid nodes.
+
+Small Hydro Brownfield
+
+For operational or refurbishable hydro assets with concession, hydrology and permitting data.
+
+Hybrid / Hydrogen-Ready Asset
+
+For complex future-facing projects combining renewables, storage, grid and offtake optionality.
+
+⸻
+
+Section: Who Uses ORLS?
+
+Sellers
+
+Package assets once. Share everywhere.
+
+Advisors
+
+Standardize dealflow. Reduce buyer friction.
+
+Investors
+
+Screen faster. Compare better. Ask sharper questions.
+
+Lenders
+
+Identify bankability gaps earlier.
+
+AI Agents
+
+Parse, rank and monitor renewable assets automatically.
+
+⸻
+
+Was du NICHT prominent zeigen solltest
+
+Diese Dinge klingen technisch, verkaufen aber schwach:
+
+* JSON Schema als erstes
+* API Documentation im Hero
+* GitHub-Link als Haupt-CTA
+* „Vendor-neutral interoperability“ als zentrale Botschaft
+* Zu viele Standardsprache-Wörter
+* Konsortiumslogik
+* Open-source-Romantik
+
+Das kommt später. Landing Page verkauft Painkiller, nicht Architektur.
+
+⸻
+
+Die beste Tool-Reihenfolge für MVP
+
+Nicht alle 7 sofort bauen.
+
+MVP 1: Teaser-to-ORLS Converter
+
+Das ist der beste Einstieg. Nutzer haben bestehende Unterlagen. Du reduzierst Reibung.
+
+MVP 2: ORLS Validator
+
+Damit entsteht der Standard als Autorität.
+
+MVP 3: Investor Brief Generator
+
+Damit entsteht sichtbarer Wert.
+
+MVP 4: Example Listings Library
+
+Damit versteht der Markt sofort, was ORLS ist.
+
+MVP 5: Buyer Matching Engine
+
+Das kommt erst, wenn du genug strukturierte Listings und Buyer-Profile hast.
+
+⸻
+
+Meine Empfehlung für die Landing Page
+
+Stelle nur 4 Tools prominent vor:
+
+1. Convert
+
+Upload any renewable asset teaser and convert it into ORLS.
+
+2. Validate
+
+Check if the asset is screenable, investable or lender-ready.
+
+3. Brief
+
+Generate an investor-grade buyer brief.
+
+4. Match
+
+Connect structured assets with the right buyer criteria.
+
+Das ist die schärfste Story.
+
+Die 4 Begriffe sind stark genug für Navigation:
+
+Convert → Validate → Brief → Match
+
+Das ist deine Page.
+
+Dominanter Satz:
+
+ORLS turns renewable project teasers into structured, validated and AI-readable investment objects.

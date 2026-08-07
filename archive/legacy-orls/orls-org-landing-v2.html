@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORLS — Open Renewables Listing Standard</title>
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --paper: #fafaf7;
+    --rule: #1a1a1a;
+    --muted: #6b6b66;
+    --accent: #c2410c;
+    --code-bg: #f4f3ee;
+    --hover-bg: #f0efea;
+    --ok: #1e6b3c;
+    --warn: #b45309;
+    --err: #991b1b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Charter', 'Iowan Old Style', 'Source Serif Pro', Georgia, serif;
+    line-height: 1.55;
+    font-size: 1rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .mono {
+    font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 0.85em;
+  }
+
+  .topbar {
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 0;
+    background: var(--paper);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', 'SF Mono', 'Menlo', monospace;
+    font-size: 0.78rem;
+  }
+  .topbar-brand { font-weight: 600; letter-spacing: -0.01em; }
+  .topbar-nav { display: flex; gap: 24px; }
+  .topbar-nav a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .topbar-nav a:hover { color: var(--accent); }
+
+  main {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 64px 32px 120px;
+  }
+
+  .masthead {
+    margin-bottom: 80px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 56px;
+  }
+  .masthead-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: 2.75rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    margin-bottom: 24px;
+    max-width: 720px;
+  }
+  .lede {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: var(--ink);
+    max-width: 680px;
+    margin-bottom: 32px;
+  }
+  .masthead-doc-links {
+    display: flex;
+    gap: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+  }
+  .masthead-doc-links a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+  }
+  .masthead-doc-links a:hover { color: var(--accent); }
+
+  section { margin-bottom: 64px; }
+
+  h2 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+
+  p { margin-bottom: 16px; max-width: 680px; }
+
+  .glance {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-bottom: 24px;
+  }
+  .glance > div { background: var(--paper); padding: 24px 28px; }
+  .glance .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .glance .value { font-size: 1.05rem; line-height: 1.4; }
+  .glance .value.mono { font-family: 'JetBrains Mono', monospace; font-size: 0.92rem; }
+
+  .codeblock {
+    background: var(--code-bg);
+    border: 1px solid var(--rule);
+    padding: 20px 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    overflow-x: auto;
+    margin-bottom: 16px;
+    white-space: pre;
+  }
+  .codeblock .comment { color: var(--muted); font-style: italic; }
+  .codeblock .key { color: var(--ink); }
+  .codeblock .string { color: var(--ok); }
+  .codeblock .tier-p { color: var(--ok); }
+  .codeblock .tier-n { color: var(--warn); }
+  .codeblock .tier-f { color: var(--err); }
+
+  .section-list { border-top: 1px solid var(--rule); }
+  .section-list-item {
+    border-bottom: 1px solid var(--rule);
+    padding: 20px 0;
+    display: grid;
+    grid-template-columns: 80px 1fr 120px;
+    gap: 24px;
+    align-items: baseline;
+  }
+  .section-list-item .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .section-list-item .name { font-size: 1.05rem; font-weight: 600; }
+  .section-list-item .desc {
+    color: var(--muted);
+    font-size: 0.93rem;
+    margin-top: 4px;
+  }
+  .section-list-item .status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-align: right;
+    letter-spacing: 0.04em;
+  }
+
+  .impl-table {
+    border: 1px solid var(--rule);
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .impl-table th {
+    text-align: left;
+    padding: 12px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+    background: var(--code-bg);
+  }
+  .impl-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #e5e4df;
+    font-size: 0.93rem;
+    vertical-align: top;
+  }
+  .impl-table tr:last-child td { border-bottom: none; }
+  .impl-table .mono-td {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+  }
+  .impl-table a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .impl-table a:hover { color: var(--accent); }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  /* ========== TOOLS SECTION ========== */
+  .tools-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: -1px;
+  }
+
+  .tool-tab {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    padding: 10px 20px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-right: none;
+    cursor: pointer;
+    color: var(--muted);
+    transition: all 0.1s;
+  }
+  .tool-tab:last-child { border-right: 1px solid var(--rule); }
+  .tool-tab:hover { color: var(--ink); background: var(--hover-bg); }
+  .tool-tab.active {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .tool-panel {
+    display: none;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+  }
+  .tool-panel.active { display: block; }
+
+  .tool-header {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--rule);
+    background: var(--code-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .tool-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+  .tool-desc {
+    color: var(--muted);
+    font-size: 0.88rem;
+    font-family: 'Charter', Georgia, serif;
+  }
+
+  /* Validator */
+  .validator-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 380px;
+  }
+  .validator-input {
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+  }
+  .validator-input-header,
+  .validator-output-header {
+    padding: 10px 18px;
+    border-bottom: 1px solid var(--rule);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .validator-input textarea {
+    flex: 1;
+    border: none;
+    padding: 16px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    line-height: 1.55;
+    background: var(--paper);
+    color: var(--ink);
+    resize: none;
+    outline: none;
+    min-height: 320px;
+  }
+  .validator-input textarea:focus {
+    background: #fffef9;
+  }
+  .validator-output {
+    background: var(--code-bg);
+    display: flex;
+    flex-direction: column;
+  }
+  .validator-output-body {
+    padding: 16px 18px;
+    flex: 1;
+    overflow-y: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+  .v-line { display: flex; gap: 10px; padding: 3px 0; align-items: flex-start; }
+  .v-mark {
+    flex-shrink: 0;
+    width: 16px;
+    font-weight: 700;
+  }
+  .v-mark.ok { color: var(--ok); }
+  .v-mark.warn { color: var(--warn); }
+  .v-mark.err { color: var(--err); }
+  .v-text { flex: 1; }
+  .v-text.muted { color: var(--muted); }
+  .v-summary {
+    padding: 14px 18px;
+    border-top: 1px solid var(--rule);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    background: var(--paper);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .v-badge {
+    padding: 3px 10px;
+    background: var(--ok);
+    color: white;
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+  }
+  .v-badge.fail { background: var(--err); }
+  .v-badge.partial { background: var(--warn); }
+
+  .btn-text {
+    background: none;
+    border: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    padding: 0;
+  }
+  .btn-text:hover { color: var(--accent); }
+
+  /* Schema Browser */
+  .browser-body {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    min-height: 480px;
+  }
+  .browser-nav {
+    border-right: 1px solid var(--rule);
+    background: var(--code-bg);
+    padding: 16px 0;
+  }
+  .browser-nav-group {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    padding: 8px 18px 4px;
+  }
+  .browser-nav-item {
+    padding: 6px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--ink);
+    cursor: pointer;
+    border-left: 2px solid transparent;
+  }
+  .browser-nav-item:hover {
+    background: var(--hover-bg);
+  }
+  .browser-nav-item.active {
+    background: var(--paper);
+    border-left-color: var(--accent);
+    font-weight: 600;
+  }
+  .browser-nav-sub {
+    padding: 4px 18px 4px 32px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .browser-nav-sub:hover { color: var(--ink); }
+
+  .browser-content {
+    padding: 24px 28px;
+    overflow-y: auto;
+  }
+  .browser-breadcrumb {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.76rem;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .browser-h {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .browser-h-desc {
+    color: var(--muted);
+    font-size: 0.93rem;
+    margin-bottom: 24px;
+    max-width: 600px;
+  }
+
+  .field-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    border-top: 1px solid var(--rule);
+  }
+  .field-table th {
+    text-align: left;
+    padding: 8px 12px 8px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  .field-table td {
+    padding: 12px 12px 12px 0;
+    font-size: 0.88rem;
+    border-bottom: 1px solid #e5e4df;
+    vertical-align: top;
+  }
+  .field-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .field-type {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .req-badge {
+    display: inline-block;
+    padding: 1px 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.04em;
+    background: var(--code-bg);
+    border: 1px solid #d8d6cf;
+    color: var(--ink);
+  }
+  .req-badge.must { background: #fdf1ec; border-color: #f4cdb8; color: #9a3412; }
+  .req-badge.should { background: #fef9f0; border-color: #f7e2b6; color: #92580f; }
+  .req-badge.may { background: #f4f3ee; }
+  .tier-badge {
+    display: inline-block;
+    padding: 1px 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.04em;
+  }
+  .tier-badge.p { background: #ecf5ef; color: var(--ok); border: 1px solid #b8dcc7; }
+  .tier-badge.n { background: #fef7ec; color: var(--warn); border: 1px solid #f5d9a8; }
+  .tier-badge.f { background: #fdeeee; color: var(--err); border: 1px solid #f0c1c1; }
+
+  /* Example Viewer */
+  .viewer-body {
+    min-height: 460px;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+  }
+  .viewer-sidebar {
+    border-right: 1px solid var(--rule);
+    background: var(--code-bg);
+    padding: 16px 0;
+  }
+  .viewer-item {
+    padding: 12px 18px;
+    border-left: 2px solid transparent;
+    cursor: pointer;
+  }
+  .viewer-item:hover { background: var(--hover-bg); }
+  .viewer-item.active {
+    background: var(--paper);
+    border-left-color: var(--accent);
+  }
+  .viewer-item-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .viewer-item-meta {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .viewer-content {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .viewer-header {
+    padding: 14px 24px;
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .viewer-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .viewer-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .viewer-code {
+    padding: 18px 24px;
+    background: var(--code-bg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    flex: 1;
+    overflow-y: auto;
+    white-space: pre;
+    max-height: 410px;
+  }
+  .viewer-code .yaml-key { color: var(--ink); }
+  .viewer-code .yaml-value { color: var(--ok); }
+  .viewer-code .yaml-comment { color: var(--muted); font-style: italic; }
+  .viewer-code .yaml-tier-p { color: var(--ok); }
+  .viewer-code .yaml-tier-n { color: var(--warn); }
+  .viewer-code .yaml-tier-f { color: var(--err); }
+
+  .tools-foot {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--code-bg);
+    border: 1px solid var(--rule);
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.5;
+    font-family: 'Charter', Georgia, serif;
+  }
+  .tools-foot strong { color: var(--ink); font-weight: 600; }
+  .tools-foot a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .tools-foot a:hover { color: var(--accent); }
+
+  /* Footer */
+  .footer-spec {
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .footer-spec-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  .footer-spec h4 {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .footer-spec ul { list-style: none; }
+  .footer-spec li { margin-bottom: 6px; }
+  .footer-spec a { color: var(--muted); text-decoration: none; }
+  .footer-spec a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .footer-credit {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e4df;
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 0.72rem;
+  }
+
+  a.inline {
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+  a.inline:hover { color: var(--accent); }
+
+  @media (max-width: 760px) {
+    main { padding: 32px 20px 80px; }
+    h1 { font-size: 1.9rem; }
+    .lede { font-size: 1.05rem; }
+    .glance { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; gap: 32px; }
+    .footer-spec-grid { grid-template-columns: 1fr 1fr; }
+    .section-list-item { grid-template-columns: 60px 1fr; }
+    .section-list-item .status { display: none; }
+    .topbar-nav { display: none; }
+    .validator-body, .browser-body, .viewer-body { grid-template-columns: 1fr; }
+    .validator-input, .browser-nav, .viewer-sidebar {
+      border-right: none;
+      border-bottom: 1px solid var(--rule);
+    }
+    .tools-tabs { flex-direction: column; }
+    .tool-tab { border-right: 1px solid var(--rule); border-bottom: none; }
+    .tool-tab:last-child { border-bottom: 1px solid var(--rule); }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="topbar-brand">orls.org</span>
+    <nav class="topbar-nav">
+      <a href="#spec">Spec</a>
+      <a href="#tools">Tools</a>
+      <a href="#examples">Examples</a>
+      <a href="#implementations">Implementations</a>
+      <a href="#governance">Governance</a>
+      <a href="#rfcs">RFCs</a>
+      <a href="https://github.com/orls-spec/spec">GitHub</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+
+  <header class="masthead">
+    <div class="masthead-meta">Working Draft · v0.1 · Updated 2026-05-15</div>
+    <h1>An open standard for renewable energy asset listings.</h1>
+    <p class="lede">
+      ORLS specifies a machine-readable YAML format for describing renewable energy assets offered for sale, refinancing, or partnership. It enables sellers, advisors, and prospective buyers — including AI agents — to discover, parse, and pre-qualify utility-scale assets without proprietary data rooms or bespoke spreadsheet templates.
+    </p>
+    <div class="masthead-doc-links">
+      <a href="#spec">Read the spec →</a>
+      <a href="#tools">Try the tools →</a>
+      <a href="https://github.com/orls-spec/spec">GitHub →</a>
+    </div>
+  </header>
+
+  <section id="overview">
+    <h2>At a glance</h2>
+    <div class="glance">
+      <div>
+        <div class="label">Format</div>
+        <div class="value mono">YAML 1.2 · UTF-8 · ≤ 512 KB</div>
+      </div>
+      <div>
+        <div class="label">Discovery</div>
+        <div class="value mono">/.well-known/orls.yaml</div>
+      </div>
+      <div>
+        <div class="label">License (Spec)</div>
+        <div class="value">CC BY 4.0</div>
+      </div>
+      <div>
+        <div class="label">License (Code)</div>
+        <div class="value">MIT</div>
+      </div>
+      <div>
+        <div class="label">Confidentiality Tiers</div>
+        <div class="value mono">public · nda_required · final_shortlist</div>
+      </div>
+      <div>
+        <div class="label">Reference Implementations</div>
+        <div class="value">6 across 4 technologies, 3 lifecycle stages, 6 jurisdictions</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="example">
+    <h2>What an ORLS document looks like</h2>
+    <p>
+      Below is a fragment of a reference document — an operating solar PV asset in Spain. Tier markers in comments indicate which fields appear in the public teaser and which require NDA-gated access.
+    </p>
+    <div class="codeblock"><span class="comment"># Project Helios — fragment</span>
+<span class="key">orls_version:</span> <span class="string">"0.1"</span>
+<span class="key">document_id:</span> <span class="string">"orls:01H8XY7K9M2N3P4Q5R6S7T8U9V"</span>
+
+<span class="key">identity:</span>
+  <span class="key">asset_name:</span> <span class="string">"Project Helios"</span>                <span class="tier-p"># [P]</span>
+  <span class="key">asset_type:</span> solar_pv                       <span class="tier-p"># [P]</span>
+  <span class="key">lifecycle_stage:</span> operating                  <span class="tier-p"># [P]</span>
+  <span class="key">country:</span> ES                                 <span class="tier-p"># [P]</span>
+  <span class="key">total_capacity_mw:</span> <span class="string">87.5</span>                    <span class="tier-p"># [P]</span>
+  <span class="key">seller_legal_entity:</span> <span class="string">"Helios Iberica..."</span>    <span class="tier-n"># [N]</span>
+
+<span class="key">financials:</span>
+  <span class="key">asking_price:</span>                                <span class="tier-f"># [F]</span>
+    <span class="key">indicated_range_eur_low:</span> 78000000
+    <span class="key">indicated_range_eur_high:</span> 92000000</div>
+    <p style="margin-top: 12px; font-size: 0.88rem; color: var(--muted);">
+      <span class="mono">[P]</span> public · <span class="mono">[N]</span> nda_required · <span class="mono">[F]</span> final_shortlist
+    </p>
+  </section>
+
+  <section id="spec">
+    <h2>Specification structure</h2>
+    <p>An ORLS document consists of seven top-level sections plus a metadata header. All seven are required for a complete profile; the public teaser subset is derived by tier-filtering.</p>
+
+    <div class="section-list">
+      <div class="section-list-item">
+        <div class="num mono">§ 1</div>
+        <div>
+          <div class="name">identity</div>
+          <div class="desc">Asset name, type, lifecycle stage, jurisdiction, capacity, transaction type, seller entity.</div>
+        </div>
+        <div class="status">v0.1 stable</div>
+      </div>
+      <div class="section-list-item">
+        <div class="num mono">§ 2</div>
+        <div>
+          <div class="name">technical</div>
+          <div class="desc">Equipment configuration, production estimates, resource assessment, performance metrics.</div>
+        </div>
+        <div class="status">v0.1 stable</div>
+      </div>
+      <div class="section-list-item">
+        <div class="num mono">§ 3</div>
+        <div>
+          <div class="name">grid_offtake</div>
+          <div class="desc">Grid connection, offtake contracts, capacity programs, merchant exposure, certificates.</div>
+        </div>
+        <div class="status">v0.1 stable</div>
+      </div>
+      <div class="section-list-item">
+        <div class="num mono">§ 4</div>
+        <div>
+          <div class="name">financials</div>
+          <div class="desc">Capex, opex, revenue history, debt structure, tax position, valuation reference.</div>
+        </div>
+        <div class="status">v0.1 stable</div>
+      </div>
+      <div class="section-list-item">
+        <div class="num mono">§ 5</div>
+        <div>
+          <div class="name">compliance</div>
+          <div class="desc">Permits, land/water rights, environmental assessments, EU Taxonomy, jurisdiction-specific.</div>
+        </div>
+        <div class="status">v0.1 stable</div>
+      </div>
+      <div class="section-list-item">
+        <div class="num mono">§ 6</div>
+        <div>
+          <div class="name">operating_history</div>
+          <div class="desc">Production history, availability, major events, service arrangements, SCADA access.</div>
+        </div>
+        <div class="status">→ polymorphic in v0.2</div>
+      </div>
+      <div class="section-list-item">
+        <div class="num mono">§ 7</div>
+        <div>
+          <div class="name">process</div>
+          <div class="desc">Process type, timeline, closing conditions, data room reference, access endpoint.</div>
+        </div>
+        <div class="status">v0.1 stable</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== TOOLS SECTION =================== -->
+  <section id="tools">
+    <h2>Tools</h2>
+    <p>Three reference tools to work with ORLS directly in your browser. No login, no signup — these run client-side against the v0.1 schema. Source code is in the GitHub repository under MIT.</p>
+
+    <div class="tools-tabs">
+      <button class="tool-tab active" data-tool="validator">Validator</button>
+      <button class="tool-tab" data-tool="browser">Schema Browser</button>
+      <button class="tool-tab" data-tool="viewer">Example Viewer</button>
+    </div>
+
+    <!-- VALIDATOR -->
+    <div class="tool-panel active" data-panel="validator">
+      <div class="tool-header">
+        <div>
+          <div class="tool-title">orls validate</div>
+          <div class="tool-desc">Paste an ORLS document. Get conformance level, field-level errors, and tier-leak warnings.</div>
+        </div>
+        <button class="btn-text" id="loadSample">Load sample</button>
+      </div>
+      <div class="validator-body">
+        <div class="validator-input">
+          <div class="validator-input-header">
+            <span>document.orls.yaml</span>
+            <button class="btn-text" id="clearInput">Clear</button>
+          </div>
+          <textarea id="validatorInput" spellcheck="false" placeholder="Paste your ORLS document here, or click 'Load sample' above."></textarea>
+        </div>
+        <div class="validator-output">
+          <div class="validator-output-header">
+            <span>validation output</span>
+            <span id="validatorStatus" style="color: var(--muted);">awaiting input</span>
+          </div>
+          <div class="validator-output-body" id="validatorOutput">
+            <div class="v-line">
+              <span class="v-text muted">// Paste content on the left to validate.</span>
+            </div>
+            <div class="v-line">
+              <span class="v-text muted">// Validator runs locally — nothing is sent.</span>
+            </div>
+          </div>
+          <div class="v-summary">
+            <span id="summaryText" style="color: var(--muted);">No document loaded</span>
+            <span class="v-badge" id="summaryBadge" style="visibility: hidden;">LEVEL 0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCHEMA BROWSER -->
+    <div class="tool-panel" data-panel="browser">
+      <div class="tool-header">
+        <div>
+          <div class="tool-title">schema browser</div>
+          <div class="tool-desc">Navigate the v0.1 schema. Click any section to view fields, types, required-status, and confidentiality tier.</div>
+        </div>
+        <a href="#" class="btn-text">Download JSON Schema ↓</a>
+      </div>
+      <div class="browser-body">
+        <div class="browser-nav">
+          <div class="browser-nav-group">Sections</div>
+          <div class="browser-nav-item active" data-section="identity">§ 1 identity</div>
+          <div class="browser-nav-item" data-section="technical">§ 2 technical</div>
+          <div class="browser-nav-item" data-section="grid_offtake">§ 3 grid_offtake</div>
+          <div class="browser-nav-item" data-section="financials">§ 4 financials</div>
+          <div class="browser-nav-item" data-section="compliance">§ 5 compliance</div>
+          <div class="browser-nav-item" data-section="operating_history">§ 6 operating_history</div>
+          <div class="browser-nav-item" data-section="process">§ 7 process</div>
+          <div class="browser-nav-group" style="margin-top: 12px;">Extensions</div>
+          <div class="browser-nav-sub">solar-pv.schema</div>
+          <div class="browser-nav-sub">wind-onshore.schema</div>
+          <div class="browser-nav-sub">bess.schema</div>
+          <div class="browser-nav-sub">hybrid.schema</div>
+          <div class="browser-nav-sub">hydro.schema</div>
+        </div>
+        <div class="browser-content" id="browserContent">
+          <!-- populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- EXAMPLE VIEWER -->
+    <div class="tool-panel" data-panel="viewer">
+      <div class="tool-header">
+        <div>
+          <div class="tool-title">example viewer</div>
+          <div class="tool-desc">Six reference implementations across technologies and jurisdictions. Click any to view the source YAML.</div>
+        </div>
+        <a href="#" class="btn-text">View on GitHub ↗</a>
+      </div>
+      <div class="viewer-body">
+        <div class="viewer-sidebar" id="viewerSidebar">
+          <div class="viewer-item active" data-example="helios">
+            <div class="viewer-item-name">helios.orls.yaml</div>
+            <div class="viewer-item-meta">PV · ES · Operating</div>
+          </div>
+          <div class="viewer-item" data-example="aeolus">
+            <div class="viewer-item-name">aeolus.orls.yaml</div>
+            <div class="viewer-item-meta">Wind · DE · Operating</div>
+          </div>
+          <div class="viewer-item" data-example="prometheus">
+            <div class="viewer-item-name">prometheus.orls.yaml</div>
+            <div class="viewer-item-meta">BESS · GB · RTB</div>
+          </div>
+          <div class="viewer-item" data-example="mekong">
+            <div class="viewer-item-name">mekong.orls.yaml</div>
+            <div class="viewer-item-meta">Hydro · VN · Operating</div>
+          </div>
+          <div class="viewer-item" data-example="atacama">
+            <div class="viewer-item-name">atacama.orls.yaml</div>
+            <div class="viewer-item-meta">Hybrid · CL · Operating</div>
+          </div>
+          <div class="viewer-item" data-example="wisla">
+            <div class="viewer-item-name">wisla.orls.yaml</div>
+            <div class="viewer-item-meta">PV · PL · Development</div>
+          </div>
+        </div>
+        <div class="viewer-content">
+          <div class="viewer-header">
+            <span class="viewer-title" id="viewerTitle">helios.orls.yaml</span>
+            <span class="viewer-meta" id="viewerMeta">Level 3 · 1,247 lines</span>
+          </div>
+          <pre class="viewer-code" id="viewerCode"></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="tools-foot">
+      <strong>These tools are reference implementations of the v0.1 schema.</strong> They are not a product. The full validator and parser are also available as <a href="#">@orls/parser</a> for Node.js and <a href="#">orls</a> for Python under MIT license. Commercial tooling built on ORLS is listed under <a href="#implementations">Implementations</a> below — the standard does not endorse any specific implementer.
+    </div>
+  </section>
+  <!-- =================== END TOOLS SECTION =================== -->
+
+  <section id="examples">
+    <h2>Reference implementations</h2>
+    <p>Six reference documents accompany v0.1, designed to stress-test the schema across technologies, lifecycle stages, and regulatory jurisdictions.</p>
+
+    <table class="impl-table">
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th>Technology</th>
+          <th>Stage</th>
+          <th>Country</th>
+          <th>Designed to stress</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono-td"><a href="#">Helios</a></td>
+          <td>Solar PV</td>
+          <td>Operating</td>
+          <td>ES</td>
+          <td>Baseline EU mature asset</td>
+        </tr>
+        <tr>
+          <td class="mono-td"><a href="#">Aeolus</a></td>
+          <td>Onshore Wind</td>
+          <td>Operating</td>
+          <td>DE</td>
+          <td>EEG complexity, repowering optionality</td>
+        </tr>
+        <tr>
+          <td class="mono-td"><a href="#">Prometheus</a></td>
+          <td>BESS</td>
+          <td>Ready-to-Build</td>
+          <td>GB</td>
+          <td>Capacity Market, stacked revenues</td>
+        </tr>
+        <tr>
+          <td class="mono-td"><a href="#">Mekong</a></td>
+          <td>Hydro (RoR)</td>
+          <td>Operating</td>
+          <td>VN</td>
+          <td>Emerging markets, FX, resettlement</td>
+        </tr>
+        <tr>
+          <td class="mono-td"><a href="#">Atacama</a></td>
+          <td>PV + Wind + BESS</td>
+          <td>Operating</td>
+          <td>CL</td>
+          <td>Triple-hybrid, mining offtaker, nodal pricing</td>
+        </tr>
+        <tr>
+          <td class="mono-td"><a href="#">Wisła</a></td>
+          <td>Solar PV</td>
+          <td>Development</td>
+          <td>PL</td>
+          <td>Late-stage development, milestones, optionality</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="implementations">
+    <h2>Implementations</h2>
+    <div class="two-col">
+      <div>
+        <h3>Reference tooling</h3>
+        <p>Validator, JS parser, Python parser, and reference auth server published under MIT in the spec repository.</p>
+        <p class="mono" style="font-size: 0.82rem;">
+          npm install @orls/parser<br>
+          pip install orls
+        </p>
+      </div>
+      <div>
+        <h3>Third-party implementations</h3>
+        <p>Adopter directory is open. Implementations may be self-listed via pull request. Listings here imply use of ORLS, not endorsement of the implementer.</p>
+        <p style="color: var(--muted); font-style: italic;">No third-party implementations yet listed. Submit yours via GitHub.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="governance">
+    <h2>Governance</h2>
+    <p>
+      ORLS is currently maintained under a Benevolent Dictator For Life model with explicit transition to a Steering Committee planned upon five independent implementations. The RFC process is open to anyone; ratification authority sits with the editor until the Steering Committee transition.
+    </p>
+    <p>
+      Major version updates are capped at one per 18 months. Minor updates may occur as needed. Patches are issued for clarifications and bug fixes only.
+    </p>
+    <p>
+      <a href="#" class="inline">Read GOVERNANCE.md →</a>
+    </p>
+  </section>
+
+  <section id="rfcs">
+    <h2>Active RFCs</h2>
+    <table class="impl-table">
+      <thead>
+        <tr>
+          <th style="width: 90px;">Number</th>
+          <th>Title</th>
+          <th style="width: 130px;">Status</th>
+          <th style="width: 110px;">Comments close</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono-td"><a href="#">RFC-0001</a></td>
+          <td>ORLS v0.1 — Spec design rationale (retrospective)</td>
+          <td>Accepted</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td class="mono-td"><a href="#">RFC-0002</a></td>
+          <td>v0.2 Roadmap — Learnings from v0.1 reference implementations</td>
+          <td>Draft for discussion</td>
+          <td>2026-08-15</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer class="footer-spec">
+    <div class="footer-spec-grid">
+      <div>
+        <h4>Specification</h4>
+        <ul>
+          <li><a href="#">SPEC.md (v0.1)</a></li>
+          <li><a href="#">JSON Schema</a></li>
+          <li><a href="#">EBNF grammar</a></li>
+          <li><a href="#">Changelog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Quickstart (sellers)</a></li>
+          <li><a href="#">Quickstart (buyer agents)</a></li>
+          <li><a href="#">For AI providers</a></li>
+          <li><a href="#">Glossary</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Community</h4>
+        <ul>
+          <li><a href="#">GitHub</a></li>
+          <li><a href="#">RFC process</a></li>
+          <li><a href="#">Contributing</a></li>
+          <li><a href="#">Code of Conduct</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Governance</h4>
+        <ul>
+          <li><a href="#">GOVERNANCE.md</a></li>
+          <li><a href="#">Security policy</a></li>
+          <li><a href="#">Trademark policy</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-credit">
+      <span>ORLS Specification · CC BY 4.0 · Reference implementations MIT</span>
+      <span>Maintained by the ORLS Editor and contributors</span>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+// ============== Tool tabs ==============
+document.querySelectorAll('.tool-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const target = tab.dataset.tool;
+    document.querySelectorAll('.tool-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelector(`.tool-panel[data-panel="${target}"]`).classList.add('active');
+  });
+});
+
+// ============== Sample documents ==============
+const sampleValid = `orls_version: "0.1"
+document_id: "orls:01H8XY7K9M2N3P4Q5R6S7T8U9V"
+generated_at: "2026-05-15T10:00:00Z"
+language: "en"
+
+identity:
+  asset_name: "Project Helios"
+  asset_type: solar_pv
+  lifecycle_stage: operating
+  country: ES
+  region: "Castilla-La Mancha"
+  total_capacity_mw: 87.5
+  transaction_type: full_acquisition
+  seller_legal_entity: "Helios Iberica Holdings S.L."
+
+technical:
+  commissioning_date: "2023-09-15"
+  expected_lifetime_years: 35
+  production_estimates:
+    methodology: "PVsyst v7.4, third-party"
+    p50_gwh_yr: 167.2
+
+grid_offtake:
+  offtake_structure: hybrid
+  grid_connection:
+    voltage_level_kv: 132
+    connection_capacity_mw: 90
+
+financials:
+  reporting_currency: EUR
+  asking_price:
+    indicated_range_eur_low: 78000000
+    indicated_range_eur_high: 92000000
+
+compliance:
+  eu_taxonomy_alignment:
+    applicable_activity: "4.1 Electricity generation using solar photovoltaic technology"
+    dnsh_assessment_complete: true
+
+operating_history:
+  availability_history:
+    - year: 2025
+      availability_pct: 98.1
+
+process:
+  process_type: limited_auction
+  process_timeline:
+    binding_offers_due: "2026-10-15"`;
+
+// ============== Validator logic ==============
+const input = document.getElementById('validatorInput');
+const output = document.getElementById('validatorOutput');
+const summaryText = document.getElementById('summaryText');
+const summaryBadge = document.getElementById('summaryBadge');
+const validatorStatus = document.getElementById('validatorStatus');
+
+document.getElementById('loadSample').addEventListener('click', () => {
+  input.value = sampleValid;
+  runValidation();
+});
+
+document.getElementById('clearInput').addEventListener('click', () => {
+  input.value = '';
+  output.innerHTML = `
+    <div class="v-line"><span class="v-text muted">// Paste content on the left to validate.</span></div>
+    <div class="v-line"><span class="v-text muted">// Validator runs locally — nothing is sent.</span></div>`;
+  summaryText.textContent = 'No document loaded';
+  summaryBadge.style.visibility = 'hidden';
+  validatorStatus.textContent = 'awaiting input';
+});
+
+input.addEventListener('input', debounce(runValidation, 350));
+
+function debounce(fn, ms) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), ms);
+  };
+}
+
+function runValidation() {
+  const text = input.value;
+  if (!text.trim()) {
+    summaryText.textContent = 'No document loaded';
+    summaryBadge.style.visibility = 'hidden';
+    return;
+  }
+
+  // Naive YAML "validation" — looking for known sections and basic structure
+  const lines = text.split('\n');
+  const checks = [];
+  const sections = ['identity', 'technical', 'grid_offtake', 'financials', 'compliance', 'operating_history', 'process'];
+  const found = new Set();
+
+  // Header checks
+  if (/orls_version:\s*["']?0\.\d/i.test(text)) {
+    checks.push({ status: 'ok', msg: 'orls_version declared (0.1)' });
+  } else {
+    checks.push({ status: 'err', msg: 'Missing or invalid orls_version' });
+  }
+
+  if (/document_id:\s*["']?orls:/i.test(text)) {
+    checks.push({ status: 'ok', msg: 'document_id present (orls: prefix)' });
+  } else {
+    checks.push({ status: 'warn', msg: 'document_id missing or non-canonical' });
+  }
+
+  // Section presence
+  sections.forEach(s => {
+    const re = new RegExp(`^${s}:`, 'm');
+    if (re.test(text)) {
+      found.add(s);
+      checks.push({ status: 'ok', msg: `§ ${s} present` });
+    }
+  });
+
+  const missing = sections.filter(s => !found.has(s));
+  missing.forEach(s => {
+    checks.push({ status: 'err', msg: `§ ${s} missing (required)` });
+  });
+
+  // Identity field checks
+  if (found.has('identity')) {
+    if (/asset_name:/.test(text)) checks.push({ status: 'ok', msg: 'identity.asset_name present' });
+    else checks.push({ status: 'err', msg: 'identity.asset_name missing (MUST)' });
+    if (/asset_type:\s*(solar_pv|onshore_wind|offshore_wind|bess|hybrid|hydro|biomass|geothermal|csp)/.test(text)) {
+      checks.push({ status: 'ok', msg: 'identity.asset_type valid enum value' });
+    } else {
+      checks.push({ status: 'warn', msg: 'identity.asset_type not in canonical enum' });
+    }
+    if (/country:\s*[A-Z]{2}\b/.test(text)) {
+      checks.push({ status: 'ok', msg: 'identity.country ISO 3166-1 alpha-2' });
+    } else {
+      checks.push({ status: 'warn', msg: 'identity.country not ISO 3166-1 alpha-2' });
+    }
+  }
+
+  // Tier-leak heuristic
+  if (/asking_price:/.test(text) && !/#\s*\[F\]/.test(text.match(/asking_price:.*$/m)?.[0] || '')) {
+    checks.push({ status: 'warn', msg: 'financials.asking_price not tagged [F] (final_shortlist)' });
+  }
+
+  // Render
+  output.innerHTML = checks.map(c => {
+    const mark = c.status === 'ok' ? '✓' : c.status === 'warn' ? '⚠' : '✕';
+    return `<div class="v-line"><span class="v-mark ${c.status}">${mark}</span><span class="v-text">${c.msg}</span></div>`;
+  }).join('');
+
+  // Summary
+  const errs = checks.filter(c => c.status === 'err').length;
+  const warns = checks.filter(c => c.status === 'warn').length;
+  const passes = checks.filter(c => c.status === 'ok').length;
+
+  validatorStatus.textContent = `${passes} pass · ${warns} warn · ${errs} err`;
+
+  if (errs === 0 && warns === 0) {
+    summaryText.textContent = 'Conformance: full v0.1';
+    summaryBadge.textContent = 'LEVEL 3 — COMPLETE';
+    summaryBadge.className = 'v-badge';
+    summaryBadge.style.visibility = 'visible';
+  } else if (errs === 0) {
+    summaryText.textContent = 'Conformance: structural pass with warnings';
+    summaryBadge.textContent = 'LEVEL 2 — STANDARD';
+    summaryBadge.className = 'v-badge partial';
+    summaryBadge.style.visibility = 'visible';
+  } else {
+    summaryText.textContent = 'Conformance: fails required fields';
+    summaryBadge.textContent = 'INVALID';
+    summaryBadge.className = 'v-badge fail';
+    summaryBadge.style.visibility = 'visible';
+  }
+}
+
+// ============== Schema browser data ==============
+const schemaData = {
+  identity: {
+    desc: 'Establishes what and who is being offered. Required for every ORLS document. Most fields tier public — this is what appears in the teaser.',
+    fields: [
+      { name: 'asset_name', type: 'string', req: 'MUST', tier: 'P', desc: 'Project or portfolio display name. Anonymized in teaser if desired.' },
+      { name: 'asset_type', type: 'enum', req: 'MUST', tier: 'P', desc: 'solar_pv | onshore_wind | offshore_wind | bess | hybrid | hydro | biomass | geothermal | csp' },
+      { name: 'lifecycle_stage', type: 'enum', req: 'MUST', tier: 'P', desc: 'greenfield | development | ready_to_build | under_construction | commissioning | operating | repowering_candidate | decommissioning' },
+      { name: 'country', type: 'string (ISO 3166-1 α-2)', req: 'MUST', tier: 'P', desc: 'Country of asset location.' },
+      { name: 'region', type: 'string', req: 'SHOULD', tier: 'P', desc: 'Sub-national region.' },
+      { name: 'coordinates', type: '[lon, lat]', req: 'SHOULD', tier: 'N', desc: 'WGS84. For portfolios, centroid may be P-tier.' },
+      { name: 'total_capacity_mw', type: 'number', req: 'MUST', tier: 'P', desc: 'Installed AC capacity in MW.' },
+      { name: 'transaction_type', type: 'enum', req: 'MUST', tier: 'P', desc: 'full_acquisition | majority_stake | minority_stake | refinancing | joint_venture | ppa_only' },
+      { name: 'seller_legal_entity', type: 'string', req: 'MUST', tier: 'N', desc: 'Registered legal entity of the seller.' },
+    ]
+  },
+  technical: {
+    desc: 'Physical configuration and expected performance. Field set varies by asset_type via schema extensions.',
+    fields: [
+      { name: 'commissioning_date', type: 'date (ISO 8601)', req: 'MUST if operating', tier: 'P', desc: 'Date of commercial operation.' },
+      { name: 'expected_lifetime_years', type: 'integer', req: 'SHOULD', tier: 'P', desc: 'Design life.' },
+      { name: 'units', type: 'array of objects', req: 'MUST', tier: 'N', desc: 'List of generating units (turbines, inverter blocks, BESS containers).' },
+      { name: 'production_estimates', type: 'object', req: 'MUST', tier: 'mixed', desc: 'P50/P75/P90 with methodology and assessor.' },
+      { name: 'performance_ratio', type: 'number', req: 'SHOULD for PV', tier: 'N', desc: 'Decimal between 0 and 1.' },
+      { name: 'capacity_factor', type: 'number', req: 'SHOULD for wind', tier: 'N', desc: 'Decimal between 0 and 1.' },
+      { name: 'degradation_curve', type: 'object', req: 'SHOULD', tier: 'N', desc: 'Annual % degradation, optionally piecewise.' },
+    ]
+  },
+  grid_offtake: {
+    desc: 'How the asset connects to the grid and how its output is monetized.',
+    fields: [
+      { name: 'grid_connection', type: 'object', req: 'MUST', tier: 'mixed', desc: 'Connection point, voltage, capacity, operator.' },
+      { name: 'offtake_structure', type: 'enum', req: 'MUST', tier: 'P', desc: 'feed_in_tariff | cfd | corporate_ppa | utility_ppa | merchant | hybrid | stacked_revenues' },
+      { name: 'offtake_contracts', type: 'array', req: 'MUST if contracted', tier: 'mixed', desc: 'Bilateral commercial offtake arrangements.' },
+      { name: 'curtailment_history', type: 'object', req: 'SHOULD if operating', tier: 'N', desc: 'Annual curtailment %, with compensation status.' },
+      { name: 'balancing_responsibility', type: 'enum', req: 'SHOULD', tier: 'N', desc: 'self | aggregator | offtaker | direktvermarkter' },
+      { name: 'green_certificates', type: 'object', req: 'MAY', tier: 'N', desc: 'GO / REGO / I-REC details.' },
+    ]
+  },
+  financials: {
+    desc: 'Most sensitive section. Default tier nda_required or final_shortlist for all fields except aggregate ranges.',
+    fields: [
+      { name: 'capex_total_eur', type: 'number', req: 'MUST', tier: 'N', desc: 'Total realized or projected CAPEX.' },
+      { name: 'opex_breakdown', type: 'object', req: 'MUST', tier: 'N', desc: 'Canonical opex taxonomy — 9 standard categories.' },
+      { name: 'revenue_history', type: 'array', req: 'MUST if operating', tier: 'N', desc: 'Annual revenue, ≥3 years if available.' },
+      { name: 'ebitda_history', type: 'array', req: 'MUST if operating', tier: 'N', desc: 'Annual EBITDA with margin.' },
+      { name: 'debt_structure', type: 'object', req: 'MUST if leveraged', tier: 'N', desc: 'Senior, mezzanine, DSCR, change-of-control.' },
+      { name: 'asking_price', type: 'object', req: 'MAY', tier: 'F', desc: 'Sellers SHOULD prefer process-based pricing.' },
+      { name: 'valuation_reference', type: 'object', req: 'MAY', tier: 'N', desc: 'Independent valuation summary.' },
+    ]
+  },
+  compliance: {
+    desc: 'Permits, land/water rights, environmental assessments, EU Taxonomy, jurisdiction-specific compliance items.',
+    fields: [
+      { name: 'permits', type: 'array', req: 'MUST', tier: 'mixed', desc: 'All material permits with issuing authority, validity, conditions.' },
+      { name: 'land_rights', type: 'object', req: 'MUST', tier: 'mixed', desc: 'Ownership or lease structure.' },
+      { name: 'environmental_assessments', type: 'array', req: 'MUST if applicable', tier: 'N', desc: 'EIA, biodiversity, archaeology.' },
+      { name: 'eu_taxonomy_alignment', type: 'object', req: 'SHOULD', tier: 'P', desc: 'Activity ID, DNSH assessment, minimum safeguards.' },
+      { name: 'litigation_disputes', type: 'array', req: 'MUST', tier: 'N', desc: 'Open or threatened proceedings.' },
+      { name: 'decommissioning_obligation', type: 'object', req: 'MUST', tier: 'N', desc: 'Bond, guarantee, estimated cost.' },
+    ]
+  },
+  operating_history: {
+    desc: 'Production and operational history. v0.2 will replace this section with a polymorphic variant — see RFC-0002 Issue 3.1.',
+    fields: [
+      { name: 'monthly_production', type: 'array or URL', req: 'MUST', tier: 'N', desc: 'Inline {month, mwh} or URL to CSV.' },
+      { name: 'availability_history', type: 'array', req: 'MUST', tier: 'N', desc: 'Annual availability %.' },
+      { name: 'major_events', type: 'array', req: 'MUST', tier: 'N', desc: 'Unplanned outages >24h, major repairs, claims.' },
+      { name: 'service_contract', type: 'object', req: 'SHOULD', tier: 'N', desc: 'OEM service agreement details.' },
+      { name: 'scada_access', type: 'enum', req: 'MAY', tier: 'P', desc: 'none | read_only_pre_closing | read_only_post_closing | full_post_closing' },
+    ]
+  },
+  process: {
+    desc: 'Partially public. Buyer agents read this first to decide whether to request the full profile.',
+    fields: [
+      { name: 'process_type', type: 'enum', req: 'MUST', tier: 'P', desc: 'bilateral | limited_auction | broad_auction | open_market' },
+      { name: 'process_lead', type: 'object', req: 'MUST', tier: 'P', desc: 'Organization, contact role, contact email.' },
+      { name: 'process_timeline', type: 'object', req: 'MUST', tier: 'P', desc: 'Key dates from teaser distribution through closing target.' },
+      { name: 'data_room', type: 'object', req: 'MUST', tier: 'N', desc: 'URL and access mechanism.' },
+      { name: 'nda_template', type: 'URL', req: 'SHOULD', tier: 'P', desc: 'URL to downloadable NDA template.' },
+      { name: 'access_endpoint', type: 'URL', req: 'SHOULD', tier: 'P', desc: 'ORLS-compliant authentication endpoint.' },
+    ]
+  }
+};
+
+function renderSchema(section) {
+  const d = schemaData[section];
+  if (!d) return;
+  let html = `
+    <div class="browser-breadcrumb">orls.schema.json → § ${section}</div>
+    <div class="browser-h">${section}</div>
+    <div class="browser-h-desc">${d.desc}</div>
+    <table class="field-table">
+      <thead>
+        <tr>
+          <th style="width: 200px;">Field</th>
+          <th style="width: 90px;">Required</th>
+          <th style="width: 60px;">Tier</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>`;
+  d.fields.forEach(f => {
+    const reqClass = f.req.startsWith('MUST') ? 'must' : f.req.startsWith('SHOULD') ? 'should' : 'may';
+    const tierClass = f.tier === 'P' ? 'p' : f.tier === 'N' ? 'n' : f.tier === 'F' ? 'f' : '';
+    const tierBadge = f.tier === 'mixed' ? '<span class="field-type">mixed</span>' : `<span class="tier-badge ${tierClass}">${f.tier}</span>`;
+    html += `
+      <tr>
+        <td>
+          <div class="field-name">${f.name}</div>
+          <div class="field-type">${f.type}</div>
+        </td>
+        <td><span class="req-badge ${reqClass}">${f.req}</span></td>
+        <td>${tierBadge}</td>
+        <td>${f.desc}</td>
+      </tr>`;
+  });
+  html += '</tbody></table>';
+  document.getElementById('browserContent').innerHTML = html;
+}
+
+document.querySelectorAll('.browser-nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.browser-nav-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+    renderSchema(item.dataset.section);
+  });
+});
+
+// initial render
+renderSchema('identity');
+
+// ============== Example viewer ==============
+const examples = {
+  helios: {
+    title: 'helios.orls.yaml',
+    meta: 'Solar PV · 87.5 MW · Castilla-La Mancha, Spain · Level 3',
+    code: `<span class="yaml-comment"># Project Helios — operating PV asset in Spain</span>
+<span class="yaml-key">orls_version:</span> <span class="yaml-value">"0.1"</span>
+<span class="yaml-key">document_id:</span> <span class="yaml-value">"orls:01H8XY7K9M2N3P4Q5R6S7T8U9V"</span>
+
+<span class="yaml-key">identity:</span>
+  <span class="yaml-key">asset_name:</span> <span class="yaml-value">"Project Helios"</span>                <span class="yaml-tier-p"># [P]</span>
+  <span class="yaml-key">asset_type:</span> <span class="yaml-value">solar_pv</span>                       <span class="yaml-tier-p"># [P]</span>
+  <span class="yaml-key">lifecycle_stage:</span> <span class="yaml-value">operating</span>                  <span class="yaml-tier-p"># [P]</span>
+  <span class="yaml-key">country:</span> <span class="yaml-value">ES</span>                                <span class="yaml-tier-p"># [P]</span>
+  <span class="yaml-key">total_capacity_mw_ac:</span> <span class="yaml-value">87.5</span>                  <span class="yaml-tier-p"># [P]</span>
+  <span class="yaml-key">total_capacity_mw_dc:</span> <span class="yaml-value">105.0</span>                 <span class="yaml-tier-p"># [P]</span>
+  <span class="yaml-key">seller_legal_entity:</span> <span class="yaml-value">"Helios Iberica Holdings S.L."</span>  <span class="yaml-tier-n"># [N]</span>
+
+<span class="yaml-key">technical:</span>
+  <span class="yaml-key">commissioning_date:</span> <span class="yaml-value">"2023-09-15"</span>
+  <span class="yaml-key">module_manufacturer:</span> <span class="yaml-value">"Trina Solar"</span>
+  <span class="yaml-key">production_estimates:</span>
+    <span class="yaml-key">p50_gwh_yr:</span> <span class="yaml-value">167.2</span>
+    <span class="yaml-key">p75_gwh_yr:</span> <span class="yaml-value">161.8</span>
+    <span class="yaml-key">p90_gwh_yr:</span> <span class="yaml-value">155.4</span>
+
+<span class="yaml-key">financials:</span>
+  <span class="yaml-key">reporting_currency:</span> <span class="yaml-value">EUR</span>
+  <span class="yaml-key">asking_price:</span>                          <span class="yaml-tier-f"># [F]</span>
+    <span class="yaml-key">indicated_range_eur_low:</span> <span class="yaml-value">78000000</span>
+    <span class="yaml-key">indicated_range_eur_high:</span> <span class="yaml-value">92000000</span>
+
+<span class="yaml-comment"># ... continues for 7 sections, 1247 lines total</span>`
+  },
+  aeolus: {
+    title: 'aeolus.orls.yaml',
+    meta: 'Onshore Wind · 148.5 MW · Schleswig-Holstein, Germany · Level 3',
+    code: `<span class="yaml-comment"># Project Aeolus — 33-turbine wind farm under EEG Marktprämie + corporate PPA</span>
+<span class="yaml-key">orls_version:</span> <span class="yaml-value">"0.1"</span>
+
+<span class="yaml-key">identity:</span>
+  <span class="yaml-key">asset_name:</span> <span class="yaml-value">"Project Aeolus"</span>
+  <span class="yaml-key">asset_type:</span> <span class="yaml-value">onshore_wind</span>
+  <span class="yaml-key">lifecycle_stage:</span> <span class="yaml-value">operating</span>
+  <span class="yaml-key">country:</span> <span class="yaml-value">DE</span>
+  <span class="yaml-key">number_of_turbines:</span> <span class="yaml-value">33</span>
+  <span class="yaml-key">total_capacity_mw:</span> <span class="yaml-value">148.5</span>
+  <span class="yaml-key">repowering_eligible_from:</span> <span class="yaml-value">"2041-11-20"</span>
+
+<span class="yaml-key">grid_offtake:</span>
+  <span class="yaml-key">offtake_structure:</span> <span class="yaml-value">hybrid</span>
+  <span class="yaml-key">offtake_contracts:</span>
+    - <span class="yaml-key">contract_type:</span> <span class="yaml-value">gleitende_marktpraemie</span>
+      <span class="yaml-key">anzulegender_wert_eur_mwh:</span> <span class="yaml-value">61.20</span>
+      <span class="yaml-key">end_date:</span> <span class="yaml-value">"2041-11-20"</span>
+    - <span class="yaml-key">contract_type:</span> <span class="yaml-value">corporate_ppa</span>
+      <span class="yaml-key">capacity_mw:</span> <span class="yaml-value">50</span>
+      <span class="yaml-key">end_date:</span> <span class="yaml-value">"2034-03-31"</span>
+
+<span class="yaml-comment"># ... full document continues</span>`
+  },
+  prometheus: {
+    title: 'prometheus.orls.yaml',
+    meta: 'BESS · 100 MW / 200 MWh · Yorkshire, UK · Ready-to-Build · Level 3',
+    code: `<span class="yaml-comment"># Project Prometheus — RTB BESS with stacked revenue stack</span>
+<span class="yaml-key">orls_version:</span> <span class="yaml-value">"0.1"</span>
+
+<span class="yaml-key">identity:</span>
+  <span class="yaml-key">asset_type:</span> <span class="yaml-value">bess</span>
+  <span class="yaml-key">lifecycle_stage:</span> <span class="yaml-value">ready_to_build</span>
+  <span class="yaml-key">country:</span> <span class="yaml-value">GB</span>
+  <span class="yaml-key">total_capacity_mw:</span> <span class="yaml-value">100</span>
+  <span class="yaml-key">total_energy_mwh:</span> <span class="yaml-value">200</span>
+  <span class="yaml-key">duration_hours:</span> <span class="yaml-value">2.0</span>
+
+<span class="yaml-key">grid_offtake:</span>
+  <span class="yaml-key">offtake_structure:</span> <span class="yaml-value">stacked_revenues</span>
+  <span class="yaml-key">offtake_contracts:</span>
+    - <span class="yaml-key">contract_type:</span> <span class="yaml-value">capacity_market</span>
+      <span class="yaml-key">derated_capacity_mw:</span> <span class="yaml-value">23.6</span>
+      <span class="yaml-key">capacity_payment_gbp_kw_yr:</span> <span class="yaml-value">63.0</span>
+    - <span class="yaml-key">contract_type:</span> <span class="yaml-value">frequency_response</span>
+      <span class="yaml-key">service:</span> <span class="yaml-value">"Dynamic Containment"</span>
+  <span class="yaml-key">merchant_revenue_streams:</span>
+    - <span class="yaml-key">type:</span> <span class="yaml-value">wholesale_arbitrage</span>
+    - <span class="yaml-key">type:</span> <span class="yaml-value">balancing_mechanism</span>
+
+<span class="yaml-comment"># ... full document continues</span>`
+  },
+  mekong: {
+    title: 'mekong.orls.yaml',
+    meta: 'Run-of-River Hydro · 38 MW · Lào Cai, Vietnam · Level 3',
+    code: `<span class="yaml-comment"># Project Mekong — small hydro under legacy FiT, evaluating DPPA transition</span>
+<span class="yaml-key">orls_version:</span> <span class="yaml-value">"0.1"</span>
+
+<span class="yaml-key">identity:</span>
+  <span class="yaml-key">asset_type:</span> <span class="yaml-value">hydro</span>
+  <span class="yaml-key">asset_subtype:</span> <span class="yaml-value">run_of_river</span>
+  <span class="yaml-key">country:</span> <span class="yaml-value">VN</span>
+  <span class="yaml-key">total_capacity_mw:</span> <span class="yaml-value">38.0</span>
+  <span class="yaml-key">small_hydro_classification:</span> <span class="yaml-value">true</span>
+
+<span class="yaml-key">technical:</span>
+  <span class="yaml-key">hydrological_basis:</span>
+    <span class="yaml-key">methodology:</span> <span class="yaml-value">"30-year river gauge record + regional regression"</span>
+    <span class="yaml-key">record_period_years:</span> <span class="yaml-value">32</span>
+    <span class="yaml-key">mean_annual_flow_m3_s:</span> <span class="yaml-value">14.8</span>
+    <span class="yaml-key">climate_change_sensitivity_assessment:</span> <span class="yaml-value">true</span>
+
+<span class="yaml-key">grid_offtake:</span>
+  <span class="yaml-key">offtake_structure:</span> <span class="yaml-value">legacy_fit_ppa_transitioning</span>
+  <span class="yaml-key">alternative_offtake_options_analyzed:</span>
+    - <span class="yaml-key">framework:</span> <span class="yaml-value">"Decree 57/2025 Model 2 (CfD)"</span>
+      <span class="yaml-key">modeled_revenue_uplift_pct:</span> <span class="yaml-value">8.5</span>
+
+<span class="yaml-comment"># ... full document continues</span>`
+  },
+  atacama: {
+    title: 'atacama.orls.yaml',
+    meta: 'Hybrid PV+Wind+BESS · 260 MW combined · Antofagasta, Chile · Level 3',
+    code: `<span class="yaml-comment"># Project Atacama — triple-hybrid with mining offtaker</span>
+<span class="yaml-key">orls_version:</span> <span class="yaml-value">"0.1"</span>
+
+<span class="yaml-key">identity:</span>
+  <span class="yaml-key">asset_type:</span> <span class="yaml-value">hybrid</span>
+  <span class="yaml-key">asset_subtype:</span> <span class="yaml-value">pv_wind_bess_triple_hybrid</span>
+  <span class="yaml-key">country:</span> <span class="yaml-value">CL</span>
+  <span class="yaml-key">total_capacity_summary:</span>
+    <span class="yaml-key">pv_capacity_mw_ac:</span> <span class="yaml-value">180</span>
+    <span class="yaml-key">wind_capacity_mw:</span> <span class="yaml-value">80</span>
+    <span class="yaml-key">bess_power_mw:</span> <span class="yaml-value">100</span>
+    <span class="yaml-key">bess_energy_mwh:</span> <span class="yaml-value">400</span>
+    <span class="yaml-key">grid_export_limit_mw:</span> <span class="yaml-value">200</span>
+
+<span class="yaml-key">technical:</span>
+  <span class="yaml-key">hybrid_configuration_topology:</span> <span class="yaml-value">ac_coupled</span>
+  <span class="yaml-key">pv:</span> <span class="yaml-comment"># PV sub-block</span>
+    <span class="yaml-key">capacity_mw_ac:</span> <span class="yaml-value">180</span>
+  <span class="yaml-key">wind:</span> <span class="yaml-comment"># Wind sub-block</span>
+    <span class="yaml-key">capacity_mw:</span> <span class="yaml-value">80</span>
+  <span class="yaml-key">bess:</span> <span class="yaml-comment"># BESS sub-block</span>
+    <span class="yaml-key">power_mw_ac:</span> <span class="yaml-value">100</span>
+    <span class="yaml-key">duration_hours:</span> <span class="yaml-value">4.0</span>
+
+<span class="yaml-comment"># ... full document continues</span>`
+  },
+  wisla: {
+    title: 'wisla.orls.yaml',
+    meta: 'PV Greenfield · 120 MWp · Wielkopolskie, Poland · Development · Level 3',
+    code: `<span class="yaml-comment"># Project Wisła — late-stage greenfield development</span>
+<span class="yaml-key">orls_version:</span> <span class="yaml-value">"0.1"</span>
+
+<span class="yaml-key">identity:</span>
+  <span class="yaml-key">asset_type:</span> <span class="yaml-value">solar_pv</span>
+  <span class="yaml-key">lifecycle_stage:</span> <span class="yaml-value">development</span>
+  <span class="yaml-key">development_sub_stage:</span> <span class="yaml-value">late_stage_pre_rtb</span>
+  <span class="yaml-key">development_completion_pct_estimated:</span> <span class="yaml-value">78</span>
+  <span class="yaml-key">country:</span> <span class="yaml-value">PL</span>
+  <span class="yaml-key">planned_capacity_mwp_dc:</span> <span class="yaml-value">120</span>
+
+<span class="yaml-key">development_milestone_tracker:</span>  <span class="yaml-comment"># replaces operating_history</span>
+  <span class="yaml-key">outstanding_milestones:</span>
+    - <span class="yaml-key">milestone:</span> <span class="yaml-value">"Umowa Przyłączeniowa execution"</span>
+      <span class="yaml-key">criticality:</span> <span class="yaml-value">critical</span>
+      <span class="yaml-key">target_date:</span> <span class="yaml-value">"2026-07-31"</span>
+      <span class="yaml-key">probability_pct_estimated:</span> <span class="yaml-value">80</span>
+      <span class="yaml-key">value_at_stake_eur:</span> <span class="yaml-value">22400000</span>
+
+<span class="yaml-comment"># ... full document continues</span>`
+  }
+};
+
+function renderExample(key) {
+  const e = examples[key];
+  if (!e) return;
+  document.getElementById('viewerTitle').textContent = e.title;
+  document.getElementById('viewerMeta').textContent = e.meta;
+  document.getElementById('viewerCode').innerHTML = e.code;
+}
+
+document.querySelectorAll('.viewer-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.viewer-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+    renderExample(item.dataset.example);
+  });
+});
+
+renderExample('helios');
+</script>
+
+</body>
+</html>

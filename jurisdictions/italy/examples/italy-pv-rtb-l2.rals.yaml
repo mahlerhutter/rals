@@ -143,6 +143,11 @@ financials:
 # ── Process ──────────────────────────────────────────────────────────────────
 process:
   process_type: limited_auction
+  process_lead:
+    organization: "Mezzogiorno Energy Advisory S.r.l."
+    contact_role: "M&A Director"
+    contact_email: "deals@mezzogiorno-energy-advisory.example.com"
+    contact_phone: null
   data_room_status: available_under_nda
   data_room_platform: "Drooms"
   data_room_contents:

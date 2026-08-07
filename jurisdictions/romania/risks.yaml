@@ -242,3 +242,22 @@ risks:
       - GC entitlements confirmed in writing by ANRE for legacy assets
     validation_rule: >
       Flag if financial model assumes policy change (CfD award, GC extension) not yet announced.
+
+  - risk_id: merchant_exposure_high
+    label: "High Merchant Revenue Exposure"
+    severity_default: medium
+    affected_sections: [financials, grid_offtake]
+    buyer_impact: >
+      Where no CfD, PPA, or capacity-market revenue is secured, the asset's returns
+      depend on OPCOM merchant price and (for storage) arbitrage spread. A conservative
+      merchant-only scenario showing marginal DSCR signals thin downside protection.
+    lender_impact: >
+      Lenders typically require a minimum contracted/hedged revenue share, or a
+      conservative merchant price deck with adequate DSCR headroom, before committing.
+    mitigation_evidence:
+      - Sensitivity analysis showing DSCR under a conservative (P90-equivalent) price/spread scenario
+      - Partial revenue hedge (PPA, tolling agreement, or capacity contract) reducing merchant share
+    validation_rule: >
+      If the base-case financial model relies solely on merchant revenue and the
+      conservative-scenario DSCR is within the lender's minimum covenant headroom,
+      raise as MEDIUM; if it breaches the covenant, raise as HIGH.

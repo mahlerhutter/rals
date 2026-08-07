@@ -1,0 +1,601 @@
+# ============================================================================
+# Open Renewables Listing Standard (ORLS) — Example Document
+# ============================================================================
+#
+# Asset:        Project Prometheus (fictional)
+# Description:  100 MW / 200 MWh battery energy storage system (BESS) at
+#               Ready-to-Build stage. Located adjacent to an existing 400 kV
+#               substation in Yorkshire, England. LFP chemistry, 2-hour
+#               duration. Stacked revenue model: T-4 Capacity Market award,
+#               Dynamic Containment frequency response, and merchant
+#               wholesale arbitrage. Construction start Q4 2026, energization
+#               Q3 2027.
+# Profile:      Level 3 (Complete) — includes all confidentiality tiers
+# Purpose:      Reference example accompanying ORLS Specification v0.1
+#
+# This is a fictional asset. All names, financial figures, counterparties,
+# equipment configurations, and contract terms are invented for illustration.
+# Any resemblance to real assets, transactions, or entities is coincidental.
+#
+# Why this example exists:
+#   BESS stresses ORLS along three dimensions that PV and Wind do not:
+#   (a) two capacity dimensions (MW power, MWh energy) with duration as
+#       the dominant value driver,
+#   (b) multi-stream revenue stack instead of single PPA — Capacity Market
+#       + Frequency Response + Wholesale Arbitrage + Balancing Mechanism,
+#   (c) Ready-to-Build lifecycle stage with no operating history, but rich
+#       procurement, construction, and connection milestone data.
+#   This example also demonstrates ORLS in a non-EU jurisdiction (UK).
+#
+# Tier markers in comments:
+#   [P] = public           (included in Teaser Profile)
+#   [N] = nda_required     (visible after NDA)
+#   [F] = final_shortlist  (visible only to admitted final bidders)
+# ============================================================================
+
+orls_version: "0.1"
+document_id: "orls:01HD8X4Y6N2P3Q5R7S9T1V3W5Z"
+generated_at: "2026-05-15T10:00:00Z"
+generated_by: "manual-reference-example"
+language: "en"
+
+# ----------------------------------------------------------------------------
+# 1. IDENTITY
+# ----------------------------------------------------------------------------
+identity:
+  asset_name: "Project Prometheus"                   # [P]
+  asset_type: bess                                   # [P]
+  lifecycle_stage: ready_to_build                    # [P]
+  country: GB                                        # [P]
+  region: "Yorkshire and the Humber"                 # [P]
+  sub_region: "North Yorkshire"                      # [P]
+  coordinates: [-1.4582, 53.9871]                    # [N]
+  site_area_hectares: 4.2                            # [P]
+  site_tenure: "freehold"                            # [P]
+  total_capacity_mw: 100                             # [P]
+  total_energy_mwh: 200                              # [P]
+  duration_hours: 2.0                                # [P]
+  number_of_units: 56                                # [P]
+  transaction_type: full_acquisition                 # [P]
+  equity_offered_pct: 100                            # [P]
+  seller_legal_entity: "Prometheus Storage Yorkshire Ltd."  # [N]
+  seller_jurisdiction: "England and Wales"           # [N]
+  internal_reference: "PRMT-2026-YHS"                # [F]
+  spv_structure: true                                # [N]
+  spv_jurisdiction: "United Kingdom"                 # [N]
+  spv_form: "Private Limited Company"                # [N]
+  ultimate_beneficial_ownership_disclosed: true     # [N]
+
+# ----------------------------------------------------------------------------
+# 2. TECHNICAL
+# ----------------------------------------------------------------------------
+technical:
+  expected_lifetime_years: 20                        # [P]
+  design_basis_year: 2025                            # [P]
+
+  power_specification:                               # [P]
+    nameplate_power_mw_ac: 100
+    nameplate_power_mw_dc: 105
+    grid_export_limit_mw: 100
+    grid_import_limit_mw: 100
+    bidirectional: true
+
+  energy_specification:                              # [P]
+    nameplate_energy_mwh_bol: 200
+    nameplate_energy_mwh_gross: 224
+    depth_of_discharge_pct: 89
+    end_of_life_definition: "70% of BOL usable capacity"
+    augmentation_planned: true
+    augmentation_strategy: "year-7 augmentation to restore BOL capacity"
+
+  duration:                                          # [P]
+    nominal_hours: 2.0
+    minimum_dispatched_hours_at_eol: 1.4
+    maximum_continuous_cycles_per_day: 2
+
+  battery:                                           # [N]
+    chemistry: "lfp"
+    manufacturer: "Anonymized tier-1 Asian battery OEM"
+    model: "Anonymized 5 MWh outdoor liquid-cooled container"
+    cell_format: "prismatic"
+    cells_per_container: 192
+    containers_total: 56
+    container_capacity_mwh_each: 4.0
+    integrated_inverter: false
+    cooling: "liquid_cooled"
+    thermal_management_redundancy: "N+1"
+    ip_rating: "IP55"
+    cycle_life_at_80_dod: 8000
+    calendar_life_years: 20
+    warranty_capacity_years: 20
+    warranty_capacity_end_pct: 70
+    warranty_performance_basis: "throughput-based: 6000 full cycles or 15 years, whichever earlier, then prorated"
+
+  power_conversion_system:                           # [N]
+    manufacturer: "Anonymized European PCS vendor"
+    model: "1.5 MW string inverter, bidirectional"
+    nominal_power_kw: 1500
+    units_total: 70
+    efficiency_peak_pct: 98.6
+    warranty_years: 5
+    extended_warranty_negotiable: true
+
+  transformer_and_switchgear:                        # [N]
+    transformer_count: 7
+    transformer_rating_mva_each: 16
+    transformer_manufacturer: "Anonymized European OEM"
+    hv_switchgear_voltage_kv: 132
+    metering_class: "Class 0.2S, settlement-grade"
+
+  bms_ems:                                           # [N]
+    bms_provider: "battery_oem_integrated"
+    ems_provider: "Anonymized tier-1 EMS specialist"
+    ems_dispatch_capability: ["wholesale_arbitrage", "frequency_response", "balancing_mechanism", "capacity_market"]
+    ems_co_optimization: true
+    api_access_for_buyer: "negotiable"
+
+  round_trip_efficiency:                             # [N]
+    ac_to_ac_pct_bol: 87.5
+    ac_to_ac_pct_eol_modeled: 84.0
+    measurement_basis: "system-level including auxiliary loads, parasitic consumption, transformer losses"
+
+  auxiliary_power_consumption:                       # [N]
+    standby_kw: 95
+    operational_kw: 380
+    annual_aux_consumption_mwh: 1820
+
+  performance_guarantees:                            # [N]
+    availability_guarantee_pct: 97.5
+    rte_guarantee_year_1_pct: 86.0
+    capacity_retention_guarantee:
+      year_1_pct: 96
+      year_5_pct: 84
+      year_10_pct: 75
+      year_20_pct: 70
+    liquidated_damages_structure: "tiered LD per percentage point below guarantee"
+
+  safety:                                            # [N]
+    standards_compliance: ["UL 9540", "UL 9540A", "IEC 62619", "NFPA 855"]
+    thermal_runaway_propagation_tested: true
+    fire_suppression_system: "aerosol-based, container-level"
+    deflagration_venting: true
+    minimum_separation_to_dwellings_m: 165
+    minimum_separation_to_dwellings_required_m: 100
+    fire_brigade_consultation_completed: true
+    fire_brigade_authority: "North Yorkshire Fire and Rescue Service"
+    emergency_response_plan_approved: true
+
+# ----------------------------------------------------------------------------
+# 3. GRID & OFFTAKE
+# ----------------------------------------------------------------------------
+grid_offtake:
+
+  grid_connection:
+    connection_point: "Existing Yorkshire 400 kV substation, dedicated bay"  # [N]
+    connection_substation_owner: "National Grid ET"                          # [P]
+    voltage_level_kv: 132                                                    # [P]
+    transmission_voltage_kv: 400                                             # [P]
+    connection_capacity_mw_export: 100                                       # [P]
+    connection_capacity_mw_import: 100                                       # [P]
+    connection_type: "transmission_connected"                                # [P]
+    distribution_operator: "Northern Powergrid"                              # [P]
+    connection_offer_accepted_date: "2024-03-15"                             # [N]
+    connection_offer_reference: "TEC-2024-YH-0287"                           # [N]
+    connection_capacity_secured: true                                        # [P]
+    connection_energization_target: "2027-07-15"                             # [P]
+    construction_agreement_signed: true                                      # [N]
+    construction_agreement_date: "2025-08-22"                                # [N]
+    grid_code_compliance: "GC0096, GC0124 (System Operability for storage)"  # [N]
+    queue_management_milestones_met: true                                    # [N]
+    queue_milestone_2_date: "2025-08-22"                                     # [N]
+    queue_milestone_3_target: "2027-07-15"                                   # [N]
+
+  offtake_structure: stacked_revenues                # [P]
+
+  offtake_contracts:
+    - contract_id: "CM-T4-2027"
+      counterparty: "Electricity Settlements Company (ESC)"                   # [P]
+      counterparty_credit_rating: "AA (UK government-backed)"                 # [P]
+      contract_type: capacity_market                                          # [P]
+      capacity_market_auction: "T-4 2023 for delivery year 2027/28"           # [P]
+      structure_type: capacity_payment_with_de_rating                         # [P]
+      derated_capacity_mw: 23.6                                               # [P]
+      derating_factor_pct: 23.6                                               # [P]
+      derating_basis: "Ofgem 2-hour duration de-rating, 2023 methodology"     # [P]
+      capacity_payment_gbp_kw_yr: 63.0                                        # [N]
+      annual_revenue_gbp: 1_487_000                                           # [N]
+      contract_term_years: 15
+      delivery_start: "2027-10-01"                                            # [P]
+      delivery_end: "2042-09-30"                                              # [P]
+      remaining_years_at_cod: 15.0                                            # [N]
+      indexation: "CPI UK, annual"                                            # [N]
+      change_of_control_clause: false                                         # [N]
+      change_of_control_notice_required: true                                 # [N]
+      performance_obligations: "Demonstration of capacity on stress events; failure penalties per CMR rules"  # [N]
+
+    - contract_id: "DC-FFR-2027"
+      counterparty: "National Grid ESO"                                       # [P]
+      counterparty_credit_rating: "AA"                                        # [P]
+      contract_type: frequency_response                                       # [P]
+      service: "Dynamic Containment (High and Low)"                           # [P]
+      structure_type: enduring_auction_revenue                                # [P]
+      capacity_committed_mw_high: 50                                          # [N]
+      capacity_committed_mw_low: 50                                           # [N]
+      auction_floor_clearing_price_gbp_mw_h_estimated: 12.50                  # [F]
+      modeled_utilization_pct: 65                                             # [N]
+      modeled_annual_revenue_gbp: 5_690_000                                   # [F]
+      modeled_basis: "third-party revenue stack model 2026-04-08"             # [N]
+      contract_term: "enduring (rolling auctions)"
+      delivery_start: "2027-10-01"
+      change_of_control_clause: false
+
+  merchant_revenue_streams:                          # [N]
+    - stream_id: "WHL-ARBITRAGE"
+      type: "wholesale_arbitrage"
+      market: "EPEX Spot UK + N2EX Day-Ahead + Intraday"
+      modeled_annual_revenue_gbp: 4_120_000
+      modeled_basis: "third-party revenue stack model 2026-04-08, P50 case"
+      modeled_volatility_assumption: "GBP/MWh spreads modeled from 2024-2025 actuals + forward curves"
+      dispatch_strategy: "EMS-optimized, 2 cycles/day average"
+    - stream_id: "BM"
+      type: "balancing_mechanism"
+      market: "GB BM"
+      bm_unit_registration_target: "2027-08-01"
+      modeled_annual_revenue_gbp: 1_280_000
+      modeled_basis: "third-party revenue stack model 2026-04-08, P50 case"
+
+  revenue_stack_summary:                             # [F]
+    modeled_year_1_total_gbp: 12_577_000
+    modeled_year_1_per_mw_gbp: 125_770
+    modeled_year_1_breakdown_pct:
+      capacity_market: 11.8
+      frequency_response: 45.2
+      wholesale_arbitrage: 32.8
+      balancing_mechanism: 10.2
+    modeled_year_5_total_gbp: 9_840_000
+    modeled_year_10_total_gbp: 8_120_000
+    revenue_curve_basis: "third-party revenue stack model with declining FR + improving WHL volatility"
+
+  green_certificates:                                # [N]
+    rego_eligible: false
+    notes: "BESS is not a generation asset under REGO scheme; charges from grid, no green certificate origination"
+
+  carbon_intensity_optimization:                     # [N]
+    charges_from_low_carbon_periods_pct_targeted: 75
+    discharges_to_high_carbon_periods_pct_targeted: 75
+    methodology: "EMS dispatch logic includes National Grid ESO carbon intensity API"
+
+# ----------------------------------------------------------------------------
+# 4. FINANCIALS
+# ----------------------------------------------------------------------------
+financials:
+  reporting_currency: GBP                            # [P]
+  reporting_basis: "UK GAAP (FRS 102)"               # [N]
+  fiscal_year_end: "12-31"                           # [N]
+
+  capex:                                             # [N]
+    total_gbp: 84_500_000
+    per_mw_gbp: 845_000
+    per_mwh_gbp: 422_500
+    breakdown:
+      battery_system_gbp: 51_200_000
+      pcs_inverters_gbp: 6_400_000
+      transformers_switchgear_gbp: 4_900_000
+      ems_bms_software_gbp: 1_100_000
+      civil_works_gbp: 5_800_000
+      grid_connection_gbp: 7_200_000
+      development_permits_gbp: 2_300_000
+      epc_margin_gbp: 3_700_000
+      contingency_gbp: 1_900_000
+    procurement_status: "battery supply agreement signed, PCS shortlist active"
+    procurement_lock_in_pct: 60.5
+    capex_indexation_exposure: "remaining 40% exposed to FX (CNY/USD) and commodity (lithium carbonate index)"
+
+  augmentation_capex_planned:                        # [N]
+    target_year: 7
+    target_gbp: 14_800_000
+    basis_year_real: 2025
+    funding_mechanism: "cash sweep reserve + capex line"
+
+  opex_breakdown:                                    # [N]
+    currency: GBP
+    basis_year: 2025
+    per_mw_per_year:
+      lta_service_agreement: 12_500
+      land_lease_or_rates: 0
+      business_rates_gbp_yr_total: 280_000
+      insurance: 6_800
+      asset_management: 2_400
+      grid_charges_tnuos: 8_200
+      grid_charges_bsuos: 3_100
+      ems_optimization_fee_pct: 0.05
+      monitoring_scada: 700
+      auxiliary_power_cost: 4_200
+      administrative: 2_100
+      other: 1_500
+    total_per_mw_yr_excl_business_rates: 41_500
+    total_annual_gbp: 4_430_000
+    inflation_assumption_pct: 2.5
+    notes: |
+      EMS optimization fee is performance-based (5% of merchant revenue),
+      not a fixed per-MW charge. Auxiliary power cost varies with dispatch
+      pattern. Business rates are a UK-specific cost not present in EU jurisdictions.
+
+  revenue_history: []                                # [N]
+
+  ebitda_history: []                                 # [N]
+
+  ebitda_projections:                                # [F]
+    methodology: "Third-party revenue stack + financial model, P50 case"
+    years:
+      - year: 2028
+        revenue_gbp: 12_577_000
+        opex_gbp: 4_430_000
+        ebitda_gbp: 8_147_000
+        margin_pct: 64.8
+      - year: 2032
+        revenue_gbp: 10_240_000
+        opex_gbp: 4_890_000
+        ebitda_gbp: 5_350_000
+        margin_pct: 52.2
+      - year: 2037
+        revenue_gbp: 8_650_000
+        opex_gbp: 5_410_000
+        ebitda_gbp: 3_240_000
+        margin_pct: 37.5
+        notes: "Post-augmentation year, restored capacity"
+
+  debt_structure:                                    # [N]
+    senior_debt_committed: true
+    senior_debt_lender: "UK clearing bank, infrastructure team"
+    senior_debt_committed_amount_gbp: 52_000_000
+    senior_debt_drawdown_schedule: "milestone-based, COD-aligned"
+    senior_debt_term_years: 12
+    senior_debt_margin_bps: 235
+    senior_debt_reference_rate: "SONIA compounded"
+    senior_debt_hedging_target_pct: 80
+    senior_debt_dscr_p50_modeled: 1.45
+    senior_debt_dscr_p90_modeled: 1.18
+    senior_debt_lock_up_dscr: 1.20
+    senior_debt_change_of_control_clause: true
+    senior_debt_change_of_control_consent_required: true
+    senior_debt_credit_approved_date: "2025-12-10"
+    senior_debt_signed_date: "2026-02-28"
+    senior_debt_first_drawdown_target: "2026-Q4"
+    mezzanine: null
+
+  asking_price:                                      # [F]
+    indicated_range_gbp_low: 24_000_000
+    indicated_range_gbp_high: 32_000_000
+    basis: "100% equity, pre-construction completion, with senior debt facility transferring to buyer"
+    valuation_date: "2026-04-20"
+    multiples_indication:
+      ev_per_mw_gbp_total_project: 845_000
+      ev_per_mwh_gbp_total_project: 422_500
+
+  valuation_reference:                               # [N]
+    methodology: "DCF, 20-year explicit, P50 revenue case with P90 sensitivity"
+    discount_rate_wacc_pct: 8.4
+    discount_rate_post_tax_equity_pct: 11.2
+    base_case_equity_value_gbp: 28_400_000
+    sensitivity_minus_20_pct_fr_revenue: 19_800_000
+    sensitivity_capex_overrun_10_pct: 23_900_000
+    valuator: "UK infrastructure advisory firm"
+    valuation_date: "2026-04-20"
+
+  tax_position:                                      # [N]
+    corporation_tax_rate_pct: 25
+    capital_allowances_status: "Full Expensing eligible for battery and PCS, AIA for other plant"
+    full_expensing_value_modeled_gbp: 12_400_000
+    nol_carryforward_gbp: 0
+    vat_status: "VAT-registered, recoverable"
+
+# ----------------------------------------------------------------------------
+# 5. COMPLIANCE
+# ----------------------------------------------------------------------------
+compliance:
+
+  permits:                                           # [N]
+    - permit_type: "planning_permission"
+      issuing_authority: "North Yorkshire Council"
+      reference: "NY/2024/00842/FUL"
+      issue_date: "2024-11-22"
+      valid_until: "2029-11-22"
+      conditions: |
+        - Construction hours 07:00-19:00 weekdays, 08:00-13:00 Saturdays
+        - Landscaping and biodiversity net gain (10%) per BNG plan
+        - Decommissioning plan to be reviewed every 10 years
+        - Noise emission limit 35 dB(A) at nearest dwelling boundary
+      status: "active"
+
+    - permit_type: "environmental_permit"
+      issuing_authority: "Environment Agency"
+      reference: "EPR/AB1234XY/A001"
+      issue_date: "2025-02-08"
+      valid_until: null
+      regulatory_basis: "Permit relates to site water management and waste handling during construction"
+      status: "active"
+
+    - permit_type: "construction_environmental_management_plan"
+      issuing_authority: "North Yorkshire Council"
+      issue_date: "2025-03-15"
+      status: "approved"
+
+  planning_consultations_completed:                  # [N]
+    - consultee: "North Yorkshire Fire and Rescue Service"
+      outcome: "Consultation completed, emergency response plan approved"
+    - consultee: "National Grid ET"
+      outcome: "Connection works approved, no objections"
+    - consultee: "Local parish council"
+      outcome: "Initial objections resolved through community benefit scheme"
+
+  land_rights:                                       # [N]
+    structure: "freehold"
+    title_number: "NYK-Anonymized"
+    purchase_completed: true
+    purchase_date: "2024-08-30"
+    purchase_price_gbp: 1_350_000
+    title_insurance: true
+    rights_of_access_secured: true
+    cable_easements_secured: true
+    decommissioning_obligation: "site restoration to brownfield-ready condition"
+
+  environmental_assessments:                         # [N]
+    - assessment_type: "Environmental Impact Assessment screening"
+      completed_date: "2024-04-20"
+      outcome: "EIA not required (below threshold)"
+    - assessment_type: "Ground Investigation Report"
+      completed_date: "2024-06-15"
+      findings: "Suitable for development; no contamination above thresholds"
+    - assessment_type: "Flood Risk Assessment"
+      completed_date: "2024-05-08"
+      outcome: "Flood Zone 1, no mitigation required"
+    - assessment_type: "Biodiversity Net Gain Plan"
+      completed_date: "2024-10-12"
+      target_net_gain_pct: 12
+      legal_basis: "Environment Act 2021"
+
+  eu_taxonomy_alignment:                             # [P]
+    applicability_note: "UK asset; EU Taxonomy alignment included for institutional investor reporting purposes"
+    applicable_activity: "4.10 Storage of electricity"
+    substantial_contribution: climate_change_mitigation
+    dnsh_assessment_complete: true
+    dnsh_assessment_date: "2025-06-15"
+    dnsh_climate_adaptation: passed
+    dnsh_water: passed
+    dnsh_circular_economy: passed_with_conditions
+    dnsh_circular_economy_notes: "Battery cell take-back agreement with OEM; end-of-life recycling plan included"
+    dnsh_pollution: passed
+    dnsh_biodiversity: passed
+    minimum_safeguards_complete: true
+    taxonomy_aligned_capex_pct: 100
+    taxonomy_aligned_opex_pct: 100
+    taxonomy_aligned_turnover_pct: 100
+
+  uk_specific_compliance:                            # [P]
+    ofgem_generation_licence_required: false
+    ofgem_generation_licence_exemption_basis: "below 100 MW threshold (50 MW for storage)"
+    ofgem_generation_licence_status: "applying under storage licence regime"
+    bm_unit_registration_target: "2027-08-01"
+    elexon_market_participation_signup_target: "2027-06-01"
+    grid_code_assessment_completed: false
+    grid_code_assessment_target: "2027-Q1"
+
+  litigation_disputes: []                            # [N]
+
+  insurance_coverage:                                # [N]
+    construction_all_risks:
+      insurer: "London market consortium"
+      coverage_gbp: 95_000_000
+      deductible_gbp: 250_000
+      period: "construction phase + 12 months DSU"
+    delay_in_start_up:
+      coverage_months: 18
+      daily_indemnity_gbp: 45_000
+    operational_all_risks:
+      insurer_target: "to be placed pre-energization"
+      target_coverage_gbp: 95_000_000
+    third_party_liability:
+      coverage_gbp: 25_000_000
+
+  decommissioning_obligation:                       # [N]
+    regulatory_requirement: "Planning condition 18, NY/2024/00842/FUL"
+    estimated_cost_gbp: 3_800_000
+    estimated_cost_basis_year: 2024
+    bond_required: true
+    bond_amount_gbp: 4_200_000
+    bond_provider_target: "to be placed pre-energization"
+    battery_recycling_arrangement: "OEM take-back agreement signed"
+    decommissioning_plan_review_interval_years: 10
+
+  esg:                                               # [P]
+    expected_avoided_emissions_tco2e_yr: 18_500
+    avoided_emissions_methodology: "UK grid avoided emissions via load shifting, BEIS 2025 carbon intensity factors"
+    biodiversity_net_gain_target_pct: 12
+    community_benefit_scheme: "annual £45k contribution to local parish, plus skills/training partnership with regional college"
+
+# ----------------------------------------------------------------------------
+# 6. OPERATING HISTORY
+# ----------------------------------------------------------------------------
+operating_history:                                   # [N]
+  applicable: false
+  pre_operational_status_reference: "see process.construction_milestones"
+
+# ----------------------------------------------------------------------------
+# 7. PROCESS
+# ----------------------------------------------------------------------------
+process:
+
+  process_type: limited_auction                      # [P]
+  invited_bidders_count: 18                          # [P]
+  process_characterization: "buyer takes over RTB asset, completes construction, energizes"  # [P]
+
+  process_lead:                                      # [P]
+    organization: "Anonymized UK Renewable Energy M&A Advisors"
+    contact_role: "Director, Storage and Flexibility"
+    contact_email: "prometheus@advisor.example.com"
+    contact_phone: null
+
+  process_timeline:                                  # [P]
+    teaser_distribution: "2026-04-30"
+    information_memorandum_distribution: "2026-06-05"
+    site_visits: "2026-07-08 to 2026-07-25"
+    non_binding_offers_due: "2026-08-22"
+    management_presentations: "2026-09-10 to 2026-09-26"
+    binding_offers_due: "2026-10-30"
+    signing_target: "2026-12-15"
+    closing_target: "2027-Q1"
+    long_stop_date: "2027-06-30"
+
+  construction_milestones:                           # [P]
+    notice_to_proceed_target: "2026-12-20"
+    site_mobilization_target: "2027-01-15"
+    civil_works_completion_target: "2027-04-30"
+    equipment_delivery_target: "2027-03-15 to 2027-05-15"
+    installation_completion_target: "2027-06-30"
+    energization_target: "2027-07-15"
+    commissioning_completion_target: "2027-09-30"
+    commercial_operation_target: "2027-10-01"
+
+  closing_conditions:                                # [N]
+    regulatory_approvals_required:
+      - "CMA merger review (if buyer + seller turnover thresholds met)"
+      - "National Security and Investment Act 2021 review (if buyer is foreign and asset deemed sensitive infrastructure)"
+    consents_required:
+      - "Senior lender change-of-control consent (committed facility transferring)"
+      - "Capacity Market participant change of ownership notification"
+      - "Battery OEM supply agreement assignment"
+    estimated_signing_to_closing_months: 3
+
+  data_room:                                         # [N]
+    provider: "Intralinks"
+    url: "https://services.intralinks.com/prometheus-2026"
+    access_mechanism: "NDA + invitation + 2FA"
+    document_count_approx: 1_650
+    structure: "12 folders aligned to vendor DD reports + revenue stack model"
+    vendor_dd_reports:
+      - "Technical (Specialist storage engineering firm)"
+      - "Commercial / Revenue Stack (Aurora Energy Research)"
+      - "Legal (London Magic Circle firm)"
+      - "Tax (Big Four UK)"
+      - "ESG and Fire Safety (Specialist consultancy)"
+      - "Permits and Land (UK planning law specialist)"
+
+  nda_template: "https://advisor.example.com/prometheus/nda-template.pdf"  # [P]
+
+  access_endpoint: "https://advisor.example.com/.well-known/orls/auth"     # [P]
+
+  confidentiality_note: |                            # [P]
+    Project name "Prometheus" is itself confidential.
+    Refer to as "UK Storage Opportunity" in any external communication.
+    Site visits coordinated through advisor only.
+    The capacity market auction clearing price, frequency response auction
+    floor prices, and OEM-specific battery pricing are commercially sensitive
+    and treated as final_shortlist tier.
+    Buyer must demonstrate capacity to complete construction (track record,
+    balance sheet, or partnership with credentialed EPC) prior to management
+    presentation invitation.
+
+# ============================================================================
+# End of ORLS document for Project Prometheus
+# ============================================================================

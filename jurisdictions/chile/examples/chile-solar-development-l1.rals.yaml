@@ -223,7 +223,12 @@ financials:
 
 # ── Process ───────────────────────────────────────────────────────────────────
 process:
-  process_type: bilateral_negotiation
+  process_type: bilateral
+  process_lead:
+    organization: "Desierto Norte Solar SpA"
+    contact_role: "Development Director"
+    contact_email: "info@desierto-norte-example.cl"
+    contact_phone: null
   data_room_status: available_under_nda
   data_room_platform: "Intralinks"
   data_room_contents:

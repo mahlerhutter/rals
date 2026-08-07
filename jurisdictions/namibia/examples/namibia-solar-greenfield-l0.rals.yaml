@@ -48,9 +48,8 @@ identity:
   region: "Hardap"
   sub_region: "Mariental District (approximate)"
   total_capacity_mw_ac: 200.0
-  total_capacity_mw_dc: null
   hydrogen_electrolysis_mw: 50.0
-  site_area_hectares: null
+  # site_area_hectares omitted — not yet determined (concept stage)
   transaction_type: joint_venture
   equity_offered_pct: 50
   spv_structure: false
@@ -72,9 +71,7 @@ technical:
     hydrogen_offtake: "None — concept only; developer references European industrial buyers without any named counterparty"
   production_estimates:
     methodology: "Developer estimate citing Global Solar Atlas irradiance data for Hardap Region"
-    p50_gwh_yr: null
-    p90_gwh_yr: null
-    assessor: null
+    # p50_gwh_yr, p90_gwh_yr, assessor omitted — no assessment exists (see assessment_note)
     assessment_quality: no_assessment
     assessment_note: >
       No yield assessment of any kind. Developer references GHI of approximately 2,200 kWh/m²/yr
@@ -175,7 +172,15 @@ financials:
 
 # ── Process ──────────────────────────────────────────────────────────────────
 process:
-  process_type: jv_concept_search
+  process_type: bilateral
+  process_lead:
+    organization: "Namib Sol Development (foreign developer entity)"
+    contact_role: "Developer Principal"
+    contact_email: "namib-sol@example-developer.com"
+    contact_phone: null
+  process_timeline:
+    concept_stage_started: "2026-02-01"
+    indicative_jv_partner_target: "2026-Q4"
   data_room_status: not_available
   data_room_note: >
     No data room. Developer has a 15-page concept presentation available on request.

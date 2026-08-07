@@ -24,7 +24,7 @@ jobs:
       - name: Validate valid examples
         working-directory: reference/validator
         run: |
-          for file in ../../examples/*.rals.yaml; do
+          for file in ../../examples/*.rals.yaml ../../jurisdictions/*/examples/*.rals.yaml; do
             echo "Validating $file..."
             node src/cli.js "$file" ../../schema/rals.schema.json
           done

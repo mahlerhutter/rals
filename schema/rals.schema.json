@@ -2,171 +2,1812 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://www.rals.energy/schema/v0.1/rals.schema.json",
   "title": "Renewable Asset Listing Standard (RALS) v0.1",
-  "description": "JSON Schema for RALS, defining the structure of renewable energy asset listings.",
+  "description": "JSON Schema for RALS, defining the structure of renewable energy asset listings. Field-level confidentiality tiers (public/nda_required/final_shortlist, SPEC 4.3) are annotated with the vendor extension keyword x-rals-tier; lib/teaser-filter.js is the enforced runtime allowlist derived from these tiers.",
   "type": "object",
-  "required": ["rals_version", "document_id", "identity", "technical", "grid_offtake", "process"],
+  "required": [
+    "rals_version",
+    "document_id",
+    "identity",
+    "technical",
+    "grid_offtake",
+    "process"
+  ],
   "properties": {
     "rals_version": {
       "type": "string",
-      "const": "0.1"
+      "const": "0.1",
+      "x-rals-tier": "public"
     },
     "document_id": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^rals:[A-Za-z0-9][A-Za-z0-9._-]*$",
+      "description": "MUST start with the 'rals:' prefix (SPEC 5).",
+      "x-rals-tier": "public"
     },
     "generated_at": {
       "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "x-rals-tier": "public"
     },
     "generated_by": {
-      "type": "string"
+      "type": "string",
+      "x-rals-tier": "public"
     },
     "language": {
-      "type": "string"
+      "type": "string",
+      "x-rals-tier": "public"
     },
     "identity": {
       "type": "object",
-      "required": ["asset_name", "asset_type", "lifecycle_stage", "country", "transaction_type"],
       "properties": {
-        "asset_name": { "type": "string" },
+        "asset_name": {
+          "type": "string",
+          "x-rals-tier": "public"
+        },
         "asset_type": {
           "type": "string",
-          "enum": ["solar_pv", "onshore_wind", "offshore_wind", "bess", "hybrid", "hydro", "biomass", "geothermal", "csp"]
+          "x-rals-tier": "public",
+          "enum": [
+            "solar_pv",
+            "onshore_wind",
+            "offshore_wind",
+            "bess",
+            "hybrid",
+            "hydro",
+            "biomass",
+            "geothermal",
+            "csp"
+          ]
         },
         "lifecycle_stage": {
           "type": "string",
-          "enum": ["greenfield", "development", "ready_to_build", "under_construction", "commissioning", "operating", "repowering_candidate", "decommissioning"]
+          "x-rals-tier": "public",
+          "enum": [
+            "greenfield",
+            "development",
+            "ready_to_build",
+            "under_construction",
+            "commissioning",
+            "operating",
+            "repowering_candidate",
+            "decommissioning"
+          ]
         },
-        "country": { "type": "string", "minLength": 2, "maxLength": 2 },
-        "region": { "type": "string" },
-        "sub_region": { "type": "string" },
+        "country": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2,
+          "x-rals-tier": "public"
+        },
+        "region": {
+          "type": "string",
+          "x-rals-tier": "public"
+        },
+        "sub_region": {
+          "type": "string",
+          "x-rals-tier": "public"
+        },
         "coordinates": {
           "type": "array",
-          "items": { "type": "number" },
+          "items": {
+            "type": "number"
+          },
           "minItems": 2,
-          "maxItems": 2
+          "maxItems": 2,
+          "x-rals-tier": "nda_required",
+          "description": "WGS84 [longitude, latitude]. For portfolios, the centroid MAY be exposed as public."
         },
-        "site_area_hectares": { "type": "number" },
-        "site_configuration": { "type": "string" },
-        "total_capacity_mw": { "type": "number" },
-        "total_capacity_mw_ac": { "type": "number" },
-        "total_capacity_mw_dc": { "type": "number" },
-        "dc_ac_ratio": { "type": "number" },
-        "total_energy_mwh": { "type": "number" },
-        "number_of_turbines": { "type": "integer" },
+        "site_area_hectares": {
+          "type": "number",
+          "x-rals-tier": "public"
+        },
+        "site_configuration": {
+          "type": "string",
+          "x-rals-tier": "public"
+        },
+        "total_capacity_mw": {
+          "type": "number",
+          "x-rals-tier": "public"
+        },
+        "total_capacity_mw_ac": {
+          "type": "number",
+          "x-rals-tier": "public"
+        },
+        "total_capacity_mw_dc": {
+          "type": "number",
+          "x-rals-tier": "public"
+        },
+        "dc_ac_ratio": {
+          "type": "number",
+          "x-rals-tier": "public"
+        },
+        "total_energy_mwh": {
+          "type": "number",
+          "x-rals-tier": "public"
+        },
+        "number_of_turbines": {
+          "type": "integer",
+          "x-rals-tier": "public"
+        },
         "transaction_type": {
           "type": "string",
-          "enum": ["full_acquisition", "majority_stake", "minority_stake", "refinancing", "joint_venture", "ppa_only"]
+          "x-rals-tier": "public",
+          "enum": [
+            "full_acquisition",
+            "majority_stake",
+            "minority_stake",
+            "refinancing",
+            "joint_venture",
+            "ppa_only"
+          ]
         },
-        "equity_offered_pct": { "type": "number", "minimum": 0, "maximum": 100 },
-        "seller_legal_entity": { "type": "string" },
-        "seller_jurisdiction": { "type": "string" },
-        "internal_reference": { "type": "string" },
-        "spv_structure": { "type": "boolean" },
-        "spv_jurisdiction": { "type": "string" },
-        "spv_form": { "type": "string" },
-        "spv_tax_grouping": { "type": "string" }
-      }
+        "equity_offered_pct": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "x-rals-tier": "public"
+        },
+        "seller_legal_entity": {
+          "type": "string",
+          "x-rals-tier": "nda_required"
+        },
+        "seller_jurisdiction": {
+          "type": "string",
+          "x-rals-tier": "nda_required"
+        },
+        "internal_reference": {
+          "type": "string",
+          "x-rals-tier": "final_shortlist"
+        },
+        "spv_structure": {
+          "type": "boolean",
+          "x-rals-tier": "nda_required"
+        },
+        "spv_jurisdiction": {
+          "type": "string",
+          "x-rals-tier": "nda_required"
+        },
+        "spv_form": {
+          "type": "string",
+          "x-rals-tier": "nda_required"
+        },
+        "spv_tax_grouping": {
+          "type": "string",
+          "x-rals-tier": "nda_required"
+        }
+      },
+      "required": [
+        "asset_name",
+        "asset_type",
+        "lifecycle_stage",
+        "country",
+        "transaction_type"
+      ]
     },
     "technical": {
       "type": "object",
       "properties": {
-        "commissioning_date": { "type": "string", "format": "date" },
-        "expected_lifetime_years": { "type": "integer" },
-        "design_basis_year": { "type": "integer" },
-        "repowering_potential": { "type": "boolean" },
-        "repowering_eligible_from": { "type": "string", "format": "date" },
-        "units": { "type": "array" },
-        "production_estimates": { "type": "object" },
-        "capacity_factor": { "type": "number" },
-        "performance_ratio": { "type": "number" },
-        "specific_yield_kwh_kwp": { "type": "number" },
-        "losses_breakdown": { "type": "object" },
-        "degradation_curve": { "type": "object" },
-        "module": { "type": "object" },
-        "inverter": { "type": "object" },
-        "mounting": { "type": "object" },
-        "turbine_configurations": { "type": "array" },
-        "wind_resource": { "type": "object" },
-        "noise_emission": { "type": "object" },
-        "shadow_flicker": { "type": "object" }
+        "commissioning_date": {
+          "type": "string",
+          "format": "date",
+          "x-rals-tier": "public"
+        },
+        "expected_lifetime_years": {
+          "type": "integer",
+          "x-rals-tier": "public"
+        },
+        "design_basis_year": {
+          "type": "integer",
+          "x-rals-tier": "public"
+        },
+        "repowering_potential": {
+          "type": "boolean",
+          "x-rals-tier": "public"
+        },
+        "repowering_eligible_from": {
+          "type": "string",
+          "format": "date",
+          "x-rals-tier": "public"
+        },
+        "units": {
+          "type": "array",
+          "x-rals-tier": "nda_required",
+          "description": "Generating units (inverter blocks, turbine clusters, BESS racks). Technology-specific shape.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "cluster_id": {
+                "type": "string"
+              },
+              "turbines": {
+                "type": "integer"
+              },
+              "total_capacity_mw": {
+                "type": "number"
+              },
+              "turbine_model_ref": {
+                "type": "string",
+                "description": "MUST match a turbine_configurations[].id."
+              }
+            }
+          }
+        },
+        "production_estimates": {
+          "type": "object",
+          "description": "See SPEC 7.5. methodology is public so agents can filter by assessment quality without seeing the numbers.",
+          "properties": {
+            "methodology": {
+              "type": "string",
+              "x-rals-tier": "public"
+            },
+            "assessor": {
+              "type": "string",
+              "x-rals-tier": "nda_required"
+            },
+            "assessment_date": {
+              "type": "string",
+              "x-rals-tier": "nda_required"
+            },
+            "p50_gwh_yr": {
+              "type": "number",
+              "x-rals-tier": "nda_required"
+            },
+            "p75_gwh_yr": {
+              "type": "number",
+              "x-rals-tier": "nda_required"
+            },
+            "p90_gwh_yr": {
+              "type": "number",
+              "x-rals-tier": "nda_required"
+            },
+            "p99_gwh_yr": {
+              "type": "number",
+              "x-rals-tier": "nda_required"
+            },
+            "uncertainty_pct": {
+              "type": "number",
+              "x-rals-tier": "nda_required"
+            },
+            "reference_year": {
+              "type": "integer",
+              "x-rals-tier": "nda_required"
+            },
+            "reference_period": {
+              "type": "string",
+              "x-rals-tier": "nda_required"
+            },
+            "confidence_interval": {
+              "type": "string",
+              "x-rals-tier": "nda_required"
+            }
+          }
+        },
+        "degradation_curve": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "properties": {
+            "methodology": {
+              "type": "string"
+            },
+            "year_1_pct": {
+              "type": "number"
+            },
+            "year_2_to_25_pct_yr": {
+              "type": "number"
+            },
+            "year_26_to_35_pct_yr": {
+              "type": "number"
+            }
+          }
+        },
+        "losses_breakdown": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "properties": {
+            "soiling_pct": {
+              "type": "number"
+            },
+            "shading_pct": {
+              "type": "number"
+            },
+            "mismatch_pct": {
+              "type": "number"
+            },
+            "dc_cable_pct": {
+              "type": "number"
+            },
+            "inverter_pct": {
+              "type": "number"
+            },
+            "ac_cable_pct": {
+              "type": "number"
+            },
+            "transformer_pct": {
+              "type": "number"
+            },
+            "availability_pct": {
+              "type": "number"
+            },
+            "total_pct": {
+              "type": "number",
+              "description": "Sum of the line items."
+            }
+          }
+        },
+        "module": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "properties": {
+            "manufacturer": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "technology": {
+              "type": "string"
+            },
+            "bifacial": {
+              "type": "boolean"
+            },
+            "bifaciality_factor": {
+              "type": "number"
+            },
+            "nominal_power_w": {
+              "type": "number"
+            },
+            "units_total": {
+              "type": "integer"
+            },
+            "warranty_product_years": {
+              "type": "number"
+            },
+            "warranty_performance_years": {
+              "type": "number"
+            },
+            "warranty_performance_end_pct": {
+              "type": "number"
+            }
+          }
+        },
+        "inverter": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "properties": {
+            "manufacturer": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "nominal_power_kw": {
+              "type": "number"
+            },
+            "units_total": {
+              "type": "integer"
+            },
+            "warranty_years_remaining": {
+              "type": "number"
+            }
+          }
+        },
+        "mounting": {
+          "type": "object",
+          "x-rals-tier": "public",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "fixed_tilt",
+                "single_axis_tracker",
+                "dual_axis_tracker",
+                "roof_mounted",
+                "floating"
+              ]
+            },
+            "manufacturer": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "tilt_range_deg": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "performance_ratio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "x-rals-tier": "nda_required"
+        },
+        "specific_yield_kwh_kwp": {
+          "type": "number",
+          "x-rals-tier": "nda_required"
+        },
+        "turbine_configurations": {
+          "type": "array",
+          "x-rals-tier": "nda_required",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "manufacturer": {
+                "type": "string"
+              },
+              "model": {
+                "type": "string"
+              },
+              "nominal_power_mw": {
+                "type": "number"
+              },
+              "rotor_diameter_m": {
+                "type": "number"
+              },
+              "hub_height_m": {
+                "type": "number"
+              },
+              "total_height_m": {
+                "type": "number"
+              },
+              "iec_class": {
+                "type": "string"
+              },
+              "cut_in_speed_ms": {
+                "type": "number"
+              },
+              "cut_out_speed_ms": {
+                "type": "number"
+              },
+              "units_total": {
+                "type": "integer"
+              },
+              "warranty_remaining_years": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "wind_resource": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "properties": {
+            "methodology": {
+              "type": "string"
+            },
+            "long_term_mean_wind_speed_hub_height_ms": {
+              "type": "number"
+            },
+            "weibull_a": {
+              "type": "number"
+            },
+            "weibull_k": {
+              "type": "number"
+            },
+            "measurement_height_m": {
+              "type": "number"
+            },
+            "measurement_period_years": {
+              "type": "number"
+            },
+            "correlated_to_reanalysis": {
+              "type": "boolean"
+            },
+            "reanalysis_source": {
+              "type": "string"
+            }
+          }
+        },
+        "capacity_factor": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "x-rals-tier": "nda_required"
+        },
+        "full_load_hours_yr": {
+          "type": "integer",
+          "x-rals-tier": "nda_required"
+        },
+        "net_specific_yield_kwh_kw": {
+          "type": "number",
+          "x-rals-tier": "nda_required"
+        },
+        "noise_emission": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "properties": {
+            "night_mode_required": {
+              "type": "boolean"
+            },
+            "night_mode_capacity_reduction_pct": {
+              "type": "number"
+            },
+            "affected_turbines_count": {
+              "type": "integer"
+            },
+            "noise_compliance_basis": {
+              "type": "string"
+            }
+          }
+        },
+        "shadow_flicker": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "properties": {
+            "automatic_shutdown_system": {
+              "type": "boolean"
+            },
+            "max_annual_minutes_per_dwelling": {
+              "type": "number"
+            },
+            "actual_2025_minutes": {
+              "type": "number"
+            }
+          }
+        },
+        "bess_chemistry": {
+          "type": "string",
+          "x-rals-tier": "public",
+          "enum": [
+            "lfp",
+            "nmc",
+            "lto",
+            "flow_vanadium",
+            "other"
+          ]
+        }
       }
     },
     "grid_offtake": {
       "type": "object",
-      "required": ["grid_connection", "offtake_structure"],
       "properties": {
-        "grid_connection": { "type": "object" },
+        "grid_connection": {
+          "type": "object",
+          "description": "See SPEC 8.1.",
+          "properties": {
+            "connection_point": {
+              "type": "string",
+              "x-rals-tier": "nda_required"
+            },
+            "voltage_level_kv": {
+              "type": "number",
+              "x-rals-tier": "public"
+            },
+            "connection_capacity_mw": {
+              "type": "number",
+              "x-rals-tier": "public"
+            },
+            "grid_operator": {
+              "type": "string",
+              "x-rals-tier": "public"
+            },
+            "line_length_km": {
+              "type": "number",
+              "x-rals-tier": "nda_required"
+            },
+            "line_ownership": {
+              "type": "string",
+              "x-rals-tier": "nda_required"
+            },
+            "pooling_partners_count": {
+              "type": "integer",
+              "x-rals-tier": "nda_required"
+            },
+            "connection_agreement_date": {
+              "type": "string",
+              "format": "date",
+              "x-rals-tier": "nda_required"
+            },
+            "connection_agreement_term_years": {
+              "type": "integer",
+              "x-rals-tier": "nda_required"
+            },
+            "grid_code_compliance": {
+              "type": "string",
+              "x-rals-tier": "nda_required"
+            },
+            "redispatch_2_0_obligation": {
+              "type": "boolean",
+              "x-rals-tier": "nda_required"
+            }
+          }
+        },
         "offtake_structure": {
           "type": "string",
-          "enum": ["feed_in_tariff", "cfd", "corporate_ppa", "utility_ppa", "merchant", "hybrid"]
+          "x-rals-tier": "public",
+          "description": "SPEC 8 defines this closed list; jurisdiction packages (RFC-0003) MAY extend it with regulator-specific mechanisms (e.g. eeg_market_premium, avoided_cost_tariff) not yet formalized as their own v0.1 category — see RFC-0002 roadmap item 4 (regulated revenue programs). Values outside x-rals-canonical-values are valid RALS but not yet part of the closed v0.1 vocabulary.",
+          "x-rals-canonical-values": [
+            "feed_in_tariff",
+            "cfd",
+            "corporate_ppa",
+            "utility_ppa",
+            "merchant",
+            "hybrid"
+          ]
         },
-        "offtake_contracts": { "type": "array" },
-        "curtailment_history": { "type": "object" },
-        "balancing_responsibility": { "type": "string" },
-        "balancing_fee_eur_mwh": { "type": "number" },
-        "green_certificates": { "type": "object" }
-      }
+        "offtake_contracts": {
+          "type": "array",
+          "description": "See SPEC 8.2. Required unless the asset is pure merchant.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "contract_id": {
+                "type": "string",
+                "x-rals-tier": "public"
+              },
+              "counterparty": {
+                "type": "string",
+                "x-rals-tier": "public"
+              },
+              "counterparty_actual": {
+                "type": "string",
+                "x-rals-tier": "final_shortlist"
+              },
+              "counterparty_credit_rating": {
+                "type": "string",
+                "x-rals-tier": "public"
+              },
+              "counterparty_rating_agency": {
+                "type": "string",
+                "x-rals-tier": "nda_required"
+              },
+              "contract_type": {
+                "type": "string",
+                "x-rals-tier": "public",
+                "description": "SPEC 8.2 defines this closed list; jurisdiction- or mechanism-specific values (e.g. avoided_cost_tariff, capacity_market) are permitted per RFC-0003 jurisdiction extension pending v0.2 (see RFC-0002 roadmap item 4).",
+                "x-rals-canonical-values": [
+                  "feed_in_tariff",
+                  "cfd",
+                  "corporate_ppa",
+                  "utility_ppa",
+                  "gleitende_marktpraemie",
+                  "merchant"
+                ]
+              },
+              "structure_type": {
+                "type": "string",
+                "x-rals-tier": "public",
+                "description": "SPEC 8.2 defines this closed list; mechanism-specific values (e.g. capacity_payment_with_de_rating) are permitted per RFC-0003 jurisdiction extension pending v0.2.",
+                "x-rals-canonical-values": [
+                  "pay_as_produced",
+                  "baseload",
+                  "as_produced_with_baseload_floor"
+                ]
+              },
+              "delivery_form": {
+                "type": "string",
+                "x-rals-tier": "public",
+                "enum": [
+                  "physical",
+                  "financial"
+                ]
+              },
+              "capacity_mw": {
+                "type": "number",
+                "description": "Contracted capacity; MAY exceed nameplate for financial overlays.",
+                "x-rals-tier": "public"
+              },
+              "volume_mwh_yr": {
+                "type": "number",
+                "x-rals-tier": "nda_required"
+              },
+              "price_eur_mwh": {
+                "type": "number",
+                "x-rals-tier": "final_shortlist"
+              },
+              "price_floor_eur_mwh": {
+                "type": "number",
+                "x-rals-tier": "final_shortlist"
+              },
+              "price_cap_eur_mwh": {
+                "type": "number",
+                "x-rals-tier": "final_shortlist"
+              },
+              "anzulegender_wert_eur_mwh": {
+                "type": "number",
+                "description": "DE-specific EEG anzulegender Wert for gleitende_marktpraemie contracts.",
+                "x-rals-tier": "nda_required"
+              },
+              "indexation": {
+                "type": "string",
+                "x-rals-tier": "final_shortlist"
+              },
+              "start_date": {
+                "type": "string",
+                "format": "date",
+                "x-rals-tier": "nda_required"
+              },
+              "end_date": {
+                "type": "string",
+                "format": "date",
+                "x-rals-tier": "nda_required"
+              },
+              "remaining_years": {
+                "type": "number",
+                "x-rals-tier": "nda_required"
+              },
+              "change_of_control_clause": {
+                "type": "boolean",
+                "x-rals-tier": "nda_required"
+              },
+              "change_of_control_consent_required": {
+                "type": "boolean",
+                "x-rals-tier": "nda_required"
+              },
+              "notes": {
+                "type": "string",
+                "x-rals-tier": "nda_required"
+              }
+            }
+          }
+        },
+        "curtailment_history": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "properties": {
+            "methodology": {
+              "type": "string"
+            },
+            "annual": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "year": {
+                    "type": "integer"
+                  },
+                  "grid_curtailment_pct": {
+                    "type": "number"
+                  },
+                  "environmental_curtailment_pct": {
+                    "type": "number"
+                  },
+                  "compensated_pct": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "balancing_responsibility": {
+          "type": "string",
+          "x-rals-tier": "nda_required",
+          "enum": [
+            "self",
+            "aggregator",
+            "offtaker",
+            "direktvermarkter"
+          ]
+        },
+        "balancing_fee_eur_mwh": {
+          "type": "number",
+          "x-rals-tier": "final_shortlist"
+        },
+        "green_certificates": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "properties": {
+            "scheme": {
+              "type": "string"
+            },
+            "annual_volume_mwh": {
+              "type": "number"
+            },
+            "monetization": {
+              "type": "string"
+            },
+            "remainder_avg_price_eur_mwh": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "required": [
+        "grid_connection",
+        "offtake_structure"
+      ]
     },
     "financials": {
       "type": "object",
       "properties": {
-        "reporting_currency": { "type": "string" },
-        "reporting_basis": { "type": "string" },
-        "fiscal_year_end": { "type": "string" },
-        "capex": { "type": "object" },
-        "opex_breakdown": { "type": "object" },
-        "revenue_history": { "type": "array" },
-        "ebitda_history": { "type": "array" },
-        "debt_structure": { "type": "object" },
-        "subsidy_remaining": { "type": "object" },
-        "tax_position": { "type": "object" },
-        "asking_price": { "type": "object" },
-        "valuation_reference": { "type": "object" }
+        "reporting_currency": {
+          "type": "string",
+          "x-rals-tier": "public"
+        },
+        "reporting_basis": {
+          "type": "string",
+          "x-rals-tier": "nda_required"
+        },
+        "fiscal_year_end": {
+          "type": "string",
+          "x-rals-tier": "nda_required"
+        },
+        "capex": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "description": "See SPEC 9.1. per_mw figure MAY be exposed as a rounded range in the Teaser tier.",
+          "properties": {
+            "total_eur": {
+              "type": "number"
+            },
+            "per_mw_eur": {
+              "type": "number"
+            },
+            "per_mw_ac_eur": {
+              "type": "number"
+            },
+            "breakdown": {
+              "type": "object",
+              "description": "Itemized CAPEX, e.g. modules_eur, inverters_eur, mounting_eur, bos_eur, civil_works_eur, grid_connection_eur, development_permits_eur, epc_margin_eur, financing_costs_eur.",
+              "properties": {
+                "modules_eur": {
+                  "type": "number"
+                },
+                "inverters_eur": {
+                  "type": "number"
+                },
+                "mounting_eur": {
+                  "type": "number"
+                },
+                "bos_eur": {
+                  "type": "number"
+                },
+                "civil_works_eur": {
+                  "type": "number"
+                },
+                "grid_connection_eur": {
+                  "type": "number"
+                },
+                "development_permits_eur": {
+                  "type": "number"
+                },
+                "epc_margin_eur": {
+                  "type": "number"
+                },
+                "financing_costs_eur": {
+                  "type": "number"
+                }
+              }
+            },
+            "realized_vs_budget_pct": {
+              "type": "number"
+            },
+            "cost_overrun_drivers": {
+              "type": "string"
+            },
+            "final_account_settled": {
+              "type": "boolean"
+            }
+          }
+        },
+        "opex_breakdown": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "description": "See SPEC 9.2.",
+          "properties": {
+            "currency": {
+              "type": "string"
+            },
+            "basis_year": {
+              "type": "integer"
+            },
+            "per_mw_per_year": {
+              "type": "object",
+              "description": "Canonical taxonomy: om_service, land_lease, insurance, asset_management, direct_marketing, grid_charges, monitoring_scada, administrative, other. Implementers MAY add fields but MUST NOT remove/rename these.",
+              "properties": {
+                "om_service": {
+                  "type": "number"
+                },
+                "land_lease": {
+                  "type": "number"
+                },
+                "insurance": {
+                  "type": "number"
+                },
+                "asset_management": {
+                  "type": "number"
+                },
+                "direct_marketing": {
+                  "type": "number"
+                },
+                "grid_charges": {
+                  "type": "number"
+                },
+                "monitoring_scada": {
+                  "type": "number"
+                },
+                "administrative": {
+                  "type": "number"
+                },
+                "other": {
+                  "type": "number"
+                }
+              }
+            },
+            "total_per_mw_yr": {
+              "type": "number",
+              "description": "Sum of the per_mw_per_year line items."
+            },
+            "total_annual_eur": {
+              "type": "number",
+              "description": "total_per_mw_yr multiplied by total capacity."
+            },
+            "inflation_assumption_pct": {
+              "type": "number"
+            }
+          }
+        },
+        "revenue_history": {
+          "type": "array",
+          "x-rals-tier": "nda_required",
+          "items": {
+            "type": "object",
+            "properties": {
+              "year": {
+                "type": "integer"
+              },
+              "gross_revenue_eur": {
+                "type": "number"
+              },
+              "ppa_revenue_eur": {
+                "type": "number"
+              },
+              "cfd_revenue_eur": {
+                "type": "number"
+              },
+              "merchant_revenue_eur": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "ebitda_history": {
+          "type": "array",
+          "x-rals-tier": "nda_required",
+          "items": {
+            "type": "object",
+            "properties": {
+              "year": {
+                "type": "integer"
+              },
+              "ebitda_eur": {
+                "type": "number"
+              },
+              "margin_pct": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "debt_structure": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "description": "See SPEC 9.3.",
+          "properties": {
+            "senior_debt": {
+              "type": "object",
+              "properties": {
+                "outstanding_eur": {
+                  "type": "number"
+                },
+                "original_principal_eur": {
+                  "type": "number"
+                },
+                "lender": {
+                  "type": "string"
+                },
+                "margin_bps": {
+                  "type": "number"
+                },
+                "reference_rate": {
+                  "type": "string"
+                },
+                "hedging": {
+                  "type": "string"
+                },
+                "maturity": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "amortization": {
+                  "type": "string"
+                },
+                "dscr_p50": {
+                  "type": "number"
+                },
+                "dscr_p90": {
+                  "type": "number"
+                },
+                "cash_sweep": {
+                  "type": "string"
+                },
+                "lock_up_dscr": {
+                  "type": "number"
+                },
+                "change_of_control_clause": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "mezzanine": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "outstanding_eur": {
+                  "type": "number"
+                }
+              }
+            },
+            "refinancing_options_open": {
+              "type": "boolean"
+            },
+            "refinancing_window": {
+              "type": "string"
+            }
+          }
+        },
+        "subsidy_remaining": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "description": "See SPEC 9.4.",
+          "properties": {
+            "scheme": {
+              "type": "string"
+            },
+            "award_date": {
+              "type": "string",
+              "format": "date"
+            },
+            "guaranteed_price_eur_mwh": {
+              "type": "number"
+            },
+            "anzulegender_wert_eur_mwh": {
+              "type": "number",
+              "description": "DE EEG assets use this instead of guaranteed_price_eur_mwh."
+            },
+            "gueltestellenfaktor": {
+              "type": "number"
+            },
+            "remaining_years": {
+              "type": "number"
+            },
+            "remaining_volume_mwh": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "description": "null means the support is time-bound only, not volume-bound."
+            },
+            "indexation": {
+              "type": "string"
+            }
+          }
+        },
+        "tax_position": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "properties": {
+            "nol_carryforward_eur": {
+              "type": "number"
+            },
+            "nol_expiry": {
+              "type": "string"
+            },
+            "accelerated_depreciation": {
+              "type": "boolean"
+            },
+            "sociedades_rate_pct": {
+              "type": "number"
+            }
+          }
+        },
+        "asking_price": {
+          "type": "object",
+          "x-rals-tier": "final_shortlist",
+          "description": "See SPEC 9.5. An object, not a single number.",
+          "properties": {
+            "indicated_range_eur_low": {
+              "type": "number"
+            },
+            "indicated_range_eur_high": {
+              "type": "number"
+            },
+            "basis": {
+              "type": "string"
+            },
+            "valuation_date": {
+              "type": "string",
+              "format": "date"
+            },
+            "multiples_indication": {
+              "type": "object"
+            }
+          }
+        },
+        "valuation_reference": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "properties": {
+            "provider": {
+              "type": "string"
+            },
+            "valuation_date": {
+              "type": "string",
+              "format": "date"
+            },
+            "enterprise_value_eur": {
+              "type": "number"
+            },
+            "methodology": {
+              "type": "string"
+            }
+          }
+        }
       }
     },
     "compliance": {
       "type": "object",
       "properties": {
-        "permits": { "type": "array" },
-        "land_rights": { "type": "object" },
-        "environmental_assessments": { "type": "array" },
-        "eu_taxonomy_alignment": { "type": "object" },
-        "litigation_disputes": { "type": "array" },
-        "insurance_coverage": { "type": "object" },
-        "decommissioning_obligation": { "type": "object" },
-        "esg": { "type": "object" },
-        "bnk_system_status": { "type": "string" }
+        "permits": {
+          "type": "array",
+          "x-rals-tier": "nda_required",
+          "items": {
+            "type": "object",
+            "properties": {
+              "permit_type": {
+                "type": "string",
+                "description": "Open vocabulary; MAY use jurisdiction-native values."
+              },
+              "issuing_authority": {
+                "type": "string"
+              },
+              "reference": {
+                "type": "string"
+              },
+              "issue_date": {
+                "type": "string",
+                "format": "date"
+              },
+              "valid_until": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date"
+              },
+              "conditions": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "permit_type",
+              "issuing_authority"
+            ]
+          }
+        },
+        "land_rights": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "description": "See SPEC 10.3.",
+          "properties": {
+            "structure": {
+              "type": "string",
+              "description": "e.g. long_term_lease, freehold."
+            },
+            "consolidation": {
+              "type": "string"
+            },
+            "lessor": {
+              "type": "string"
+            },
+            "lease_duration_years": {
+              "type": "number"
+            },
+            "remaining_years": {
+              "type": "number"
+            },
+            "annual_lease_eur": {
+              "type": "number"
+            },
+            "lease_structure": {
+              "type": "string"
+            },
+            "indexation": {
+              "type": "string"
+            },
+            "early_termination_rights": {
+              "type": "string"
+            },
+            "decommissioning_obligation": {
+              "type": "string"
+            },
+            "title_insurance": {
+              "type": "boolean"
+            },
+            "change_of_control_consent_required": {
+              "type": "boolean"
+            }
+          }
+        },
+        "environmental_assessments": {
+          "type": "array",
+          "x-rals-tier": "nda_required",
+          "items": {
+            "type": "object",
+            "properties": {
+              "assessment_type": {
+                "type": "string"
+              },
+              "completed_date": {
+                "type": "string",
+                "format": "date"
+              },
+              "authority": {
+                "type": "string"
+              },
+              "outcome": {
+                "type": "string"
+              },
+              "reference": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "eu_taxonomy_alignment": {
+          "type": "object",
+          "x-rals-tier": "public",
+          "description": "See SPEC 10.2. Public so SFDR Article 8/9 buyer agents can screen for eligibility pre-NDA.",
+          "properties": {
+            "applicable_activity": {
+              "type": "string"
+            },
+            "substantial_contribution": {
+              "type": "string"
+            },
+            "dnsh_assessment_complete": {
+              "type": "boolean"
+            },
+            "dnsh_assessment_date": {
+              "type": "string",
+              "format": "date"
+            },
+            "dnsh_climate_adaptation": {
+              "type": "string",
+              "enum": [
+                "passed",
+                "passed_with_conditions",
+                "failed"
+              ]
+            },
+            "dnsh_climate_adaptation_notes": {
+              "type": "string"
+            },
+            "dnsh_water": {
+              "type": "string",
+              "enum": [
+                "passed",
+                "passed_with_conditions",
+                "failed"
+              ]
+            },
+            "dnsh_water_notes": {
+              "type": "string"
+            },
+            "dnsh_circular_economy": {
+              "type": "string",
+              "enum": [
+                "passed",
+                "passed_with_conditions",
+                "failed"
+              ]
+            },
+            "dnsh_circular_economy_notes": {
+              "type": "string"
+            },
+            "dnsh_pollution": {
+              "type": "string",
+              "enum": [
+                "passed",
+                "passed_with_conditions",
+                "failed"
+              ]
+            },
+            "dnsh_pollution_notes": {
+              "type": "string"
+            },
+            "dnsh_biodiversity": {
+              "type": "string",
+              "enum": [
+                "passed",
+                "passed_with_conditions",
+                "failed"
+              ]
+            },
+            "dnsh_biodiversity_notes": {
+              "type": "string"
+            },
+            "minimum_safeguards_complete": {
+              "type": "boolean"
+            },
+            "taxonomy_aligned_capex_pct": {
+              "type": "number"
+            },
+            "taxonomy_aligned_opex_pct": {
+              "type": "number"
+            },
+            "taxonomy_aligned_turnover_pct": {
+              "type": "number"
+            }
+          }
+        },
+        "litigation_disputes": {
+          "type": "array",
+          "x-rals-tier": "nda_required",
+          "description": "Open, threatened, or settled proceedings. An empty array asserts none.",
+          "items": {
+            "type": "object"
+          }
+        },
+        "insurance_coverage": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "description": "Per coverage line; implementers MAY add additional lines.",
+          "properties": {
+            "operational_all_risks": {
+              "type": "object",
+              "properties": {
+                "insurer": {
+                  "type": "string"
+                },
+                "coverage_eur": {
+                  "type": "number"
+                },
+                "deductible_eur": {
+                  "type": "number"
+                },
+                "renewal_date": {
+                  "type": "string",
+                  "format": "date"
+                }
+              }
+            },
+            "business_interruption": {
+              "type": "object",
+              "properties": {
+                "coverage_months": {
+                  "type": "number"
+                },
+                "daily_indemnity_eur": {
+                  "type": "number"
+                }
+              }
+            },
+            "third_party_liability": {
+              "type": "object",
+              "properties": {
+                "coverage_eur": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "decommissioning_obligation": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "properties": {
+            "regulatory_requirement": {
+              "type": "string"
+            },
+            "estimated_cost_eur": {
+              "type": "number"
+            },
+            "estimated_cost_per_mw_eur": {
+              "type": "number"
+            },
+            "cost_basis_year": {
+              "type": "integer"
+            },
+            "bond_amount_eur": {
+              "type": "number"
+            },
+            "bond_provider": {
+              "type": "string"
+            },
+            "bond_renewal": {
+              "type": "string"
+            }
+          }
+        },
+        "esg": {
+          "type": "object",
+          "x-rals-tier": "public",
+          "description": "See SPEC 10.4.",
+          "properties": {
+            "scope_1_2_emissions_tco2e_yr": {
+              "type": "number"
+            },
+            "avoided_emissions_tco2e_yr": {
+              "type": "number"
+            },
+            "avoided_emissions_methodology": {
+              "type": "string"
+            },
+            "biodiversity_net_gain_pct": {
+              "type": "number"
+            },
+            "community_benefit_scheme": {
+              "type": "string"
+            }
+          }
+        },
+        "bnk_system_status": {
+          "type": "string",
+          "description": "DE-specific aviation-marking compliance flag.",
+          "x-rals-tier": "nda_required"
+        }
       }
     },
     "operating_history": {
       "type": "object",
       "properties": {
-        "monthly_production": { "type": "object" },
-        "availability_history": { "type": "array" },
-        "major_events": { "type": "array" },
-        "service_contract": { "type": "object" },
-        "warranty_status": { "type": "object" },
-        "scada_access": { "type": "string" },
-        "scada_provider": { "type": "string" }
+        "monthly_production": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "description": "See SPEC 11.1. Full monthly/turbine-level series MUST NOT be inlined past the 512 KB document limit.",
+          "properties": {
+            "inline_summary": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "year": {
+                    "type": "integer"
+                  },
+                  "gross_mwh": {
+                    "type": "number"
+                  },
+                  "net_mwh": {
+                    "type": "number"
+                  },
+                  "availability_pct": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "detailed_url": {
+              "type": "string"
+            },
+            "detailed_access": {
+              "type": "string",
+              "enum": [
+                "public",
+                "nda_required",
+                "final_shortlist"
+              ]
+            },
+            "detailed_schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "availability_history": {
+          "type": "array",
+          "x-rals-tier": "nda_required",
+          "items": {
+            "type": "object",
+            "properties": {
+              "year": {
+                "type": "integer"
+              },
+              "availability_pct": {
+                "type": "number"
+              },
+              "planned_outages_hours": {
+                "type": "number"
+              },
+              "unplanned_outages_hours": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "major_events": {
+          "type": "array",
+          "x-rals-tier": "nda_required",
+          "items": {
+            "type": "object",
+            "properties": {
+              "date": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "affected_capacity_mw": {
+                "type": "number"
+              },
+              "duration_hours": {
+                "type": "number"
+              },
+              "root_cause": {
+                "type": "string"
+              },
+              "resolved_under_warranty": {
+                "type": "boolean"
+              },
+              "revenue_impact_eur": {
+                "type": "number"
+              },
+              "bi_insurance_claim": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "service_contract": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "description": "See SPEC 11.2. Single-provider object, or a structure note plus a contracts array when split between providers.",
+          "properties": {
+            "provider": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "start_date": {
+              "type": "string",
+              "format": "date"
+            },
+            "duration_years": {
+              "type": "number"
+            },
+            "remaining_years": {
+              "type": "number"
+            },
+            "annual_fee_eur": {
+              "type": "number"
+            },
+            "indexation": {
+              "type": "string"
+            },
+            "sla_availability_pct": {
+              "type": "number"
+            },
+            "sla_response_hours": {
+              "type": "number"
+            },
+            "liquidated_damages": {
+              "type": "string"
+            },
+            "structure": {
+              "type": "string",
+              "description": "Present instead of a flat shape when O&M is split between providers."
+            },
+            "contracts": {
+              "type": "array",
+              "description": "One entry per provider, same fields as the single-provider shape, when structure is split.",
+              "items": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "warranty_status": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "properties": {
+            "module_product_remaining_years": {
+              "type": "number"
+            },
+            "module_performance_remaining_years": {
+              "type": "number"
+            },
+            "inverter_remaining_years": {
+              "type": "number"
+            },
+            "mounting_remaining_years": {
+              "type": "number"
+            },
+            "epc_workmanship_remaining_years": {
+              "type": "number"
+            }
+          }
+        },
+        "scada_access": {
+          "type": "string",
+          "x-rals-tier": "public",
+          "enum": [
+            "none",
+            "read_only_pre_closing",
+            "read_only_post_closing",
+            "full_post_closing"
+          ]
+        },
+        "scada_provider": {
+          "type": "string",
+          "x-rals-tier": "nda_required"
+        }
       }
     },
     "process": {
       "type": "object",
-      "required": ["process_type", "process_lead", "process_timeline"],
       "properties": {
         "process_type": {
           "type": "string",
-          "enum": ["bilateral", "limited_auction", "broad_auction", "open_market"]
+          "x-rals-tier": "public",
+          "enum": [
+            "bilateral",
+            "limited_auction",
+            "broad_auction",
+            "open_market"
+          ]
         },
-        "invited_bidders_count": { "type": "integer" },
-        "process_lead": { "type": "object" },
-        "process_timeline": { "type": "object" },
-        "closing_conditions": { "type": "object" },
-        "data_room": { "type": "object" },
-        "nda_template": { "type": "string" },
-        "access_endpoint": { "type": "string" },
-        "confidentiality_note": { "type": "string" }
-      }
+        "invited_bidders_count": {
+          "type": "integer",
+          "x-rals-tier": "public"
+        },
+        "process_lead": {
+          "type": "object",
+          "x-rals-tier": "public",
+          "properties": {
+            "organization": {
+              "type": "string"
+            },
+            "contact_role": {
+              "type": "string"
+            },
+            "contact_email": {
+              "type": "string",
+              "format": "email"
+            },
+            "contact_phone": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "type": "string"
+            },
+            "role": {
+              "type": "string"
+            }
+          }
+        },
+        "process_timeline": {
+          "type": "object",
+          "x-rals-tier": "public",
+          "description": "Dates are ISO 8601; range/quarter values MAY be free-text, e.g. '2027-Q1'.",
+          "properties": {
+            "teaser_distribution": {
+              "type": "string"
+            },
+            "information_memorandum_distribution": {
+              "type": "string"
+            },
+            "site_visits": {
+              "type": "string"
+            },
+            "non_binding_offers_due": {
+              "type": "string"
+            },
+            "management_presentations": {
+              "type": "string"
+            },
+            "binding_offers_due": {
+              "type": "string"
+            },
+            "signing_target": {
+              "type": "string"
+            },
+            "closing_target": {
+              "type": "string"
+            },
+            "long_stop_date": {
+              "type": "string"
+            },
+            "nda_deadline": {
+              "type": "string"
+            },
+            "indicative_bid_deadline": {
+              "type": "string"
+            },
+            "target_close": {
+              "type": "string"
+            }
+          }
+        },
+        "closing_conditions": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "properties": {
+            "regulatory_approvals_required": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "consents_required": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "landowner_consents_required": {
+              "type": "boolean"
+            },
+            "estimated_signing_to_closing_months": {
+              "type": "number"
+            }
+          }
+        },
+        "data_room": {
+          "type": "object",
+          "x-rals-tier": "nda_required",
+          "properties": {
+            "provider": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
+            "access_mechanism": {
+              "type": "string"
+            },
+            "document_count_approx": {
+              "type": "integer"
+            },
+            "structure": {
+              "type": "string"
+            },
+            "vendor_dd_reports": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "nda_template": {
+          "type": "string",
+          "x-rals-tier": "public"
+        },
+        "access_endpoint": {
+          "type": "string",
+          "x-rals-tier": "public"
+        },
+        "confidentiality_note": {
+          "type": "string",
+          "x-rals-tier": "public"
+        }
+      },
+      "required": [
+        "process_type",
+        "process_lead",
+        "process_timeline"
+      ]
     }
   }
 }

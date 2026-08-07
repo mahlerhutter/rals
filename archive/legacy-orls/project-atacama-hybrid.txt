@@ -1,0 +1,806 @@
+# ============================================================================
+# Open Renewables Listing Standard (ORLS) — Example Document
+# ============================================================================
+#
+# Asset:        Project Atacama (fictional)
+# Description:  Triple-hybrid renewable asset in Antofagasta Region, Chile.
+#               180 MW solar PV + 80 MW onshore wind + 100 MW / 400 MWh
+#               BESS behind a single 220 kV grid connection point. Operating
+#               since June 2024 under 15-year USD-denominated PPA with major
+#               Chilean copper mining group. Stacked revenue model:
+#               primary PPA + capacity payments under DS 70/2023 + curtailment
+#               mitigation value of BESS.
+# Profile:      Level 3 (Complete) — includes all confidentiality tiers
+# Purpose:      Reference example accompanying ORLS Specification v0.1
+#
+# This is a fictional asset. All names, financial figures, counterparties,
+# resource data, and contract terms are invented for illustration. The
+# specific site, micro-location, and SPV are fabricated. Any resemblance to
+# real assets, transactions, or entities is coincidental.
+#
+# Why this example exists:
+#   Triple-hybrid (PV + Wind + BESS) is the hardest configuration ORLS
+#   must support. It stresses the spec along six dimensions simultaneously:
+#   (a) three technology blocks sharing one connection point and one EMS,
+#   (b) Chilean nodal price market with severe north-south price decoupling,
+#   (c) curtailment economics (Atacama hit ~6 TWh curtailment in 2024),
+#   (d) DS 70/2023 capacity payment regime (capacity payments derated by
+#       duration; standalone BESS receives different treatment than hybrid),
+#   (e) regulatory transition risk (DS 125 + DS 88 reform process withdrawn
+#       by Kast administration March 2026 — material uncertainty),
+#   (f) emerging market structure with USD-denominated PPA but CLP-
+#       denominated cost base, requiring explicit FX modeling.
+#
+# Author's note on accuracy:
+#   Chilean regulatory specifics are drawn from publicly available 2025-2026
+#   sources (Law 21.505/2022, DS 70/2023, draft DS 125 / DS 88 reforms, CNE
+#   capacity charge schedules, ACERA/Aurora market reports). The regulatory
+#   environment is in active reform; the Kast administration withdrew the
+#   DS 125 / DS 88 amendments from the Comptroller General's Office in
+#   March 2026 for additional review. Real implementations must verify
+#   current regulatory status with Chilean counsel — this example uses
+#   the publicly documented status as of mid-2026.
+#
+# Tier markers in comments:
+#   [P] = public           (included in Teaser Profile)
+#   [N] = nda_required     (visible after NDA)
+#   [F] = final_shortlist  (visible only to admitted final bidders)
+# ============================================================================
+
+orls_version: "0.1"
+document_id: "orls:01HF9N3P6Q4R8S2T5V7W1X3Y6Z"
+generated_at: "2026-05-15T10:00:00Z"
+generated_by: "manual-reference-example"
+language: "en"
+
+# ----------------------------------------------------------------------------
+# 1. IDENTITY
+# ----------------------------------------------------------------------------
+identity:
+  asset_name: "Project Atacama"                      # [P]
+  asset_type: hybrid                                 # [P]
+  asset_subtype: pv_wind_bess_triple_hybrid          # [P]
+  lifecycle_stage: operating                         # [P]
+  country: CL                                        # [P]
+  region: "Antofagasta Region"                       # [P]
+  sub_region: "Sierra Gorda commune"                 # [P]
+  coordinates: [-69.2841, -22.8654]                  # [N]
+  site_area_hectares: 1240                           # [P]
+  total_capacity_summary:                            # [P]
+    pv_capacity_mw_ac: 180
+    pv_capacity_mw_dc: 220
+    wind_capacity_mw: 80
+    bess_power_mw: 100
+    bess_energy_mwh: 400
+    bess_duration_hours: 4.0
+    combined_nameplate_generation_mw: 260
+    grid_export_limit_mw: 200
+    grid_import_limit_mw: 100
+  oversizing_strategy: |                             # [P]
+    Combined PV + Wind nameplate (260 MW) exceeds 200 MW export limit by
+    design. Oversize-and-clip + BESS time-shift strategy converts curtailment
+    losses into stored energy for high-value evening dispatch.
+  transaction_type: full_acquisition                 # [P]
+  equity_offered_pct: 100                            # [P]
+  seller_legal_entity: "Atacama Hybrid Energy SpA"   # [N]
+  seller_jurisdiction: "Chile"                       # [N]
+  ultimate_parent_jurisdiction: "Singapore"          # [N]
+  internal_reference: "ATCM-CL-2026-001"             # [F]
+  spv_structure: true                                # [N]
+  spv_form: "Sociedad por Acciones (SpA)"            # [N]
+  ultimate_beneficial_ownership_disclosed: true     # [N]
+  foreign_ownership_pct: 100                         # [N]
+
+# ----------------------------------------------------------------------------
+# 2. TECHNICAL
+# ----------------------------------------------------------------------------
+# Triple-hybrid configuration requires per-technology sub-blocks plus
+# an integration block describing how the three technologies share the
+# grid connection and are co-optimized by a unified EMS.
+# ----------------------------------------------------------------------------
+technical:
+  commissioning_date: "2024-06-18"                   # [P]
+  expected_lifetime_years: 35                        # [P]
+  design_basis_year: 2022                            # [P]
+  hybrid_configuration_topology: ac_coupled          # [P]
+  hybrid_configuration_note: |                       # [P]
+    All three technologies AC-coupled at 33 kV collection bus, stepped up
+    to 220 kV via single main transformer. PV inverters, wind turbines,
+    and BESS PCS all coordinated by central plant controller and EMS.
+
+  # ---- PV Sub-Block ----
+  pv:                                                # mixed tiers
+    capacity_mw_ac: 180                              # [P]
+    capacity_mw_dc: 220                              # [P]
+    dc_ac_ratio: 1.22                                # [P]
+    modules:                                         # [N]
+      manufacturer: "Tier-1 Chinese module OEM"
+      model: "Bifacial TOPCon 580W"
+      technology: "monocrystalline_topcon"
+      bifacial: true
+      bifaciality_factor: 0.80
+      units_total: 379_310
+      warranty_product_years: 22
+      warranty_performance_end_pct: 87
+    inverters:                                       # [N]
+      manufacturer: "Anonymized tier-1 inverter OEM"
+      model: "Central inverter, 5 MW unit"
+      units_total: 36
+      efficiency_peak_pct: 99.0
+      warranty_remaining_years: 8.5
+    mounting:                                        # [P]
+      type: single_axis_tracker
+      manufacturer: "Specialist tracker supplier"
+      tracking_range_deg: [-60, 60]
+    production_estimates:                            # [N]
+      methodology: "PVsyst v7.4, GHI from regional measurement campaign + satellite"
+      assessor: "DNV"
+      assessment_date: "2022-08-30"
+      p50_gwh_yr: 542.6
+      p75_gwh_yr: 525.9
+      p90_gwh_yr: 510.4
+      reference_year: 2024
+    specific_yield_kwh_kwp_dc: 2466                  # [N]
+    performance_ratio: 0.835                         # [N]
+    soiling_loss_pct: 4.5                            # [N]   # Atacama desert: high dust
+    soiling_cleaning_frequency_days: 14              # [N]
+    soiling_cleaning_method: "robotic dry cleaning + scheduled water cleaning quarterly"
+
+  # ---- Wind Sub-Block ----
+  wind:                                              # mixed tiers
+    capacity_mw: 80                                  # [P]
+    turbine_count: 16                                # [P]
+    turbine_configuration:                           # [N]
+      manufacturer: "Vestas"
+      model: "V162-5.0 MW"
+      nominal_power_mw: 5.0
+      rotor_diameter_m: 162
+      hub_height_m: 119
+      iec_class: "IEC IIIA"
+      cut_in_speed_ms: 3.0
+      cut_out_speed_ms: 25.0
+      warranty_remaining_years: 8.3
+    wind_resource:                                   # [N]
+      methodology: "5-year mast measurement + WAsP modeling + ERA5 long-term correlation"
+      mean_wind_speed_hub_height_ms: 8.4
+      weibull_a: 9.5
+      weibull_k: 2.4
+      measurement_period_years: 5.2
+      long_term_correlation_source: "ERA5 30-year"
+    production_estimates:                            # [N]
+      methodology: "WindPRO v3.6"
+      assessor: "DNV"
+      assessment_date: "2022-09-15"
+      p50_gwh_yr: 312.8
+      p75_gwh_yr: 298.4
+      p90_gwh_yr: 282.6
+      reference_period: "20-year mean"
+    capacity_factor: 0.446                           # [N]
+    full_load_hours_yr: 3910                         # [N]
+    diurnal_complementarity_with_pv: |               # [N]
+      Site exhibits Atacama-typical wind diurnal pattern with peak generation
+      late afternoon and overnight, complementary to PV mid-day peak.
+      Modeled combined PV+Wind capacity factor: 0.49 weighted average.
+
+  # ---- BESS Sub-Block ----
+  bess:                                              # mixed tiers
+    power_mw_ac: 100                                 # [P]
+    energy_mwh_bol: 400                              # [P]
+    energy_mwh_gross: 448                            # [P]
+    duration_hours: 4.0                              # [P]
+    chemistry: "lfp"                                 # [P]
+    grid_forming_capability: true                    # [P]
+    battery:                                         # [N]
+      manufacturer: "Tier-1 Chinese battery OEM"
+      model: "5 MWh outdoor liquid-cooled container"
+      containers_total: 90
+      container_capacity_mwh_each: 5.0
+      cell_format: "prismatic"
+      cooling: "liquid_cooled"
+      ip_rating: "IP55"
+      cycle_life_at_80_dod: 8000
+      calendar_life_years: 20
+      warranty_capacity_years: 20
+      warranty_capacity_end_pct: 70
+      warranty_throughput_basis: "6000 full equivalent cycles or 15 years"
+    pcs:                                             # [N]
+      manufacturer: "Anonymized tier-1 PCS vendor"
+      units_total: 50
+      nominal_power_kw_each: 2000
+      efficiency_peak_pct: 98.7
+      grid_forming_certified: true
+    round_trip_efficiency:                           # [N]
+      ac_to_ac_pct_bol: 87.5
+      ac_to_ac_pct_eol_modeled: 84.0
+    augmentation_planned: true                       # [N]
+    augmentation_strategy: "year-7 augmentation to restore BOL capacity, EPC contract executed at COD"
+
+  # ---- Integration / EMS ----
+  integration:                                       # mixed tiers
+    plant_controller_provider: "Tier-1 hybrid plant controller OEM"     # [N]
+    ems_provider: "Specialist Chilean BESS optimizer"                   # [N]
+    ems_co_optimization_scope: ["ppa_delivery", "capacity_payments", "curtailment_arbitrage", "future_ancillary_services"]  # [P]
+    grid_forming_pv_inverters: false                                    # [N]
+    grid_forming_bess: true                                             # [N]
+    grid_forming_at_poc_capability: true                                # [P]
+    grid_forming_certification_status: "completed for grid-forming island and weak-grid operation per CEN technical norm"  # [N]
+    api_access_for_buyer: "negotiable"                                  # [N]
+
+  # ---- Shared Infrastructure ----
+  shared_infrastructure:                             # [N]
+    main_transformer:
+      manufacturer: "Anonymized European OEM"
+      rating_mva: 240
+      voltage_ratio: "33/220 kV"
+      type: "outdoor oil-immersed, ONAN/ONAF"
+    collection_bus_voltage_kv: 33
+    poc_voltage_kv: 220
+    transmission_line_to_poc_km: 18.2
+    transmission_line_ownership: "asset (developer-built, 18.2 km dedicated 220 kV double-circuit)"
+
+  # ---- Atacama-Specific Reliability ----
+  environmental_design_basis:                        # [N]
+    location_classification: "extreme desert / high-altitude"
+    altitude_m: 2410
+    seismic_design_zone: "Zone 3 (Chilean NCh 2369)"
+    seismic_design_basis: "0.4g design ground acceleration"
+    temperature_range_design_c: [-5, 42]
+    diurnal_temperature_swing_typical_c: 25
+    uv_exposure: "very high — site at 2400m, Atacama"
+    dust_exposure: "very high — frequent dust storms; module degradation accelerated"
+    water_availability: "scarce — all module cleaning water trucked or treated"
+    seismic_history_post_cod: "M 6.2 event 2024-09, no asset damage"
+
+# ----------------------------------------------------------------------------
+# 3. GRID & OFFTAKE
+# ----------------------------------------------------------------------------
+grid_offtake:
+
+  grid_connection:
+    connection_point: "S/E Antofagasta-Norte 220 kV"        # [N]
+    voltage_level_kv: 220                                    # [P]
+    transmission_voltage_kv: 220                             # [P]
+    connection_capacity_mw_export: 200                       # [P]
+    connection_capacity_mw_import: 100                       # [P]
+    bidirectional: true                                      # [P]
+    system_operator: "Coordinador Eléctrico Nacional (CEN)"  # [P]
+    distribution_operator_na: "transmission-connected"       # [P]
+    nodal_pricing_node: "Antofagasta-Norte_220"              # [N]
+    historical_nodal_marginal_cost_2025:                     # [N]
+      average_usd_mwh: 28
+      sun_hours_average_usd_mwh: 8
+      evening_peak_average_usd_mwh: 78
+      max_observed_usd_mwh: 245
+      hours_below_5_usd_mwh_pct: 32
+      hours_at_zero_pct: 18
+      notes: "Severe north-south price decoupling; substantial sun-hour curtailment risk if no BESS."
+    connection_offer_accepted_date: "2022-04-12"             # [N]
+    connection_agreement_date: "2022-06-30"                  # [N]
+    grid_code_compliance: "CEN technical norms for hybrid resources; grid-forming BESS certified per 2023 update"  # [N]
+    curtailment_priority: "renewable_priority — but subject to system-wide oversupply curtailment in Atacama"  # [N]
+
+  offtake_structure: hybrid_ppa_plus_merchant_plus_capacity  # [P]
+
+  offtake_contracts:
+    - contract_id: "PPA-MINING-01"
+      counterparty: "Major Chilean copper producer (anonymized)"  # [P]
+      counterparty_actual: "Anonymized Mining Group A"             # [F]
+      counterparty_credit_rating: "BBB+"                           # [P]
+      counterparty_rating_agency: "S&P"                            # [N]
+      contract_type: corporate_ppa                                 # [P]
+      structure_type: as_produced_with_24x7_shaping                # [P]
+      delivery_form: physical                                      # [P]
+      capacity_mw: 130                                             # [P]
+      annual_volume_target_gwh: 950                                # [N]
+      delivery_profile: |                                          # [N]
+        24x7 shaped delivery to mining operations. BESS provides
+        firming + time-shift. Generator commits to 90% delivery profile
+        match; shortfall covered by spot market purchase pass-through.
+      price_usd_mwh_base: 39.50                                    # [F]
+      price_floor_usd_mwh: 35.00                                   # [F]
+      price_cap_usd_mwh: 52.00                                     # [F]
+      indexation: "US CPI annual"                                  # [F]
+      start_date: "2024-06-18"                                     # [N]
+      end_date: "2039-06-17"                                       # [N]
+      remaining_years: 13.1                                        # [N]
+      currency: USD                                                # [P]
+      payment_currency: USD                                        # [P]
+      change_of_control_clause: true                               # [N]
+      change_of_control_consent_required: true                     # [N]
+      i_rec_or_go_assignment: "I-REC certificates assigned to offtaker for full PPA volume"  # [N]
+
+  capacity_payment_program:                                  # [P]
+    program: "Sufficient Capacity Payment (Potencia de Suficiencia)"
+    regulatory_basis: "DS 70/2023, capacity payment regime"
+    program_administrator: "Coordinador Eléctrico Nacional (CEN)"
+    derated_capacity_mw: 87                                  # [N]
+    derating_method: "PV-wind contribution + BESS 4h duration credit per DS 70 methodology"
+    capacity_payment_usd_kw_yr: 90                           # [N]
+    annual_capacity_revenue_usd: 7_830_000                   # [N]
+    payment_review_frequency: "every 4 years per CNE methodology, next 2027"  # [N]
+    change_of_control_clause: false
+
+  merchant_revenue_streams:                                  # [N]
+    - stream_id: "MERCH-SPOT"
+      type: "spot_market_arbitrage"
+      market: "CEN nodal spot market"
+      modeled_annual_revenue_usd: 3_240_000
+      modeled_basis: "Aurora Chile market model 2026-Q1, P50 case"
+      strategy: "BESS arbitrage between sun-hour low prices and evening peak; PPA shortfall sales"
+      notes: "Volatile; subject to evolving curtailment policy"
+    - stream_id: "ANCILLARY-FUTURE"
+      type: "ancillary_services"
+      market: "CEN ancillary services (currently underdeveloped)"
+      modeled_annual_revenue_usd: 0
+      modeled_basis: "Conservative — current market design does not monetize BESS ancillary services"
+      upside_potential: "Significant if Ministry of Energy enables BESS participation in primary/secondary frequency response — see Aurora upside scenario"
+      change_of_control_clause: "n/a"
+
+  revenue_stack_summary:                                     # [F]
+    modeled_year_1_total_usd: 49_320_000
+    modeled_year_1_breakdown_pct:
+      ppa_revenue: 76.2
+      capacity_payments: 15.9
+      merchant_arbitrage: 6.6
+      i_rec_revenue: 1.3
+    modeled_year_5_total_usd: 47_650_000
+    modeled_year_10_total_usd: 44_200_000
+    revenue_curve_basis: |
+      Declining curve reflects assumed reduction in merchant arbitrage as
+      Chilean BESS pipeline grows and price spreads compress, partially
+      offset by CPI indexation of PPA and potential ancillary services
+      revenue.
+
+  curtailment_history:                                        # [N]
+    note: "Curtailment for hybrid assets behind a single POC is allocated to PV first (zero variable cost), then wind, with BESS providing curtailment mitigation by absorbing PV during over-generation events."
+    - year: 2024
+      pv_gross_curtailment_pct: 18.4
+      pv_net_curtailment_pct_after_bess: 4.2
+      wind_curtailment_pct: 2.1
+      bess_curtailment_recovery_gwh: 76.2
+    - year: 2025
+      pv_gross_curtailment_pct: 22.1
+      pv_net_curtailment_pct_after_bess: 5.8
+      wind_curtailment_pct: 3.4
+      bess_curtailment_recovery_gwh: 88.4
+
+  green_certificates:                                        # [N]
+    scheme: "I-REC Standard (Chile)"
+    annual_volume_mwh: 920_000
+    monetization: "fully assigned to PPA offtaker (mining group ESG reporting)"
+    notes: "REC value captured within PPA premium pricing rather than separately monetized"
+
+# ----------------------------------------------------------------------------
+# 4. FINANCIALS
+# ----------------------------------------------------------------------------
+financials:
+  reporting_currency: USD                            # [P]
+  functional_currency: USD                           # [N]   # PPA in USD, debt in USD, costs partially in CLP
+  reporting_basis: "IFRS, Chilean-equivalent supplementary"  # [N]
+  fiscal_year_end: "12-31"                           # [N]
+  fx_exposure: "moderate — ~35% of OPEX in CLP; PPA and debt USD-natural-hedged"  # [N]
+  fx_clp_usd_assumption: 920                          # [N]
+  fx_basis_date: "2026-04-30"                         # [N]
+
+  capex:                                             # [N]
+    total_usd: 412_000_000
+    per_combined_nameplate_mw_usd: 1_585_000
+    breakdown:
+      pv_capex_usd: 142_000_000
+      wind_capex_usd: 108_000_000
+      bess_capex_usd: 96_000_000
+      shared_substation_transformer_usd: 28_000_000
+      transmission_line_to_poc_usd: 18_500_000
+      civil_site_works_usd: 9_200_000
+      development_permits_usd: 5_800_000
+      financing_costs_usd: 4_500_000
+    realized_vs_budget_pct: 102.4
+    final_account_settled: true
+
+  opex_breakdown:                                    # [N]
+    currency: USD
+    basis_year: 2025
+    annual_total:
+      pv_om_service_usd: 1_640_000
+      wind_om_service_usd: 2_080_000
+      bess_lta_service_usd: 1_550_000
+      ems_optimization_fee_usd: 480_000
+      grid_use_charges_cen_usd: 1_080_000
+      land_lease_usd: 320_000
+      insurance_usd: 880_000
+      asset_management_usd: 380_000
+      module_water_cleaning_usd: 540_000
+      security_remote_site_usd: 420_000
+      monitoring_scada_usd: 120_000
+      administrative_usd: 380_000
+      municipal_taxes_usd: 290_000
+      other_usd: 220_000
+    total_annual_usd: 10_380_000
+    inflation_assumption_pct: 2.8
+    notes: |
+      Module cleaning cost is Atacama-specific and significant due to water
+      scarcity. Security cost reflects remote desert site and lithium battery
+      asset value. Wind OM cost per MW substantially higher than PV.
+
+  augmentation_capex_planned:                        # [N]
+    target_year: 7
+    target_usd: 28_500_000
+    basis_year_real: 2025
+    funding_mechanism: "dedicated reserve account funded from operational cashflow"
+
+  revenue_history:                                   # [N]
+    - year: 2024
+      gross_revenue_usd: 21_400_000
+      ppa_revenue_usd: 17_240_000
+      capacity_payments_usd: 3_265_000
+      merchant_revenue_usd: 895_000
+      notes: "Partial year — COD June 2024"
+    - year: 2025
+      gross_revenue_usd: 48_120_000
+      ppa_revenue_usd: 36_840_000
+      capacity_payments_usd: 7_830_000
+      merchant_revenue_usd: 3_120_000
+      i_rec_revenue_usd: 330_000
+
+  ebitda_history:                                    # [N]
+    - year: 2024
+      ebitda_usd: 16_080_000
+      margin_pct: 75.1
+    - year: 2025
+      ebitda_usd: 37_740_000
+      margin_pct: 78.4
+
+  debt_structure:                                    # [N]
+    senior_debt:
+      outstanding_usd: 245_000_000
+      original_principal_usd: 268_000_000
+      lender: "International project finance syndicate — DFI-led + commercial co-lenders"
+      currency: USD
+      margin_bps: 285
+      reference_rate: "Term SOFR 6M"
+      hedging: "fully hedged via interest rate swap to 2034"
+      maturity: "2039-06-30"
+      amortization: "tailor-made, sculpted to P75 hybrid production"
+      dscr_p50: 1.42
+      dscr_p90: 1.18
+      cash_sweep: "65% above 1.40x trailing DSCR"
+      lock_up_dscr: 1.25
+      change_of_control_clause: true
+      change_of_control_consent_required: true
+      hedging_counterparty_risk: "investment-grade international banks"
+    mezzanine: null
+    refinancing_options_open: true
+    refinancing_window: "2029-2030"
+
+  asking_price:                                      # [F]
+    indicated_range_usd_low: 285_000_000
+    indicated_range_usd_high: 340_000_000
+    basis: "100% equity, cash-free debt-free, with senior debt facility transferring"
+    valuation_date: "2026-04-15"
+    multiples_indication:
+      ev_ebitda_2025x: 14.6
+      ev_per_combined_mw_usd: 2_038_000
+
+  valuation_reference:                               # [N]
+    methodology: "DCF, PPA-term explicit through 2039, post-PPA scenarios merchant/repowering"
+    discount_rate_wacc_pct: 8.9
+    discount_rate_post_tax_equity_pct: 12.4
+    country_risk_premium_pct: 1.8
+    base_case_ev_usd: 310_000_000
+    sensitivity_minus_10_pct_solar_yield: 282_000_000
+    sensitivity_curtailment_evolution_adverse: 268_000_000
+    sensitivity_ancillary_services_upside: 348_000_000
+    valuator: "Big-Four advisory, Latin America infrastructure"
+    valuation_date: "2026-04-15"
+
+  tax_position:                                      # [N]
+    corporate_income_tax_rate_pct: 27               # Chilean Impuesto de Primera Categoría
+    integrated_vs_partial_regime: "Partial Integration Regime (regimen semi-integrado)"
+    pre_tax_dividend_withholding_pct: 35
+    treaty_withholding_pct: 10                       # Per Chile-Singapore treaty, verify
+    nol_carryforward_usd: 0                          # Profitable from year 1 due to PPA
+    vat_status: "VAT-registered, recoverable, 19% IVA"
+    accelerated_depreciation_status: "applied 2024-2025"
+
+# ----------------------------------------------------------------------------
+# 5. COMPLIANCE
+# ----------------------------------------------------------------------------
+compliance:
+
+  permits:                                           # [N]
+    - permit_type: "environmental_qualification_resolution"
+      issuing_authority: "SEA (Servicio de Evaluación Ambiental), Antofagasta Region"
+      reference: "RCA N° 084/2022"
+      issue_date: "2022-03-30"
+      valid_until: null
+      conditions: |
+        - Avian and chinchilla monitoring biannually
+        - Dust suppression plan during construction (executed)
+        - Module cleaning water sourcing from authorized treated source only
+        - Cultural heritage observation protocol active
+        - Decommissioning plan to be updated every 5 years
+      status: "active"
+
+    - permit_type: "electrical_concession"
+      issuing_authority: "Ministry of Energy / SEC (Superintendencia de Electricidad y Combustibles)"
+      reference: "DGA-2022-PV-WIND-BESS-014"
+      issue_date: "2022-05-15"
+      status: "active"
+
+    - permit_type: "land_concession_fiscal_lands"
+      issuing_authority: "Ministry of National Assets (Bienes Nacionales)"
+      reference: "Concesión Onerosa 2021-Antofagasta-082"
+      issue_date: "2021-11-22"
+      term_years: 30
+      remaining_years: 25
+      annual_concession_fee_usd: 280_000
+      status: "active"
+
+    - permit_type: "indigenous_consultation_completion"
+      issuing_authority: "CONADI + SEA (ILO 169 compliance)"
+      reference: "Process completed 2021-Q4"
+      outcome: "Consultation process completed; community agreement signed with Lickanantay-Atacameño community organizations"
+      ongoing_obligations: "annual community development fund + employment commitments"
+
+  land_rights:                                       # [N]
+    structure: "long_term_fiscal_land_concession"
+    legal_basis: "Decreto Ley 1.939 (fiscal lands), concession granted by Bienes Nacionales"
+    total_concession_area_hectares: 1240
+    concession_term_years: 30
+    remaining_years: 25
+    annual_concession_fee_usd: 280_000
+    indexation: "Chilean UF + USD periodic review"
+    title_insurance: false
+    title_insurance_note: "Fiscal concessions in Chile do not customarily use title insurance — concession agreement is the title equivalent"
+    rights_of_access_secured: true
+    transmission_easement_secured: true
+
+  environmental_assessments:                         # [N]
+    - assessment_type: "Estudio de Impacto Ambiental (EIA full study)"
+      completed_date: "2022-03-30"
+      authority: "SEA Antofagasta"
+      outcome: "Approved with conditions (RCA 084/2022)"
+    - assessment_type: "Indigenous consultation per ILO 169"
+      completed_date: "2021-11-15"
+      partner: "Lickanantay-Atacameño community organizations"
+      outcome: "Agreement signed; ongoing obligations active"
+    - assessment_type: "Archaeological monitoring report"
+      completed_date: "2024-05-30"
+      frequency: "ongoing during operations per RCA"
+
+  eu_taxonomy_alignment:                             # [P]
+    applicability_note: "Chilean asset; EU Taxonomy alignment included for European institutional investor reporting purposes"
+    applicable_activity: "4.1 (PV) + 4.3 (Wind) + 4.10 (Storage) combined"
+    substantial_contribution: climate_change_mitigation
+    dnsh_assessment_complete: true
+    dnsh_assessment_date: "2025-08-15"
+    dnsh_climate_adaptation: passed
+    dnsh_water: passed_with_conditions
+    dnsh_water_notes: "Module cleaning water sourced from authorized treated source; no fresh water abstraction"
+    dnsh_circular_economy: passed_with_conditions
+    dnsh_circular_economy_notes: "Battery cell take-back agreement; module recycling commitment per Chilean Producer Responsibility (REP) law"
+    dnsh_pollution: passed
+    dnsh_biodiversity: passed_with_conditions
+    dnsh_biodiversity_notes: "Avian + chinchilla monitoring active; mitigation measures in RCA"
+    minimum_safeguards_complete: true
+    minimum_safeguards_notes: "ILO 169 indigenous consultation completed; IFC PS5 + PS7 substantively equivalent compliance"
+    taxonomy_aligned_capex_pct: 100
+    taxonomy_aligned_opex_pct: 100
+    taxonomy_aligned_turnover_pct: 100
+
+  chile_specific_compliance:                         # [P]
+    cen_market_participant_status: "registered, operational since 2024-06-18"
+    sec_grid_code_compliance_certificate: "issued 2024-Q2, current"
+    ds_70_2023_capacity_program_participant: true
+    ds_70_2023_capacity_award_status: "current four-year period 2024-2027, next allocation 2027"
+    ds_125_ds_88_reform_exposure: |
+      DS 125 (Economic Dispatch) and DS 88 (PMGD + Storage Integration)
+      reform amendments were withdrawn by the Kast administration from the
+      Comptroller General's Office in March 2026 for additional review.
+      Asset is not a PMGD (exceeds 9 MW threshold), so DS 88 reform has
+      limited direct exposure. DS 125 reform could affect dispatch protocols
+      and curtailment economics for transmission-connected hybrid assets.
+      Risk monitored; current Aurora model accounts for status quo regime.
+    indigenous_consultation_status: "completed and compliant"
+    rep_law_compliance: "module and battery producer responsibility commitments in place"
+
+  litigation_disputes: []                            # [N]
+
+  insurance_coverage:                                # [N]
+    operational_all_risks:
+      insurer: "International insurer, Latin America consortium"
+      coverage_usd: 480_000_000
+      deductible_usd: 250_000
+      renewal_date: "2026-12-31"
+      sublimits:
+        earthquake_usd: 95_000_000
+        natural_catastrophe_other_usd: 65_000_000
+    business_interruption:
+      coverage_months: 24
+      daily_indemnity_usd: 165_000
+    third_party_liability:
+      coverage_usd: 50_000_000
+    political_risk_insurance:
+      provider: "MIGA"
+      coverage_usd: 65_000_000
+      risks_covered: ["transfer restriction", "expropriation", "war and civil disturbance", "breach of contract"]
+      remaining_term_years: 8.5
+    cyber:
+      coverage_usd: 10_000_000
+
+  decommissioning_obligation:                       # [N]
+    regulatory_requirement: "Decreto Ley 1.939 + RCA conditions"
+    estimated_cost_usd: 18_400_000
+    estimated_cost_per_combined_mw_usd: 70_770
+    cost_basis_year: 2024
+    bond_amount_usd: 22_000_000
+    bond_provider: "International insurance group"
+    bond_type: "performance bond + parent guarantee"
+    bond_renewal: annual
+    battery_recycling_arrangement: "OEM take-back agreement signed"
+
+  esg:                                               # [P]
+    scope_1_2_emissions_tco2e_yr: 0
+    avoided_emissions_tco2e_yr: 412_000
+    avoided_emissions_methodology: "Chilean grid emission factor 2024 (Coordinador Eléctrico Nacional) 0.45 tCO2e/MWh"
+    indigenous_community_engagement_active: true
+    community_benefit_scheme: "annual contribution USD 580k to Lickanantay-Atacameño community development fund + 35 direct employment positions reserved"
+    ifc_performance_standards_compliance: "PS1-PS8 substantively equivalent compliance verified 2024"
+    biodiversity_monitoring_active: true
+
+# ----------------------------------------------------------------------------
+# 6. OPERATING HISTORY
+# ----------------------------------------------------------------------------
+operating_history:
+
+  monthly_production:                                # [N]
+    inline_summary:
+      - year: 2024
+        pv_gross_gwh: 218.4
+        pv_net_after_bess_curtailment_recovery_gwh: 264.8
+        wind_gross_gwh: 128.4
+        bess_throughput_gwh: 84.2
+        availability_pct: 96.4
+        notes: "Partial year — COD 2024-06-18"
+      - year: 2025
+        pv_gross_gwh: 542.1
+        pv_net_after_bess_curtailment_recovery_gwh: 540.6
+        wind_gross_gwh: 308.9
+        bess_throughput_gwh: 198.4
+        availability_pct: 97.8
+    detailed_url: "https://dataroom.example.com/atacama/production-monthly-2024-2025.csv"
+    detailed_access: "nda_required"
+    detailed_schema: ["month", "asset_subblock", "gross_mwh", "net_mwh", "availability_pct", "curtailment_mwh", "bess_throughput_mwh"]
+
+  availability_history:                              # [N]
+    - year: 2024
+      combined_availability_pct: 96.4
+      pv_availability_pct: 98.2
+      wind_availability_pct: 95.8
+      bess_availability_pct: 94.9
+    - year: 2025
+      combined_availability_pct: 97.8
+      pv_availability_pct: 98.6
+      wind_availability_pct: 97.2
+      bess_availability_pct: 97.4
+
+  major_events:                                      # [N]
+    - date: "2024-09-08"
+      type: "seismic_event"
+      magnitude: 6.2
+      duration_hours: 4
+      affected_capacity_mw: 200
+      root_cause: "Regional seismic event; site auto-tripped per protection design"
+      damage: "none — full restoration within 4 hours"
+      revenue_impact_usd: 18_000
+
+    - date: "2025-02-22"
+      type: "transformer_fault"
+      affected_capacity_mw: 200
+      duration_hours: 84
+      root_cause: "Main 220 kV transformer cooling pump failure"
+      resolved_under_warranty: true
+      revenue_impact_usd: 285_000
+      bi_insurance_claim: true
+      bi_claim_settled_usd: 195_000
+
+    - date: "2025-08-14"
+      type: "dust_storm_module_soiling"
+      affected_capacity_mw: 180
+      duration_hours: 168
+      root_cause: "Severe Atacama dust storm; PV soiling 18% over baseline"
+      revenue_impact_usd: 92_000
+      mitigation: "Emergency cleaning campaign within 7 days"
+
+  service_arrangements:                              # [N]
+    structure: "split service arrangements per technology"
+    pv:
+      provider: "EPC contractor extended O&M agreement"
+      remaining_years: 8.6
+      annual_fee_usd: 1_640_000
+    wind:
+      provider: "Vestas Service Chile"
+      type: "AOM 5000"
+      remaining_years: 8.3
+      annual_fee_usd: 2_080_000
+    bess:
+      provider: "Battery OEM long-term service agreement"
+      remaining_years: 9.1
+      annual_fee_usd: 1_550_000
+      sla_availability_pct: 97.5
+      sla_capacity_retention_guarantee_year_5_pct: 84
+
+  scada_access: "read_only_post_closing"             # [P]
+  scada_provider: "Unified hybrid plant controller dashboard"  # [N]
+
+# ----------------------------------------------------------------------------
+# 7. PROCESS
+# ----------------------------------------------------------------------------
+process:
+
+  process_type: limited_auction                      # [P]
+  invited_bidders_count: 22                          # [P]
+  bidder_profile: "International infrastructure funds + LatAm strategics + Asian utility IPPs + emerging-market specialists"  # [P]
+
+  process_lead:                                      # [P]
+    organization: "Anonymized Latin America renewables M&A advisory"
+    contact_role: "Managing Director, Renewables LatAm"
+    contact_email: "atacama@advisor.example.com"
+    contact_phone: null
+
+  process_timeline:                                  # [P]
+    teaser_distribution: "2026-05-08"
+    information_memorandum_distribution: "2026-06-15"
+    site_visits: "2026-07-15 to 2026-08-15"
+    non_binding_offers_due: "2026-09-30"
+    management_presentations: "2026-10-15 to 2026-11-15"
+    binding_offers_due: "2026-12-20"
+    signing_target: "2027-02-15"
+    closing_target: "2027-Q2"
+    long_stop_date: "2027-09-30"
+
+  closing_conditions:                                # [N]
+    regulatory_approvals_required:
+      - "FNE (Fiscalía Nacional Económica) merger control review if turnover thresholds met"
+      - "SEC notification of indirect change of control"
+      - "Bienes Nacionales notification re fiscal land concession"
+    consents_required:
+      - "Senior lender syndicate change-of-control approval"
+      - "Mining group PPA change-of-control consent (material clause)"
+      - "MIGA political risk insurance assignment"
+    estimated_signing_to_closing_months: 4
+
+  data_room:                                         # [N]
+    provider: "Datasite"
+    url: "https://datasite.com/projects/atacama-2026"
+    access_mechanism: "NDA + invitation + 2FA"
+    document_count_approx: 3_400
+    structure: "15 folders aligned to vendor DD scope + dedicated hybrid integration + regulatory transition risk modules"
+    vendor_dd_reports:
+      - "Technical (specialist hybrid plant engineering firm)"
+      - "Commercial / Revenue Stack (Aurora Energy Research Chile)"
+      - "Legal (Chilean top-tier law firm)"
+      - "Tax (Big Four Chile)"
+      - "ESG and Indigenous Engagement (specialist ILO 169 firm)"
+      - "Regulatory (specialist Chilean energy regulation counsel)"
+
+  nda_template: "https://advisor.example.com/atacama/nda-template.pdf"  # [P]
+
+  access_endpoint: "https://advisor.example.com/.well-known/orls/auth"   # [P]
+
+  confidentiality_note: |                            # [P]
+    Project name "Atacama" is itself confidential.
+    Refer to as "Northern Chile Hybrid Opportunity" in any external
+    communication.
+    Site visits coordinated through advisor only — direct contact with
+    Chilean authorities, mining group representatives, or operational
+    staff prior to final shortlist admission is strictly prohibited.
+    Buyer must demonstrate Chilean operational capability OR partnership
+    with established Chilean operating partner prior to management
+    presentation invitation.
+    Specific PPA pricing terms and mining counterparty identity are
+    treated as final_shortlist tier; misuse will trigger NDA enforcement.
+
+# ============================================================================
+# End of ORLS document for Project Atacama
+# ============================================================================

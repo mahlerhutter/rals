@@ -333,3 +333,25 @@ risks:
     validation_rule: >
       If project commissions post-2026 and relies on EEG: flag MEDIUM.
       If no sensitivity analysis for post-2026 support: flag HIGH.
+
+  - risk_id: epc_commissioning_deadline
+    label: "EEG Zuschlagsbescheid Commissioning Deadline"
+    severity_default: medium
+    affected_sections: [compliance, process]
+    buyer_impact: >
+      The EEG auction award (Zuschlagsbescheid) sets a binding commissioning deadline;
+      missing it risks penalty payments or forfeiture of the award under EEG §36e/§55.
+      A tight window between construction start and the deadline leaves little
+      buffer for EPC or grid-connection delays.
+    lender_impact: >
+      Lenders require confirmation of EPC contract penalties/liquidated damages for
+      delay, and headroom in the construction schedule against the Zuschlagsbescheid
+      deadline before releasing construction financing.
+    mitigation_evidence:
+      - "EPC fixed-price contract with commissioning date ahead of the Zuschlagsbescheid deadline"
+      - "EPC contract penalty / liquidated-damages clause for delay"
+      - "Construction schedule with contingency buffer against the deadline"
+    validation_rule: >
+      If the gap between planned construction start and the Zuschlagsbescheid
+      commissioning deadline is less than the typical EPC delivery time for the
+      technology, flag as MEDIUM; if no EPC penalty clause is evidenced, flag as HIGH.

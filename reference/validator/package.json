@@ -4,6 +4,9 @@
   "description": "Reference validator for the Renewable Asset Listing Standard (RALS)",
   "main": "src/index.js",
   "type": "module",
+  "bin": {
+    "rals-validate": "src/cli.js"
+  },
   "scripts": {
     "test": "vitest run"
   },

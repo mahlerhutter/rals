@@ -1,0 +1,43 @@
+# CONFORMANCE TEST — Level 3 (Complete)
+# Expected: PASS
+# Reason: Level 3 validates the full document exactly as authored, across
+# all three confidentiality tiers (SPEC 13). This document adds a well-typed
+# final_shortlist field (financials.asking_price, SPEC 9.5) on top of the
+# Level 2 must-pass fixture, and every field is correctly typed, so
+# validation at the highest conformance level has nothing to reject.
+
+rals_version: "0.1"
+document_id: "rals:CONFORMANCE-L3-PASS-001"
+generated_at: "2026-05-15T09:00:00Z"
+
+identity:
+  asset_name: "Conformance Test Asset"
+  asset_type: solar_pv
+  lifecycle_stage: operating
+  country: AT
+  transaction_type: full_acquisition
+  seller_legal_entity: "Conformance Test Seller GmbH"
+  internal_reference: "CONF-TEST-042"
+
+technical:
+  commissioning_date: "2023-01-01"
+
+grid_offtake:
+  grid_connection:
+    voltage_level_kv: 110
+    connection_agreement_date: "2022-03-15"
+  offtake_structure: feed_in_tariff
+
+financials:
+  capex:
+    total_eur: 42000000
+  asking_price:
+    indicated_range_eur_low: 78000000
+    indicated_range_eur_high: 92000000
+
+process:
+  process_type: bilateral
+  process_lead:
+    organization: "Conformance Advisory GmbH"
+  process_timeline:
+    closing_target: "2026-12-31"

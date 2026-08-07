@@ -1,0 +1,42 @@
+# CONFORMANCE TEST — Level 2 (Standard)
+# Expected: FAIL
+# Reason: financials.capex.total_eur is a string here instead of a number.
+# capex is entirely nda_required tier, so it is stripped out of the Level 1
+# Teaser projection and this defect is INVISIBLE at Level 1 — the same
+# document validates cleanly at --level=1. It only surfaces once Level 2
+# includes nda_required fields in the check. This is the reason Level 2 and
+# Level 3 must apply their own tier-scoped filter rather than validating the
+# full document identically (see reference/validator/src/teaser-filter.js:
+# filterToStandard).
+
+rals_version: "0.1"
+document_id: "rals:CONFORMANCE-L2-FAIL-001"
+generated_at: "2026-05-15T09:00:00Z"
+
+identity:
+  asset_name: "Conformance Test Asset"
+  asset_type: solar_pv
+  lifecycle_stage: operating
+  country: AT
+  transaction_type: full_acquisition
+  seller_legal_entity: "Conformance Test Seller GmbH"
+
+technical:
+  commissioning_date: "2023-01-01"
+
+grid_offtake:
+  grid_connection:
+    voltage_level_kv: 110
+    connection_agreement_date: "2022-03-15"
+  offtake_structure: feed_in_tariff
+
+financials:
+  capex:
+    total_eur: "forty-two million"  # defect: must be a number
+
+process:
+  process_type: bilateral
+  process_lead:
+    organization: "Conformance Advisory GmbH"
+  process_timeline:
+    closing_target: "2026-12-31"

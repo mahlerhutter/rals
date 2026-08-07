@@ -74,6 +74,7 @@ if (files.length === 0) {
 }
 
 let failed = false;
+const unverified = [];
 
 for (const file of files) {
   let raw, doc;
@@ -92,6 +93,17 @@ for (const file of files) {
   if (!teaser.rals_version || !teaser.identity) {
     console.error(`✗ ${file} — teaser projection lost required fields (rals_version/identity)`);
     failed = true;
+    continue;
+  }
+
+  if (tierMap.size === 0) {
+    // This file carries no inline # [P]/[N]/[F] tags (e.g. most jurisdiction
+    // package examples), so there is no ground truth to check leaks against —
+    // filterToTeaser still ran, but this check cannot confirm anything about
+    // its output for this file. Warn rather than silently reporting "clean",
+    // which would overstate coverage the check doesn't actually provide.
+    unverified.push(file);
+    console.log(`⚠ ${file} — no inline tier tags; leak coverage not verified for this file`);
     continue;
   }
 
@@ -116,4 +128,7 @@ if (failed) {
   console.error('\nTier-leak check FAILED — see leaks above.');
   process.exit(1);
 }
-console.log('\nTier-leak check passed — no Teaser exposes nda_required/final_shortlist data.');
+console.log('\nTier-leak check passed — no Teaser exposes nda_required/final_shortlist data among tier-tagged files.');
+if (unverified.length > 0) {
+  console.log(`⚠ ${unverified.length} file(s) have no inline tier tags and were not checked for leaks — see warnings above. Untagged files rely entirely on lib/teaser-filter.js's allowlist being correct.`);
+}

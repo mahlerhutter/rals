@@ -2,7 +2,7 @@ import fs from 'fs';
 import yaml from 'js-yaml';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
-import { filterToTeaser } from './teaser-filter.js';
+import { filterToTeaser, filterToStandard } from './teaser-filter.js';
 
 const ajv = new Ajv2020({ strict: false, allErrors: true });
 addFormats(ajv);
@@ -14,8 +14,8 @@ addFormats(ajv);
  * @param {string} schemaPath path to the JSON Schema
  * @param {object} [options]
  * @param {number} [options.level=3] conformance level (SPEC section 13):
- *        1 = Teaser, 2 = Standard, 3 = Complete. Level 1 validates the public
- *        Teaser projection; levels 2 and 3 validate the full document.
+ *        1 = Teaser (public fields only), 2 = Standard (public + nda_required),
+ *        3 = Complete (all tiers, the full document as authored).
  * @returns {{valid: boolean, errors?: any[], doc?: object}}
  */
 export function validateDocument(filePath, schemaPath, { level = 3 } = {}) {
@@ -23,9 +23,14 @@ export function validateDocument(filePath, schemaPath, { level = 3 } = {}) {
     const doc = yaml.load(fs.readFileSync(filePath, 'utf8'));
     const schema = JSON.parse(fs.readFileSync(schemaPath, 'utf8'));
 
-    const target = level === 1 ? (filterToTeaser(doc) ?? {}) : doc;
+    const target = level === 1 ? (filterToTeaser(doc) ?? {}) : level === 2 ? (filterToStandard(doc) ?? {}) : doc;
 
-    const validate = ajv.compile(schema);
+    // Reuse an already-compiled validator for this schema $id rather than
+    // recompiling: ajv throws on a second compile() of the same $id, which
+    // only ever surfaced here once validateDocument started being called
+    // more than once per process (e.g. the test suite, or any programmatic
+    // caller using src/index.js).
+    const validate = (schema.$id && ajv.getSchema(schema.$id)) || ajv.compile(schema);
     const valid = validate(target);
 
     if (!valid) {

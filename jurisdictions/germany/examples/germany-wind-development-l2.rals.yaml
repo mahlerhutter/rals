@@ -47,7 +47,7 @@ identity:
   sub_region: "Havelland District"
   total_capacity_mw_ac: 48.0
   site_area_hectares: 320
-  transaction_type: development_stage_sale
+  transaction_type: full_acquisition
   equity_offered_pct: 100
   spv_structure: true
   spv_jurisdiction: "Germany"
@@ -177,6 +177,11 @@ financials:
 # ── Process ──────────────────────────────────────────────────────────────────
 process:
   process_type: bilateral
+  process_lead:
+    organization: "Nordbrandenburg Wind Advisory GmbH"
+    contact_role: "Development Director"
+    contact_email: "deals@nordbrandenburg-wind-advisory.example.com"
+    contact_phone: null
   data_room_status: partial
   data_room_platform: "Virtual data room via Intralinks (partial)"
   data_room_contents:

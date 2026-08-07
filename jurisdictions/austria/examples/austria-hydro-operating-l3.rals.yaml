@@ -161,6 +161,11 @@ financials:
 # ── Process ──────────────────────────────────────────────────────────────────
 process:
   process_type: bilateral
+  process_lead:
+    organization: "Alpine Energy Advisory GmbH"
+    contact_role: "Associate Director"
+    contact_email: "deals@alpine-energy-advisory.example.com"
+    contact_phone: null
   data_room_status: available_under_nda
   data_room_platform: "SharePoint (advisor-hosted)"
   data_room_contents:

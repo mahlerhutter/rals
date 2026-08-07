@@ -74,7 +74,7 @@ technical:
   design_basis_year: 2026
   mounting:
     type: single_axis_tracker
-    tilt_range_deg: "-60 to +60"
+    tilt_range_deg: [-60, 60]
   module_technology: "Monocrystalline PERC (bifacial)"
   module_capacity_wp: 570
   inverter_type: "Central string inverter, 1500 V DC"
@@ -231,7 +231,12 @@ financials:
 
 # ── Process ──────────────────────────────────────────────────────────────────
 process:
-  process_type: structured_bilateral
+  process_type: bilateral
+  process_lead:
+    organization: "Regional energy advisory firm (Tbilisi office)"
+    contact_role: "Financial Advisor"
+    contact_email: "deals@tbilisi-energy-advisory.example.com"
+    contact_phone: null
   advisor:
     financial_advisor: "Regional energy advisory firm (Tbilisi office)"
     legal_advisor: "Georgian law firm (energy practice)"

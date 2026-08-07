@@ -57,7 +57,6 @@ identity:
   region: "Binh Thuan Province"
   sub_region: "Tuy Phong District"
   total_capacity_mw_ac: 50.0
-  total_capacity_mw_dc: null
   site_area_hectares: 420
   transaction_type: full_acquisition
   equity_offered_pct: 100
@@ -88,9 +87,6 @@ technical:
     nominal_power_mw: 2.5
     units_total: 20
     warranty_years_remaining: 1.5
-
-  mounting:
-    type: onshore_wind_tower
     tower_type: steel_tubular
 
   production_estimates:
@@ -105,9 +101,6 @@ technical:
       Net deliverable P50 after curtailment is approximately 125 GWh/yr.
     assessor: "DNV Vietnam"
     assessment_date: "2020-11-15"
-
-  performance_ratio: null
-  specific_yield_kwh_kwp: null
 
   losses_breakdown:
     wake_pct: 4.2
@@ -420,12 +413,17 @@ operating_history:
     blades_remaining_years: 6.5
     tower_remaining_years: 16.5
 
-  scada_access: read_only_post_nda
+  scada_access: read_only_pre_closing
   scada_provider: "Vestas Online Monitoring + local SCADA"
 
 # ── Process ──────────────────────────────────────────────────────────────────
 process:
   process_type: limited_auction
+  process_lead:
+    organization: "Binh Thuan Wind Advisory JSC"
+    contact_role: "M&A Director"
+    contact_email: "deals@binhthuan-wind-advisory.example.vn"
+    contact_phone: null
   invited_bidders_count_approx: 8
   data_room_status: available_under_nda
   data_room_platform: "Datasite"

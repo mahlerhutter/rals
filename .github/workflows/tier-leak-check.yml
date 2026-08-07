@@ -23,4 +23,4 @@ jobs:
         
       - name: Run Tier Leak Check
         working-directory: reference/validator
-        run: node src/tier-leak-check.js ../../examples/*.rals.yaml
+        run: node src/tier-leak-check.js ../../examples/*.rals.yaml ../../jurisdictions/*/examples/*.rals.yaml
