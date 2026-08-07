@@ -51,7 +51,13 @@ The roadmap toward v0.2 is consolidated in [RFC-0002](rfcs/0002-v0.2-roadmap.md)
 
 ## Jurisdiction Packages
 
-RALS Jurisdiction Packages extend the base standard with country-specific interpretation, evidence requirements, readiness rules, and risk taxonomies. A validator equipped with a Jurisdiction Package can assess not just whether a RALS document is structurally valid, but whether it meets the evidence standards required for a specific readiness level in a specific country.
+RALS Jurisdiction Packages extend the base standard with country-specific interpretation, evidence requirements, readiness rules, and risk taxonomies. The reference validator, given a Jurisdiction Package, checks a document's fields against the package's field-overrides, cross-references its `risk_flags` against the package's risk taxonomy, and compares its self-declared readiness level against the one you're checking for:
+
+```bash
+cd reference/validator
+node src/cli.js ../../jurisdictions/austria/examples/austria-pv-rtb-l2.rals.yaml \
+  --jurisdiction=at --readiness=l2
+```
 
 Initial packages are available for **Austria, Italy, Romania, Ukraine, Germany, Vietnam, Namibia, Georgia, and Chile**.
 
